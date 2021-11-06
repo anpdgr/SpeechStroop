@@ -1,46 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:speech_stroop/connectdb.dart';
+import 'package:speech_stroop/main2.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.purple, fontFamily: 'BaiJamjuree'),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -53,11 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       MongoDatabase.connect();
       _counter++;
     });
@@ -65,53 +41,270 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
+      body: // Figma Flutter Generator LoginWidget - FRAME
+          Container(
+              width: 360,
+              height: 640,
+              decoration: const BoxDecoration(
+                color: Color.fromRGBO(251, 251, 255, 1),
+              ),
+              child: Stack(children: <Widget>[
+                const Positioned(
+                    top: 240,
+                    left: 17,
+                    child: Text(
+                      'เข้าสู่ระบบ',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color.fromRGBO(1, 1, 1, 1),
+                          fontFamily: 'Bai Jamjuree',
+                          fontSize: 24,
+                          letterSpacing:
+                              0 /*percentages not used in flutter. defaulting to zero*/,
+                          fontWeight: FontWeight.normal,
+                          height: 1),
+                    )),
+                Positioned(
+                    top: 377,
+                    left: 311,
+                    child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: Stack(children: <Widget>[
+                          Positioned(
+                              top: 0,
+                              left: 0,
+                              child: Container(
+                                  width: 24,
+                                  height: 24,
+                                  decoration: const BoxDecoration(
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                  ),
+                                  child: Stack(children: <Widget>[
+                                    Positioned(
+                                        top: 2.4689998626708984,
+                                        left: 0,
+                                        child: SizedBox(
+                                            width: 24,
+                                            height: 19.062002182006836,
+                                            child: Stack(children: <Widget>[
+                                              Positioned(
+                                                  top: 1.2810001373291016,
+                                                  left: 7.815000057220459,
+                                                  child: SvgPicture.asset(
+                                                      'assets/images/vector.svg',
+                                                      semanticsLabel:
+                                                          'vector')),
+                                              Positioned(
+                                                  top: 4.277539253234863,
+                                                  left: 6.746532917022705,
+                                                  child: SvgPicture.asset(
+                                                      'assets/images/vector.svg',
+                                                      semanticsLabel:
+                                                          'vector')),
+                                              Positioned(
+                                                  top: 0,
+                                                  left: 0,
+                                                  child: SvgPicture.asset(
+                                                      'assets/images/vector.svg',
+                                                      semanticsLabel:
+                                                          'vector')),
+                                            ]))),
+                                  ]))),
+                        ]))),
+                const Positioned(
+                    top: 287,
+                    left: 17,
+                    child: Text(
+                      'อีเมลล์',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color.fromRGBO(81, 81, 81, 1),
+                          fontFamily: 'Bai Jamjuree',
+                          fontSize: 15,
+                          letterSpacing:
+                              0 /*percentages not used in flutter. defaulting to zero*/,
+                          fontWeight: FontWeight.normal,
+                          height: 1),
+                    )),
+                const Positioned(
+                    top: 354,
+                    left: 17,
+                    child: Text(
+                      'รหัสผ่าน',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color.fromRGBO(81, 81, 81, 1),
+                          fontFamily: 'Bai Jamjuree',
+                          fontSize: 15,
+                          letterSpacing:
+                              0 /*percentages not used in flutter. defaulting to zero*/,
+                          fontWeight: FontWeight.normal,
+                          height: 1),
+                    )),
+                Positioned(
+                    top: 307,
+                    left: 16,
+                    child: Container(
+                        width: 327,
+                        height: 33,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
+                          border: Border.all(
+                            color: const Color.fromRGBO(180, 180, 180, 1),
+                            width: 0.5,
+                          ),
+                        ))),
+                Positioned(
+                    top: 373,
+                    left: 16,
+                    child: Container(
+                        width: 327,
+                        height: 33,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
+                          border: Border.all(
+                            color: const Color.fromRGBO(180, 180, 180, 1),
+                            width: 0.5,
+                          ),
+                        ))),
+                Positioned(
+                    top: 439,
+                    left: 11,
+                    child: Container(
+                        width: 337,
+                        height: 41,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Color.fromRGBO(0, 0, 0, 0.25),
+                                offset: Offset(0, 3),
+                                blurRadius: 7)
+                          ],
+                          color: Color.fromRGBO(115, 100, 255, 1),
+                        ))),
+                Positioned(
+                    top: 500,
+                    left: 11,
+                    child: Container(
+                        width: 337,
+                        height: 41,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                          border: Border.all(
+                            color: const Color.fromRGBO(115, 100, 255, 1),
+                            width: 1,
+                          ),
+                        ))),
+                const Positioned(
+                    top: 450,
+                    left: 143,
+                    child: Text(
+                      'เข้าสู่ระบบ',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color.fromRGBO(255, 255, 255, 1),
+                          fontFamily: 'Bai Jamjuree',
+                          fontSize: 18,
+                          letterSpacing:
+                              0 /*percentages not used in flutter. defaulting to zero*/,
+                          fontWeight: FontWeight.normal,
+                          height: 1.5 /*PERCENT not supported*/
+                          ),
+                    )),
+                const Positioned(
+                    top: 511,
+                    left: 135,
+                    child: Text(
+                      'สมัครสมาชิก',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color.fromRGBO(115, 100, 255, 1),
+                          fontFamily: 'Bai Jamjuree',
+                          fontSize: 18,
+                          letterSpacing:
+                              0 /*percentages not used in flutter. defaulting to zero*/,
+                          fontWeight: FontWeight.normal,
+                          height: 1.5 /*PERCENT not supported*/
+                          ),
+                    )),
+                const Positioned(
+                    top: 561,
+                    left: 141,
+                    child: Text(
+                      'ลืมรหัสผ่าน?',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color.fromRGBO(130, 130, 130, 1),
+                          fontFamily: 'Bai Jamjuree',
+                          fontSize: 15,
+                          letterSpacing:
+                              0 /*percentages not used in flutter. defaulting to zero*/,
+                          fontWeight: FontWeight.normal,
+                          height: 1.5 /*PERCENT not supported*/
+                          ),
+                    )),
+                Positioned(
+                    top: 24,
+                    left: -2,
+                    child: Container(
+                        width: 361,
+                        height: 180,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image:
+                                  AssetImage('assets/images/Hongkong-pana.png'),
+                              fit: BoxFit.fitWidth),
+                        ))),
+                const Positioned(
+                    top: 315,
+                    left: 24,
+                    child: Text(
+                      'example@example.com',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color.fromRGBO(179, 179, 179, 1),
+                          fontFamily: 'Bai Jamjuree',
+                          fontSize: 12,
+                          letterSpacing:
+                              0 /*percentages not used in flutter. defaulting to zero*/,
+                          fontWeight: FontWeight.normal,
+                          height: 1),
+                    )),
+              ])),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        // onPressed: _incrementCounter,
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const MySecondHomePage()));
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
