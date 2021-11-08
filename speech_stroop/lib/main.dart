@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:speech_stroop/connectdb.dart';
-import 'package:speech_stroop/main2.dart';
+import 'package:speech_stroop/color_test.dart';
+import 'package:speech_stroop/register1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,296 +13,224 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.purple, fontFamily: 'BaiJamjuree'),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      theme: ThemeData(
+          primarySwatch: Colors.deepPurple, fontFamily: 'BaiJamjuree'),
+      home: const MySecondHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+class MySecondHomePage extends StatefulWidget {
+  const MySecondHomePage({Key key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _HomePageWidgetState createState() => _HomePageWidgetState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _HomePageWidgetState extends State<MySecondHomePage> {
+  TextEditingController textController1;
+  TextEditingController textController2;
+  bool passwordVisibility;
+  // bool _loadingButton1 = false;
+  // bool _loadingButton2 = false;
+  // bool _loadingButton3 = false;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _incrementCounter() {
-    setState(() {
-      MongoDatabase.connect();
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    textController1 = TextEditingController();
+    textController2 = TextEditingController();
+    passwordVisibility = false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: // Figma Flutter Generator LoginWidget - FRAME
-          Container(
-              width: 360,
-              height: 640,
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(251, 251, 255, 1),
+      key: scaffoldKey,
+      backgroundColor: const Color(0xFFFBFBFF),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                child: Image.asset(
+                  'assets/images/Hongkong-pana.png',
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  fit: BoxFit.cover,
+                ),
               ),
-              child: Stack(children: <Widget>[
-                const Positioned(
-                    top: 240,
-                    left: 17,
-                    child: Text(
-                      'เข้าสู่ระบบ',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color.fromRGBO(1, 1, 1, 1),
-                          fontFamily: 'Bai Jamjuree',
-                          fontSize: 24,
-                          letterSpacing:
-                              0 /*percentages not used in flutter. defaulting to zero*/,
-                          fontWeight: FontWeight.normal,
-                          height: 1),
-                    )),
-                Positioned(
-                    top: 377,
-                    left: 311,
-                    child: SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: Stack(children: <Widget>[
-                          Positioned(
-                              top: 0,
-                              left: 0,
-                              child: Container(
-                                  width: 24,
-                                  height: 24,
-                                  decoration: const BoxDecoration(
-                                    color: Color.fromRGBO(255, 255, 255, 1),
-                                  ),
-                                  child: Stack(children: <Widget>[
-                                    Positioned(
-                                        top: 2.4689998626708984,
-                                        left: 0,
-                                        child: SizedBox(
-                                            width: 24,
-                                            height: 19.062002182006836,
-                                            child: Stack(children: <Widget>[
-                                              Positioned(
-                                                  top: 1.2810001373291016,
-                                                  left: 7.815000057220459,
-                                                  child: SvgPicture.asset(
-                                                      'assets/images/vector.svg',
-                                                      semanticsLabel:
-                                                          'vector')),
-                                              Positioned(
-                                                  top: 4.277539253234863,
-                                                  left: 6.746532917022705,
-                                                  child: SvgPicture.asset(
-                                                      'assets/images/vector.svg',
-                                                      semanticsLabel:
-                                                          'vector')),
-                                              Positioned(
-                                                  top: 0,
-                                                  left: 0,
-                                                  child: SvgPicture.asset(
-                                                      'assets/images/vector.svg',
-                                                      semanticsLabel:
-                                                          'vector')),
-                                            ]))),
-                                  ]))),
-                        ]))),
-                const Positioned(
-                    top: 287,
-                    left: 17,
-                    child: Text(
-                      'อีเมลล์',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color.fromRGBO(81, 81, 81, 1),
-                          fontFamily: 'Bai Jamjuree',
-                          fontSize: 15,
-                          letterSpacing:
-                              0 /*percentages not used in flutter. defaulting to zero*/,
-                          fontWeight: FontWeight.normal,
-                          height: 1),
-                    )),
-                const Positioned(
-                    top: 354,
-                    left: 17,
-                    child: Text(
-                      'รหัสผ่าน',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color.fromRGBO(81, 81, 81, 1),
-                          fontFamily: 'Bai Jamjuree',
-                          fontSize: 15,
-                          letterSpacing:
-                              0 /*percentages not used in flutter. defaulting to zero*/,
-                          fontWeight: FontWeight.normal,
-                          height: 1),
-                    )),
-                Positioned(
-                    top: 307,
-                    left: 16,
-                    child: Container(
-                        width: 327,
-                        height: 33,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                          ),
-                          border: Border.all(
-                            color: const Color.fromRGBO(180, 180, 180, 1),
-                            width: 0.5,
-                          ),
-                        ))),
-                Positioned(
-                    top: 373,
-                    left: 16,
-                    child: Container(
-                        width: 327,
-                        height: 33,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                          ),
-                          border: Border.all(
-                            color: const Color.fromRGBO(180, 180, 180, 1),
-                            width: 0.5,
-                          ),
-                        ))),
-                Positioned(
-                    top: 439,
-                    left: 11,
-                    child: Container(
-                        width: 337,
-                        height: 41,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Color.fromRGBO(0, 0, 0, 0.25),
-                                offset: Offset(0, 3),
-                                blurRadius: 7)
-                          ],
-                          color: Color.fromRGBO(115, 100, 255, 1),
-                        ))),
-                Positioned(
-                    top: 500,
-                    left: 11,
-                    child: Container(
-                        width: 337,
-                        height: 41,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                          ),
-                          border: Border.all(
-                            color: const Color.fromRGBO(115, 100, 255, 1),
-                            width: 1,
-                          ),
-                        ))),
-                const Positioned(
-                    top: 450,
-                    left: 143,
-                    child: Text(
-                      'เข้าสู่ระบบ',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color.fromRGBO(255, 255, 255, 1),
-                          fontFamily: 'Bai Jamjuree',
-                          fontSize: 18,
-                          letterSpacing:
-                              0 /*percentages not used in flutter. defaulting to zero*/,
-                          fontWeight: FontWeight.normal,
-                          height: 1.5 /*PERCENT not supported*/
-                          ),
-                    )),
-                const Positioned(
-                    top: 511,
-                    left: 135,
-                    child: Text(
-                      'สมัครสมาชิก',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color.fromRGBO(115, 100, 255, 1),
-                          fontFamily: 'Bai Jamjuree',
-                          fontSize: 18,
-                          letterSpacing:
-                              0 /*percentages not used in flutter. defaulting to zero*/,
-                          fontWeight: FontWeight.normal,
-                          height: 1.5 /*PERCENT not supported*/
-                          ),
-                    )),
-                const Positioned(
-                    top: 561,
-                    left: 141,
-                    child: Text(
-                      'ลืมรหัสผ่าน?',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color.fromRGBO(130, 130, 130, 1),
-                          fontFamily: 'Bai Jamjuree',
-                          fontSize: 15,
-                          letterSpacing:
-                              0 /*percentages not used in flutter. defaulting to zero*/,
-                          fontWeight: FontWeight.normal,
-                          height: 1.5 /*PERCENT not supported*/
-                          ),
-                    )),
-                Positioned(
-                    top: 24,
-                    left: -2,
-                    child: Container(
-                        width: 361,
-                        height: 180,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image:
-                                  AssetImage('assets/images/Hongkong-pana.png'),
-                              fit: BoxFit.fitWidth),
-                        ))),
-                const Positioned(
-                    top: 315,
-                    left: 24,
-                    child: Text(
-                      'example@example.com',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color.fromRGBO(179, 179, 179, 1),
-                          fontFamily: 'Bai Jamjuree',
-                          fontSize: 12,
-                          letterSpacing:
-                              0 /*percentages not used in flutter. defaulting to zero*/,
-                          fontWeight: FontWeight.normal,
-                          height: 1),
-                    )),
-              ])),
-      floatingActionButton: FloatingActionButton(
-        // onPressed: _incrementCounter,
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MySecondHomePage()));
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+              const Align(
+                alignment: AlignmentDirectional(-0.9, 0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                  child: Text(
+                    'เข้าสู่ระบบ',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0, 0),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  child: TextFormField(
+                    controller: textController1,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: 'อีเมลล์',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFFA7A5A5),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFFA7A5A5),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    textAlign: TextAlign.start,
+                    keyboardType: TextInputType.emailAddress,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                child: TextFormField(
+                  controller: textController2,
+                  obscureText: !passwordVisibility,
+                  decoration: InputDecoration(
+                    labelText: 'รหัสผ่าน',
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Color(0xFFA7A5A5),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Color(0xFFA7A5A5),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    suffixIcon: InkWell(
+                      onTap: () => setState(
+                        () => passwordVisibility = !passwordVisibility,
+                      ),
+                      child: Icon(
+                        passwordVisibility
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        color: const Color(0xFF757575),
+                        size: 22,
+                      ),
+                    ),
+                  ),
+                  keyboardType: TextInputType.visiblePassword,
+                ),
+              ),
+              Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 5),
+                  child: SizedBox(
+                    width: 350,
+                    height: 50,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  // builder: (context) => const MyHomePage()));
+                                  builder: (context) =>
+                                      const ColortestWidget()));
+                        },
+                        child: const Text('เข้าสู่ระบบ'),
+                        style: ElevatedButton.styleFrom(
+                            shape: const StadiumBorder(),
+                            primary: Colors.deepPurpleAccent,
+                            textStyle: const TextStyle(
+                                fontSize: 18, fontFamily: 'BaiJamjuree'))
+                        // options: FFButtonOptions(
+                        //   width: 337,
+                        //   height: 41,
+                        //   color: Color(0xFF7364FF),
+                        //   textStyle: FlutterFlowTheme.subtitle2.override(
+                        //     fontFamily: 'Bai Jamjuree',
+                        //     color: Colors.white,
+                        //     fontSize: 18,
+                        //   ),
+                        //   borderSide: BorderSide(
+                        //     color: Colors.transparent,
+                        //     width: 1,
+                        //   ),
+                        //   borderRadius: 20,
+                        // ),
+                        // loading: _loadingButton1,
+                        ),
+                  )),
+              // child: MaterialButton(
+              //     onPressed: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => const MyHomePage()));
+              //     },
+              //     child: const Text('เข้าสู่ระบบ'),
+              //     textColor: Colors.white,
+              //     color: Colors.deepPurple[600],
+              //     minWidth: 350,
+              //     height: 41)),
+              Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
+                  child: SizedBox(
+                      width: 350,
+                      height: 50,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Register1Widget()));
+                        },
+                        child: const Text(
+                          'สมัครสมาชิก',
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            shape: const StadiumBorder(),
+                            // primary: Colors.deepPurpleAccent,
+                            textStyle: const TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'BaiJamjuree',
+                                color: Colors.deepPurpleAccent)),
+                      ))),
+              TextButton(
+                  onPressed: () {
+                    // ignore: avoid_print
+                    print('Forget Password Button');
+                  },
+                  child: const Text('ลืมรหัสผ่าน?'),
+                  style: TextButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      textStyle: const TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'BaiJamjuree',
+                          color: Colors.deepPurpleAccent)))
+            ],
+          ),
+        ),
       ),
     );
   }
