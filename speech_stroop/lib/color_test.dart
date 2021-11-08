@@ -80,8 +80,8 @@ class _ColortestWidgetState extends State<ColortestWidget> {
                       icon: const Icon(Icons.keyboard_voice),
                       color: Colors.white,
                       onPressed: () {
-                        // Navigator.push(context,
-                        //     MaterialPageRoute(builder: (context) => libPage()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => libPage()));
                       },
                       iconSize: 130,
                     ),
