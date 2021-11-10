@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/color_test.dart';
-import 'package:speech_stroop/register1.dart';
+import 'package:speech_stroop/register.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,28 +12,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Speech Stroop Application',
       theme: ThemeData(
           primarySwatch: Colors.deepPurple, fontFamily: 'BaiJamjuree'),
-      home: const MySecondHomePage(),
+      home: const LoginPage(),
     );
   }
 }
 
-class MySecondHomePage extends StatefulWidget {
-  const MySecondHomePage({Key key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key key}) : super(key: key);
 
   @override
-  _HomePageWidgetState createState() => _HomePageWidgetState();
+  _LoginPageWidgetState createState() => _LoginPageWidgetState();
 }
 
-class _HomePageWidgetState extends State<MySecondHomePage> {
+class _LoginPageWidgetState extends State<LoginPage> {
   TextEditingController textController1;
   TextEditingController textController2;
   bool passwordVisibility;
-  // bool _loadingButton1 = false;
-  // bool _loadingButton2 = false;
-  // bool _loadingButton3 = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -155,7 +152,7 @@ class _HomePageWidgetState extends State<MySecondHomePage> {
                               MaterialPageRoute(
                                   // builder: (context) => const MyHomePage()));
                                   builder: (context) =>
-                                      const ColortestWidget()));
+                                      const ColorTestWidget()));
                         },
                         child: const Text('เข้าสู่ระบบ'),
                         style: ElevatedButton.styleFrom(
@@ -203,7 +200,7 @@ class _HomePageWidgetState extends State<MySecondHomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Register1Widget()));
+                                  builder: (context) => RegisterPage()));
                         },
                         child: const Text(
                           'สมัครสมาชิก',

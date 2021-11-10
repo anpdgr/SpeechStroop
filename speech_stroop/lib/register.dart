@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Register1Widget extends StatefulWidget {
-  Register1Widget({Key key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key key}) : super(key: key);
 
   @override
-  _Register1WidgetState createState() => _Register1WidgetState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _Register1WidgetState extends State<Register1Widget> {
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController textController1;
   TextEditingController textController2;
   bool passwordVisibility1;
@@ -35,16 +35,16 @@ class _Register1WidgetState extends State<Register1Widget> {
       child: Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
-          backgroundColor: Color(0xFFFBFBFF),
-          iconTheme: IconThemeData(color: Color(0xFF7364FF)),
+          backgroundColor: const Color(0xFFFBFBFF),
+          iconTheme: const IconThemeData(color: Color(0xFF7364FF)),
           automaticallyImplyLeading: true,
-          actions: [],
+          actions: const [],
           centerTitle: true,
         ),
-        backgroundColor: Color(0xFFFBFBFF),
+        backgroundColor: const Color(0xFFFBFBFF),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -55,72 +55,62 @@ class _Register1WidgetState extends State<Register1Widget> {
                     child: Text(
                       'สมัครสมาชิก',
                       textAlign: TextAlign.start,
-                      // style: FlutterFlowTheme.bodyText1.override(
-                      //   fontFamily: 'Bai Jamjuree',
-                      //   color: Color(0xFF7364FF),
-                      //   fontSize: 28,
-                      // ),
+                      style: TextStyle(
+                        color: Color(0xFF7364FF),
+                        fontSize: 28,
+                      ),
                     ),
                   ),
                 ),
                 const Divider(),
                 Align(
-                  alignment: AlignmentDirectional(0, 0),
+                  alignment: const AlignmentDirectional(0, 0),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: TextFormField(
                       controller: textController1,
                       obscureText: false,
                       decoration: InputDecoration(
                         labelText: 'อีเมลล์',
-                        // labelStyle: FlutterFlowTheme.bodyText1.override(
-                        //   fontFamily: 'Bai Jamjuree',
-                        //   fontWeight: FontWeight.w300,
-                        // ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xFFA7A5A5),
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xFFA7A5A5),
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      // style: FlutterFlowTheme.bodyText1.override(
-                      //   fontFamily: 'Bai Jamjuree',
-                      //   fontWeight: FontWeight.w300,
-                      // ),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w300,
+                      ),
                       textAlign: TextAlign.start,
                       keyboardType: TextInputType.emailAddress,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: TextFormField(
                     controller: textController2,
                     obscureText: !passwordVisibility1,
                     decoration: InputDecoration(
                       labelText: 'รหัสผ่าน',
-                      // labelStyle: FlutterFlowTheme.bodyText1.override(
-                      //   fontFamily: 'Bai Jamjuree',
-                      //   fontWeight: FontWeight.w300,
-                      // ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color(0xFFA7A5A5),
                           width: 1,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color(0xFFA7A5A5),
                           width: 1,
                         ),
@@ -134,38 +124,37 @@ class _Register1WidgetState extends State<Register1Widget> {
                           passwordVisibility1
                               ? Icons.visibility_outlined
                               : Icons.visibility_off_outlined,
-                          color: Color(0xFF757575),
+                          color: const Color(0xFF757575),
                           size: 22,
                         ),
                       ),
                     ),
-                    // style: FlutterFlowTheme.bodyText1.override(
-                    //   fontFamily: 'Bai Jamjuree',
-                    //   fontWeight: FontWeight.w300,
-                    // ),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w300,
+                    ),
                     keyboardType: TextInputType.visiblePassword,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: TextFormField(
                     controller: textController3,
                     obscureText: !passwordVisibility2,
                     decoration: InputDecoration(
                       labelText: 'ยืนยันรหัสผ่าน',
-                      // labelStyle: FlutterFlowTheme.bodyText1.override(
-                      //   fontFamily: 'Bai Jamjuree',
-                      //   fontWeight: FontWeight.w300,
-                      // ),
+                      labelStyle: const TextStyle(
+                        fontFamily: 'Bai Jamjuree',
+                        fontWeight: FontWeight.w300,
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color(0xFFA7A5A5),
                           width: 1,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color(0xFFA7A5A5),
                           width: 1,
                         ),
@@ -179,50 +168,48 @@ class _Register1WidgetState extends State<Register1Widget> {
                           passwordVisibility2
                               ? Icons.visibility_outlined
                               : Icons.visibility_off_outlined,
-                          color: Color(0xFF757575),
+                          color: const Color(0xFF757575),
                           size: 22,
                         ),
                       ),
                     ),
-                    // style: FlutterFlowTheme.bodyText1.override(
-                    //   fontFamily: 'Bai Jamjuree',
-                    //   fontWeight: FontWeight.w300,
-                    // ),
+                    style: const TextStyle(
+                      fontFamily: 'Bai Jamjuree',
+                      fontWeight: FontWeight.w300,
+                    ),
                     keyboardType: TextInputType.visiblePassword,
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0, 0),
+                  alignment: const AlignmentDirectional(0, 0),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                     child: TextFormField(
                       controller: textController4,
                       obscureText: false,
                       decoration: InputDecoration(
                         labelText: 'Hospital Number (HN)',
-                        // labelStyle: FlutterFlowTheme.bodyText1.override(
-                        //   fontFamily: 'Bai Jamjuree',
-                        //   fontWeight: FontWeight.w300,
-                        // ),
+                        labelStyle: const TextStyle(
+                          fontWeight: FontWeight.w300,
+                        ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xFFA7A5A5),
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xFFA7A5A5),
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      // style: FlutterFlowTheme.bodyText1.override(
-                      //   fontFamily: 'Bai Jamjuree',
-                      //   fontWeight: FontWeight.w300,
-                      // ),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w300,
+                      ),
                       textAlign: TextAlign.start,
                       keyboardType: TextInputType.number,
                       validator: (val) {
@@ -235,7 +222,7 @@ class _Register1WidgetState extends State<Register1Widget> {
                     ),
                   ),
                 ),
-                Align(
+                const Align(
                   alignment: AlignmentDirectional(0.9, 0),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 5),
