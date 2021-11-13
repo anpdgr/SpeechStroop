@@ -2,8 +2,11 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:highlight_text/highlight_text.dart';
-import 'package:speech_stroop/login.dart';
+import 'package:speech_stroop/main.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import '../providers/speech_lib.dart';
+
+import 'login.dart';
 
 class ColorTestWidget extends StatefulWidget {
   const ColorTestWidget({Key key}) : super(key: key);
@@ -53,13 +56,11 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
     ),
   };
 
-  stt.SpeechToText _speech;
-  bool _isListening = false;
-  String _text = 'กดปุ่มเพื่อพูด';
-  double _confidence = 1.0;
+  stt.SpeechToText speech;
+  var sp = SpeechLib();
 
   Icon micButton() {
-    if (_isListening) {
+    if (sp.isListening) {
       return const Icon(Icons.mic, size: 100);
     } else {
       return const Icon(Icons.mic_none, size: 100);
@@ -69,7 +70,7 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
   @override
   void initState() {
     super.initState();
-    _speech = stt.SpeechToText();
+    speech = stt.SpeechToText();
   }
 
   @override
@@ -78,7 +79,7 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AvatarGlow(
-        animate: _isListening,
+        animate: sp.isListening,
         glowColor: Colors.orangeAccent[100],
         endRadius: 100.0,
         duration: const Duration(milliseconds: 2000),
@@ -88,7 +89,10 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
             height: 130,
             width: 130,
             child: FloatingActionButton(
-              onPressed: _listen,
+              onPressed: () {
+                //TODO: ทำไมรอบแรกเออเร่อตลอดเยย
+                sp.listen(context, speech);
+              },
               child: micButton(),
               backgroundColor: Colors.orange[700],
             )),
@@ -150,49 +154,21 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
                 ],
               ),
             ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
-              child: TextHighlight(
-                text: _text,
-                words: _highlights,
-                textStyle: const TextStyle(
-                  fontSize: 32.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
+            // Container(
+            //   padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
+            //   child: TextHighlight(
+            //     text: _text,
+            //     words: _highlights,
+            //     textStyle: const TextStyle(
+            //       fontSize: 32.0,
+            //       color: Colors.black,
+            //       fontWeight: FontWeight.w400,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
     );
-  }
-
-  void _listen() async {
-    if (!_isListening) {
-      bool available = await _speech.initialize(
-        onStatus: (val) => print('onStatus: $val'),
-        onError: (val) => print('onError: $val'),
-      );
-      if (available) {
-        setState(() => _isListening = true);
-        _speech.listen(
-          onResult: (val) => setState(() {
-            _text = val.recognizedWords;
-            if (val.hasConfidenceRating && val.confidence > 0) {
-              _confidence = val.confidence;
-            }
-          }),
-          localeId: 'th-TH',
-        );
-      }
-    } else {
-      setState(() => _isListening = false);
-      _speech.stop();
-      Future.delayed(const Duration(milliseconds: 1500), () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginWidget()));
-      });
-    }
   }
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:speech_stroop/color_test.dart';
-import 'package:speech_stroop/register.dart';
-
-import 'main.dart';
+import 'package:speech_stroop/screens/color_test.dart';
+import 'package:speech_stroop/screens/register.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key key}) : super(key: key);
