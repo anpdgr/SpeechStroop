@@ -2,7 +2,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:highlight_text/highlight_text.dart';
-import 'package:speech_stroop/main.dart';
+import 'package:speech_stroop/login.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class ColorTestWidget extends StatefulWidget {
@@ -191,7 +191,7 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
       _speech.stop();
       Future.delayed(const Duration(milliseconds: 1500), () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginPage()));
+            MaterialPageRoute(builder: (context) => const LoginWidget()));
       });
     }
   }

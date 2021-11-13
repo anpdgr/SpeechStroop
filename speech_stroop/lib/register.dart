@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key key}) : super(key: key);
+class RegisterWidget extends StatefulWidget {
+  const RegisterWidget({Key key}) : super(key: key);
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  _RegisterWidgetState createState() => _RegisterWidgetState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterWidgetState extends State<RegisterWidget> {
   TextEditingController textController1;
   TextEditingController textController2;
   bool passwordVisibility1;

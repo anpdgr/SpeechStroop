@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:speech_stroop/color_test.dart';
-import 'package:speech_stroop/register.dart';
+import 'package:flutter/services.dart';
+import 'package:speech_stroop/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,218 +15,89 @@ class MyApp extends StatelessWidget {
       title: 'Speech Stroop Application',
       theme: ThemeData(
           primarySwatch: Colors.deepPurple, fontFamily: 'BaiJamjuree'),
-      home: const LoginPage(),
+      home: const OverviewWidget(),
     );
   }
 }
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key key}) : super(key: key);
+class OverviewWidget extends StatefulWidget {
+  const OverviewWidget({Key key}) : super(key: key);
 
   @override
-  _LoginPageWidgetState createState() => _LoginPageWidgetState();
+  _OverviewWidgetState createState() => _OverviewWidgetState();
 }
 
-class _LoginPageWidgetState extends State<LoginPage> {
-  TextEditingController textController1;
-  TextEditingController textController2;
-  bool passwordVisibility;
+class _OverviewWidgetState extends State<OverviewWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  void initState() {
-    super.initState();
-    textController1 = TextEditingController();
-    textController2 = TextEditingController();
-    passwordVisibility = false;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFFBFBFF),
+      backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const Align(
+              alignment: AlignmentDirectional(0, 0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 5),
+                child: Text(
+                  'Speech Stroop',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    letterSpacing: 1,
+                    color: Color(0xFF7364FF),
+                    fontSize: 32,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
+              child: Text(
+                '    แอปพลิเคชันนี้สร้างขึ้นเพื่อทดสอบและบ่งชี้ ถึงประสิทธิภาพการทำงานของสมองในผู้สูงอายุ\nด้วยแบบทดสอบ Stroop ในรูปแบบเสียง ซึ่งเป็นการทดสอบที่มีความเกี่ยวข้องกับความจำและการตัดสินใจของผู้ทดสอบ',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  letterSpacing: 0.5,
+                  height: 2.3,
+                  color: Color(0xFF303030),
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Align(
+                alignment: const AlignmentDirectional(0, 1),
                 child: Image.asset(
-                  'assets/images/Hongkong-pana.png',
+                  'assets/images/Writing_a_letter-pana.png',
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  fit: BoxFit.cover,
+                  height: MediaQuery.of(context).size.height * 0.55,
+                  fit: BoxFit.contain,
                 ),
               ),
-              const Align(
-                alignment: AlignmentDirectional(-0.9, 0),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
-                  child: Text(
-                    'เข้าสู่ระบบ',
-                    textAlign: TextAlign.start,
+            ),
+            Align(
+                alignment: const AlignmentDirectional(0.9, 0),
+                child: TextButton(
+                  child: const Text(
+                    'ถัดไป >>',
                     style: TextStyle(
-                      fontSize: 28,
+                      color: Color(0xFF7364FF),
                     ),
                   ),
-                ),
-              ),
-              Align(
-                alignment: const AlignmentDirectional(0, 0),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                  child: TextFormField(
-                    controller: textController1,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'อีเมลล์',
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Color(0xFFA7A5A5),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Color(0xFFA7A5A5),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    textAlign: TextAlign.start,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                child: TextFormField(
-                  controller: textController2,
-                  obscureText: !passwordVisibility,
-                  decoration: InputDecoration(
-                    labelText: 'รหัสผ่าน',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: Color(0xFFA7A5A5),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: Color(0xFFA7A5A5),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    suffixIcon: InkWell(
-                      onTap: () => setState(
-                        () => passwordVisibility = !passwordVisibility,
-                      ),
-                      child: Icon(
-                        passwordVisibility
-                            ? Icons.visibility_outlined
-                            : Icons.visibility_off_outlined,
-                        color: const Color(0xFF757575),
-                        size: 22,
-                      ),
-                    ),
-                  ),
-                  keyboardType: TextInputType.visiblePassword,
-                ),
-              ),
-              Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 5),
-                  child: SizedBox(
-                    width: 350,
-                    height: 50,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  // builder: (context) => const MyHomePage()));
-                                  builder: (context) =>
-                                      const ColorTestWidget()));
-                        },
-                        child: const Text('เข้าสู่ระบบ'),
-                        style: ElevatedButton.styleFrom(
-                            shape: const StadiumBorder(),
-                            primary: Colors.deepPurpleAccent,
-                            textStyle: const TextStyle(
-                                fontSize: 18, fontFamily: 'BaiJamjuree'))
-                        // options: FFButtonOptions(
-                        //   width: 337,
-                        //   height: 41,
-                        //   color: Color(0xFF7364FF),
-                        //   textStyle: FlutterFlowTheme.subtitle2.override(
-                        //     fontFamily: 'Bai Jamjuree',
-                        //     color: Colors.white,
-                        //     fontSize: 18,
-                        //   ),
-                        //   borderSide: BorderSide(
-                        //     color: Colors.transparent,
-                        //     width: 1,
-                        //   ),
-                        //   borderRadius: 20,
-                        // ),
-                        // loading: _loadingButton1,
-                        ),
-                  )),
-              // child: MaterialButton(
-              //     onPressed: () {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => const MyHomePage()));
-              //     },
-              //     child: const Text('เข้าสู่ระบบ'),
-              //     textColor: Colors.white,
-              //     color: Colors.deepPurple[600],
-              //     minWidth: 350,
-              //     height: 41)),
-              Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
-                  child: SizedBox(
-                      width: 350,
-                      height: 50,
-                      child: OutlinedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RegisterPage()));
-                        },
-                        child: const Text(
-                          'สมัครสมาชิก',
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            shape: const StadiumBorder(),
-                            // primary: Colors.deepPurpleAccent,
-                            textStyle: const TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'BaiJamjuree',
-                                color: Colors.deepPurpleAccent)),
-                      ))),
-              TextButton(
                   onPressed: () {
-                    // ignore: avoid_print
-                    print('Forget Password Button');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginWidget()));
                   },
-                  child: const Text('ลืมรหัสผ่าน?'),
-                  style: TextButton.styleFrom(
-                      shape: const StadiumBorder(),
-                      textStyle: const TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'BaiJamjuree',
-                          color: Colors.deepPurpleAccent)))
-            ],
-          ),
+                ))
+          ],
         ),
       ),
     );
