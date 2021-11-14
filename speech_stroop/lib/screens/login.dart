@@ -10,16 +10,16 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetWidgetState extends State<LoginWidget> {
-  TextEditingController textController1;
-  TextEditingController textController2;
+  TextEditingController emailController;
+  TextEditingController passwordController;
   bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-    textController2 = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
     passwordVisibility = false;
   }
 
@@ -61,7 +61,7 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: TextFormField(
-                    controller: textController1,
+                    controller: emailController,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'อีเมลล์',
@@ -88,7 +88,7 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                 child: TextFormField(
-                  controller: textController2,
+                  controller: passwordController,
                   obscureText: !passwordVisibility,
                   decoration: InputDecoration(
                     labelText: 'รหัสผ่าน',
