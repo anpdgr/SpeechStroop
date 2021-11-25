@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:speech_stroop/screens/login.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class SpeechLib {
   bool isListening = false;
   String text = 'กดปุ่มเพื่อพูด';
   double confidence = 1.0;
+  int answered = 0;
 
   void listen(context, stt.SpeechToText speech) async {
     if (!isListening) {
@@ -27,10 +26,7 @@ class SpeechLib {
     } else {
       isListening = false;
       speech.stop();
-      Future.delayed(const Duration(milliseconds: 1500), () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginWidget()));
-      });
+      answered++;
     }
   }
 }

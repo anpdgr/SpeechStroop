@@ -129,11 +129,11 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                     height: 50,
                     child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ColorTestWidget()));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) =>
+                          //             const ColorTestWidget()));
                         },
                         child: const Text('เข้าสู่ระบบ'),
                         style: ElevatedButton.styleFrom(
