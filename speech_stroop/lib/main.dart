@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/screens/login.dart';
-import 'package:speech_stroop/playground/testlib.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,7 +43,7 @@ class _OverviewWidgetState extends State<OverviewWidget> {
             const Align(
               alignment: AlignmentDirectional(0, 0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 5),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                 child: Text(
                   'Speech Stroop',
                   textAlign: TextAlign.start,
@@ -58,16 +57,16 @@ class _OverviewWidgetState extends State<OverviewWidget> {
               ),
             ),
             const Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(15, 20, 15, 0),
               child: Text(
-                '    แอปพลิเคชันนี้สร้างขึ้นเพื่อทดสอบและบ่งชี้ ถึงประสิทธิภาพการทำงานของสมองในผู้สูงอายุ\nด้วยแบบทดสอบ Stroop ในรูปแบบเสียง ซึ่งเป็นการทดสอบที่มีความเกี่ยวข้องกับความจำและการตัดสินใจของผู้ทดสอบ',
+                '    แอปพลิเคชันนี้สร้างขึ้นเพื่อทดสอบและบ่งชี้ ถึงประสิทธิภาพการทำงานของสมองในผู้สูงอายุด้วยแบบทดสอบ Stroop ในรูปแบบเสียง ซึ่งเป็นการทดสอบที่มีความเกี่ยวข้องกับความจำและการตัดสินใจของผู้ทดสอบ',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   letterSpacing: 0.5,
                   height: 2.3,
                   color: Color(0xFF303030),
                   fontWeight: FontWeight.normal,
-                  fontSize: 16,
+                  fontSize: 18,
                 ),
               ),
             ),
@@ -78,7 +77,7 @@ class _OverviewWidgetState extends State<OverviewWidget> {
                   'assets/images/Writing_a_letter-pana.png',
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.55,
-                  fit: BoxFit.contain,
+                  fit: BoxFit.fitHeight,
                 ),
               ),
             ),

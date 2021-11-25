@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/screens/register_stress.dart';
 
 class RegisterWidget extends StatefulWidget {
   const RegisterWidget({Key key}) : super(key: key);
@@ -38,8 +39,16 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           backgroundColor: const Color(0xFFFBFBFF),
           iconTheme: const IconThemeData(color: Color(0xFF7364FF)),
           automaticallyImplyLeading: true,
-          actions: const [],
+          title: const Text(
+            'สมัครสมาชิก',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              color: Color(0xFF7364FF),
+              fontSize: 28,
+            ),
+          ),
           centerTitle: true,
+          elevation: 5,
         ),
         backgroundColor: const Color(0xFFFBFBFF),
         body: SafeArea(
@@ -48,20 +57,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                const Align(
-                  alignment: AlignmentDirectional(-0.9, 0),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 5),
-                    child: Text(
-                      'สมัครสมาชิก',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Color(0xFF7364FF),
-                        fontSize: 28,
-                      ),
-                    ),
-                  ),
-                ),
                 const Divider(),
                 Align(
                   alignment: const AlignmentDirectional(0, 0),
@@ -222,32 +217,29 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     ),
                   ),
                 ),
-                const Align(
-                  alignment: AlignmentDirectional(0.9, 0),
+                Align(
+                  alignment: const AlignmentDirectional(0.9, 0),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 5),
-                    // child: FFButtonWidget(
-                    //   onPressed: () {
-                    //     print('Button pressed ...');
-                    //   },
-                    //   text: 'ถัดไป',
-                    //   options: FFButtonOptions(
-                    //     width: 70,
-                    //     height: 41,
-                    //     color: Color(0xFF7364FF),
-                    //     textStyle: FlutterFlowTheme.subtitle2.override(
-                    //       fontFamily: 'Bai Jamjuree',
-                    //       color: Colors.white,
-                    //       fontSize: 16,
-                    //     ),
-                    //     borderSide: BorderSide(
-                    //       color: Colors.transparent,
-                    //       width: 1,
-                    //     ),
-                    //     borderRadius: 20,
-                    //   ),
-                    // ),
-                  ),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 25, 0, 5),
+                      child: SizedBox(
+                        width: 90,
+                        height: 50,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          StressRegisterWidget()));
+                            },
+                            child: const Text('ถัดไป'),
+                            style: ElevatedButton.styleFrom(
+                                shape: const StadiumBorder(),
+                                primary: Colors.deepPurpleAccent,
+                                textStyle: const TextStyle(
+                                    fontSize: 18, fontFamily: 'BaiJamjuree'))),
+                      )),
                 )
               ],
             ),

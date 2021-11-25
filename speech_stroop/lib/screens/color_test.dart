@@ -1,10 +1,10 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:highlight_text/highlight_text.dart';
-import 'package:speech_stroop/main.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-import '../providers/speech_lib.dart';
+// import '../providers/speech_lib.dart';
+import 'dart:math' as math;
 
 import 'login.dart';
 
@@ -18,49 +18,30 @@ class ColorTestWidget extends StatefulWidget {
 class _ColorTestWidgetState extends State<ColorTestWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final Map<String, HighlightedWord> _highlights = {
-    'flutter': HighlightedWord(
-      onTap: () => print('flutter'),
-      textStyle: const TextStyle(
-        color: Colors.blue,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    'voice': HighlightedWord(
-      onTap: () => print('voice'),
-      textStyle: const TextStyle(
-        color: Colors.green,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    'subscribe': HighlightedWord(
-      onTap: () => print('subscribe'),
-      textStyle: const TextStyle(
-        color: Colors.red,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    'like': HighlightedWord(
-      onTap: () => print('like'),
-      textStyle: const TextStyle(
-        color: Colors.blueAccent,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    'comment': HighlightedWord(
-      onTap: () => print('comment'),
-      textStyle: const TextStyle(
-        color: Colors.green,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
+  stt.SpeechToText speech;
+
+  bool isListening = false;
+  String text = '';
+  double confidence = 1.0;
+  int answered = 0;
+  List textArr;
+  bool isCorrect = false;
+  List<SpeechRecognitionWords> valAlternates;
+
+  Map colorsMap = {
+    'แดง': const Color(0xFFDA5C54),
+    'ดำ': const Color(0xFF000000),
+    'เหลือง': const Color(0xFFECD933),
+    'เขียว': const Color(0xFF25CF55),
+    'ส้ม': const Color(0xFFEC8133),
+    'ฟ้า': const Color(0xFF72C4FF),
+    'ม่วง': const Color(0xFF8F00FF)
   };
 
-  stt.SpeechToText speech;
-  var sp = SpeechLib();
+  math.Random random = math.Random();
 
   Icon micButton() {
-    if (sp.isListening) {
+    if (isListening) {
       return const Icon(Icons.mic, size: 100);
     } else {
       return const Icon(Icons.mic_none, size: 100);
@@ -79,7 +60,7 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AvatarGlow(
-        animate: sp.isListening,
+        animate: isListening,
         glowColor: Colors.orangeAccent[100],
         endRadius: 100.0,
         duration: const Duration(milliseconds: 2000),
@@ -90,8 +71,7 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
             width: 130,
             child: FloatingActionButton(
               onPressed: () {
-                //TODO: ทำไมรอบแรกเออเร่อตลอดเยย
-                sp.listen(context, speech);
+                listen();
               },
               child: micButton(),
               backgroundColor: Colors.orange[700],
@@ -123,11 +103,11 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
                     ),
                   ),
                   const Divider(),
-                  const Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                     child: Text(
-                      '1/7',
-                      style: TextStyle(
+                      '${answered + 1}/7',
+                      style: const TextStyle(
                         color: Color(0xFF8F8F8F),
                         fontSize: 36,
                         fontWeight: FontWeight.w300,
@@ -144,31 +124,89 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
                         height: 200,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            color: const Color(0xFFDA5C54),
+                            color: colorsMap.values.toList()[answered],
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
                       ),
                     ),
-                  )
+                  ),
+                  Text(text)
                 ],
               ),
             ),
-            // Container(
-            //   padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
-            //   child: TextHighlight(
-            //     text: _text,
-            //     words: _highlights,
-            //     textStyle: const TextStyle(
-            //       fontSize: 32.0,
-            //       color: Colors.black,
-            //       fontWeight: FontWeight.w400,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),
     );
+  }
+
+  void listen() async {
+    if (!isListening) {
+      bool available = await speech.initialize(
+          // onStatus: (val) => print('onStatus: $val'),
+          // onError: (val) => print('onError: $val'),
+          );
+      if (available) {
+        setState(() => isListening = true);
+        speech.listen(
+            onResult: onResultListen, localeId: 'th-TH', partialResults: true);
+      }
+    } else {
+      setState(() {
+        isListening = false;
+        // text = '';
+      });
+      Future.delayed(const Duration(milliseconds: 800), () {
+        speech.stop();
+      });
+      navigatePage();
+    }
+  }
+
+  Future<void> onResultListen(val) async {
+    // text = val.recognizedWords;
+    valAlternates = val.alternates;
+    // if (val.hasConfidenceRating && val.confidence > 0) {
+    //   confidence = val.confidence;
+    // }
+    if (isAnswerCorrect()) {
+      setState(() {
+        text = 'Correct!';
+      });
+      print(text);
+    } else {
+      setState(() {
+        text = '';
+      });
+    }
+  }
+
+  bool isAnswerCorrect() {
+    for (var predictedResult in valAlternates) {
+      var predictedWord = predictedResult.recognizedWords;
+      if (predictedWord == colorsMap.keys.toList()[answered]) {
+        isCorrect = true;
+        return isCorrect;
+      } else {
+        isCorrect = false;
+      }
+    }
+    return false;
+  }
+
+  void navigatePage() {
+    if (answered < 6) {
+      Future.delayed(const Duration(milliseconds: 800), () {
+        setState(() {
+          answered++;
+        });
+      });
+    } else {
+      Future.delayed(const Duration(milliseconds: 1500), () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginWidget()));
+      });
+    }
   }
 }

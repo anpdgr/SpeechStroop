@@ -5,7 +5,9 @@ import 'package:speech_stroop/providers/speech_lib.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../providers/speech_lib.dart';
 
-class libPage extends StatelessWidget {
+class LibPage extends StatelessWidget {
+  const LibPage({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,12 +17,14 @@ class libPage extends StatelessWidget {
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SpeechScreen(),
+      home: const SpeechScreen(),
     );
   }
 }
 
 class SpeechScreen extends StatefulWidget {
+  const SpeechScreen({Key key}) : super(key: key);
+
   @override
   _SpeechScreenState createState() => _SpeechScreenState();
 }
