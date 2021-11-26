@@ -36,14 +36,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       child: Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
-          backgroundColor: const Color(0xFFFBFBFF),
-          iconTheme: const IconThemeData(color: Color(0xFF7364FF)),
+          backgroundColor: Colors.deepPurpleAccent,
+          iconTheme: const IconThemeData(color: Colors.white),
           automaticallyImplyLeading: true,
           title: const Text(
             'สมัครสมาชิก',
             textAlign: TextAlign.start,
             style: TextStyle(
-              color: Color(0xFF7364FF),
+              color: Colors.white,
               fontSize: 28,
             ),
           ),
@@ -231,7 +231,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          StressRegisterWidget()));
+                                          const StressRegisterWidget()));
                             },
                             child: const Text('ถัดไป'),
                             style: ElevatedButton.styleFrom(

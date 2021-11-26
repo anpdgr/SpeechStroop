@@ -18,13 +18,13 @@ class _SleepRegisterWidgetState extends State<SleepRegisterWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFBFBFF),
-        iconTheme: const IconThemeData(color: Color(0xFF7364FF)),
+        backgroundColor: Colors.deepPurpleAccent,
+        iconTheme: const IconThemeData(color: Colors.white),
         automaticallyImplyLeading: true,
         title: const Text(
-          'แบบสอบถามการนอนหลับ\nและพักผ่อน',
+          'แบบสอบถามการนอนหลับ',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Color(0xFF9489FA), fontSize: 21),
+          style: TextStyle(color: Colors.white, fontSize: 21),
         ),
         actions: const [],
         centerTitle: true,

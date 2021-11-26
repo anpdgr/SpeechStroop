@@ -91,13 +91,13 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFBFBFF),
-        iconTheme: const IconThemeData(color: Color(0xFF7364FF)),
+        backgroundColor: Colors.deepPurpleAccent,
+        iconTheme: const IconThemeData(color: Colors.white),
         automaticallyImplyLeading: true,
         title: const Text(
-          'แบบสอบถามด้านความเครียด\n(PSS10) ',
+          'แบบสอบถามด้านความเครียด',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Color(0xFF9489FA), fontSize: 21),
+          style: TextStyle(color: Colors.white, fontSize: 21),
         ),
         centerTitle: true,
         elevation: 5,
@@ -105,7 +105,7 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
       backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
