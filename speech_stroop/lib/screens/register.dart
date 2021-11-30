@@ -70,8 +70,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       controller: textController1,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'อีเมลล์',
+                        labelText: 'เบอร์โทรศัพท์',
                         labelStyle: const TextStyle(
+                          fontFamily: 'Bai Jamjuree',
                           fontWeight: FontWeight.w300,
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -90,10 +91,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         ),
                       ),
                       style: const TextStyle(
+                        fontFamily: 'Bai Jamjuree',
                         fontWeight: FontWeight.w300,
                       ),
                       textAlign: TextAlign.start,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.phone,
                     ),
                   ),
                 ),

@@ -13,8 +13,6 @@ class StressRegisterWidget extends StatefulWidget {
 enum StressLevel { never, rarely, sometimes, frequently, always }
 
 class _StressRegisterWidgetState extends State<StressRegisterWidget> {
-  // double _currentSliderValue = 3;
-
   double _radioValue1 = 3;
   double _radioValue2 = 3;
   double _radioValue3 = 3;

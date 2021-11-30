@@ -82,7 +82,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                         fontWeight: FontWeight.w300,
                       ),
                       textAlign: TextAlign.start,
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.name,
                       validator: (val) {
                         if (val.isEmpty) {
                           return 'โปรดระบุชื่อผู้ใช้';
@@ -93,88 +93,70 @@ class _Register2WidgetState extends State<Register2Widget> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: const AlignmentDirectional(0, 0),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                    child: TextFormField(
-                      controller: textController5,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        labelText: 'เบอร์โทรศัพท์',
-                        labelStyle: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFFA7A5A5),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFFA7A5A5),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      style: const TextStyle(
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                  child: TextFormField(
+                    controller: textController5,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: 'อีเมลล์',
+                      labelStyle: const TextStyle(
+                        fontFamily: 'Bai Jamjuree',
                         fontWeight: FontWeight.w300,
                       ),
-                      textAlign: TextAlign.start,
-                      keyboardType: TextInputType.number,
-                      validator: (val) {
-                        if (val.isEmpty) {
-                          return 'โปรดระบุเบอร์โทรศัพท์';
-                        }
-
-                        return null;
-                      },
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFFA7A5A5),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFFA7A5A5),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
+                    style: const TextStyle(
+                      fontFamily: 'Bai Jamjuree',
+                      fontWeight: FontWeight.w300,
+                    ),
+                    keyboardType: TextInputType.emailAddress,
                   ),
                 ),
-                Align(
-                  alignment: const AlignmentDirectional(0, 0),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                    child: TextFormField(
-                      controller: textController6,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        labelText: 'เลขประจำตัว 4 หลักสุดท้าย',
-                        labelStyle: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFFA7A5A5),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFFA7A5A5),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      style: const TextStyle(
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                  child: TextFormField(
+                    controller: textController6,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: 'เลขรหัสบัตรประชาชน 4 ตัวท้าย',
+                      labelStyle: const TextStyle(
+                        fontFamily: 'Bai Jamjuree',
                         fontWeight: FontWeight.w300,
                       ),
-                      textAlign: TextAlign.start,
-                      keyboardType: TextInputType.number,
-                      validator: (val) {
-                        if (val.isEmpty) {
-                          return 'โปรดระบุเลขประจำตัว 4 หลักสุดท้าย';
-                        }
-
-                        return null;
-                      },
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFFA7A5A5),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFFA7A5A5),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
+                    style: const TextStyle(
+                      fontFamily: 'Bai Jamjuree',
+                      fontWeight: FontWeight.w300,
+                    ),
+                    keyboardType: TextInputType.number,
                   ),
                 ),
                 Align(
