@@ -11,6 +11,7 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetWidgetState extends State<LoginWidget> {
   TextEditingController emailController;
+  TextEditingController telController;
   TextEditingController passwordController;
   bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -19,6 +20,7 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
   void initState() {
     super.initState();
     emailController = TextEditingController();
+    telController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
   }
@@ -26,6 +28,7 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
@@ -61,10 +64,14 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: TextFormField(
-                    controller: emailController,
+                    controller: telController,
                     obscureText: false,
                     decoration: InputDecoration(
-                      labelText: 'อีเมลล์',
+                      labelText: 'เบอร์โทรศัพท์',
+                      labelStyle: const TextStyle(
+                        fontFamily: 'Bai Jamjuree',
+                        fontWeight: FontWeight.w300,
+                      ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0xFFA7A5A5),
@@ -80,8 +87,12 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
+                    style: const TextStyle(
+                      fontFamily: 'Bai Jamjuree',
+                      fontWeight: FontWeight.w300,
+                    ),
                     textAlign: TextAlign.start,
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.phone,
                   ),
                 ),
               ),
