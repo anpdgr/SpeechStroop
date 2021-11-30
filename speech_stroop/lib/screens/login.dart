@@ -99,12 +99,17 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                         keyboardType: TextInputType.phone,
                         validator: (val) {
                           if (val.isEmpty) {
-                            return 'Phone number is required';
+                            return 'โปรดระบุเบอร์โทรศัพท์';
                           }
                           if (val.length != 10) {
-                            return 'Phone number requires 10 numbers.';
+                            return 'เบอร์โทรศัพท์ประกอบไปด้วย 10 ตัวอักษร';
                           }
                           return null;
+                        },
+                        onChanged: (val) {
+                          if (formGlobalKey.currentState.validate()) {
+                            formGlobalKey.currentState.save();
+                          }
                         },
                       ),
                     ),
@@ -148,7 +153,12 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                         if (val.length >= 8) {
                           return null;
                         } else {
-                          return 'Password is required at least 8 characters';
+                          return 'รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร';
+                        }
+                      },
+                      onChanged: (val) {
+                        if (formGlobalKey.currentState.validate()) {
+                          formGlobalKey.currentState.save();
                         }
                       },
                     ),

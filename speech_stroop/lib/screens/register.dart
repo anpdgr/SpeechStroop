@@ -18,7 +18,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   TextEditingController textController4;
   TextEditingController textController5;
   TextEditingController textController6;
-  final formKey = GlobalKey<FormState>();
+  final formGlobalKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -37,8 +37,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: formGlobalKey,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         key: scaffoldKey,
         appBar: AppBar(
           backgroundColor: Colors.deepPurpleAccent,
@@ -96,6 +97,20 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ),
                       textAlign: TextAlign.start,
                       keyboardType: TextInputType.phone,
+                      validator: (val) {
+                        if (val.isEmpty) {
+                          return 'โปรดระบุเบอร์โทรศัพท์';
+                        }
+                        if (val.length != 10) {
+                          return 'เบอร์โทรศัพท์ประกอบไปด้วย 10 ตัวอักษร';
+                        }
+                        return null;
+                      },
+                      onChanged: (val) {
+                        if (formGlobalKey.currentState.validate()) {
+                          formGlobalKey.currentState.save();
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -137,6 +152,18 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       fontWeight: FontWeight.w300,
                     ),
                     keyboardType: TextInputType.visiblePassword,
+                    validator: (val) {
+                      if (val.length >= 8) {
+                        return null;
+                      } else {
+                        return 'รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร';
+                      }
+                    },
+                    onChanged: (val) {
+                      if (formGlobalKey.currentState.validate()) {
+                        formGlobalKey.currentState.save();
+                      }
+                    },
                   ),
                 ),
                 Padding(
@@ -182,6 +209,18 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       fontWeight: FontWeight.w300,
                     ),
                     keyboardType: TextInputType.visiblePassword,
+                    validator: (val) {
+                      if (val == textController2.text) {
+                        return null;
+                      } else {
+                        return 'ยืนยันรหัสผ่านไม่ถูกต้อง';
+                      }
+                    },
+                    onChanged: (val) {
+                      if (formGlobalKey.currentState.validate()) {
+                        formGlobalKey.currentState.save();
+                      }
+                    },
                   ),
                 ),
                 Align(
@@ -194,11 +233,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         height: 50,
                         child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Register2Widget()));
+                              if (formGlobalKey.currentState.validate()) {
+                                formGlobalKey.currentState.save();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Register2Widget()));
+                              }
                             },
                             child: const Text('ถัดไป'),
                             style: ElevatedButton.styleFrom(
