@@ -13,76 +13,18 @@ class StressRegisterWidget extends StatefulWidget {
 enum StressLevel { never, rarely, sometimes, frequently, always }
 
 class _StressRegisterWidgetState extends State<StressRegisterWidget> {
-  int _radioValue1 = 0;
-  int _radioValue2 = 0;
-  int _radioValue3 = 0;
-  int _radioValue4 = 0;
-  int _radioValue5 = 0;
-  int _radioValue6 = 0;
-  int _radioValue7 = 0;
-  int _radioValue8 = 0;
-  int _radioValue9 = 0;
-  int _radioValue10 = 0;
+  // double _currentSliderValue = 3;
 
-  void _handleRadioValueChange1(int value) {
-    setState(() {
-      _radioValue1 = value;
-    });
-  }
-
-  void _handleRadioValueChange2(int value) {
-    setState(() {
-      _radioValue2 = value;
-    });
-  }
-
-  void _handleRadioValueChange3(int value) {
-    setState(() {
-      _radioValue3 = value;
-    });
-  }
-
-  void _handleRadioValueChange4(int value) {
-    setState(() {
-      _radioValue4 = value;
-    });
-  }
-
-  void _handleRadioValueChange5(int value) {
-    setState(() {
-      _radioValue5 = value;
-    });
-  }
-
-  void _handleRadioValueChange6(int value) {
-    setState(() {
-      _radioValue6 = value;
-    });
-  }
-
-  void _handleRadioValueChange7(int value) {
-    setState(() {
-      _radioValue7 = value;
-    });
-  }
-
-  void _handleRadioValueChange8(int value) {
-    setState(() {
-      _radioValue8 = value;
-    });
-  }
-
-  void _handleRadioValueChange9(int value) {
-    setState(() {
-      _radioValue9 = value;
-    });
-  }
-
-  void _handleRadioValueChange10(int value) {
-    setState(() {
-      _radioValue10 = value;
-    });
-  }
+  double _radioValue1 = 3;
+  double _radioValue2 = 3;
+  double _radioValue3 = 3;
+  double _radioValue4 = 3;
+  double _radioValue5 = 3;
+  double _radioValue6 = 3;
+  double _radioValue7 = 3;
+  double _radioValue8 = 3;
+  double _radioValue9 = 3;
+  double _radioValue10 = 3;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -145,7 +87,18 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                     ),
                   ),
                 ),
-                StressRadioButtons(_radioValue1, _handleRadioValueChange1),
+                Slider(
+                  value: _radioValue1,
+                  min: 1,
+                  max: 5,
+                  divisions: 4,
+                  label: _radioValue1.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _radioValue1 = value;
+                    });
+                  },
+                ),
                 const Align(
                   alignment: AlignmentDirectional(-1, 0),
                   child: Padding(
@@ -160,7 +113,18 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                     ),
                   ),
                 ),
-                StressRadioButtons(_radioValue2, _handleRadioValueChange2),
+                Slider(
+                  value: _radioValue2,
+                  min: 1,
+                  max: 5,
+                  divisions: 4,
+                  label: _radioValue2.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _radioValue2 = value;
+                    });
+                  },
+                ),
                 const Align(
                   alignment: AlignmentDirectional(-1, 0),
                   child: Padding(
@@ -174,7 +138,18 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                     ),
                   ),
                 ),
-                StressRadioButtons(_radioValue3, _handleRadioValueChange3),
+                Slider(
+                  value: _radioValue3,
+                  min: 1,
+                  max: 5,
+                  divisions: 4,
+                  label: _radioValue3.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _radioValue3 = value;
+                    });
+                  },
+                ),
                 const Align(
                   alignment: AlignmentDirectional(-1, 0),
                   child: Padding(
@@ -188,7 +163,18 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                     ),
                   ),
                 ),
-                StressRadioButtons(_radioValue4, _handleRadioValueChange4),
+                Slider(
+                  value: _radioValue4,
+                  min: 1,
+                  max: 5,
+                  divisions: 4,
+                  label: _radioValue4.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _radioValue4 = value;
+                    });
+                  },
+                ),
                 const Align(
                   alignment: AlignmentDirectional(-1, 0),
                   child: Padding(
@@ -202,7 +188,18 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                     ),
                   ),
                 ),
-                StressRadioButtons(_radioValue5, _handleRadioValueChange5),
+                Slider(
+                  value: _radioValue5,
+                  min: 1,
+                  max: 5,
+                  divisions: 4,
+                  label: _radioValue5.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _radioValue5 = value;
+                    });
+                  },
+                ),
                 const Align(
                   alignment: AlignmentDirectional(-1, 0),
                   child: Padding(
@@ -216,7 +213,18 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                     ),
                   ),
                 ),
-                StressRadioButtons(_radioValue6, _handleRadioValueChange6),
+                Slider(
+                  value: _radioValue6,
+                  min: 1,
+                  max: 5,
+                  divisions: 4,
+                  label: _radioValue6.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _radioValue6 = value;
+                    });
+                  },
+                ),
                 const Align(
                   alignment: AlignmentDirectional(-1, 0),
                   child: Padding(
@@ -230,7 +238,18 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                     ),
                   ),
                 ),
-                StressRadioButtons(_radioValue7, _handleRadioValueChange7),
+                Slider(
+                  value: _radioValue7,
+                  min: 1,
+                  max: 5,
+                  divisions: 4,
+                  label: _radioValue7.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _radioValue7 = value;
+                    });
+                  },
+                ),
                 const Align(
                   alignment: AlignmentDirectional(-1, 0),
                   child: Padding(
@@ -244,7 +263,18 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                     ),
                   ),
                 ),
-                StressRadioButtons(_radioValue8, _handleRadioValueChange8),
+                Slider(
+                  value: _radioValue8,
+                  min: 1,
+                  max: 5,
+                  divisions: 4,
+                  label: _radioValue8.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _radioValue8 = value;
+                    });
+                  },
+                ),
                 const Align(
                   alignment: AlignmentDirectional(-1, 0),
                   child: Padding(
@@ -258,7 +288,18 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                     ),
                   ),
                 ),
-                StressRadioButtons(_radioValue9, _handleRadioValueChange9),
+                Slider(
+                  value: _radioValue9,
+                  min: 1,
+                  max: 5,
+                  divisions: 4,
+                  label: _radioValue9.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _radioValue9 = value;
+                    });
+                  },
+                ),
                 const Align(
                   alignment: AlignmentDirectional(-1, 0),
                   child: Padding(
@@ -272,7 +313,18 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                     ),
                   ),
                 ),
-                StressRadioButtons(_radioValue10, _handleRadioValueChange10),
+                Slider(
+                  value: _radioValue10,
+                  min: 1,
+                  max: 5,
+                  divisions: 4,
+                  label: _radioValue10.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _radioValue10 = value;
+                    });
+                  },
+                ),
                 Align(
                   alignment: const AlignmentDirectional(0.9, 0),
                   child: Padding(

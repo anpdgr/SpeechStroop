@@ -43,7 +43,7 @@ class _OverviewWidgetState extends State<OverviewWidget> {
             const Align(
               alignment: AlignmentDirectional(0, 0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
                 child: Text(
                   'Speech Stroop',
                   textAlign: TextAlign.start,
@@ -57,10 +57,10 @@ class _OverviewWidgetState extends State<OverviewWidget> {
               ),
             ),
             const Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(15, 20, 15, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
               child: Text(
-                '    แอปพลิเคชันนี้สร้างขึ้นเพื่อทดสอบและบ่งชี้ ถึงประสิทธิภาพการทำงานของสมองในผู้สูงอายุด้วยแบบทดสอบ Stroop ในรูปแบบเสียง ซึ่งเป็นการทดสอบที่มีความเกี่ยวข้องกับความจำและการตัดสินใจของผู้ทดสอบ',
-                textAlign: TextAlign.center,
+                '    แอปพลิเคชันนี้สร้างขึ้นเพื่อทดสอบและบ่งชี้ถึงประสิทธิภาพการทำงานของสมองในผู้สูงอายุด้วยแบบทดสอบ Stroop ในรูปแบบเสียง ซึ่งเป็นการทดสอบที่มีความเกี่ยวข้องกับความจำและการตัดสินใจของผู้ทดสอบ',
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   letterSpacing: 0.5,
                   height: 2.3,

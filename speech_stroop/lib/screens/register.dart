@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/screens/register2.dart';
 import 'package:speech_stroop/screens/register_stress.dart';
 
 class RegisterWidget extends StatefulWidget {
@@ -15,6 +16,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   TextEditingController textController3;
   bool passwordVisibility2;
   TextEditingController textController4;
+  TextEditingController textController5;
+  TextEditingController textController6;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -27,6 +30,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     textController3 = TextEditingController();
     passwordVisibility2 = false;
     textController4 = TextEditingController();
+    textController5 = TextEditingController();
+    textController6 = TextEditingController();
   }
 
   @override
@@ -36,14 +41,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       child: Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
-          backgroundColor: const Color(0xFFFBFBFF),
-          iconTheme: const IconThemeData(color: Color(0xFF7364FF)),
+          backgroundColor: Colors.deepPurpleAccent,
+          iconTheme: const IconThemeData(color: Colors.white),
           automaticallyImplyLeading: true,
           title: const Text(
             'สมัครสมาชิก',
             textAlign: TextAlign.start,
             style: TextStyle(
-              color: Color(0xFF7364FF),
+              color: Colors.white,
               fontSize: 28,
             ),
           ),
@@ -57,16 +62,18 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                const Divider(),
                 Align(
                   alignment: const AlignmentDirectional(0, 0),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                     child: TextFormField(
                       controller: textController1,
                       obscureText: false,
                       decoration: InputDecoration(
                         labelText: 'อีเมลล์',
+                        labelStyle: const TextStyle(
+                          fontWeight: FontWeight.w300,
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
                             color: Color(0xFFA7A5A5),
@@ -91,7 +98,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                   child: TextFormField(
                     controller: textController2,
                     obscureText: !passwordVisibility1,
@@ -131,7 +138,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                   child: TextFormField(
                     controller: textController3,
                     obscureText: !passwordVisibility2,
@@ -176,48 +183,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0, 0),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                    child: TextFormField(
-                      controller: textController4,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        labelText: 'Hospital Number (HN)',
-                        labelStyle: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFFA7A5A5),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFFA7A5A5),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                      ),
-                      textAlign: TextAlign.start,
-                      keyboardType: TextInputType.number,
-                      validator: (val) {
-                        if (val.isEmpty) {
-                          return 'Please enter your HN.';
-                        }
-
-                        return null;
-                      },
-                    ),
-                  ),
-                ),
-                Align(
                   alignment: const AlignmentDirectional(0.9, 0),
                   child: Padding(
                       padding:
@@ -231,7 +196,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          StressRegisterWidget()));
+                                          const Register2Widget()));
                             },
                             child: const Text('ถัดไป'),
                             style: ElevatedButton.styleFrom(
