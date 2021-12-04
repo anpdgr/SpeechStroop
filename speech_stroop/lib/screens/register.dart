@@ -66,7 +66,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 Align(
                   alignment: const AlignmentDirectional(0, 0),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: TextFormField(
                       controller: textController1,
                       obscureText: false,
@@ -115,7 +115,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: TextFormField(
                     controller: textController2,
                     obscureText: !passwordVisibility1,
@@ -167,7 +167,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: TextFormField(
                     controller: textController3,
                     obscureText: !passwordVisibility2,
