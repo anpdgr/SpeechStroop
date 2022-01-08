@@ -178,7 +178,7 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                                 //     context,
                                 //     MaterialPageRoute(
                                 //         builder: (context) =>
-                                //             const RegisterWidget()));
+                                //             const ColorTestWidget()));
                               }
                             },
                             child: const Text('เข้าสู่ระบบ'),
@@ -217,7 +217,22 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                           textStyle: const TextStyle(
                               fontSize: 14,
                               fontFamily: 'BaiJamjuree',
-                              color: Colors.deepPurpleAccent)))
+                              color: Colors.deepPurpleAccent))),
+                  TextButton(
+                      onPressed: () {
+                        print('Forget password');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ColorTestWidget()));
+                      },
+                      child: const Text('ลืมรหัสผ่าน'),
+                      style: TextButton.styleFrom(
+                          shape: const StadiumBorder(),
+                          textStyle: const TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'BaiJamjuree',
+                              color: Color(0xFFA7A5A5))))
                 ],
               )),
         ),

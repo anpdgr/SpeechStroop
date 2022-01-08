@@ -1,8 +1,6 @@
 import 'package:speech_stroop/screens/register_sleep.dart';
 import 'package:flutter/material.dart';
 
-import 'components/radio_button.dart';
-
 class StressRegisterWidget extends StatefulWidget {
   const StressRegisterWidget({Key key}) : super(key: key);
 
@@ -71,7 +69,7 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFFD5B5FF),
-                          fontSize: 18,
+                          fontSize: 16,
                         ),
                       ),
                     ),

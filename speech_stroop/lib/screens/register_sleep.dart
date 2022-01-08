@@ -12,7 +12,10 @@ class _SleepRegisterWidgetState extends State<SleepRegisterWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formGlobalKey = GlobalKey<FormState>();
 
-  double _currentSliderValue = 1;
+  double _radioValue1 = 1;
+  double _radioValue2 = 1;
+  double _radioValue3 = 1;
+  double _radioValue4 = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +58,24 @@ class _SleepRegisterWidgetState extends State<SleepRegisterWidget> {
                             ),
                           ),
                         ),
+                        const Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          child: Text(
+                            '1 = ไม่เคย, 2 = บางครั้ง, 3 = บ่อยครั้ง, 4 = ทุกครั้ง',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFFD5B5FF),
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
                         const Align(
                           alignment: AlignmentDirectional(-1, 0),
                           child: Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                             child: Text(
-                              'การนอนหลับพักผ่อนใน 15 วันที่ผ่านมา',
+                              '1. ฉันรู้สึกหลับยาก',
                               style: TextStyle(
                                 color: Color(0xFF3F3F3F),
                                 fontSize: 16,
@@ -70,47 +84,133 @@ class _SleepRegisterWidgetState extends State<SleepRegisterWidget> {
                           ),
                         ),
                         Slider(
-                          value: _currentSliderValue,
+                          value: _radioValue1,
                           min: 1,
-                          max: 9,
-                          divisions: 8,
-                          label: _currentSliderValue.round().toString(),
+                          max: 4,
+                          divisions: 3,
+                          label: _radioValue1.round().toString(),
                           onChanged: (double value) {
                             setState(() {
-                              _currentSliderValue = value;
+                              _radioValue1 = value;
                             });
                           },
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'พักผ่อนน้อย',
+                        // Row(
+                        //   mainAxisSize: MainAxisSize.max,
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: const [
+                        //     Text(
+                        //       'ไม่เคย',
+                        //       style: TextStyle(
+                        //         color: Color(0xFF3F3F3F),
+                        //         fontSize: 15,
+                        //       ),
+                        //     ),
+                        //     Text(
+                        //       'บางครั้ง',
+                        //       style: TextStyle(
+                        //         color: Color(0xFF3F3F3F),
+                        //         fontSize: 15,
+                        //       ),
+                        //     ),
+                        //     Text(
+                        //       'บ่อยครั้ง',
+                        //       style: TextStyle(
+                        //         color: Color(0xFF3F3F3F),
+                        //         fontSize: 15,
+                        //       ),
+                        //     ),
+                        //     Text(
+                        //       'ทุกครั้ง',
+                        //       style: TextStyle(
+                        //         color: Color(0xFF3F3F3F),
+                        //         fontSize: 15,
+                        //       ),
+                        //     )
+                        //   ],
+                        // ),
+                        const Align(
+                          alignment: AlignmentDirectional(-1, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            child: Text(
+                              '2. ฉันรู้สึกตื่นง่ายเมื่อมีเสียงรบกวน',
                               style: TextStyle(
                                 color: Color(0xFF3F3F3F),
-                                fontSize: 15,
+                                fontSize: 16,
                               ),
                             ),
-                            Text(
-                              'พักผ่อนปานกลาง',
+                          ),
+                        ),
+                        Slider(
+                          value: _radioValue2,
+                          min: 1,
+                          max: 4,
+                          divisions: 3,
+                          label: _radioValue2.round().toString(),
+                          onChanged: (double value) {
+                            setState(() {
+                              _radioValue2 = value;
+                            });
+                          },
+                        ),
+                        //3
+                        const Align(
+                          alignment: AlignmentDirectional(-1, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            child: Text(
+                              '3. ฉันรู้สึกสดชื่นหลังตื่นนอน',
                               style: TextStyle(
                                 color: Color(0xFF3F3F3F),
-                                fontSize: 15,
+                                fontSize: 16,
                               ),
                             ),
-                            Text(
-                              'พักผ่อนมาก',
+                          ),
+                        ),
+                        Slider(
+                          value: _radioValue3,
+                          min: 1,
+                          max: 4,
+                          divisions: 3,
+                          label: _radioValue3.round().toString(),
+                          onChanged: (double value) {
+                            setState(() {
+                              _radioValue3 = value;
+                            });
+                          },
+                        ),
+                        const Align(
+                          alignment: AlignmentDirectional(-1, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            child: Text(
+                              '4. ฉันรู้สึกชั่วโมงการนอนหลับของฉันเพียงพอ',
                               style: TextStyle(
                                 color: Color(0xFF3F3F3F),
-                                fontSize: 15,
+                                fontSize: 16,
                               ),
-                            )
-                          ],
+                            ),
+                          ),
+                        ),
+                        Slider(
+                          value: _radioValue4,
+                          min: 1,
+                          max: 4,
+                          divisions: 3,
+                          label: _radioValue4.round().toString(),
+                          onChanged: (double value) {
+                            setState(() {
+                              _radioValue4 = value;
+                            });
+                          },
                         ),
                         Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 30, 0, 5),
+                                0, 20, 0, 5),
                             child: SizedBox(
                               width: 191,
                               height: 50,
@@ -137,17 +237,17 @@ class _SleepRegisterWidgetState extends State<SleepRegisterWidget> {
                     )),
               ),
             ),
-            Expanded(
-              child: Align(
-                alignment: const AlignmentDirectional(0, 1),
-                child: Image.asset(
-                  'assets/images/motivation-amico.png',
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            )
+            // Expanded(
+            //   child: Align(
+            //     alignment: const AlignmentDirectional(0, 1),
+            //     child: Image.asset(
+            //       'assets/images/motivation-amico.png',
+            //       width: MediaQuery.of(context).size.width,
+            //       height: MediaQuery.of(context).size.height * 0.55,
+            //       fit: BoxFit.fitHeight,
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),

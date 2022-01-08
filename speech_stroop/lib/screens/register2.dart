@@ -113,7 +113,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                         controller: textController5,
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelText: 'อีเมลล์',
+                          labelText: 'อีเมล',
                           labelStyle: const TextStyle(
                             fontFamily: 'Bai Jamjuree',
                             fontWeight: FontWeight.w300,
@@ -143,9 +143,9 @@ class _Register2WidgetState extends State<Register2Widget> {
                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(val);
                           if (val.isEmpty) {
-                            return 'โปรดระบุอีเมลล์';
+                            return 'โปรดระบุอีเมล';
                           } else if (!isEmailValid) {
-                            return 'โปรดระบุอีเมลล์ให้ถูกต้อง';
+                            return 'โปรดระบุอีเมลให้ถูกต้อง';
                           }
                           return null;
                         },
