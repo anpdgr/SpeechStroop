@@ -3,20 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-// import '../providers/speech_lib.dart';
-import 'dart:math' as math;
+// import 'package:permission_handler/permission_handler.dart';
 
 import 'login.dart';
 import 'components/color_code.dart';
 
-class ColorTestWidget extends StatefulWidget {
-  const ColorTestWidget({Key key}) : super(key: key);
+class MicrophoneTestWidget extends StatefulWidget {
+  const MicrophoneTestWidget({Key key}) : super(key: key);
 
   @override
-  _ColorTestWidgetState createState() => _ColorTestWidgetState();
+  _MicrophoneTestWidgetState createState() => _MicrophoneTestWidgetState();
 }
 
-class _ColorTestWidgetState extends State<ColorTestWidget> {
+class _MicrophoneTestWidgetState extends State<MicrophoneTestWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   stt.SpeechToText speech;
@@ -30,11 +29,14 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
   List<SpeechRecognitionWords> valAlternates;
 
   Icon micButton() {
+    // Future<Icon> micButton() async {
     if (isListening) {
+      // var status = await Permission.microphone.request();
+      // if (status.isGranted) {
       return const Icon(Icons.mic, size: 100);
-    } else {
-      return const Icon(Icons.mic_none, size: 100);
+      // }
     }
+    return const Icon(Icons.mic_none, size: 100);
   }
 
   @override
@@ -82,7 +84,7 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: Text(
-                        'ทดสอบการจำแนกสี',
+                        'ทดสอบไมโครโฟน',
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           color: Color(0xFFD5B5FF),
@@ -92,34 +94,31 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
                     ),
                   ),
                   const Divider(),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
-                    child: Text(
-                      '${answered + 1}/7',
-                      style: const TextStyle(
-                        color: Color(0xFF8F8F8F),
-                        fontSize: 36,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ),
                   Align(
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
-                      child: SizedBox(
-                        width: 200,
-                        height: 200,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: colorsMap.values.toList()[answered],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                      // alignment: const AlignmentDirectional(0, 0),
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: Text(colorsMap.keys.toList()[answered],
+                              style: TextStyle(
+                                  color: colorsMap.values.toList()[answered],
+                                  fontSize: 70,
+                                  fontWeight: FontWeight.bold)),
+                          // SizedBox(
+                          //   width: 200,
+                          //   height: 200,
+                          //   child: DecoratedBox(
+                          //     decoration: BoxDecoration(
+                          //       color: colorsMap.values.toList()[answered],
+                          //       borderRadius: BorderRadius.circular(10),
+                          //     ),
+                          //   ),
+                          // ),
                         ),
-                      ),
-                    ),
-                  ),
+                      )),
                   Text(text)
                 ],
               ),
@@ -161,7 +160,7 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
     // }
     if (isAnswerCorrect()) {
       setState(() {
-        text = 'Correct!';
+        text = valAlternates.last.toString();
       });
       print(text);
     } else {

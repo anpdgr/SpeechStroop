@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/color_test.dart';
+import 'package:speech_stroop/screens/microphone_test.dart';
+import 'package:speech_stroop/screens/reading_test.dart';
 import 'package:speech_stroop/screens/register.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -224,7 +226,8 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ColorTestWidget()));
+                                builder: (context) =>
+                                    const MicrophoneTestWidget()));
                       },
                       child: const Text('ลืมรหัสผ่าน'),
                       style: TextButton.styleFrom(
