@@ -6,7 +6,7 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 // import 'package:permission_handler/permission_handler.dart';
 
 import 'login.dart';
-import 'components/color_code.dart';
+import '../utils/speech_lib.dart';
 
 class MicrophoneTestWidget extends StatefulWidget {
   const MicrophoneTestWidget({Key key}) : super(key: key);

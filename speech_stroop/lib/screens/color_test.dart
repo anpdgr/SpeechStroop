@@ -7,7 +7,7 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'dart:math' as math;
 
 import 'login.dart';
-import 'components/color_code.dart';
+import '../utils/speech_lib.dart';
 
 class ColorTestWidget extends StatefulWidget {
   const ColorTestWidget({Key key}) : super(key: key);
