@@ -3,6 +3,7 @@ import 'package:speech_stroop/screens/color_test.dart';
 import 'package:speech_stroop/screens/microphone_test.dart';
 import 'package:speech_stroop/screens/reading_test.dart';
 import 'package:speech_stroop/screens/register.dart';
+import 'package:speech_stroop/screens/stroop_test.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key key}) : super(key: key);
@@ -227,7 +228,7 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const MicrophoneTestWidget()));
+                                    const StroopTestWidget()));
                       },
                       child: const Text('ลืมรหัสผ่าน'),
                       style: TextButton.styleFrom(
