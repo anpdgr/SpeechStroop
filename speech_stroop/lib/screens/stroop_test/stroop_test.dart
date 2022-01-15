@@ -1,4 +1,3 @@
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -11,7 +10,6 @@ import 'dart:math';
 import 'break.dart';
 
 int section = 1;
-// ignore: non_constant_identifier_names
 int QUESTIONS_AMOUNT = 20;
 List<Tuple2<String, Color>> testTemplate = [];
 
@@ -29,12 +27,7 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
 
   bool isListening = false;
   String text = '';
-  // int answered = -1;
   List textArr;
-  // bool isCorrect = false;
-  // // int score = 0;
-  // // int scoreOne = 0;
-  // List<SpeechRecognitionWords> valAlternates;
 
   @override
   void initState() {
@@ -52,41 +45,40 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Align(
-                      // alignment: const AlignmentDirectional(0, 0),
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
-                        child: FittedBox(
-                          fit: BoxFit.cover,
-                          child: answered >= 0
-                              ? Text(testTemplate[answered].first,
-                                  style: TextStyle(
-                                      color: testTemplate[answered].last,
-                                      fontSize: 70,
-                                      fontWeight: FontWeight.bold))
-                              : ElevatedButton(
-                                  onPressed: () {
-                                    if (answered < 0) {
-                                      buildTest();
-                                      navigatePage();
-                                      listen();
-                                    }
-                                  },
-                                  child: const Text('แตะเพื่อเริ่ม'),
-                                ),
-                        ),
-                      )),
-                  Text(text)
-                ],
-              ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: answered >= 0
+                        ? Text(
+                            testTemplate[answered].first,
+                            style: TextStyle(
+                              color: testTemplate[answered].last,
+                              fontSize: 70,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                        : ElevatedButton(
+                            onPressed: () {
+                              if (answered < 0) {
+                                buildTest();
+                                navigatePage();
+                                listen();
+                              }
+                            },
+                            child: const Text('แตะเพื่อเริ่ม'),
+                          ),
+                  ),
+                ),
+                Text(text)
+              ],
             ),
           ],
         ),
@@ -95,10 +87,11 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
   }
 
   void buildTest() {
+    print('answered' + answered.toString());
     Random rn = Random();
     int idxName = 0, idxCode = 0, congruent = 0, incongruent = 0;
     List colorsCodeNoName = [];
-    Tuple2 question;
+    Tuple2<String, Color> question;
     testTemplate = <Tuple2<String, Color>>[];
 
     switch (section) {
@@ -117,33 +110,42 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
       default:
     }
 
-    idxName = rn.nextInt(colorsName.length);
     for (var i = 0; i < congruent; i++) {
+      idxName = rn.nextInt(colorsName.length);
       question = Tuple2(colorsName[idxName], colorsCode[idxName]);
-      if (question == testTemplate.last) {
-        i--;
-        continue;
-      }
+
+      // print('tt' + testTemplate.toString());
+      // print('q' + question.toString());
+      // print(testTemplate.isNotEmpty);
+      // print(testTemplate.contains(question));
+      // print(testTemplate.isNotEmpty && testTemplate.contains(question));
+      //TODO: edit condition to check dup elem
+      // if (testTemplate.isNotEmpty && question == testTemplate.last) {
+      //   i--;
+      //   // await Future.delayed(const Duration(seconds: 2), () {});
+      //   continue;
+      // }
       testTemplate.add(question);
     }
     for (var i = 0; i < incongruent; i++) {
+      idxName = rn.nextInt(colorsName.length);
+
       colorsCodeNoName = colorsCode
           .where((c) => c != colorsMapDefault[colorsName[idxName]])
           .toList();
       idxCode = rn.nextInt(colorsCodeNoName.length);
       question = Tuple2(colorsName[idxName], colorsCodeNoName[idxCode]);
-      if (question == testTemplate.last) {
-        i--;
-        continue;
-      }
+
+      // if (testTemplate.isNotEmpty && testTemplate.contains(question)) {
+      //   i--;
+      //   break;
+      // }
       testTemplate.add(question);
     }
+
     testTemplate.shuffle();
 
-    section++;
-    answered = 0;
-
-    print(testTemplate);
+    print(testTemplate.toString() + (testTemplate.length).toString());
   }
 
   void listen() async {
@@ -179,11 +181,13 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
   }
 
   void navigatePage() {
+    print('answered' + answered.toString());
     if (answered < QUESTIONS_AMOUNT - 1) {
       //every section, except last Q
       var durationDelay = (answered == -1)
           ? const Duration(milliseconds: 1000)
-          : const Duration(milliseconds: 3000);
+          //TODO: edit ms
+          : const Duration(milliseconds: 300);
       Future.delayed(durationDelay, () {
         setState(() {
           answered++;
@@ -191,30 +195,24 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
           navigatePage();
         });
       });
-    } else if (answered == QUESTIONS_AMOUNT) {
-      //Widget nextWidget;
+    }
+    if (answered == QUESTIONS_AMOUNT - 1) {
+      Widget nextWidget;
       setState(() {
         isListening = false;
         if (section < 3) {
           //section 1-2, last Q
-          //nextWidget = const BreakWidget();
-          Future.delayed(const Duration(milliseconds: 3000), () {
-            speech.stop();
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const BreakWidget()));
-          });
+          nextWidget = const BreakWidget();
         } else if (section == 3) {
           //section 3, last Q
-          //nextWidget = const LoginWidget();
-
+          nextWidget = const LoginWidget();
         }
       });
-
-      // Future.delayed(const Duration(milliseconds: 3000), () {
-      //   speech.stop();
-      //   Navigator.push(
-      //       context, MaterialPageRoute(builder: (context) => nextWidget()));
-      // });
+      Future.delayed(const Duration(milliseconds: 3000), () {
+        speech.stop();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => nextWidget));
+      });
     }
   }
 }

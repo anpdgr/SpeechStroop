@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/screens/stroop_test/stroop_test.dart';
+import 'package:speech_stroop/utils/speech_lib.dart';
 
 class BreakWidget extends StatefulWidget {
   const BreakWidget({Key key}) : super(key: key);
@@ -26,16 +27,16 @@ class _BreakWidgetState extends State<BreakWidget> {
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: Column(mainAxisSize: MainAxisSize.max, children: [
-          // GestureDetector(
-          //     onTap: () {
-          //       Navigator.push(
-          //           context,
-          //           MaterialPageRoute(
-          //               builder: (context) => const StroopTestWidget()));
-          //     },
-          //     child:
-          const Text("break")
-          //  )
+          GestureDetector(
+              onTap: () {
+                section++;
+                answered = -1;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const StroopTestWidget()));
+              },
+              child: const Text("break"))
         ]),
       ),
     );
