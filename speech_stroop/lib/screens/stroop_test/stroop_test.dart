@@ -1,7 +1,6 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:more/tuple.dart';
 
@@ -9,7 +8,9 @@ import '../auth/login.dart';
 import '../../utils/speech_lib.dart';
 import 'dart:math';
 
-int section = 0;
+import 'break.dart';
+
+int section = 1;
 // ignore: non_constant_identifier_names
 int QUESTIONS_AMOUNT = 20;
 List<Tuple2<String, Color>> testTemplate = [];
@@ -52,45 +53,39 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            GestureDetector(
-              onTap: () {
-                if (answered < 0) {
-                  buildTest();
-                  navigatePage();
-                  listen();
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Align(
-                        // alignment: const AlignmentDirectional(0, 0),
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0, 100, 0, 0),
-                          child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: answered >= 0
-                                ? Text(colorsMapDefault.keys.toList()[answered],
-                                    style: TextStyle(
-                                        color: colorsMapDefault.values
-                                            .toList()[answered],
-                                        fontSize: 70,
-                                        fontWeight: FontWeight.bold))
-                                : const Text('แตะเพื่อเริ่ม',
-                                    style: TextStyle(
-                                      color: Color(0xFFF5F5F5),
-                                      fontSize: 65,
-                                      // fontWeight: FontWeight.bold
-                                    )),
-                          ),
-                        )),
-                    Text(text)
-                  ],
-                ),
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Align(
+                      // alignment: const AlignmentDirectional(0, 0),
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: answered >= 0
+                              ? Text(testTemplate[answered].first,
+                                  style: TextStyle(
+                                      color: testTemplate[answered].last,
+                                      fontSize: 70,
+                                      fontWeight: FontWeight.bold))
+                              : ElevatedButton(
+                                  onPressed: () {
+                                    if (answered < 0) {
+                                      buildTest();
+                                      navigatePage();
+                                      listen();
+                                    }
+                                  },
+                                  child: const Text('แตะเพื่อเริ่ม'),
+                                ),
+                        ),
+                      )),
+                  Text(text)
+                ],
               ),
             ),
           ],
@@ -100,10 +95,10 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
   }
 
   void buildTest() {
-    section = section == 0 ? 1 : section;
     Random rn = Random();
     int idxName = 0, idxCode = 0, congruent = 0, incongruent = 0;
     List colorsCodeNoName = [];
+    Tuple2 question;
     testTemplate = <Tuple2<String, Color>>[];
 
     switch (section) {
@@ -122,15 +117,26 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
       default:
     }
 
+    idxName = rn.nextInt(colorsName.length);
     for (var i = 0; i < congruent; i++) {
-      idxName = rn.nextInt(colorsName.length);
-      testTemplate.add(Tuple2(colorsName[idxName], colorsCode[idxName]));
+      question = Tuple2(colorsName[idxName], colorsCode[idxName]);
+      if (question == testTemplate.last) {
+        i--;
+        continue;
+      }
+      testTemplate.add(question);
     }
     for (var i = 0; i < incongruent; i++) {
-      idxName = rn.nextInt(colorsName.length);
-      colorsCodeNoName = colorsCode.removeAt(idxName);
+      colorsCodeNoName = colorsCode
+          .where((c) => c != colorsMapDefault[colorsName[idxName]])
+          .toList();
       idxCode = rn.nextInt(colorsCodeNoName.length);
-      testTemplate.add(Tuple2(colorsName[idxName], colorsCodeNoName[idxCode]));
+      question = Tuple2(colorsName[idxName], colorsCodeNoName[idxCode]);
+      if (question == testTemplate.last) {
+        i--;
+        continue;
+      }
+      testTemplate.add(question);
     }
     testTemplate.shuffle();
 
@@ -185,24 +191,30 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
           navigatePage();
         });
       });
-    } else if (section < 3 && answered == QUESTIONS_AMOUNT) {
-      //section 1-2, last Q
-
-      //break
-    }
-
-    if (section == 3 && answered == QUESTIONS_AMOUNT) {
-      //section 3, last Q
+    } else if (answered == QUESTIONS_AMOUNT) {
+      //Widget nextWidget;
       setState(() {
         isListening = false;
+        if (section < 3) {
+          //section 1-2, last Q
+          //nextWidget = const BreakWidget();
+          Future.delayed(const Duration(milliseconds: 3000), () {
+            speech.stop();
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const BreakWidget()));
+          });
+        } else if (section == 3) {
+          //section 3, last Q
+          //nextWidget = const LoginWidget();
+
+        }
       });
-      Future.delayed(const Duration(milliseconds: 3000), () {
-        speech.stop();
-        Navigator.push(
-            context,
-            //TODO: break page
-            MaterialPageRoute(builder: (context) => const LoginWidget()));
-      });
+
+      // Future.delayed(const Duration(milliseconds: 3000), () {
+      //   speech.stop();
+      //   Navigator.push(
+      //       context, MaterialPageRoute(builder: (context) => nextWidget()));
+      // });
     }
   }
 }

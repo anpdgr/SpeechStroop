@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:speech_stroop/screens/stroop_test/stroop_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:deep_collection/deep_collection.dart';
 
 int answered = -1;
 List textArr;
@@ -49,7 +50,9 @@ void scoreCounting() {
 bool isAnswerCorrect() {
   for (var predictedResult in valAlternates) {
     var predictedWord = predictedResult.recognizedWords;
-    if (predictedWord == colorsMapDefault.keys.toList()[answered]) {
+    if (predictedWord ==
+        colorsMapDefault.keys.firstWhere(
+            (k) => colorsMapDefault[k] == testTemplate[answered].last)) {
       isCorrect = true;
       return isCorrect;
     } else {

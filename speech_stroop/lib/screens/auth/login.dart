@@ -73,7 +73,6 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                         decoration: InputDecoration(
                           labelText: 'เบอร์โทรศัพท์',
                           labelStyle: const TextStyle(
-                            fontFamily: 'Bai Jamjuree',
                             fontWeight: FontWeight.w300,
                           ),
                           enabledBorder: OutlineInputBorder(
@@ -92,7 +91,6 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                           ),
                         ),
                         style: const TextStyle(
-                          fontFamily: 'Bai Jamjuree',
                           fontWeight: FontWeight.w300,
                         ),
                         textAlign: TextAlign.start,
