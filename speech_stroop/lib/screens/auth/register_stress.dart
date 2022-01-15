@@ -1,4 +1,4 @@
-import 'package:speech_stroop/screens/register_sleep.dart';
+import 'package:speech_stroop/screens/auth/register_sleep.dart';
 import 'package:flutter/material.dart';
 
 class StressRegisterWidget extends StatefulWidget {

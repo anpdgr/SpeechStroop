@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:speech_stroop/screens/color_test.dart';
+import 'package:speech_stroop/screens/precondition_test/color_test.dart';
 
 class SleepRegisterWidget extends StatefulWidget {
   const SleepRegisterWidget({Key key}) : super(key: key);

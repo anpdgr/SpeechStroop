@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-// import 'package:permission_handler/permission_handler.dart';
+// import '../providers/speech_lib.dart';
 
-import 'login.dart';
-import '../utils/speech_lib.dart';
+import '../auth/login.dart';
+import '../../utils/speech_lib.dart';
 
-class MicrophoneTestWidget extends StatefulWidget {
-  const MicrophoneTestWidget({Key key}) : super(key: key);
+class ColorTestWidget extends StatefulWidget {
+  const ColorTestWidget({Key key}) : super(key: key);
 
   @override
-  _MicrophoneTestWidgetState createState() => _MicrophoneTestWidgetState();
+  _ColorTestWidgetState createState() => _ColorTestWidgetState();
 }
 
-class _MicrophoneTestWidgetState extends State<MicrophoneTestWidget> {
+class _ColorTestWidgetState extends State<ColorTestWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   stt.SpeechToText speech;
@@ -29,14 +29,11 @@ class _MicrophoneTestWidgetState extends State<MicrophoneTestWidget> {
   List<SpeechRecognitionWords> valAlternates;
 
   Icon micButton() {
-    // Future<Icon> micButton() async {
     if (isListening) {
-      // var status = await Permission.microphone.request();
-      // if (status.isGranted) {
       return const Icon(Icons.mic, size: 100);
-      // }
+    } else {
+      return const Icon(Icons.mic_none, size: 100);
     }
-    return const Icon(Icons.mic_none, size: 100);
   }
 
   @override
@@ -84,7 +81,7 @@ class _MicrophoneTestWidgetState extends State<MicrophoneTestWidget> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: Text(
-                        'ทดสอบไมโครโฟน',
+                        'ทดสอบการจำแนกสี',
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           color: Color(0xFFD5B5FF),
@@ -94,31 +91,34 @@ class _MicrophoneTestWidgetState extends State<MicrophoneTestWidget> {
                     ),
                   ),
                   const Divider(),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                    child: Text(
+                      '${answered + 1}/7',
+                      style: const TextStyle(
+                        color: Color(0xFF8F8F8F),
+                        fontSize: 36,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
                   Align(
-                      // alignment: const AlignmentDirectional(0, 0),
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
-                        child: FittedBox(
-                          fit: BoxFit.cover,
-                          child: Text(colorsMap.keys.toList()[answered],
-                              style: TextStyle(
-                                  color: colorsMap.values.toList()[answered],
-                                  fontSize: 70,
-                                  fontWeight: FontWeight.bold)),
-                          // SizedBox(
-                          //   width: 200,
-                          //   height: 200,
-                          //   child: DecoratedBox(
-                          //     decoration: BoxDecoration(
-                          //       color: colorsMap.values.toList()[answered],
-                          //       borderRadius: BorderRadius.circular(10),
-                          //     ),
-                          //   ),
-                          // ),
+                    alignment: const AlignmentDirectional(0, 0),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                      child: SizedBox(
+                        width: 200,
+                        height: 200,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: colorsMapDefault.values.toList()[answered],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
                   Text(text)
                 ],
               ),
@@ -160,7 +160,7 @@ class _MicrophoneTestWidgetState extends State<MicrophoneTestWidget> {
     // }
     if (isAnswerCorrect()) {
       setState(() {
-        text = valAlternates.last.toString();
+        text = 'Correct!';
       });
       print(text);
     } else {
@@ -173,7 +173,7 @@ class _MicrophoneTestWidgetState extends State<MicrophoneTestWidget> {
   bool isAnswerCorrect() {
     for (var predictedResult in valAlternates) {
       var predictedWord = predictedResult.recognizedWords;
-      if (predictedWord == colorsMap.keys.toList()[answered]) {
+      if (predictedWord == colorsMapDefault.keys.toList()[answered]) {
         isCorrect = true;
         return isCorrect;
       } else {

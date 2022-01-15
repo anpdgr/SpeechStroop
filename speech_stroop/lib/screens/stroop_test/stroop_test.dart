@@ -3,9 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:more/tuple.dart';
 
-import 'login.dart';
-import '../utils/speech_lib.dart';
+import '../auth/login.dart';
+import '../../utils/speech_lib.dart';
+import 'dart:math';
+
+int section = 0;
+// ignore: non_constant_identifier_names
+int QUESTIONS_AMOUNT = 20;
+List<Tuple2<String, Color>> testTemplate = [];
 
 class StroopTestWidget extends StatefulWidget {
   const StroopTestWidget({Key key}) : super(key: key);
@@ -48,6 +55,7 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
             GestureDetector(
               onTap: () {
                 if (answered < 0) {
+                  buildTest();
                   navigatePage();
                   listen();
                 }
@@ -66,10 +74,10 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
                           child: FittedBox(
                             fit: BoxFit.cover,
                             child: answered >= 0
-                                ? Text(colorsMap.keys.toList()[answered],
+                                ? Text(colorsMapDefault.keys.toList()[answered],
                                     style: TextStyle(
-                                        color:
-                                            colorsMap.values.toList()[answered],
+                                        color: colorsMapDefault.values
+                                            .toList()[answered],
                                         fontSize: 70,
                                         fontWeight: FontWeight.bold))
                                 : const Text('แตะเพื่อเริ่ม',
@@ -89,6 +97,47 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
         ),
       ),
     );
+  }
+
+  void buildTest() {
+    section = section == 0 ? 1 : section;
+    Random rn = Random();
+    int idxName = 0, idxCode = 0, congruent = 0, incongruent = 0;
+    List colorsCodeNoName = [];
+    testTemplate = <Tuple2<String, Color>>[];
+
+    switch (section) {
+      case 1:
+        congruent = 14;
+        incongruent = 6;
+        break;
+      case 2:
+        congruent = 10;
+        incongruent = 10;
+        break;
+      case 3:
+        congruent = 6;
+        incongruent = 14;
+        break;
+      default:
+    }
+
+    for (var i = 0; i < congruent; i++) {
+      idxName = rn.nextInt(colorsName.length);
+      testTemplate.add(Tuple2(colorsName[idxName], colorsCode[idxName]));
+    }
+    for (var i = 0; i < incongruent; i++) {
+      idxName = rn.nextInt(colorsName.length);
+      colorsCodeNoName = colorsCode.removeAt(idxName);
+      idxCode = rn.nextInt(colorsCodeNoName.length);
+      testTemplate.add(Tuple2(colorsName[idxName], colorsCodeNoName[idxCode]));
+    }
+    testTemplate.shuffle();
+
+    section++;
+    answered = 0;
+
+    print(testTemplate);
   }
 
   void listen() async {
@@ -124,7 +173,8 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
   }
 
   void navigatePage() {
-    if (answered < 6) {
+    if (answered < QUESTIONS_AMOUNT - 1) {
+      //every section, except last Q
       var durationDelay = (answered == -1)
           ? const Duration(milliseconds: 1000)
           : const Duration(milliseconds: 3000);
@@ -135,14 +185,22 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
           navigatePage();
         });
       });
-    } else {
+    } else if (section < 3 && answered == QUESTIONS_AMOUNT) {
+      //section 1-2, last Q
+
+      //break
+    }
+
+    if (section == 3 && answered == QUESTIONS_AMOUNT) {
+      //section 3, last Q
       setState(() {
         isListening = false;
       });
       Future.delayed(const Duration(milliseconds: 3000), () {
         speech.stop();
-        scoreCounting();
-        Navigator.push(context,
+        Navigator.push(
+            context,
+            //TODO: break page
             MaterialPageRoute(builder: (context) => const LoginWidget()));
       });
     }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:speech_stroop/screens/login.dart';
+import 'package:speech_stroop/screens/auth/login.dart';
 
 void main() {
   runApp(const MyApp());

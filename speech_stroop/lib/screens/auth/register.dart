@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:speech_stroop/screens/register2.dart';
-import 'package:speech_stroop/screens/register_stress.dart';
+import 'package:speech_stroop/screens/auth/register2.dart';
+import 'package:speech_stroop/screens/auth/register_stress.dart';
 
 class RegisterWidget extends StatefulWidget {
   const RegisterWidget({Key key}) : super(key: key);

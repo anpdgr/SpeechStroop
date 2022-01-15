@@ -3,20 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-// import '../providers/speech_lib.dart';
-import 'dart:math' as math;
 
-import 'login.dart';
-import '../utils/speech_lib.dart';
+import '../auth/login.dart';
+import '../../utils/speech_lib.dart';
 
-class ColorTestWidget extends StatefulWidget {
-  const ColorTestWidget({Key key}) : super(key: key);
+class ReadingTestWidget extends StatefulWidget {
+  const ReadingTestWidget({Key key}) : super(key: key);
 
   @override
-  _ColorTestWidgetState createState() => _ColorTestWidgetState();
+  _ReadingTestWidgetState createState() => _ReadingTestWidgetState();
 }
 
-class _ColorTestWidgetState extends State<ColorTestWidget> {
+class _ReadingTestWidgetState extends State<ReadingTestWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   stt.SpeechToText speech;
@@ -82,7 +80,7 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: Text(
-                        'ทดสอบการจำแนกสี',
+                        'ทดสอบการอ่าน',
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           color: Color(0xFFD5B5FF),
@@ -104,22 +102,31 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
-                      child: SizedBox(
-                        width: 200,
-                        height: 200,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: colorsMap.values.toList()[answered],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                      // alignment: const AlignmentDirectional(0, 0),
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: Text(colorsMapDefault.keys.toList()[answered],
+                              style: TextStyle(
+                                  color: colorsMapDefault.values
+                                      .toList()[answered],
+                                  fontSize: 70,
+                                  fontWeight: FontWeight.bold)),
+                          // SizedBox(
+                          //   width: 200,
+                          //   height: 200,
+                          //   child: DecoratedBox(
+                          //     decoration: BoxDecoration(
+                          //       color: colorsMapDefault.values.toList()[answered],
+                          //       borderRadius: BorderRadius.circular(10),
+                          //     ),
+                          //   ),
+                          // ),
                         ),
-                      ),
-                    ),
-                  ),
+                      )),
                   Text(text)
                 ],
               ),
@@ -174,7 +181,7 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
   bool isAnswerCorrect() {
     for (var predictedResult in valAlternates) {
       var predictedWord = predictedResult.recognizedWords;
-      if (predictedWord == colorsMap.keys.toList()[answered]) {
+      if (predictedWord == colorsMapDefault.keys.toList()[answered]) {
         isCorrect = true;
         return isCorrect;
       } else {
