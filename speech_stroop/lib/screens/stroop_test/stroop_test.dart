@@ -11,7 +11,7 @@ import 'break.dart';
 
 int section = 1;
 int QUESTIONS_AMOUNT = 20;
-List<Tuple2<String, Color>> testTemplate = [];
+List<Tuple3<String, Color, String>> testTemplate = [];
 
 class StroopTestWidget extends StatefulWidget {
   const StroopTestWidget({Key key}) : super(key: key);
@@ -59,7 +59,7 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
                         ? Text(
                             testTemplate[answered].first,
                             style: TextStyle(
-                              color: testTemplate[answered].last,
+                              color: testTemplate[answered].second,
                               fontSize: 70,
                               fontWeight: FontWeight.bold,
                             ),
@@ -91,8 +91,8 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
     Random rn = Random();
     int idxName = 0, idxCode = 0, congruent = 0, incongruent = 0;
     List colorsCodeNoName = [];
-    Tuple2<String, Color> question;
-    testTemplate = <Tuple2<String, Color>>[];
+    Tuple3<String, Color, String> question;
+    testTemplate = <Tuple3<String, Color, String>>[];
 
     switch (section) {
       case 1:
@@ -112,19 +112,8 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
 
     for (var i = 0; i < congruent; i++) {
       idxName = rn.nextInt(colorsName.length);
-      question = Tuple2(colorsName[idxName], colorsCode[idxName]);
+      question = Tuple3(colorsName[idxName], colorsCode[idxName], "congruent");
 
-      // print('tt' + testTemplate.toString());
-      // print('q' + question.toString());
-      // print(testTemplate.isNotEmpty);
-      // print(testTemplate.contains(question));
-      // print(testTemplate.isNotEmpty && testTemplate.contains(question));
-      //TODO: edit condition to check dup elem
-      // if (testTemplate.isNotEmpty && question == testTemplate.last) {
-      //   i--;
-      //   // await Future.delayed(const Duration(seconds: 2), () {});
-      //   continue;
-      // }
       testTemplate.add(question);
     }
     for (var i = 0; i < incongruent; i++) {
@@ -134,18 +123,30 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
           .where((c) => c != colorsMapDefault[colorsName[idxName]])
           .toList();
       idxCode = rn.nextInt(colorsCodeNoName.length);
-      question = Tuple2(colorsName[idxName], colorsCodeNoName[idxCode]);
-
-      // if (testTemplate.isNotEmpty && testTemplate.contains(question)) {
-      //   i--;
-      //   break;
-      // }
-      testTemplate.add(question);
+      question =
+          Tuple3(colorsName[idxName], colorsCodeNoName[idxCode], "incongruent");
+      isQuestionExist(question, testTemplate)
+          ? (i--)
+          : testTemplate.add(question);
     }
 
+    //TODO: avoid same element being next to each other
     testTemplate.shuffle();
 
     print(testTemplate.toString() + (testTemplate.length).toString());
+  }
+
+  bool isQuestionExist(question, testTemplate) {
+    for (var elem in testTemplate) {
+      print((question == elem).toString() +
+          question.toString() +
+          "\t" +
+          elem.toString());
+      if (question == elem) {
+        return true;
+      }
+    }
+    return false;
   }
 
   void listen() async {
@@ -171,7 +172,7 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
     if (isAnswerCorrect()) {
       setState(() {
         text = 'Correct!';
-        scoreOne++;
+        scorePerQuestion++;
       });
     } else {
       setState(() {
@@ -187,18 +188,24 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
       var durationDelay = (answered == -1)
           ? const Duration(milliseconds: 1000)
           //TODO: edit ms
-          : const Duration(milliseconds: 300);
+          : const Duration(milliseconds: 3000);
       Future.delayed(durationDelay, () {
         setState(() {
-          answered++;
           scoreCounting();
+          answered++;
           navigatePage();
         });
       });
     }
     if (answered == QUESTIONS_AMOUNT - 1) {
       Widget nextWidget;
+      //TODO: push db
+
+      //TODO: set scores to 0
+
       setState(() {
+        scoreCounting();
+
         isListening = false;
         if (section < 3) {
           //section 1-2, last Q

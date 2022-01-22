@@ -6,10 +6,12 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 int answered = -1;
 List textArr;
 bool isCorrect = false;
-int score = 0;
-int scoreOne = 0;
+int scorePerSection = 0;
+int scorePerQuestion = 0;
 List<SpeechRecognitionWords> valAlternates;
-List scores = [];
+List scoresAllSection = [];
+var scores = {"congruent": 0, "incongruent": 0, "sectionScore": 0};
+var countTest = 0;
 
 Map colorsMapDefault = {
   'แดง': const Color(0xFFDA5C54),
@@ -33,14 +35,19 @@ List colorsCode = const [
 ];
 
 void scoreCounting() {
-  if (scoreOne != 0) {
-    score++;
-    scoreOne = 0;
+  if (scorePerQuestion != 0) {
+    //if it's correct
+    String condition = testTemplate[answered].last;
+    scores[condition]++;
+
+    scorePerQuestion = 0;
   }
   if (answered == QUESTIONS_AMOUNT - 1) {
-    scores.add(score);
+    scores["sectionScore"] = scores["congruent"] + scores["incongruent"];
+    scoresAllSection.add(scores["sectionScore"]);
   }
-  print("scores: " + scores.toString());
+  print("scoresAllSection: " + scoresAllSection.toString());
+  print(scores);
 }
 
 bool isAnswerCorrect() {
@@ -48,7 +55,7 @@ bool isAnswerCorrect() {
     var predictedWord = predictedResult.recognizedWords;
     if (predictedWord ==
         colorsMapDefault.keys.firstWhere(
-            (k) => colorsMapDefault[k] == testTemplate[answered].last,
+            (k) => colorsMapDefault[k] == testTemplate[answered].second,
             orElse: () => '')) {
       isCorrect = true;
       return isCorrect;

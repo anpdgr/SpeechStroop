@@ -36,7 +36,7 @@ class _BreakWidgetState extends State<BreakWidget> {
                     MaterialPageRoute(
                         builder: (context) => const StroopTestWidget()));
               },
-              child: const Text("break"))
+              child: Text("break" + countTest.toString()))
         ]),
       ),
     );
