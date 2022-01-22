@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/providers/models/connectdb.dart';
+import 'package:speech_stroop/providers/models/users.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:more/tuple.dart';
 
@@ -138,10 +140,6 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
 
   bool isQuestionExist(question, testTemplate) {
     for (var elem in testTemplate) {
-      print((question == elem).toString() +
-          question.toString() +
-          "\t" +
-          elem.toString());
       if (question == elem) {
         return true;
       }
@@ -181,7 +179,7 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
     }
   }
 
-  void navigatePage() {
+  void navigatePage() async {
     print('answered' + answered.toString());
     if (answered < QUESTIONS_AMOUNT - 1) {
       //every section, except last Q
@@ -200,7 +198,9 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
     if (answered == QUESTIONS_AMOUNT - 1) {
       Widget nextWidget;
       //TODO: push db
-
+      // await User.insertUser();
+      // print(await User.getUser());
+      // MongoDatabase.db
       //TODO: set scores to 0
 
       setState(() {

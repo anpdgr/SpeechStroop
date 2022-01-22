@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/providers/models/connectdb.dart';
 import 'package:speech_stroop/screens/auth/login.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await MongoDatabase.connect();
   runApp(const MyApp());
 }
 
@@ -90,7 +93,13 @@ class _OverviewWidgetState extends State<OverviewWidget> {
                       color: Color(0xFF7364FF),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    // const user = User(
+                    //   name: 'name',
+                    //   age: 1,
+                    //   phone: 2,
+                    // );
+                    // await MongoDatabase.insert(user);
                     Navigator.push(
                         context,
                         MaterialPageRoute(

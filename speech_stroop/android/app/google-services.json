@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1077322169631",
+    "project_id": "speechstroop",
+    "storage_bucket": "speechstroop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077322169631:android:19d112fcd57be0a017842a",
+        "android_client_info": {
+          "package_name": "com.example.speech_stroop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1077322169631-dau5dfnb554ubvllsnhcsvbm31ipti55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChd3DjHPNUKQG5UlpOWiFjueD42JsrwZ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1077322169631-dau5dfnb554ubvllsnhcsvbm31ipti55.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1077322169631-baoctf7tvv7i3u07l14sgb3sqq01dqsg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.speechStroop"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
