@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test.dart';
+import 'package:http/http.dart' as http;
+
+import 'dart:convert';
 
 class SleepRegisterWidget extends StatefulWidget {
   const SleepRegisterWidget({Key key}) : super(key: key);
@@ -215,9 +219,25 @@ class _SleepRegisterWidgetState extends State<SleepRegisterWidget> {
                               width: 191,
                               height: 50,
                               child: ElevatedButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (formGlobalKey.currentState.validate()) {
                                       formGlobalKey.currentState.save();
+                                      registerReq = {
+                                        ...registerReq,
+                                        'sleep': _radioValue1 +
+                                            _radioValue2 +
+                                            _radioValue3 +
+                                            _radioValue4
+                                      };
+                                      var res = await http.post(
+                                          "http://localhost:3000/auth/register",
+                                          headers: {
+                                            'Content-Type': 'application/json'
+                                          },
+                                          body: jsonEncode(
+                                            registerReq,
+                                          ));
+                                      print(res.body);
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(

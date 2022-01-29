@@ -1,3 +1,4 @@
+import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register_sleep.dart';
 import 'package:flutter/material.dart';
 
@@ -336,6 +337,19 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                                 onPressed: () {
                                   if (formGlobalKey.currentState.validate()) {
                                     formGlobalKey.currentState.save();
+                                    registerReq = {
+                                      ...registerReq,
+                                      'stress': _radioValue1 +
+                                          _radioValue2 +
+                                          _radioValue3 +
+                                          _radioValue4 +
+                                          _radioValue5 +
+                                          _radioValue6 +
+                                          _radioValue7 +
+                                          _radioValue8 +
+                                          _radioValue9 +
+                                          _radioValue10
+                                    };
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

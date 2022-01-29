@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
 
 class Register2Widget extends StatefulWidget {
@@ -9,12 +10,12 @@ class Register2Widget extends StatefulWidget {
 }
 
 class _Register2WidgetState extends State<Register2Widget> {
-  String dropDownValue1;
-  String dropDownValue2;
-  TextEditingController textController4;
-  TextEditingController textController5;
-  TextEditingController textController6;
-  TextEditingController textController7;
+  String genderValue;
+  String educationValue;
+  TextEditingController nameController;
+  TextEditingController emailController;
+  TextEditingController lastFourIdController;
+  TextEditingController ageController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formGlobalKey = GlobalKey<FormState>();
@@ -22,10 +23,10 @@ class _Register2WidgetState extends State<Register2Widget> {
   @override
   void initState() {
     super.initState();
-    textController4 = TextEditingController();
-    textController5 = TextEditingController();
-    textController6 = TextEditingController();
-    textController7 = TextEditingController();
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    lastFourIdController = TextEditingController();
+    ageController = TextEditingController();
   }
 
   @override
@@ -65,7 +66,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: TextFormField(
-                          controller: textController4,
+                          controller: nameController,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'ชื่อผู้ใช้',
@@ -110,7 +111,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                       child: TextFormField(
-                        controller: textController5,
+                        controller: emailController,
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'อีเมล',
@@ -160,7 +161,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                       child: TextFormField(
-                        controller: textController6,
+                        controller: lastFourIdController,
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'เลขประจำตัวบัตรประชาชน 4 ตัวท้าย',
@@ -214,7 +215,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 0, 5, 0),
                               child: TextFormField(
-                                controller: textController7,
+                                controller: ageController,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'อายุ',
@@ -285,7 +286,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                                   height: 20,
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton<String>(
-                                      value: dropDownValue1,
+                                      value: genderValue,
                                       isDense: true,
                                       isExpanded: true,
                                       hint: const Text(
@@ -306,7 +307,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                                             value: "etc"),
                                       ],
                                       onChanged: (val) {
-                                        setState(() => dropDownValue1 = val);
+                                        setState(() => genderValue = val);
                                       },
                                     ),
                                   ),
@@ -345,7 +346,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                             height: 20,
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
-                                value: dropDownValue2,
+                                value: educationValue,
                                 isDense: true,
                                 isExpanded: true,
                                 hint: const Text(
@@ -383,46 +384,13 @@ class _Register2WidgetState extends State<Register2Widget> {
                                       child: Text("อื่น ๆ"), value: "etc"),
                                 ],
                                 onChanged: (val) {
-                                  setState(() => dropDownValue2 = val);
+                                  setState(() => educationValue = val);
                                 },
                               ),
                             ),
                           ),
                         )),
-
-                    // Padding(
-                    //   padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                    //   child: FlutterFlowDropDown(
-                    //     options: [
-                    //       'ต่ำกว่ามัธยมศึกษาตอนต้น',
-                    //       'มัธยมศึกษาตอนต้น',
-                    //       'ปวช.',
-                    //       'มัธยมศึกษาตอนปลาย',
-                    //       'ปวส.',
-                    //       'อนุปริญญา',
-                    //       'ปริญญาตรี',
-                    //       'ปริญญาโท',
-                    //       'ปริญญาเอก',
-                    //       'อื่น ๆ'
-                    //     ].toList(),
-                    //     onChanged: (val) =>
-                    //         setState(() => dropDownValue2 = val),
-                    //     width: MediaQuery.of(context).size.width,
-                    //     height: 50,
-                    //     textStyle: const TextStyle(
-                    //       fontFamily: 'Poppins',
-                    //       color: Color(0xFF303030),
-                    //       fontWeight: FontWeight.w300,
-                    //     ),
-                    //     fillColor: Colors.white,
-                    //     elevation: 4,
-                    //     borderColor: Color(0xFFA7A5A5),
-                    //     borderWidth: 1,
-                    //     borderRadius: 10,
-                    //     margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                    //     hidesUnderline: true,
-                    //   ),
-                    // ),
+                    //TODO: color blindness -> radio
                     Align(
                       alignment: const AlignmentDirectional(0.9, 0),
                       child: Padding(
@@ -435,6 +403,16 @@ class _Register2WidgetState extends State<Register2Widget> {
                                 onPressed: () {
                                   if (formGlobalKey.currentState.validate()) {
                                     formGlobalKey.currentState.save();
+                                    registerReq = {
+                                      ...registerReq,
+                                      'name': nameController.text,
+                                      'email': emailController.text,
+                                      'lastFourId': lastFourIdController.text,
+                                      'age': ageController.text,
+                                      'gender': genderValue,
+                                      'education': educationValue,
+                                      'isColorBlind': false
+                                    };
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

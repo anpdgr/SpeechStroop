@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/auth/register2.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
 
+Map registerReq = {};
+
 class RegisterWidget extends StatefulWidget {
   const RegisterWidget({Key key}) : super(key: key);
 
@@ -10,28 +12,22 @@ class RegisterWidget extends StatefulWidget {
 }
 
 class _RegisterWidgetState extends State<RegisterWidget> {
-  TextEditingController textController1;
-  TextEditingController textController2;
-  bool passwordVisibility1;
-  TextEditingController textController3;
-  bool passwordVisibility2;
-  TextEditingController textController4;
-  TextEditingController textController5;
-  TextEditingController textController6;
+  TextEditingController telController;
+  TextEditingController passwordController;
+  bool passwordVisibility;
+  TextEditingController confirmPasswordController;
+  bool confirmPasswordVisibility;
   final formGlobalKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-    textController2 = TextEditingController();
-    passwordVisibility1 = false;
-    textController3 = TextEditingController();
-    passwordVisibility2 = false;
-    textController4 = TextEditingController();
-    textController5 = TextEditingController();
-    textController6 = TextEditingController();
+    telController = TextEditingController();
+    passwordController = TextEditingController();
+    passwordVisibility = false;
+    confirmPasswordController = TextEditingController();
+    confirmPasswordVisibility = false;
   }
 
   @override
@@ -68,7 +64,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: TextFormField(
-                      controller: textController1,
+                      controller: telController,
                       obscureText: false,
                       decoration: InputDecoration(
                         labelText: 'เบอร์โทรศัพท์',
@@ -117,8 +113,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: TextFormField(
-                    controller: textController2,
-                    obscureText: !passwordVisibility1,
+                    controller: passwordController,
+                    obscureText: !passwordVisibility,
                     decoration: InputDecoration(
                       labelText: 'รหัสผ่าน',
                       enabledBorder: OutlineInputBorder(
@@ -137,10 +133,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ),
                       suffixIcon: InkWell(
                         onTap: () => setState(
-                          () => passwordVisibility1 = !passwordVisibility1,
+                          () => passwordVisibility = !passwordVisibility,
                         ),
                         child: Icon(
-                          passwordVisibility1
+                          passwordVisibility
                               ? Icons.visibility_outlined
                               : Icons.visibility_off_outlined,
                           color: const Color(0xFF757575),
@@ -169,8 +165,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: TextFormField(
-                    controller: textController3,
-                    obscureText: !passwordVisibility2,
+                    controller: confirmPasswordController,
+                    obscureText: !confirmPasswordVisibility,
                     decoration: InputDecoration(
                       labelText: 'ยืนยันรหัสผ่าน',
                       labelStyle: const TextStyle(
@@ -193,10 +189,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ),
                       suffixIcon: InkWell(
                         onTap: () => setState(
-                          () => passwordVisibility2 = !passwordVisibility2,
+                          () => confirmPasswordVisibility =
+                              !confirmPasswordVisibility,
                         ),
                         child: Icon(
-                          passwordVisibility2
+                          confirmPasswordVisibility
                               ? Icons.visibility_outlined
                               : Icons.visibility_off_outlined,
                           color: const Color(0xFF757575),
@@ -210,7 +207,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     ),
                     keyboardType: TextInputType.visiblePassword,
                     validator: (val) {
-                      if (val == textController2.text) {
+                      if (val == passwordController.text) {
                         return null;
                       } else {
                         return 'ยืนยันรหัสผ่านไม่ถูกต้อง';
@@ -235,11 +232,18 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             onPressed: () {
                               if (formGlobalKey.currentState.validate()) {
                                 formGlobalKey.currentState.save();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const Register2Widget()));
+                                if (passwordController.text ==
+                                    confirmPasswordController.text) {
+                                  registerReq = {
+                                    'tel': telController.text,
+                                    'password': passwordController.text
+                                  };
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Register2Widget()));
+                                }
                               }
                             },
                             child: const Text('ถัดไป'),
