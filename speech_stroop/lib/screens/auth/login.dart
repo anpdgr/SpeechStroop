@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/stroop_test/stroop_test.dart';
+import 'package:http/http.dart' as http;
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key key}) : super(key: key);
@@ -10,7 +13,6 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetWidgetState extends State<LoginWidget> {
-  TextEditingController emailController;
   TextEditingController telController;
   TextEditingController passwordController;
   bool passwordVisibility;
@@ -20,7 +22,6 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
   @override
   void initState() {
     super.initState();
-    emailController = TextEditingController();
     telController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
@@ -168,10 +169,19 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                         width: 350,
                         height: 50,
                         child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (formGlobalKey.currentState.validate()) {
                                 formGlobalKey.currentState.save();
-                                print(passwordController.text);
+                                var res = await http.post(
+                                    "http://localhost:3000/auth/login",
+                                    headers: {
+                                      'Content-Type': 'application/json'
+                                    },
+                                    body: jsonEncode({
+                                      "tel": telController.text,
+                                      "password": passwordController.text,
+                                    }));
+                                print(res.body);
                                 // Navigator.push(
                                 //     context,
                                 //     MaterialPageRoute(
