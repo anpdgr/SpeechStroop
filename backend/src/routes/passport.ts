@@ -1,12 +1,8 @@
 import express from 'express'
-import { RequestWithUser } from 'src/types/express'
+import passport from 'passport'
 
 const router = express.Router()
 router.use(express.json())
 router.use(express.urlencoded({ extended: true }))
-
-router.get('/profile', async (req: RequestWithUser, res) => {
-  res.json(req.user)
-})
-
+router.use(passport.authenticate('jwt', { session: false }))
 export default router

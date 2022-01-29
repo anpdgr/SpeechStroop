@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import { MONGO_URI, PORT } from './config'
 import { errorHandler } from './errors'
 import authRouter from './routes/auth'
+import passportRouter from './routes/passport'
 import uploadRouter from './routes/upload'
 import userRouter from './routes/user'
 
@@ -16,6 +17,10 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', authRouter)
+
+app.use(passportRouter)
+
+// use token to access
 app.use('/user', userRouter)
 app.use('/upload', uploadRouter)
 
