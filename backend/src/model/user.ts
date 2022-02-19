@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
@@ -15,12 +16,16 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      required: true,
+    },
     lastFourId: {
       type: Number,
       required: true,
     },
-    age: {
-      type: Number,
+    dateOfBirth: {
+      type: String,
       required: true,
     },
     gender: {
@@ -31,17 +36,27 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    isColorBlind: {
-      type: Boolean,
+    historyId: {
+      type: [ObjectId],
+      required: false,
+    },
+    badge: {
+      type: [ObjectId],
+      required: false,
+    },
+    preconditionId: {
+      type: ObjectId,
       required: true,
     },
-    stress: {
-      type: Number,
-      required: true,
-    },
-    sleep: {
-      type: Number,
-      required: true,
+    healthScores: {
+      stress: {
+        type: Number,
+        required: true,
+      },
+      sleep: {
+        type: Number,
+        required: true,
+      },
     },
   },
   { timestamps: true },
@@ -53,16 +68,21 @@ export type UserDocument = mongoose.Document & {
   name: string
   email: string
   lastFourId: number
-  age: number
+  dateOfBirth: Date
   gender: string
   education: string
-  isColorBlind: boolean
-  stress: number
-  sleep: number
+  historyId: [ObjectId]
+  badge: [ObjectId]
+  preconditionId: ObjectId
+  healthScores: {
+    stress: number
+    sleep: number
+  }
   createdAt: Date
   updatedAt: Date
 }
 
+// const User = mongoose.model('User', userSchema)
 const User = mongoose.model<UserDocument>('User', userSchema)
 
 export { User }

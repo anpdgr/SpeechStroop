@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt'
+import { ObjectId } from 'mongodb'
 import { HttpError } from 'src/errors'
 import { User, UserDocument } from 'src/model/user'
 
@@ -8,12 +9,18 @@ export interface RegisterDTO {
   name: string
   email: string
   lastFourId: number
-  age: number
+  dateOfBirth: Date
   gender: string
   education: string
-  isColorBlind: boolean
-  stress: number
-  sleep: number
+  historyId: [ObjectId]
+  badge: [ObjectId]
+  preconditionId: ObjectId
+  healthScores: {
+    stress: number
+    sleep: number
+  }
+  createdAt: Date
+  updatedAt: Date
 }
 
 const saltRounds = 12
@@ -36,12 +43,16 @@ export async function register(
     name: registerDTO.name,
     email: registerDTO.email,
     lastFourId: registerDTO.lastFourId,
-    age: registerDTO.age,
+    dateOfBirth: registerDTO.dateOfBirth,
     gender: registerDTO.gender,
     education: registerDTO.education,
-    isColorBlind: registerDTO.isColorBlind,
-    stress: registerDTO.stress,
-    sleep: registerDTO.sleep,
+    historyId: registerDTO.historyId,
+    badge: registerDTO.badge,
+    preconditionId: registerDTO.preconditionId,
+    healthScores: {
+      stress: registerDTO.healthScores.stress,
+      sleep: registerDTO.healthScores.sleep,
+    },
   })
 
   await newUser.save()
