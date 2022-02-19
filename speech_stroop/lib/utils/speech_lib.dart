@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:speech_stroop/model/test%20module/section.dart';
 import 'package:speech_stroop/screens/stroop_test/stroop_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 
@@ -9,8 +10,7 @@ bool isCorrect = false;
 int scorePerSection = 0;
 int scorePerQuestion = 0;
 List<SpeechRecognitionWords> valAlternates;
-List scoresAllSection = [];
-var scores = {"congruent": 0, "incongruent": 0, "sectionScore": 0};
+var scores = {"congruent": 0, "incongruent": 0};
 var countTest = 0;
 
 Map colorsMapDefault = {
@@ -43,10 +43,11 @@ void scoreCounting() {
     scorePerQuestion = 0;
   }
   if (answered == QUESTIONS_AMOUNT - 1) {
-    scores["sectionScore"] = scores["congruent"] + scores["incongruent"];
-    scoresAllSection.add(scores["sectionScore"]);
+    var totalScoreThisSection = scores["congruent"] + scores["incongruent"];
+    var section = Section(sectionNumber, scores, 0, questions, "test");
+    print(section);
+    // sections.add(section);
   }
-  print("scoresAllSection: " + scoresAllSection.toString());
   print(scores);
 }
 
@@ -58,6 +59,7 @@ bool isAnswerCorrect() {
             (k) => colorsMapDefault[k] == testTemplate[answered].second,
             orElse: () => '')) {
       isCorrect = true;
+      questions[answered].userAnswer = predictedWord;
       return isCorrect;
     } else {
       isCorrect = false;

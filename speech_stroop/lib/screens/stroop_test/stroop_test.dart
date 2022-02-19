@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/model/test%20module/question.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:more/tuple.dart';
 
@@ -9,9 +10,12 @@ import 'dart:math';
 
 import 'break.dart';
 
-int section = 1;
+int sectionNumber = 1;
 int QUESTIONS_AMOUNT = 20;
 List<Tuple3<String, Color, String>> testTemplate = [];
+List sections = [];
+List<Question> questions = [];
+var historyTest = {};
 
 class StroopTestWidget extends StatefulWidget {
   const StroopTestWidget({Key key}) : super(key: key);
@@ -91,10 +95,11 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
     Random rn = Random();
     int idxName = 0, idxCode = 0, congruent = 0, incongruent = 0;
     List colorsCodeNoName = [];
-    Tuple3<String, Color, String> question;
+    Tuple3<String, Color, String> questionTemplate;
+    Question question;
     testTemplate = <Tuple3<String, Color, String>>[];
 
-    switch (section) {
+    switch (sectionNumber) {
       case 1:
         congruent = 14;
         incongruent = 6;
@@ -110,24 +115,57 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
       default:
     }
 
+    String condition;
+    String expectedAnswer;
     for (var i = 0; i < congruent; i++) {
+      condition = "congruent";
       idxName = rn.nextInt(colorsName.length);
-      question = Tuple3(colorsName[idxName], colorsCode[idxName], "congruent");
+      expectedAnswer = colorsName[idxName];
+      questionTemplate =
+          Tuple3(colorsName[idxName], colorsCode[idxName], condition);
 
-      testTemplate.add(question);
+      question = Question(
+          i + 1,
+          {"color": expectedAnswer, "word": colorsName[idxName]},
+          condition,
+          expectedAnswer,
+          null,
+          null,
+          null,
+          null);
+      questions.add(question);
+
+      testTemplate.add(questionTemplate);
     }
     for (var i = 0; i < incongruent; i++) {
+      condition = "incongruent";
       idxName = rn.nextInt(colorsName.length);
-
       colorsCodeNoName = colorsCode
           .where((c) => c != colorsMapDefault[colorsName[idxName]])
           .toList();
+
       idxCode = rn.nextInt(colorsCodeNoName.length);
-      question =
-          Tuple3(colorsName[idxName], colorsCodeNoName[idxCode], "incongruent");
-      isQuestionExist(question, testTemplate)
+      var colorNameNoName = colorsMapDefault.keys
+          .firstWhere((k) => colorsMapDefault[k] == colorsCodeNoName[idxCode]);
+
+      expectedAnswer = colorNameNoName;
+      questionTemplate =
+          Tuple3(colorsName[idxName], colorsCodeNoName[idxCode], condition);
+
+      question = Question(
+          i + 1,
+          {"color": expectedAnswer, "word": colorsName[idxName]},
+          condition,
+          expectedAnswer,
+          null,
+          null,
+          null,
+          null);
+      questions.add(question);
+
+      isQuestionExist(questionTemplate, testTemplate)
           ? (i--)
-          : testTemplate.add(question);
+          : testTemplate.add(questionTemplate);
     }
 
     //TODO: avoid same element being next to each other
@@ -138,10 +176,6 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
 
   bool isQuestionExist(question, testTemplate) {
     for (var elem in testTemplate) {
-      print((question == elem).toString() +
-          question.toString() +
-          "\t" +
-          elem.toString());
       if (question == elem) {
         return true;
       }
@@ -207,10 +241,11 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
         scoreCounting();
 
         isListening = false;
-        if (section < 3) {
+        if (sectionNumber < 3) {
           //section 1-2, last Q
+          // nextWidget = const LoginWidget();
           nextWidget = const BreakWidget();
-        } else if (section == 3) {
+        } else if (sectionNumber == 3) {
           //section 3, last Q
           nextWidget = const LoginWidget();
         }

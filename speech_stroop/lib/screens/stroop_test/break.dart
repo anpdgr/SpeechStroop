@@ -29,8 +29,10 @@ class _BreakWidgetState extends State<BreakWidget> {
         child: Column(mainAxisSize: MainAxisSize.max, children: [
           GestureDetector(
               onTap: () {
-                section++;
+                sectionNumber++;
                 answered = -1;
+                //print(sections);
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(
