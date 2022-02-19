@@ -3,19 +3,19 @@ const Schema = mongoose.Schema
 
 const badgeSchema = new Schema(
   {
-    tel: {
-      type: String,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
     name: {
       type: String,
       required: true,
     },
-    email: {
+    detail: {
+      type: String,
+      required: true,
+    },
+    imgUrl: {
+      type: String,
+      required: true,
+    },
+    type: {
       type: String,
       required: true,
     },
@@ -24,12 +24,12 @@ const badgeSchema = new Schema(
 )
 
 export type BadgeDocument = mongoose.Document & {
-  tel: string
-  password: string
   name: string
-  email: string
+  detail: string
+  imgUrl: string
+  type: string
 }
 
-const Badge = mongoose.model('User', badgeSchema)
+const Badge = mongoose.model('Badge', badgeSchema)
 
 export { Badge }
