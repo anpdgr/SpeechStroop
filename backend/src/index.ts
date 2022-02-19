@@ -7,6 +7,7 @@ import authRouter from './routes/auth'
 import passportRouter from './routes/passport'
 import uploadRouter from './routes/upload'
 import userRouter from './routes/user'
+import historyRouter from './routes/history'
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.use(passportRouter)
 
 // use token to access
 app.use('/user', userRouter)
+app.use('/history', historyRouter)
 app.use('/upload', uploadRouter)
 
 // Error handling
