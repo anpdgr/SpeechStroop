@@ -12,5 +12,11 @@
       "src/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*",
+    "model/get.ts",
+    "model/schema.ts",
+    "model/schema.ts",
+    "model/schema.ts"
+  ]
 }

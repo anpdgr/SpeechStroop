@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import { HttpError } from 'src/errors'
-import { User } from 'src/users/schema'
-import { signJWT } from './jwt'
+import { User } from 'src/model/user'
+import { signJWT } from '../utils/auth/jwt'
 
 export interface LoginDTO {
   tel: string

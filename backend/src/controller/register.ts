@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import { HttpError } from 'src/errors'
-import { User, UserDocument } from 'src/users/schema'
+import { User, UserDocument } from 'src/model/user'
 
 export interface RegisterDTO {
   tel: string

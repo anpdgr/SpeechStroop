@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
-import { login, LoginDTO } from 'src/auth/login'
-import { register, RegisterDTO } from 'src/auth/register'
+import { login, LoginDTO } from 'src/controller/login'
+import { register, RegisterDTO } from 'src/controller/register'
 
 const router = express.Router()
 router.use(express.json())
