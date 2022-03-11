@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/auth/register2.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
+import 'package:speech_stroop/screens/components/appbar.dart';
+import 'package:speech_stroop/screens/components/button/next_button.dart';
 
 Map registerReq = {};
 
@@ -37,77 +39,60 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         key: scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: Colors.deepPurpleAccent,
-          iconTheme: const IconThemeData(color: Colors.white),
-          automaticallyImplyLeading: true,
-          title: const Text(
-            'สมัครสมาชิก',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 28,
-            ),
-          ),
-          centerTitle: true,
-          elevation: 5,
-        ),
+        appBar: AppBarBack('สมัครสมาชิก'),
         backgroundColor: const Color(0xFFFBFBFF),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Align(
-                  alignment: const AlignmentDirectional(0, 0),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                    child: TextFormField(
-                      controller: telController,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        labelText: 'เบอร์โทรศัพท์',
-                        labelStyle: const TextStyle(
-                          fontFamily: 'Bai Jamjuree',
-                          fontWeight: FontWeight.w300,
+                const Align(
+                  alignment: Alignment.topLeft,
+                  child: Text("""การสมัครสมาชิกจะประกอบไปด้วย""",
+                      style: TextStyle(fontSize: 16)),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  child: TextFormField(
+                    controller: telController,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: 'เบอร์โทรศัพท์',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFFA7A5A5),
+                          width: 1,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFFA7A5A5),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFFA7A5A5),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      style: const TextStyle(
-                        fontFamily: 'Bai Jamjuree',
-                        fontWeight: FontWeight.w300,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFFA7A5A5),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      textAlign: TextAlign.start,
-                      keyboardType: TextInputType.phone,
-                      validator: (val) {
-                        if (val.isEmpty) {
-                          return 'โปรดระบุเบอร์โทรศัพท์';
-                        }
-                        if (val.length != 10) {
-                          return 'เบอร์โทรศัพท์ประกอบไปด้วย 10 ตัวอักษร';
-                        }
-                        return null;
-                      },
-                      onChanged: (val) {
-                        if (formGlobalKey.currentState.validate()) {
-                          formGlobalKey.currentState.save();
-                        }
-                      },
                     ),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w300,
+                    ),
+                    textAlign: TextAlign.start,
+                    keyboardType: TextInputType.phone,
+                    validator: (val) {
+                      if (val.isEmpty) {
+                        return 'โปรดระบุเบอร์โทรศัพท์';
+                      }
+                      if (val.length != 10) {
+                        return 'เบอร์โทรศัพท์ประกอบไปด้วย 10 ตัวอักษร';
+                      }
+                      return null;
+                    },
+                    onChanged: (val) {
+                      if (formGlobalKey.currentState.validate()) {
+                        formGlobalKey.currentState.save();
+                      }
+                    },
                   ),
                 ),
                 Padding(
@@ -169,10 +154,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     obscureText: !confirmPasswordVisibility,
                     decoration: InputDecoration(
                       labelText: 'ยืนยันรหัสผ่าน',
-                      labelStyle: const TextStyle(
-                        fontFamily: 'Bai Jamjuree',
-                        fontWeight: FontWeight.w300,
-                      ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0xFFA7A5A5),
@@ -202,7 +183,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ),
                     ),
                     style: const TextStyle(
-                      fontFamily: 'Bai Jamjuree',
                       fontWeight: FontWeight.w300,
                     ),
                     keyboardType: TextInputType.visiblePassword,
@@ -221,39 +201,24 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.9, 0),
-                  child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 25, 0, 5),
-                      child: SizedBox(
-                        width: 90,
-                        height: 50,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              if (formGlobalKey.currentState.validate()) {
-                                formGlobalKey.currentState.save();
-                                if (passwordController.text ==
-                                    confirmPasswordController.text) {
-                                  registerReq = {
-                                    'tel': telController.text,
-                                    'password': passwordController.text
-                                  };
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Register2Widget()));
-                                }
-                              }
-                            },
-                            child: const Text('ถัดไป'),
-                            style: ElevatedButton.styleFrom(
-                                shape: const StadiumBorder(),
-                                primary: Colors.deepPurpleAccent,
-                                textStyle: const TextStyle(
-                                    fontSize: 18, fontFamily: 'BaiJamjuree'))),
-                      )),
-                )
+                    alignment: const AlignmentDirectional(0.9, 0),
+                    child: NextButton('ถัดไป', () {
+                      if (formGlobalKey.currentState.validate()) {
+                        formGlobalKey.currentState.save();
+                        if (passwordController.text ==
+                            confirmPasswordController.text) {
+                          registerReq = {
+                            'tel': telController.text,
+                            'password': passwordController.text
+                          };
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const Register2Widget()));
+                        }
+                      }
+                    }))
               ],
             ),
           ),

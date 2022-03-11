@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
+import 'package:speech_stroop/screens/auth/terms_conditions.dart';
+import 'package:speech_stroop/screens/components/button/primary_button.dart';
+import 'package:speech_stroop/screens/components/button/secondary_button.dart';
 import 'package:speech_stroop/screens/stroop_test/stroop_test.dart';
 import 'package:http/http.dart' as http;
 
@@ -44,22 +47,23 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                     child: Image.asset(
-                      'assets/images/Hongkong-pana.png',
+                      'assets/images/login.png',
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.3,
                       fit: BoxFit.cover,
                     ),
                   ),
                   const Align(
-                    alignment: AlignmentDirectional(-0.9, 0),
+                    alignment: AlignmentDirectional(-1, 0),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
                       child: Text(
                         'เข้าสู่ระบบ',
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          fontSize: 28,
-                        ),
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF37265F)),
                       ),
                     ),
                   ),
@@ -81,14 +85,14 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                               color: Color(0xFFA7A5A5),
                               width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(15),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: Color(0xFFA7A5A5),
                               width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(15),
                           ),
                         ),
                         style: const TextStyle(
@@ -125,14 +129,14 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                             color: Color(0xFFA7A5A5),
                             width: 1,
                           ),
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
                             color: Color(0xFFA7A5A5),
                             width: 1,
                           ),
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         suffixIcon: InkWell(
                           onTap: () => setState(
@@ -162,86 +166,52 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                       },
                     ),
                   ),
+                  PrimaryButton('เข้าสู่ระบบ', () async {
+                    if (formGlobalKey.currentState.validate()) {
+                      formGlobalKey.currentState.save();
+                      var res =
+                          await http.post("http://localhost:3000/auth/login",
+                              headers: {'Content-Type': 'application/json'},
+                              body: jsonEncode({
+                                "tel": telController.text,
+                                "password": passwordController.text,
+                              }));
+                      print(res.body);
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             const ColorTestWidget()));
+                    }
+                  }),
+                  SecondaryButton(
+                      'สมัครสมาชิก',
+                      () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const TermsConditionsWidget()))
+                          }),
                   Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 5),
-                      child: SizedBox(
-                        width: 350,
-                        height: 50,
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              if (formGlobalKey.currentState.validate()) {
-                                formGlobalKey.currentState.save();
-                                var res = await http.post(
-                                    "http://localhost:3000/auth/login",
-                                    headers: {
-                                      'Content-Type': 'application/json'
-                                    },
-                                    body: jsonEncode({
-                                      "tel": telController.text,
-                                      "password": passwordController.text,
-                                    }));
-                                print(res.body);
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const ColorTestWidget()));
-                              }
-                            },
-                            child: const Text('เข้าสู่ระบบ'),
-                            style: ElevatedButton.styleFrom(
-                                shape: const StadiumBorder(),
-                                primary: Colors.deepPurpleAccent,
-                                textStyle: const TextStyle(
-                                    fontSize: 18, fontFamily: 'BaiJamjuree'))),
-                      )),
-                  Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
-                      child: SizedBox(
-                          width: 350,
-                          height: 50,
-                          child: OutlinedButton(
-                            onPressed: () {
-                              _showBottomModal(context);
-                            },
-                            child: const Text(
-                              'สมัครสมาชิก',
-                            ),
-                            style: ElevatedButton.styleFrom(
-                                shape: const StadiumBorder(),
-                                textStyle: const TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'BaiJamjuree',
-                                    color: Colors.deepPurpleAccent)),
-                          ))),
-                  TextButton(
-                      onPressed: () {
-                        print('Login as guest');
-                      },
-                      child: const Text('เข้าสู่ระบบแบบ guest'),
-                      style: TextButton.styleFrom(
-                          shape: const StadiumBorder(),
-                          textStyle: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'BaiJamjuree',
-                              color: Colors.deepPurpleAccent))),
-                  TextButton(
-                      onPressed: () {
-                        print('Forget password');
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const StroopTestWidget()));
-                      },
-                      child: const Text('ลืมรหัสผ่าน'),
-                      style: TextButton.styleFrom(
-                          shape: const StadiumBorder(),
-                          textStyle: const TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'BaiJamjuree',
-                              color: Color(0xFFA7A5A5))))
+                          const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      child: TextButton(
+                          onPressed: () {
+                            print('Forget password');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const StroopTestWidget()));
+                          },
+                          child: const Text('ลืมรหัสผ่าน'),
+                          style: TextButton.styleFrom(
+                              shape: const StadiumBorder(),
+                              textStyle: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'BaiJamjuree',
+                                  color: Color(0xFF838383)))))
                 ],
               )),
         ),
@@ -249,7 +219,7 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
     );
   }
 
-  _showBottomModal(context) {
+  showBottomModal(context) {
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
@@ -328,54 +298,12 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                         children: [
                           RichText(
                             textAlign: TextAlign.justify,
-                            text: TextSpan(
-                                text:
-                                    """แอปพลิเคชัน Speech Stroop Test หรือแอปพลิเคชันเพื่อบ่งชี้ถึงภาวะการทำงานของสมองที่เสื่อมถอยลงที่มีความสัมพันธ์กับอายุสำหรับผู้สูงอายุในประเทศไทย 
-
-ชื่อผู้พัฒนา
-1.นางสาวสุธาดา ธรรมวงศ์
-2.นางสาวอนัญญา พัฒนปุณยาภิรมย์ 
-
-ซึ่งประโยชน์ที่คาดว่าผู้ใช้จะได้รับคือ
-1.ท่านจะได้ทราบถึงความสามารถของตนเองในการตอบคำถามด้านความคิดเชิงบริหาร
-2.ท่านสามารถทราบได้ถึงการจัดการกับความเครียดและความตื่นตัวของตนเอง
-3.ท่านจะได้ฝึกฝนทักษะและความคิดเชิงบริหารผ่านการทดสอบ Stroop 
-
-โดยแอปพลิเคชัน Speech Stroop Test รองรับผู้ใช้ที่อยู่ในช่วงอายุ 18-60 ปี มีการมองเห็นปกติ ไม่มีความผิดปกติด้านการจำแนกสีและการอ่าน โดยจะมีผู้เข้า ร่วมการทดลองเข้าร่วมวิจัยทั้งสิ้น 300 คน มีระยะเวลาการเก็บข้อมูลไม่กำหนด โดยจะเก็บเฉพาะข้อมูลที่ไม่สามารถระบุได้ถึงตัวตนของผู้ทำแบบทดสอบ เพื่อที่จะนำไปรวบรวมข้อมูลเป็นค่ามาตรฐานภายในประเทศไทย เช่น อายุ เพศ ความเครียด ผลลัพธ์การทำแบบทดสอบ ระดับการศึกษา และไฟล์เสียงระหว่างทำแบบทดสอบ โดยข้อมูลของอาสาสมัครจะถูกเก็บรักษาไว้ ไม่เปิดเผยต่อสาธารณะ แต่จะรายงาน ผลการวิจัยเป็นข้อมูลส่วนรวม และการใช้งานจะไม่มีค่าตอบแทนและค่าใช้จ่ายที่ผู้ใช้จะต้องรับผิดชอบเองเพิ่มเติม
-
-หากท่านตัดสินใจเข้าร่วมการทดสอบ จะมีขั้นตอนการวิจัยดังต่อไปนี้คือ
-1.ผู้ใช้จะได้ทำการสมัครสมาชิกเพื่อใช้งานแอปพลิเคชันสำหรับการทำแบบทดสอบ โดยมีการเก็บข้อมูลในส่วนของอายุ เพศ ระดับการศึกษาอีเมล เบอร์โทรศัพท์ และเลขบัตรประชาชน 4 ตัวท้าย
-2.ผู้ใช้จะต้องทำแบบทดสอบเพื่อประเมินตาบอดสี  
-3.ผู้ใช้ต้องทำการทดสอบไมโครโฟนของโทรศัพท์ที่ถูกใช้งานกับแอปพลิเคชัน เพื่อทำการเตรียมพร้อมการทดสอบ การอ่าน การจำแนกสี และแบบทดสอบ Speech Stroop โดยผู้ใช้จะต้องให้อนุญาตการเข้าถึงไมโครโฟนของโทรศัพท์ 
-4.ผู้ใช้จะต้องทำแบบทดสอบเพื่อประเมินการจำแนกเห็นสี
-5.ผู้ใช้จะต้องทำแบบทดสอบเพื่อประเมินการอ่านในภาษาไทย
-6.ผู้ใช้จะต้องทำแบบสอบถามประเมินระดับความเครียดฉบับภาษาไทย (10-Item Perceived Stress Scale; PSS-10) 
-7.ผู้ใช้จะต้องทำแบบสอบถามประเมินระดับการนอนหลับพักผ่อน 
-8.ผู้ใช้จะต้องทำแบบทดสอบ Speech Stroop โดยการทดสอบใน 1 ครั้งจะถูกแบ่งย่อยเป็น 3 รอบ รอบละ 20 ข้อ ซึ่งในแต่ละรอบจะมีการเว้นช่วงในการพัก โดยสามารถพักได้ตามระยะเวลาที่ต้องการ
-9.ในระหว่างพักผู้ใช้จะต้องทำแบบสอบถามระดับความเครียดและความตื่นตัว
-10.ในการทดสอบจะใช้เวลาประมาณโดยเฉลี่ย 30 นาที หรืออาจมากกว่าขึ้นระยะเวลาการพักของผู้ใช้
-
-ความเสี่ยงที่อาจเกิดขึ้น 
-1.เสียเวลาในการทำแบบทดสอบ 
-2.ท่านอาจรู้สึกอึดอัด เครียด และตื่นตัวในการทำแบบทดสอบที่ใช้เวลา ซึ่งท่านมีสิทธิ์ที่จะไม่ทำแบบทดสอบต่อได้ หากมีอาการผิดปกติ รู้สึกไม่สบายกาย หรือมีผลกระทบต่อจิตใจของท่านเกิดขึ้นระหว่างการวิจัย ท่านสามารถแจ้งผู้วิจัยโดยเร็วที่สุดและยุติการทำแบบทดสอบในทันที
-
-ระยะเวลาและการทำลายข้อมูล เก็บรักษาข้อมูลเป็นระยะเวลาไม่กำหนด โดยจะเก็บเฉพาะข้อมูลที่ไม่สามารถระบุได้ถึงตัวตนของผู้ทำแบบทดสอบ เพื่อที่จะนำไปรวบรวมข้อมูลเป็นค่ามาตรฐานภายในประเทศไทย เช่น อายุ เพศ ความเครียด ผลลัพธ์การทำแบบทดสอบ ระดับการศึกษา ไฟล์เสียงระหว่างทำแบบทดสอบ เป็นต้น 
-
-หากมีข้อข้องใจที่จะสอบถามเกี่ยวข้องกับการวิจัย หรือเมื่อบาดเจ็บ/เจ็บป่วยจากการวิจัยโปรดติดต่อ นางสาวสุธาดา ธรรมวงศ์ เบอร์โทรศัพท์ 065-634-6107
-
-หากมีข้อมูลเพิ่มเติมทั้งด้านประโยชน์และโทษที่เกี่ยวข้องกับการวิจัยนี้ ผู้วิจัยจะแจ้งให้ทราบอย่างรวดเร็วและไม่ปิดบัง
-
-อาสาสมัครมีสิทธิ์ถอนตัวออกจากโครงการวิจัยเมื่อใดก็ได้ โดยไม่ต้องแจ้งให้ทราบล่วงหน้าและการไม่เข้าร่วมการวิจัยหรือถอนตัวออกจากโครงการวิจัยนี้ จะไม่มีผลกระทบต่อการบริการและการรักษาที่สมควรจะได้รับแต่ประการใด 
-
-โครงการวิจัยนี้ได้รับการพิจารณารับรองจากคณะกรรมการจริยธรรมการวิจัยในมนุษย์ของมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี ซึ่งมีสำนักงานอยู่ที่สำนักงานวิจัย นวัตกรรมและพันธมิตร ชั้น 7 อาคารสานักงานอธิการบดี มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี เลขที่ 126 ถนนประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140  
-โทรศัพท์ 0-2470-9623 โทรสาร 0-2872-9083  
-
-หากท่านได้รับการปฏิบัติไม่ตรงตามที่ระบุไว้ ท่านสามารถติดต่อกับประธาน คณะกรรมการฯ หรือผู้แทน ได้ตามสถานที่และหมายเลขโทรศัพท์ข้างต้น 
-                                      """,
+                            text: const TextSpan(
+                                text: """Terms and conditions body""",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Colors.grey[700],
+                                    fontSize: 12,
+                                    color: Colors.black,
                                     wordSpacing: 0.5)),
                           ),
                         ],
