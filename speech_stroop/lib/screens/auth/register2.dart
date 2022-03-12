@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
+import 'package:speech_stroop/screens/components/appbar.dart';
+import 'package:speech_stroop/screens/components/button/next_button.dart';
 
 class Register2Widget extends StatefulWidget {
   const Register2Widget({Key key}) : super(key: key);
@@ -12,10 +14,11 @@ class Register2Widget extends StatefulWidget {
 class _Register2WidgetState extends State<Register2Widget> {
   String genderValue;
   String educationValue;
+  DateTime dob;
   TextEditingController nameController;
   TextEditingController emailController;
   TextEditingController lastFourIdController;
-  TextEditingController ageController;
+  TextEditingController dobController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formGlobalKey = GlobalKey<FormState>();
@@ -26,7 +29,7 @@ class _Register2WidgetState extends State<Register2Widget> {
     nameController = TextEditingController();
     emailController = TextEditingController();
     lastFourIdController = TextEditingController();
-    ageController = TextEditingController();
+    dobController = TextEditingController();
   }
 
   @override
@@ -36,25 +39,11 @@ class _Register2WidgetState extends State<Register2Widget> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         key: scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: Colors.deepPurpleAccent,
-          iconTheme: const IconThemeData(color: Colors.white),
-          automaticallyImplyLeading: true,
-          title: const Text(
-            'สมัครสมาชิก',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 28,
-            ),
-          ),
-          centerTitle: true,
-          elevation: 5,
-        ),
+        appBar: AppBarBack('สมัครสมาชิก'),
         backgroundColor: const Color(0xFFFBFBFF),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
             child: Form(
                 key: formGlobalKey,
                 child: Column(
@@ -69,7 +58,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                           controller: nameController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'ชื่อผู้ใช้',
+                            labelText: 'ชื่อเล่น',
                             labelStyle: const TextStyle(
                               fontWeight: FontWeight.w300,
                             ),
@@ -116,7 +105,6 @@ class _Register2WidgetState extends State<Register2Widget> {
                         decoration: InputDecoration(
                           labelText: 'อีเมล',
                           labelStyle: const TextStyle(
-                            fontFamily: 'Bai Jamjuree',
                             fontWeight: FontWeight.w300,
                           ),
                           enabledBorder: OutlineInputBorder(
@@ -135,7 +123,6 @@ class _Register2WidgetState extends State<Register2Widget> {
                           ),
                         ),
                         style: const TextStyle(
-                          fontFamily: 'Bai Jamjuree',
                           fontWeight: FontWeight.w300,
                         ),
                         keyboardType: TextInputType.emailAddress,
@@ -166,7 +153,6 @@ class _Register2WidgetState extends State<Register2Widget> {
                         decoration: InputDecoration(
                           labelText: 'เลขประจำตัวบัตรประชาชน 4 ตัวท้าย',
                           labelStyle: const TextStyle(
-                            fontFamily: 'Bai Jamjuree',
                             fontWeight: FontWeight.w300,
                           ),
                           enabledBorder: OutlineInputBorder(
@@ -185,13 +171,12 @@ class _Register2WidgetState extends State<Register2Widget> {
                           ),
                         ),
                         style: const TextStyle(
-                          fontFamily: 'Bai Jamjuree',
                           fontWeight: FontWeight.w300,
                         ),
                         keyboardType: TextInputType.number,
                         validator: (val) {
                           if (val.length != 4) {
-                            return 'โปรดระบุเลขประจำตัวบัตรประชาชน 4 ตัวท้าย';
+                            return 'โปรดระบุเลขประจำตัวบัตรประชาชน 4 หลักท้าย';
                           }
                           return null;
                         },
@@ -215,12 +200,11 @@ class _Register2WidgetState extends State<Register2Widget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 0, 5, 0),
                               child: TextFormField(
-                                controller: ageController,
+                                controller: dobController,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: 'อายุ',
+                                  labelText: 'วันเกิด',
                                   labelStyle: const TextStyle(
-                                    fontFamily: 'Bai Jamjuree',
                                     fontWeight: FontWeight.w300,
                                   ),
                                   enabledBorder: OutlineInputBorder(
@@ -230,6 +214,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                                     ),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
+                                  suffixIcon: const Icon(Icons.calendar_today),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                       color: Color(0xFFA7A5A5),
@@ -239,15 +224,41 @@ class _Register2WidgetState extends State<Register2Widget> {
                                   ),
                                 ),
                                 style: const TextStyle(
-                                  fontFamily: 'Bai Jamjuree',
                                   fontWeight: FontWeight.w300,
                                 ),
                                 keyboardType: TextInputType.number,
                                 validator: (val) {
+                                  RegExp exp = RegExp(
+                                      r"/((19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/gm");
+                                  Iterable<RegExpMatch> matches =
+                                      exp.allMatches(val);
                                   if (val == '') {
                                     return 'โปรดระบุอายุของคุณ';
                                   }
+                                  // TODO: validate dob field
+                                  // else if (matches) {
+
+                                  // }
                                   return null;
+                                },
+                                onTap: () {
+                                  showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1940),
+                                          lastDate:
+                                              DateTime(DateTime.now().year + 1))
+                                      .then((date) => {
+                                            setState(() => {
+                                                  dob = date,
+                                                  dob != null
+                                                      ? dobController.text = dob
+                                                          .toString()
+                                                          .split(' ')[0]
+                                                      : null
+                                                })
+                                          });
+                                  print(dob);
                                 },
                                 onChanged: (val) {
                                   if (formGlobalKey.currentState.validate()) {
@@ -264,7 +275,6 @@ class _Register2WidgetState extends State<Register2Widget> {
                               child: InputDecorator(
                                 decoration: InputDecoration(
                                   labelStyle: const TextStyle(
-                                    fontFamily: 'Bai Jamjuree',
                                     fontWeight: FontWeight.w300,
                                   ),
                                   enabledBorder: OutlineInputBorder(
@@ -324,7 +334,6 @@ class _Register2WidgetState extends State<Register2Widget> {
                         child: InputDecorator(
                           decoration: InputDecoration(
                             labelStyle: const TextStyle(
-                              fontFamily: 'Bai Jamjuree',
                               fontWeight: FontWeight.w300,
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -350,7 +359,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                                 isDense: true,
                                 isExpanded: true,
                                 hint: const Text(
-                                  'ระดับการศึกษา',
+                                  'ระดับการศึกษาสูงสุด',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w300,
                                   ),
@@ -393,41 +402,26 @@ class _Register2WidgetState extends State<Register2Widget> {
                     //TODO: color blindness -> radio
                     Align(
                       alignment: const AlignmentDirectional(0.9, 0),
-                      child: Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 25, 0, 5),
-                          child: SizedBox(
-                            width: 90,
-                            height: 50,
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  if (formGlobalKey.currentState.validate()) {
-                                    formGlobalKey.currentState.save();
-                                    registerReq = {
-                                      ...registerReq,
-                                      'name': nameController.text,
-                                      'email': emailController.text,
-                                      'lastFourId': lastFourIdController.text,
-                                      'age': ageController.text,
-                                      'gender': genderValue,
-                                      'education': educationValue,
-                                      'isColorBlind': false
-                                    };
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const StressRegisterWidget()));
-                                  }
-                                },
-                                child: const Text('ถัดไป'),
-                                style: ElevatedButton.styleFrom(
-                                    shape: const StadiumBorder(),
-                                    primary: Colors.deepPurpleAccent,
-                                    textStyle: const TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: 'BaiJamjuree'))),
-                          )),
+                      child: NextButton('ถัดไป', () {
+                        if (formGlobalKey.currentState.validate()) {
+                          formGlobalKey.currentState.save();
+                          registerReq = {
+                            ...registerReq,
+                            'name': nameController.text,
+                            'email': emailController.text,
+                            'lastFourId': lastFourIdController.text,
+                            'age': dobController.text,
+                            'gender': genderValue,
+                            'education': educationValue,
+                            'isColorBlind': false
+                          };
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const StressRegisterWidget()));
+                        }
+                      }),
                     )
                   ],
                 )),

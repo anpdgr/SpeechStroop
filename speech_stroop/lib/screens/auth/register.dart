@@ -48,12 +48,18 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 const Align(
-                  alignment: Alignment.topLeft,
-                  child: Text("""การสมัครสมาชิกจะประกอบไปด้วย""",
-                      style: TextStyle(fontSize: 16)),
-                ),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      """การสมัครสมาชิกจะประกอบไปด้วย 
+• การกรอกข้อมูลสำหรับเข้าสู่ระบบ
+• การกรอกข้อมูลเบื้องต้น
+• การกรอกข้อมูลด้านความเครียด
+• การกรอกข้อมูลด้านการนอนหลับ
+• การเตรียมความพร้อมก่อนทดสอบ""",
+                      style: TextStyle(fontSize: 16, height: 2.0),
+                    )),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                   child: TextFormField(
                     controller: telController,
                     obscureText: false,
