@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/components/button/primary_button.dart';
 import 'package:speech_stroop/screens/homepage/history.dart';
-import 'package:speech_stroop/screens/homepage/homepage.dart';
+import 'package:speech_stroop/screens/homepage/mainpage.dart';
 import 'package:speech_stroop/screens/homepage/profile.dart';
 
 void main() => runApp(const HomepageWidget());
@@ -32,9 +32,9 @@ class _HomepageWidgetStateState extends State<HomepageWidgetState> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    ProfileWidget(),
-    MainWidget(),
     HistoryWidget(),
+    MainWidget(),
+    ProfileWidget(),
   ];
 
   void _onItemTapped(int index) {
@@ -46,9 +46,6 @@ class _HomepageWidgetStateState extends State<HomepageWidgetState> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
-      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
