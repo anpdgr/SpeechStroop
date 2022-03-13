@@ -3,6 +3,7 @@ import 'package:speech_stroop/screens/auth/register2.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
 import 'package:speech_stroop/screens/components/appbar.dart';
 import 'package:speech_stroop/screens/components/button/next_button.dart';
+import 'package:speech_stroop/screens/components/button/primary_button.dart';
 
 Map registerReq = {};
 
@@ -34,6 +35,16 @@ class _HistoryWidgetState extends State<HistoryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Text("history");
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('ประวัติการทดสอบ'),
+        ),
+        body: Center(
+            child: Container(
+                child: (Column(
+          children: [
+            PrimaryButton("ดูประวัติทั้งหมด", () => {print(1)}),
+          ],
+        )))));
   }
 }
