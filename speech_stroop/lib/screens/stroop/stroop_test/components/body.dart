@@ -1,30 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/model/test%20module/question.dart';
+import 'package:speech_stroop/screens/auth/login.dart';
+import 'package:speech_stroop/screens/stroop/break/break_screen.dart';
+import 'package:speech_stroop/utils/speech_lib.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:more/tuple.dart';
-
-import '../auth/login.dart';
-import '../../utils/speech_lib.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'dart:math';
 
-import 'break.dart';
-
-int sectionNumber = 1;
-int QUESTIONS_AMOUNT = 20;
-List<Tuple3<String, Color, String>> testTemplate = [];
-List sections = [];
-List<Question> questions = [];
-var historyTest = {};
-
-class StroopTestWidget extends StatefulWidget {
-  const StroopTestWidget({Key key}) : super(key: key);
-
+class Body extends StatefulWidget {
+  const Body({Key key}) : super(key: key);
   @override
-  _StroopTestWidgetState createState() => _StroopTestWidgetState();
+  _BodyState createState() => _BodyState();
 }
 
-class _StroopTestWidgetState extends State<StroopTestWidget> {
+class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   stt.SpeechToText speech;
@@ -243,11 +234,11 @@ class _StroopTestWidgetState extends State<StroopTestWidget> {
         isListening = false;
         if (sectionNumber < 3) {
           //section 1-2, last Q
-          // nextWidget = const LoginWidget();
-          nextWidget = const BreakWidget();
+          // nextWidget = const LoginScreen();
+          nextWidget = const BreakScreen();
         } else if (sectionNumber == 3) {
           //section 3, last Q
-          nextWidget = const LoginWidget();
+          nextWidget = const LoginScreen();
         }
       });
       Future.delayed(const Duration(milliseconds: 3000), () {
