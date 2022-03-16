@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:speech_stroop/model/test%20module/section.dart';
-import 'package:speech_stroop/screens/stroop_test/stroop_test.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 
 int answered = -1;
