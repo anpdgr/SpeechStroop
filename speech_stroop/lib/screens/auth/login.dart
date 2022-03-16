@@ -5,17 +5,18 @@ import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
-import 'package:speech_stroop/screens/stroop_test/stroop_test.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:http/http.dart' as http;
 
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key key}) : super(key: key);
+  static String routeName = "/login";
 
   @override
-  _LoginWidgetWidgetState createState() => _LoginWidgetWidgetState();
+  _LoginScreenWidgetState createState() => _LoginScreenWidgetState();
 }
 
-class _LoginWidgetWidgetState extends State<LoginWidget> {
+class _LoginScreenWidgetState extends State<LoginScreen> {
   TextEditingController telController;
   TextEditingController passwordController;
   bool passwordVisibility;
@@ -181,7 +182,7 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                       //     context,
                       //     MaterialPageRoute(
                       //         builder: (context) =>
-                      //             const ColorTestWidget()));
+                      //             const ColorTestScreen()));
                     }
                   }),
                   SecondaryButton(
@@ -191,7 +192,7 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const TermsConditionsWidget()))
+                                        const TermsConditionsScreen()))
                           }),
                   Padding(
                       padding:
@@ -203,7 +204,7 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const StroopTestWidget()));
+                                        const StroopTestScreen()));
                           },
                           child: const Text('ลืมรหัสผ่าน'),
                           style: TextButton.styleFrom(
@@ -268,7 +269,7 @@ class _LoginWidgetWidgetState extends State<LoginWidget> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const RegisterWidget()));
+                                                const RegisterScreen()));
                                   },
                                   child: const Text(
                                     "ยอมรับ",
