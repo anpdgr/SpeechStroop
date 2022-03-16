@@ -5,7 +5,7 @@ import 'package:speech_stroop/screens/auth/login.dart';
 import 'package:speech_stroop/screens/stroop/break/break_screen.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:more/tuple.dart';
+import 'package:tuple/tuple.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'dart:math';
 
@@ -52,9 +52,9 @@ class _BodyState extends State<Body> {
                     fit: BoxFit.cover,
                     child: answered >= 0
                         ? Text(
-                            testTemplate[answered].first,
+                            testTemplate[answered].item1,
                             style: TextStyle(
-                              color: testTemplate[answered].second,
+                              color: testTemplate[answered].item2,
                               fontSize: 70,
                               fontWeight: FontWeight.bold,
                             ),

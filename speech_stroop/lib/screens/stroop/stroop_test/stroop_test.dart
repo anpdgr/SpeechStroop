@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/model/test%20module/question.dart';
-import 'package:more/tuple.dart';
+import 'package:tuple/tuple.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 
 int sectionNumber = 1;
