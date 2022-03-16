@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
-import 'package:speech_stroop/screens/components/appbar.dart';
-import 'package:speech_stroop/screens/components/button/next_button.dart';
+import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/button/next_button.dart';
 
-class Register2Widget extends StatefulWidget {
-  const Register2Widget({Key key}) : super(key: key);
+class Register2Screen extends StatefulWidget {
+  const Register2Screen({Key key}) : super(key: key);
+  static String routeName = "/register_2";
 
   @override
-  _Register2WidgetState createState() => _Register2WidgetState();
+  _Register2ScreenState createState() => _Register2ScreenState();
 }
 
-class _Register2WidgetState extends State<Register2Widget> {
+class _Register2ScreenState extends State<Register2Screen> {
   String genderValue;
   String educationValue;
   DateTime dob;
@@ -419,7 +420,7 @@ class _Register2WidgetState extends State<Register2Widget> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const StressRegisterWidget()));
+                                      const StressRegisterScreen()));
                         }
                       }),
                     )

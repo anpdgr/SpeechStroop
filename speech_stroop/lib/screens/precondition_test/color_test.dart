@@ -8,14 +8,15 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../auth/login.dart';
 import '../../utils/speech_lib.dart';
 
-class ColorTestWidget extends StatefulWidget {
-  const ColorTestWidget({Key key}) : super(key: key);
+class ColorTestScreen extends StatefulWidget {
+  const ColorTestScreen({Key key}) : super(key: key);
+  static String routeName = "/precondition_color_test";
 
   @override
-  _ColorTestWidgetState createState() => _ColorTestWidgetState();
+  _ColorTestScreenState createState() => _ColorTestScreenState();
 }
 
-class _ColorTestWidgetState extends State<ColorTestWidget> {
+class _ColorTestScreenState extends State<ColorTestScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   stt.SpeechToText speech;
@@ -193,7 +194,7 @@ class _ColorTestWidgetState extends State<ColorTestWidget> {
     } else {
       Future.delayed(const Duration(milliseconds: 1500), () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginWidget()));
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       });
     }
   }
