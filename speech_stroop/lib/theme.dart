@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 ThemeData theme() {
-  return ThemeData();
+  return ThemeData(
+    primarySwatch: primaryColor,
+    fontFamily: 'BaiJamjuree',
+    textTheme: textTheme(),
+  );
 }
 
 InputDecorationTheme inputDecorationTheme() {
@@ -12,7 +16,8 @@ InputDecorationTheme inputDecorationTheme() {
 }
 
 TextTheme textTheme() {
-  return TextTheme(
+  return const TextTheme(
+    // TODO: add our text style
     bodyText1: TextStyle(),
     bodyText2: TextStyle(),
   );
