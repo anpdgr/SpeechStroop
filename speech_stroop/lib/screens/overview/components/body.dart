@@ -26,20 +26,21 @@ class _BodyState extends State<Body> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Align(
+              Align(
                 alignment: AlignmentDirectional(0, 0),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 0),
                   child: Text(
                     'Speech Stroop',
                     textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      letterSpacing: 0.5,
-                      height: 2.3,
-                      color: Color(0xFF37265F),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 45,
-                    ),
+                    // style: TextStyle(
+                    //   letterSpacing: 0.5,
+                    //   height: 2.3,
+                    //   color: Color(0xFF37265F),
+                    //   fontWeight: FontWeight.w500,
+                    //   fontSize: 45,
+                    // ),
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                 ),
               ),
