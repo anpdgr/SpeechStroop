@@ -14,4 +14,8 @@ Map<int, Color> color = {
   900: const Color.fromRGBO(4, 131, 184, 1),
 };
 
-MaterialColor primaryColor = MaterialColor(0xFF37265F, color);
+MaterialColor primaryColorMaterial = MaterialColor(0xFF37265F, color);
+Color primaryColor = const Color(0xFF37265F);
+
+MaterialColor secondaryColorMaterial = MaterialColor(0xFFEB8D8D, color);
+Color secondaryColor = const Color(0xFFEB8D8D);
