@@ -19,7 +19,7 @@ class CustomBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color inActiveIconColor = Color(0xFFB6B6B6);
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 14),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -37,38 +37,103 @@ class CustomBottomNavBar extends StatelessWidget {
       child: SafeArea(
           top: false,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(
-                icon: Icon(
-                  Icons.bar_chart_rounded,
-                  color: MenuState.history == selectedMenu
-                      ? primaryColor
-                      : inActiveIconColor,
-                ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, HistoryScreen.routeName),
+              Container(
+                padding: EdgeInsets.only(top: 5),
+                height: 77,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        padding: EdgeInsets.all(0),
+                        icon: Icon(
+                          Icons.bar_chart_rounded,
+                          size: 50.0,
+                          color: MenuState.history == selectedMenu
+                              ? primaryColor
+                              : inActiveIconColor,
+                        ),
+                        onPressed: () => {
+                          if (MenuState.history != selectedMenu)
+                            {
+                              Navigator.pushNamed(
+                                  context, HistoryScreen.routeName),
+                            }
+                        },
+                      ),
+                      const SizedBox(height: 1),
+                      Text("ประวัติการทดสอบ",
+                          style: Theme.of(context).textTheme.labelSmall.apply(
+                                color: MenuState.history == selectedMenu
+                                    ? primaryColor
+                                    : inActiveIconColor,
+                              ))
+                    ]),
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.home,
-                  color: MenuState.home == selectedMenu
-                      ? primaryColor
-                      : inActiveIconColor,
-                ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, HomeScreen.routeName),
+              Container(
+                padding: EdgeInsets.only(top: 5),
+                height: 77,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        padding: EdgeInsets.all(0),
+                        icon: Icon(
+                          Icons.home,
+                          size: 50.0,
+                          color: MenuState.home == selectedMenu
+                              ? primaryColor
+                              : inActiveIconColor,
+                        ),
+                        onPressed: () => {
+                          if (MenuState.home != selectedMenu)
+                            {
+                              Navigator.pushNamed(
+                                  context, HomeScreen.routeName),
+                            }
+                        },
+                      ),
+                      const SizedBox(height: 1),
+                      Text("หน้าหลัก",
+                          style: Theme.of(context).textTheme.labelSmall.apply(
+                                color: MenuState.home == selectedMenu
+                                    ? primaryColor
+                                    : inActiveIconColor,
+                              ))
+                    ]),
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.person_outline_sharp,
-                  color: MenuState.profile == selectedMenu
-                      ? primaryColor
-                      : inActiveIconColor,
-                ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, ProfileScreen.routeName),
-              ),
+              Container(
+                padding: EdgeInsets.only(top: 5),
+                height: 77,
+                child: Column(children: [
+                  IconButton(
+                    padding: EdgeInsets.all(0),
+                    icon: Icon(
+                      Icons.person,
+                      size: 50.0,
+                      color: MenuState.profile == selectedMenu
+                          ? primaryColor
+                          : inActiveIconColor,
+                    ),
+                    onPressed: () => {
+                      if (MenuState.profile != selectedMenu)
+                        {
+                          Navigator.pushNamed(context, ProfileScreen.routeName),
+                        }
+                    },
+                  ),
+                  const SizedBox(height: 1),
+                  Text("ข้อมูลส่วนตัว",
+                      style: Theme.of(context).textTheme.labelSmall.apply(
+                            color: MenuState.profile == selectedMenu
+                                ? primaryColor
+                                : inActiveIconColor,
+                          ))
+                ]),
+              )
             ],
           )),
     );
