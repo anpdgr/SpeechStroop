@@ -5,14 +5,15 @@ import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 
-class SleepRegisterWidget extends StatefulWidget {
-  const SleepRegisterWidget({Key key}) : super(key: key);
+class SleepRegisterScreen extends StatefulWidget {
+  const SleepRegisterScreen({Key key}) : super(key: key);
+  static String routeName = "/register_sleep";
 
   @override
-  _SleepRegisterWidgetState createState() => _SleepRegisterWidgetState();
+  _SleepRegisterScreenState createState() => _SleepRegisterScreenState();
 }
 
-class _SleepRegisterWidgetState extends State<SleepRegisterWidget> {
+class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formGlobalKey = GlobalKey<FormState>();
 
@@ -242,7 +243,7 @@ class _SleepRegisterWidgetState extends State<SleepRegisterWidget> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ColorTestWidget()));
+                                                  const ColorTestScreen()));
                                     }
                                   },
                                   child: const Text('เสร็จสิ้น'),

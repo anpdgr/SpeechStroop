@@ -6,14 +6,15 @@ import 'package:speech_stroop/components/button/next_button.dart';
 
 Map registerReq = {};
 
-class RegisterWidget extends StatefulWidget {
-  const RegisterWidget({Key key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key key}) : super(key: key);
+  static String routeName = "/register_1";
 
   @override
-  _RegisterWidgetState createState() => _RegisterWidgetState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _RegisterWidgetState extends State<RegisterWidget> {
+class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController telController;
   TextEditingController passwordController;
   bool passwordVisibility;
@@ -221,7 +222,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const Register2Widget()));
+                                      const Register2Screen()));
                         }
                       }
                     }))

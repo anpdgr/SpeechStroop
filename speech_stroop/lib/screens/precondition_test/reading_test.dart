@@ -7,14 +7,15 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../auth/login.dart';
 import '../../utils/speech_lib.dart';
 
-class ReadingTestWidget extends StatefulWidget {
-  const ReadingTestWidget({Key key}) : super(key: key);
+class ReadingTestScreen extends StatefulWidget {
+  const ReadingTestScreen({Key key}) : super(key: key);
+  static String routeName = "/precondition_reading_test";
 
   @override
-  _ReadingTestWidgetState createState() => _ReadingTestWidgetState();
+  _ReadingTestScreenState createState() => _ReadingTestScreenState();
 }
 
-class _ReadingTestWidgetState extends State<ReadingTestWidget> {
+class _ReadingTestScreenState extends State<ReadingTestScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   stt.SpeechToText speech;
@@ -201,7 +202,7 @@ class _ReadingTestWidgetState extends State<ReadingTestWidget> {
     } else {
       Future.delayed(const Duration(milliseconds: 1500), () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginWidget()));
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       });
     }
   }
