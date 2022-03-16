@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
-import 'package:speech_stroop/screens/components/appbar.dart';
-import 'package:speech_stroop/screens/components/button/primary_button.dart';
+import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/button/primary_button.dart';
 
 class TermsConditionsWidget extends StatefulWidget {
   const TermsConditionsWidget({Key key}) : super(key: key);

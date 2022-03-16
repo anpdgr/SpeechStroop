@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';
-import 'package:speech_stroop/screens/components/button/primary_button.dart';
-import 'package:speech_stroop/screens/components/button/secondary_button.dart';
+import 'package:speech_stroop/components/button/primary_button.dart';
+import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/screens/stroop_test/stroop_test.dart';
 import 'package:http/http.dart' as http;
 

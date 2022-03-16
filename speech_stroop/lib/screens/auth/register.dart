@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/auth/register2.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
-import 'package:speech_stroop/screens/components/appbar.dart';
-import 'package:speech_stroop/screens/components/button/next_button.dart';
+import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/button/next_button.dart';
 
 Map registerReq = {};
 
