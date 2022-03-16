@@ -8,14 +8,15 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../auth/login.dart';
 import '../../utils/speech_lib.dart';
 
-class MicrophoneTestWidget extends StatefulWidget {
-  const MicrophoneTestWidget({Key key}) : super(key: key);
+class MicrophoneTestScreen extends StatefulWidget {
+  const MicrophoneTestScreen({Key key}) : super(key: key);
+  static String routeName = "/precondition_microphone_test";
 
   @override
-  _MicrophoneTestWidgetState createState() => _MicrophoneTestWidgetState();
+  _MicrophoneTestScreenState createState() => _MicrophoneTestScreenState();
 }
 
-class _MicrophoneTestWidgetState extends State<MicrophoneTestWidget> {
+class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   stt.SpeechToText speech;
@@ -194,7 +195,7 @@ class _MicrophoneTestWidgetState extends State<MicrophoneTestWidget> {
     } else {
       Future.delayed(const Duration(milliseconds: 1500), () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginWidget()));
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       });
     }
   }

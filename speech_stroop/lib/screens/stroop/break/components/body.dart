@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:speech_stroop/screens/stroop_test/stroop_test.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
 
-class BreakWidget extends StatefulWidget {
-  const BreakWidget({Key key}) : super(key: key);
-
+class Body extends StatefulWidget {
+  const Body({Key key}) : super(key: key);
   @override
-  _BreakWidgetState createState() => _BreakWidgetState();
+  _BodyState createState() => _BodyState();
 }
 
-class _BreakWidgetState extends State<BreakWidget> {
+class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -36,7 +35,7 @@ class _BreakWidgetState extends State<BreakWidget> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const StroopTestWidget()));
+                        builder: (context) => const StroopTestScreen()));
               },
               child: Text("break" + countTest.toString()))
         ]),

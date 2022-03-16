@@ -2,16 +2,17 @@ import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register_sleep.dart';
 import 'package:flutter/material.dart';
 
-class StressRegisterWidget extends StatefulWidget {
-  const StressRegisterWidget({Key key}) : super(key: key);
+class StressRegisterScreen extends StatefulWidget {
+  const StressRegisterScreen({Key key}) : super(key: key);
+  static String routeName = "/register_stress";
 
   @override
-  _StressRegisterWidgetState createState() => _StressRegisterWidgetState();
+  _StressRegisterScreenState createState() => _StressRegisterScreenState();
 }
 
 enum StressLevel { never, rarely, sometimes, frequently, always }
 
-class _StressRegisterWidgetState extends State<StressRegisterWidget> {
+class _StressRegisterScreenState extends State<StressRegisterScreen> {
   double _radioValue1 = 1;
   double _radioValue2 = 1;
   double _radioValue3 = 1;
@@ -354,7 +355,7 @@ class _StressRegisterWidgetState extends State<StressRegisterWidget> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const SleepRegisterWidget()));
+                                                const SleepRegisterScreen()));
                                   }
                                 },
                                 child: const Text('ถัดไป'),

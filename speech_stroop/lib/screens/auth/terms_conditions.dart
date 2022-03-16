@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
-import 'package:speech_stroop/screens/components/appbar.dart';
-import 'package:speech_stroop/screens/components/button/primary_button.dart';
+import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/button/primary_button.dart';
 
-class TermsConditionsWidget extends StatefulWidget {
-  const TermsConditionsWidget({Key key}) : super(key: key);
+class TermsConditionsScreen extends StatefulWidget {
+  const TermsConditionsScreen({Key key}) : super(key: key);
+  static String routeName = "/term_and_condition";
 
   @override
-  _TermsConditionsWidgetWidgetState createState() =>
-      _TermsConditionsWidgetWidgetState();
+  _TermsConditionsScreenWidgetState createState() =>
+      _TermsConditionsScreenWidgetState();
 }
 
-class _TermsConditionsWidgetWidgetState extends State<TermsConditionsWidget> {
+class _TermsConditionsScreenWidgetState extends State<TermsConditionsScreen> {
   bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formGlobalKey = GlobalKey<FormState>();
@@ -155,7 +156,7 @@ class _TermsConditionsWidgetWidgetState extends State<TermsConditionsWidget> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const RegisterWidget()))
+                                          const RegisterScreen()))
                             }
                         })
               ],
