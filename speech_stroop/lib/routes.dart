@@ -5,10 +5,13 @@ import 'package:speech_stroop/screens/auth/register2.dart';
 import 'package:speech_stroop/screens/auth/register_sleep.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';
+import 'package:speech_stroop/screens/history/history_screen.dart';
+import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:speech_stroop/screens/overview/overview_screen.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/microphone_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test.dart';
+import 'package:speech_stroop/screens/profile/profile_screen.dart';
 import 'package:speech_stroop/screens/stroop/break/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 
@@ -32,4 +35,9 @@ final Map<String, WidgetBuilder> routes = {
   // Stroop Test
   StroopTestScreen.routeName: (context) => const StroopTestScreen(),
   BreakScreen.routeName: (context) => const BreakScreen(),
+
+  // Buttom NevBar
+  HomeScreen.routeName: (context) => const HomeScreen(),
+  ProfileScreen.routeName: (context) => const ProfileScreen(),
+  HistoryScreen.routeName: (context) => const HistoryScreen(),
 };
