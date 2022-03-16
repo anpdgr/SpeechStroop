@@ -231,7 +231,8 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                                             _radioValue4
                                       };
                                       var res = await http.post(
-                                          "http://localhost:3000/auth/register",
+                                          Uri.parse(
+                                              "http://localhost:3000/auth/register"),
                                           headers: {
                                             'Content-Type': 'application/json'
                                           },

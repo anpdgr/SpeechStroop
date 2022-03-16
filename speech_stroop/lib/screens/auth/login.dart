@@ -170,13 +170,13 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                   PrimaryButton('เข้าสู่ระบบ', () async {
                     if (formGlobalKey.currentState.validate()) {
                       formGlobalKey.currentState.save();
-                      var res =
-                          await http.post("http://localhost:3000/auth/login",
-                              headers: {'Content-Type': 'application/json'},
-                              body: jsonEncode({
-                                "tel": telController.text,
-                                "password": passwordController.text,
-                              }));
+                      var res = await http.post(
+                          Uri.parse("http://localhost:3000/auth/login"),
+                          headers: {'Content-Type': 'application/json'},
+                          body: jsonEncode({
+                            "tel": telController.text,
+                            "password": passwordController.text,
+                          }));
                       print(res.body);
                       // Navigator.push(
                       //     context,
