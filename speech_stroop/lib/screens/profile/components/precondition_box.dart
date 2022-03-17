@@ -11,8 +11,7 @@ class PreconditionBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: primaryColor),
-          borderRadius: BorderRadius.circular(10)),
+          color: softPrimaryColor, borderRadius: BorderRadius.circular(10)),
       padding: EdgeInsets.all(30),
       margin: EdgeInsets.all(20),
       child: Column(

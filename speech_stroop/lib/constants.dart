@@ -19,3 +19,5 @@ Color primaryColor = const Color(0xFF37265F);
 
 MaterialColor secondaryColorMaterial = MaterialColor(0xFFEB8D8D, color);
 Color secondaryColor = const Color(0xFFEB8D8D);
+
+Color softPrimaryColor = const Color(0xFFF4F4F9);

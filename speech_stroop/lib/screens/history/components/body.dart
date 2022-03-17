@@ -54,7 +54,7 @@ class _BodyState extends State<Body> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: Color(0xFFF4F4F9),
+                            color: softPrimaryColor,
                             borderRadius: BorderRadius.circular(10)),
                         padding: EdgeInsets.all(40),
                         child: Column(children: [
@@ -87,7 +87,7 @@ class _BodyState extends State<Body> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: Color(0xFFF4F4F9),
+                            color: softPrimaryColor,
                             borderRadius: BorderRadius.circular(10)),
                         padding: EdgeInsets.all(40),
                         child: Column(children: [
@@ -120,7 +120,7 @@ class _BodyState extends State<Body> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: Color(0xFFF4F4F9),
+                            color: softPrimaryColor,
                             borderRadius: BorderRadius.circular(10)),
                         padding: EdgeInsets.all(40),
                         child: Column(children: [
