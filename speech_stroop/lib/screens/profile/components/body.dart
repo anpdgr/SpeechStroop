@@ -84,7 +84,8 @@ class _BodyState extends State<Body> {
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                       child: Column(children: [
                         PrimaryButton("บันทึก", () => {print('save')}),
-                        SecondaryButton("ยกเลิก", () => {print('cancle')})
+                        SecondaryButton(
+                            "ยกเลิก", () => Navigator.pop(context, false))
                       ]),
                     ),
                   ],
