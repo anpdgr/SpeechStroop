@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
+import 'package:speech_stroop/components/home_screen_appbar.dart';
 import 'package:speech_stroop/screens/auth/login.dart';
 
 class Body extends StatefulWidget {
@@ -19,9 +20,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('ข้อมูลส่วนตัว'),
-        ),
+        appBar: HomeScreenAppBar('ข้อมูลส่วนตัว', true),
         body: Center(
             child: Column(
           children: [

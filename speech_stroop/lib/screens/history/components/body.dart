@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
+import 'package:speech_stroop/components/home_screen_appbar.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -29,9 +30,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('ประวัติการทดสอบ'),
-        ),
+        appBar: HomeScreenAppBar('ประวัติการทดสอบ', true),
         body: Center(
             child: Container(
                 child: (Column(

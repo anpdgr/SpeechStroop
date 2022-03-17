@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
+import 'package:speech_stroop/components/home_screen_appbar.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -13,9 +15,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Speech Strrop'),
-        ),
+        appBar: HomeScreenAppBar('Speech Stroop', false),
         body: Center(
             child: Container(
                 padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
