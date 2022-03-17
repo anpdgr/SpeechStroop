@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/components/home_screen_appbar.dart';
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/screens/auth/login.dart';
+import 'package:speech_stroop/screens/home/components/body.dart';
+import 'package:speech_stroop/screens/profile/components/precondition_box.dart';
+import 'package:speech_stroop/screens/profile/components/profile_form.dart';
+import 'package:speech_stroop/screens/profile/components/profile_pic.dart';
+import 'package:speech_stroop/utils/speech_lib.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -19,16 +25,30 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: HomeScreenAppBar('ข้อมูลส่วนตัว', true),
-        body: Center(
+    return SingleChildScrollView(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        child: Center(
             child: Column(
           children: [
+            const ProfilePic(),
+            const SizedBox(height: 20),
+            Text(
+              userName,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 22.0,
+              ),
+            ),
+            const SizedBox(height: 5),
+            ProfileForm(),
             PrimaryButton(
                 "แก้ไขข้อมูล",
                 () => {
                       showSimpleModalDialog(context),
                     }),
+            PreconditionBox("ทดสอบการจำแนกสี"),
+            PreconditionBox("ทดสอบการอ่าน"),
             TextButton(
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
@@ -40,7 +60,12 @@ class _BodyState extends State<Body> {
                     MaterialPageRoute(
                         builder: (context) => const LoginScreen()));
               },
-              child: const Text('ออกจากระบบ'),
+              child: Text(
+                'ออกจากระบบ',
+                style: TextStyle(
+                    color: secondaryColor,
+                    decoration: TextDecoration.underline),
+              ),
             )
           ],
         )));
