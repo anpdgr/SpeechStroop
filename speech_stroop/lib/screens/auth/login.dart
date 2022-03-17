@@ -5,6 +5,7 @@ import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
+import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:http/http.dart' as http;
 
@@ -168,22 +169,24 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                     ),
                   ),
                   PrimaryButton('เข้าสู่ระบบ', () async {
-                    if (formGlobalKey.currentState.validate()) {
-                      formGlobalKey.currentState.save();
-                      var res = await http.post(
-                          Uri.parse("http://localhost:3000/auth/login"),
-                          headers: {'Content-Type': 'application/json'},
-                          body: jsonEncode({
-                            "tel": telController.text,
-                            "password": passwordController.text,
-                          }));
-                      print(res.body);
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) =>
-                      //             const ColorTestScreen()));
-                    }
+                    // if (formGlobalKey.currentState.validate()) {
+                    //   formGlobalKey.currentState.save();
+                    //   var res = await http.post(
+                    //       Uri.parse("http://localhost:3000/auth/login"),
+                    //       headers: {'Content-Type': 'application/json'},
+                    //       body: jsonEncode({
+                    //         "tel": telController.text,
+                    //         "password": passwordController.text,
+                    //       }));
+                    //   print(res.body);
+                    //   // Navigator.push(
+                    //   //     context,
+                    //   //     MaterialPageRoute(
+                    //   //         builder: (context) =>
+                    //   //             const ColorTestScreen()));
+                    // }
+                    //TODO: delete me
+                    Navigator.pushNamed(context, HomeScreen.routeName);
                   }),
                   SecondaryButton(
                       'สมัครสมาชิก',
