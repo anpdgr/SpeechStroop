@@ -4,6 +4,8 @@ import 'package:speech_stroop/screens/auth/register_stress.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/next_button.dart';
 
+import '../../components/button/floating_button.dart';
+
 class Register2Screen extends StatefulWidget {
   const Register2Screen({Key key}) : super(key: key);
   static String routeName = "/register_2";
@@ -33,8 +35,22 @@ class _Register2ScreenState extends State<Register2Screen> {
     dobController = TextEditingController();
   }
 
+  bool isChecked = false;
+
   @override
   Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return const Color(0xFFEB8D8D);
+      }
+      return const Color(0xFF525252);
+    }
+
     return Form(
       key: formKey,
       child: Scaffold(
@@ -85,7 +101,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                           keyboardType: TextInputType.name,
                           validator: (val) {
                             if (val.isEmpty) {
-                              return 'โปรดระบุชื่อผู้ใช้';
+                              return 'โปรดระบุชื่อเล่น';
                             }
                             return null;
                           },
@@ -177,7 +193,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                         keyboardType: TextInputType.number,
                         validator: (val) {
                           if (val.length != 4) {
-                            return 'โปรดระบุเลขประจำตัวบัตรประชาชน 4 หลักท้าย';
+                            return 'โปรดระบุเลขประจำตัวบัตรประชาชน 4 ตัวท้าย';
                           }
                           return null;
                         },
@@ -230,16 +246,18 @@ class _Register2ScreenState extends State<Register2Screen> {
                                 keyboardType: TextInputType.number,
                                 validator: (val) {
                                   RegExp exp = RegExp(
-                                      r"/((19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/gm");
+                                      r"((19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])");
                                   Iterable<RegExpMatch> matches =
                                       exp.allMatches(val);
+                                  print(val);
+                                  print(matches);
                                   if (val == '') {
-                                    return 'โปรดระบุอายุของคุณ';
+                                    return 'โปรดระบุวันเกิดของคุณ';
+                                  } else if (matches.isEmpty) {
+                                    // exp
+                                    print('err');
+                                    return 'โปรดระบุวันเกิดของคุณให้ถูกต้อง';
                                   }
-                                  // TODO: validate dob field
-                                  // else if (matches) {
-
-                                  // }
                                   return null;
                                 },
                                 onTap: () {
@@ -259,7 +277,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                                                       : null
                                                 })
                                           });
-                                  print(dob);
                                 },
                                 onChanged: (val) {
                                   if (formGlobalKey.currentState.validate()) {
@@ -270,160 +287,190 @@ class _Register2ScreenState extends State<Register2Screen> {
                             ),
                           ),
                           Expanded(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 0, 0),
-                              child: InputDecorator(
-                                decoration: InputDecoration(
-                                  labelStyle: const TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0xFFA7A5A5),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0xFFA7A5A5),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                child: SizedBox(
-                                  height: 20,
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton<String>(
-                                      value: genderValue,
-                                      isDense: true,
-                                      isExpanded: true,
-                                      hint: const Text(
-                                        'เพศ',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                      ),
-                                      items: const [
-                                        DropdownMenuItem(
-                                            child: Text("เพศชาย"),
-                                            value: "male"),
-                                        DropdownMenuItem(
-                                            child: Text("เพศหญิง"),
-                                            value: "female"),
-                                        DropdownMenuItem(
-                                            child: Text("อื่น ๆ"),
-                                            value: "etc"),
-                                      ],
-                                      onChanged: (val) {
-                                        setState(() => genderValue = val);
-                                      },
-                                    ),
-                                  ),
-                                ),
+                              // child: InputDecorator(
+                              //     decoration: InputDecoration(
+                              //       labelStyle: const TextStyle(
+                              //         fontWeight: FontWeight.w300,
+                              //       ),
+                              //       enabledBorder: OutlineInputBorder(
+                              //         borderSide: const BorderSide(
+                              //           color: Color(0xFFA7A5A5),
+                              //           width: 1,
+                              //         ),
+                              //         borderRadius: BorderRadius.circular(10),
+                              //       ),
+                              //       focusedBorder: OutlineInputBorder(
+                              //         borderSide: const BorderSide(
+                              //           color: Color(0xFFA7A5A5),
+                              //           width: 1,
+                              //         ),
+                              //         borderRadius: BorderRadius.circular(10),
+                              //       ),
+                              //     ),
+                              // child: SizedBox(
+                              //     height: 80,
+                              child: DropdownButtonFormField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                            value: genderValue,
+                            hint: const Text(
+                              'เพศ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
                               ),
+                            ),
+                            onChanged: (val) {
+                              if (formGlobalKey.currentState.validate()) {
+                                formGlobalKey.currentState.save();
+                              }
+                            },
+                            items: const [
+                              DropdownMenuItem(
+                                  child: Text("เพศชาย"), value: "male"),
+                              DropdownMenuItem(
+                                  child: Text("เพศหญิง"), value: "female"),
+                              DropdownMenuItem(
+                                  child: Text("อื่น ๆ"), value: "etc"),
+                            ],
+                            validator: (value) {
+                              if (value == null) {
+                                return 'โปรดระบุเพศของคุณ';
+                              }
+                              return null;
+                            },
+                          )),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                        child: DropdownButtonFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
+                          value: educationValue,
+                          hint: const Text(
+                            'ระดับการศึกษาสูงสุด',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                          onChanged: (val) {
+                            if (formGlobalKey.currentState.validate()) {
+                              formGlobalKey.currentState.save();
+                            }
+                          },
+                          items: const [
+                            DropdownMenuItem(
+                                child: Text("ต่ำกว่ามัธยมศึกษาตอนต้น"),
+                                value: "elementary"),
+                            DropdownMenuItem(
+                                child: Text("มัธยมศึกษาตอนต้น"),
+                                value: "lower2nd"),
+                            DropdownMenuItem(
+                                child: Text("ปวช."), value: "vocational cert"),
+                            DropdownMenuItem(
+                                child: Text("มัธยมศึกษาตอนปลาย"),
+                                value: "upper2nd"),
+                            DropdownMenuItem(
+                                child: Text("ปวส."),
+                                value: "high vocational cert"),
+                            DropdownMenuItem(
+                                child: Text("อนุปริญญา"), value: "associate"),
+                            DropdownMenuItem(
+                                child: Text("ปริญญาตรี"), value: "bd"),
+                            DropdownMenuItem(
+                                child: Text("ปริญญาโท"), value: "md"),
+                            DropdownMenuItem(
+                                child: Text("ปริญญาเอก"), value: "phd"),
+                            DropdownMenuItem(
+                                child: Text("อื่น ๆ"), value: "etc"),
+                          ],
+                          validator: (value) {
+                            if (value == null) {
+                              return 'โปรดระบุระดับการศึกษาสูงสุดของคุณ';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.all(5),
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            checkColor: Colors.white,
+                            fillColor:
+                                MaterialStateProperty.resolveWith(getColor),
+                            value: isChecked,
+                            onChanged: (bool value) {
+                              setState(() {
+                                isChecked = value;
+                              });
+                            },
+                          ),
+                          const Flexible(
+                            child: Text(
+                              """หากคุณไม่มีภาวะตาบอดสี โปรดทำเครื่องหมายถูกในช่องว่างเพื่อยืนยัน เนื่องจากผู้ที่มีภาวะตาบอดสีจะไม่สามารถทำแบบทดสอบภายในแอปพลิเคชัน Speech Stroop ได้""",
+                              style:
+                                  TextStyle(fontSize: 14, letterSpacing: 0.5),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                        child: InputDecorator(
-                          decoration: InputDecoration(
-                            labelStyle: const TextStyle(
-                              fontWeight: FontWeight.w300,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0xFFA7A5A5),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0xFFA7A5A5),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Container(
-                            height: 20,
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                value: educationValue,
-                                isDense: true,
-                                isExpanded: true,
-                                hint: const Text(
-                                  'ระดับการศึกษาสูงสุด',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                ),
-                                items: const [
-                                  DropdownMenuItem(
-                                      child: Text("ต่ำกว่ามัธยมศึกษาตอนต้น"),
-                                      value: "elementary"),
-                                  DropdownMenuItem(
-                                      child: Text("มัธยมศึกษาตอนต้น"),
-                                      value: "lower2nd"),
-                                  DropdownMenuItem(
-                                      child: Text("ปวช."),
-                                      value: "vocational cert"),
-                                  DropdownMenuItem(
-                                      child: Text("มัธยมศึกษาตอนปลาย"),
-                                      value: "upper2nd"),
-                                  DropdownMenuItem(
-                                      child: Text("ปวส."),
-                                      value: "high vocational cert"),
-                                  DropdownMenuItem(
-                                      child: Text("อนุปริญญา"),
-                                      value: "associate"),
-                                  DropdownMenuItem(
-                                      child: Text("ปริญญาตรี"), value: "bd"),
-                                  DropdownMenuItem(
-                                      child: Text("ปริญญาโท"), value: "md"),
-                                  DropdownMenuItem(
-                                      child: Text("ปริญญาเอก"), value: "phd"),
-                                  DropdownMenuItem(
-                                      child: Text("อื่น ๆ"), value: "etc"),
-                                ],
-                                onChanged: (val) {
-                                  setState(() => educationValue = val);
-                                },
-                              ),
-                            ),
-                          ),
-                        )),
-                    //TODO: color blindness -> radio
                     Align(
-                      alignment: const AlignmentDirectional(0.9, 0),
-                      child: NextButton('ถัดไป', () {
-                        if (formGlobalKey.currentState.validate()) {
-                          formGlobalKey.currentState.save();
-                          registerReq = {
-                            ...registerReq,
-                            'name': nameController.text,
-                            'email': emailController.text,
-                            'lastFourId': lastFourIdController.text,
-                            'age': dobController.text,
-                            'gender': genderValue,
-                            'education': educationValue,
-                            'isColorBlind': false
-                          };
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const StressRegisterScreen()));
-                        }
-                      }),
-                    )
+                        alignment: const AlignmentDirectional(0.9, 0),
+                        child: FloatingButton(() {
+                          if (formGlobalKey.currentState.validate() &&
+                              isChecked) {
+                            formGlobalKey.currentState.save();
+                            registerReq = {
+                              ...registerReq,
+                              'name': nameController.text,
+                              'email': emailController.text,
+                              'lastFourId': lastFourIdController.text,
+                              'age': dobController.text,
+                              'gender': genderValue,
+                              'education': educationValue,
+                              'isColorBlind': true
+                            };
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const StressRegisterScreen()));
+                          }
+                        })
+
+                        // NextButton('ถัดไป', () {
+                        //   if (formGlobalKey.currentState.validate() &&
+                        //       isChecked) {
+                        //     formGlobalKey.currentState.save();
+                        //     registerReq = {
+                        //       ...registerReq,
+                        //       'name': nameController.text,
+                        //       'email': emailController.text,
+                        //       'lastFourId': lastFourIdController.text,
+                        //       'age': dobController.text,
+                        //       'gender': genderValue,
+                        //       'education': educationValue,
+                        //       'isColorBlind': true
+                        //     };
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) =>
+                        //                 const StressRegisterScreen()));
+                        //   }
+                        // }),
+                        ),
                   ],
                 )),
           ),

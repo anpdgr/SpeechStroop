@@ -106,3 +106,5 @@ flutter:
     - assets/images/motivation-amico.png
     - assets/images/overview-pink.png
     - assets/images/login.png
+    - assets/images/precondition-passed.png
+    - assets/images/precondition-failed.png

@@ -1,6 +1,10 @@
+import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/button/floating_button.dart';
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register_sleep.dart';
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/theme.dart';
 
 class StressRegisterScreen extends StatefulWidget {
   const StressRegisterScreen({Key key}) : super(key: key);
@@ -31,18 +35,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: Colors.deepPurpleAccent,
-        iconTheme: const IconThemeData(color: Colors.white),
-        automaticallyImplyLeading: true,
-        title: const Text(
-          'แบบสอบถามด้านความเครียด',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white, fontSize: 21),
-        ),
-        centerTitle: true,
-        elevation: 5,
-      ),
+      appBar: AppBarBack('แบบสอบถามด้านความเครียด'),
       backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Padding(
@@ -54,25 +47,24 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                       child: Text(
                         'โปรดตอบความรู้สึกของคุณในรอบ 1 เดือนที่ผ่านมา ',
-                        style: TextStyle(
-                          color: Color(0xFF9489FA),
-                          fontSize: 18,
-                        ),
+                        textAlign: TextAlign.center,
+                        style: textTheme().titleLarge,
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: Text(
                         '1 = ไม่เคย, 2 = แทบจะไม่, 3 = บางครั้ง,\n4 = ค่อนข้างบ่อย, 5 = บ่อยมาก',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Color(0xFFD5B5FF),
-                          fontSize: 16,
-                        ),
+                        style: textTheme()
+                            .titleMedium
+                            .apply(color: secondaryColor),
                       ),
                     ),
                     const Align(
@@ -89,6 +81,9 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                       ),
                     ),
                     Slider(
+                      activeColor: secondaryColor,
+                      thumbColor: secondaryColor,
+                      inactiveColor: tertiaryColor,
                       value: _radioValue1,
                       min: 1,
                       max: 5,
@@ -115,6 +110,9 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                       ),
                     ),
                     Slider(
+                      activeColor: secondaryColor,
+                      thumbColor: secondaryColor,
+                      inactiveColor: tertiaryColor,
                       value: _radioValue2,
                       min: 1,
                       max: 5,
@@ -140,6 +138,9 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                       ),
                     ),
                     Slider(
+                      activeColor: secondaryColor,
+                      thumbColor: secondaryColor,
+                      inactiveColor: tertiaryColor,
                       value: _radioValue3,
                       min: 1,
                       max: 5,
@@ -165,6 +166,9 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                       ),
                     ),
                     Slider(
+                      activeColor: secondaryColor,
+                      thumbColor: secondaryColor,
+                      inactiveColor: tertiaryColor,
                       value: _radioValue4,
                       min: 1,
                       max: 5,
@@ -190,6 +194,9 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                       ),
                     ),
                     Slider(
+                      activeColor: secondaryColor,
+                      thumbColor: secondaryColor,
+                      inactiveColor: tertiaryColor,
                       value: _radioValue5,
                       min: 1,
                       max: 5,
@@ -215,6 +222,9 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                       ),
                     ),
                     Slider(
+                      activeColor: secondaryColor,
+                      thumbColor: secondaryColor,
+                      inactiveColor: tertiaryColor,
                       value: _radioValue6,
                       min: 1,
                       max: 5,
@@ -240,6 +250,9 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                       ),
                     ),
                     Slider(
+                      activeColor: secondaryColor,
+                      thumbColor: secondaryColor,
+                      inactiveColor: tertiaryColor,
                       value: _radioValue7,
                       min: 1,
                       max: 5,
@@ -265,6 +278,9 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                       ),
                     ),
                     Slider(
+                      activeColor: secondaryColor,
+                      thumbColor: secondaryColor,
+                      inactiveColor: tertiaryColor,
                       value: _radioValue8,
                       min: 1,
                       max: 5,
@@ -290,6 +306,9 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                       ),
                     ),
                     Slider(
+                      activeColor: secondaryColor,
+                      thumbColor: secondaryColor,
+                      inactiveColor: tertiaryColor,
                       value: _radioValue9,
                       min: 1,
                       max: 5,
@@ -315,6 +334,9 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                       ),
                     ),
                     Slider(
+                      activeColor: secondaryColor,
+                      thumbColor: secondaryColor,
+                      inactiveColor: tertiaryColor,
                       value: _radioValue10,
                       min: 1,
                       max: 5,
@@ -326,46 +348,68 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
+                    Text("*โปรดตรวจสอบคำตอบให้ถูกต้องและครบถ้วน",
+                        style: textTheme().bodyMedium),
                     Align(
                       alignment: const AlignmentDirectional(0.9, 0),
                       child: Padding(
                           padding:
                               const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 5),
-                          child: SizedBox(
-                            width: 90,
-                            height: 50,
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  if (formGlobalKey.currentState.validate()) {
-                                    formGlobalKey.currentState.save();
-                                    registerReq = {
-                                      ...registerReq,
-                                      'stress': _radioValue1 +
-                                          _radioValue2 +
-                                          _radioValue3 +
-                                          _radioValue4 +
-                                          _radioValue5 +
-                                          _radioValue6 +
-                                          _radioValue7 +
-                                          _radioValue8 +
-                                          _radioValue9 +
-                                          _radioValue10
-                                    };
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const SleepRegisterScreen()));
-                                  }
-                                },
-                                child: const Text('ถัดไป'),
-                                style: ElevatedButton.styleFrom(
-                                    shape: const StadiumBorder(),
-                                    primary: Colors.deepPurpleAccent,
-                                    textStyle: const TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: 'BaiJamjuree'))),
-                          )),
+                          child: FloatingButton(() {
+                            if (formGlobalKey.currentState.validate()) {
+                              formGlobalKey.currentState.save();
+                              registerReq = {
+                                ...registerReq,
+                                'stress': _radioValue1 +
+                                    _radioValue2 +
+                                    _radioValue3 +
+                                    _radioValue4 +
+                                    _radioValue5 +
+                                    _radioValue6 +
+                                    _radioValue7 +
+                                    _radioValue8 +
+                                    _radioValue9 +
+                                    _radioValue10
+                              };
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SleepRegisterScreen()));
+                            }
+                          })
+                          // ElevatedButton(
+                          //     onPressed: () {
+                          //       if (formGlobalKey.currentState.validate()) {
+                          //         formGlobalKey.currentState.save();
+                          //         registerReq = {
+                          //           ...registerReq,
+                          //           'stress': _radioValue1 +
+                          //               _radioValue2 +
+                          //               _radioValue3 +
+                          //               _radioValue4 +
+                          //               _radioValue5 +
+                          //               _radioValue6 +
+                          //               _radioValue7 +
+                          //               _radioValue8 +
+                          //               _radioValue9 +
+                          //               _radioValue10
+                          //         };
+                          //         Navigator.push(
+                          //             context,
+                          //             MaterialPageRoute(
+                          //                 builder: (context) =>
+                          //                     const SleepRegisterScreen()));
+                          //       }
+                          //     },
+                          //     child: const Text('ถัดไป'),
+                          //     style: ElevatedButton.styleFrom(
+                          //         shape: const StadiumBorder(),
+                          //         primary: Colors.deepPurpleAccent,
+                          //         textStyle: const TextStyle(
+                          //             fontSize: 18,
+                          //             fontFamily: 'BaiJamjuree'))),
+                          ),
                     )
                   ],
                 )),

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/button/floating_button.dart';
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
-import 'package:speech_stroop/screens/precondition_test/color_test.dart';
+import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
+
+import 'package:speech_stroop/theme.dart';
+
+import '../precondition_test/introduction.dart';
 
 class SleepRegisterScreen extends StatefulWidget {
   const SleepRegisterScreen({Key key}) : super(key: key);
@@ -26,20 +33,8 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: Colors.deepPurpleAccent,
-        iconTheme: const IconThemeData(color: Colors.white),
-        automaticallyImplyLeading: true,
-        title: const Text(
-          'แบบสอบถามการนอนหลับ',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white, fontSize: 21),
-        ),
-        actions: const [],
-        centerTitle: true,
-        elevation: 5,
-      ),
-      backgroundColor: const Color(0xFFF5F5F5),
+      appBar: AppBarBack('แบบสอบถามการนอนหลับ'),
+      backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -53,25 +48,22 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Padding(
+                        Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: Text(
                             'โปรดตอบความรู้สึกของคุณในรอบ 1 เดือนที่ผ่านมา ',
-                            style: TextStyle(
-                              color: Color(0xFF9489FA),
-                              fontSize: 18,
-                            ),
+                            textAlign: TextAlign.center,
+                            style: textTheme().titleLarge,
                           ),
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Text(
                             '1 = ไม่เคย, 2 = บางครั้ง, 3 = บ่อยครั้ง, 4 = ทุกครั้ง',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Color(0xFFD5B5FF),
-                              fontSize: 16,
-                            ),
+                            style: textTheme()
+                                .titleMedium
+                                .apply(color: secondaryColor),
                           ),
                         ),
                         const Align(
@@ -89,6 +81,9 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                           ),
                         ),
                         Slider(
+                          activeColor: secondaryColor,
+                          thumbColor: secondaryColor,
+                          inactiveColor: tertiaryColor,
                           value: _radioValue1,
                           min: 1,
                           max: 4,
@@ -100,40 +95,6 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                             });
                           },
                         ),
-                        // Row(
-                        //   mainAxisSize: MainAxisSize.max,
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: const [
-                        //     Text(
-                        //       'ไม่เคย',
-                        //       style: TextStyle(
-                        //         color: Color(0xFF3F3F3F),
-                        //         fontSize: 15,
-                        //       ),
-                        //     ),
-                        //     Text(
-                        //       'บางครั้ง',
-                        //       style: TextStyle(
-                        //         color: Color(0xFF3F3F3F),
-                        //         fontSize: 15,
-                        //       ),
-                        //     ),
-                        //     Text(
-                        //       'บ่อยครั้ง',
-                        //       style: TextStyle(
-                        //         color: Color(0xFF3F3F3F),
-                        //         fontSize: 15,
-                        //       ),
-                        //     ),
-                        //     Text(
-                        //       'ทุกครั้ง',
-                        //       style: TextStyle(
-                        //         color: Color(0xFF3F3F3F),
-                        //         fontSize: 15,
-                        //       ),
-                        //     )
-                        //   ],
-                        // ),
                         const Align(
                           alignment: AlignmentDirectional(-1, 0),
                           child: Padding(
@@ -149,6 +110,9 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                           ),
                         ),
                         Slider(
+                          activeColor: secondaryColor,
+                          thumbColor: secondaryColor,
+                          inactiveColor: tertiaryColor,
                           value: _radioValue2,
                           min: 1,
                           max: 4,
@@ -176,6 +140,9 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                           ),
                         ),
                         Slider(
+                          activeColor: secondaryColor,
+                          thumbColor: secondaryColor,
+                          inactiveColor: tertiaryColor,
                           value: _radioValue3,
                           min: 1,
                           max: 4,
@@ -202,6 +169,9 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                           ),
                         ),
                         Slider(
+                          activeColor: secondaryColor,
+                          thumbColor: secondaryColor,
+                          inactiveColor: tertiaryColor,
                           value: _radioValue4,
                           min: 1,
                           max: 4,
@@ -215,46 +185,32 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                         ),
                         Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 20, 0, 5),
-                            child: SizedBox(
-                              width: 191,
-                              height: 50,
-                              child: ElevatedButton(
-                                  onPressed: () async {
-                                    if (formGlobalKey.currentState.validate()) {
-                                      formGlobalKey.currentState.save();
-                                      registerReq = {
-                                        ...registerReq,
-                                        'sleep': _radioValue1 +
-                                            _radioValue2 +
-                                            _radioValue3 +
-                                            _radioValue4
-                                      };
-                                      var res = await http.post(
-                                          Uri.parse(
-                                              "http://localhost:3000/auth/register"),
-                                          headers: {
-                                            'Content-Type': 'application/json'
-                                          },
-                                          body: jsonEncode(
-                                            registerReq,
-                                          ));
-                                      print(res.body);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const ColorTestScreen()));
-                                    }
-                                  },
-                                  child: const Text('เสร็จสิ้น'),
-                                  style: ElevatedButton.styleFrom(
-                                      shape: const StadiumBorder(),
-                                      primary: Colors.deepPurpleAccent,
-                                      textStyle: const TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'BaiJamjuree'))),
-                            )),
+                                0, 160, 0, 5),
+                            child: FloatingButton(() async {
+                              if (formGlobalKey.currentState.validate()) {
+                                formGlobalKey.currentState.save();
+                                registerReq = {
+                                  ...registerReq,
+                                  'sleep': _radioValue1 +
+                                      _radioValue2 +
+                                      _radioValue3 +
+                                      _radioValue4
+                                };
+                                //TODO: db
+                                // var res = await http.post(
+                                //     Uri.parse(
+                                //         "http://localhost:3000/auth/register"),
+                                //     headers: {
+                                //       'Content-Type': 'application/json'
+                                //     },
+                                //     body: jsonEncode(
+                                //       registerReq,
+                                //     ));
+                                // print(res.body);
+                                Navigator.pushNamed(
+                                    context, IntroductionScreen.routeName);
+                              }
+                            })),
                       ],
                     )),
               ),

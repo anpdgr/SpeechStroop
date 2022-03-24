@@ -8,6 +8,8 @@ import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:http/http.dart' as http;
 
+import '../precondition_test/reading_test/reading_test.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
   static String routeName = "/login";
@@ -204,7 +206,8 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const StroopTestScreen()));
+                                        const ReadingTestScreen()));
+                            // const StroopTestScreen()));
                           },
                           child: const Text('ลืมรหัสผ่าน'),
                           style: TextButton.styleFrom(
@@ -218,103 +221,5 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  showBottomModal(context) {
-    showModalBottomSheet(
-        context: context,
-        backgroundColor: Colors.transparent,
-        builder: (builder) {
-          return Container(
-            color: Colors.transparent,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.0),
-                  topRight: Radius.circular(20.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 10.0, // has the effect of softening the shadow
-                    spreadRadius: 0.0, // has the effect of extending the shadow
-                  )
-                ],
-              ),
-              alignment: Alignment.topLeft,
-              child: ListView(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(top: 5, left: 10),
-                        child: const Text(
-                          "Terms and conditions",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.deepPurpleAccent),
-                        ),
-                      ),
-                      Container(
-                          margin: const EdgeInsets.only(top: 5, right: 5),
-                          child: Padding(
-                              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                              child: TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const RegisterScreen()));
-                                  },
-                                  child: const Text(
-                                    "ยอมรับ",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  )))),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          color: Color(0xfff8f8f8),
-                          width: 1,
-                        ),
-                      ),
-                    ),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          RichText(
-                            textAlign: TextAlign.justify,
-                            text: const TextSpan(
-                                text: """Terms and conditions body""",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                    wordSpacing: 0.5)),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
   }
 }
