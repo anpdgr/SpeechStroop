@@ -21,3 +21,6 @@ MaterialColor secondaryColorMaterial = MaterialColor(0xFFEB8D8D, color);
 Color secondaryColor = const Color(0xFFEB8D8D);
 
 Color softPrimaryColor = const Color(0xFFF4F4F9);
+
+MaterialColor tertiaryColorMaterial = MaterialColor(0xFFFFE7E2, color);
+Color tertiaryColor = const Color(0xFFFFE7E2);

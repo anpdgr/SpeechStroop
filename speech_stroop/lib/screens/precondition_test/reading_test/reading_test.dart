@@ -1,11 +1,16 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/screens/precondition_test/components/mic_button.dart';
+import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
+import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
-import '../auth/login.dart';
-import '../../utils/speech_lib.dart';
+import '../../../components/appbar.dart';
+import '../../auth/login.dart';
+import '../../../utils/speech_lib.dart';
 
 class ReadingTestScreen extends StatefulWidget {
   const ReadingTestScreen({Key key}) : super(key: key);
@@ -27,14 +32,7 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   List textArr;
   bool isCorrect = false;
   List<SpeechRecognitionWords> valAlternates;
-
-  Icon micButton() {
-    if (isListening) {
-      return const Icon(Icons.mic, size: 100);
-    } else {
-      return const Icon(Icons.mic_none, size: 100);
-    }
-  }
+  int score = 0;
 
   @override
   void initState() {
@@ -46,27 +44,11 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
+      appBar: AppBarBack('การทดสอบการอ่าน'),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: AvatarGlow(
-        animate: isListening,
-        glowColor: Colors.orangeAccent[100],
-        endRadius: 100.0,
-        duration: const Duration(milliseconds: 2000),
-        repeatPauseDuration: const Duration(milliseconds: 100),
-        repeat: true,
-        child: SizedBox(
-            height: 130,
-            width: 130,
-            child: FloatingActionButton(
-              onPressed: () {
-                listen();
-              },
-              child: micButton(),
-              backgroundColor: Colors.orange[700],
-            )),
-      ),
+      floatingActionButton: MicButton(isListening, listen),
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -76,21 +58,6 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const Align(
-                    alignment: AlignmentDirectional(-0.9, 0),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child: Text(
-                        'ทดสอบการอ่าน',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          color: Color(0xFFD5B5FF),
-                          fontSize: 28,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Divider(),
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                     child: Text(
@@ -111,21 +78,10 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
                         child: FittedBox(
                           fit: BoxFit.cover,
                           child: Text(colorsMapDefault.keys.toList()[answered],
-                              style: TextStyle(
-                                  color: colorsMapDefault.values
-                                      .toList()[answered],
+                              style: const TextStyle(
+                                  color: Colors.black,
                                   fontSize: 70,
                                   fontWeight: FontWeight.bold)),
-                          // SizedBox(
-                          //   width: 200,
-                          //   height: 200,
-                          //   child: DecoratedBox(
-                          //     decoration: BoxDecoration(
-                          //       color: colorsMapDefault.values.toList()[answered],
-                          //       borderRadius: BorderRadius.circular(10),
-                          //     ),
-                          //   ),
-                          // ),
                         ),
                       )),
                   Text(text)
@@ -170,6 +126,7 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
     if (isAnswerCorrect()) {
       setState(() {
         text = 'Correct!';
+        score++;
       });
       print(text);
     } else {
@@ -200,10 +157,12 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
         });
       });
     } else {
-      Future.delayed(const Duration(milliseconds: 1500), () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()));
-      });
+      //TODO: change to fail
+      if (score < 7) {
+        Navigator.pushNamed(context, PassReadingTestScreen.routeName);
+      } else {
+        Navigator.pushNamed(context, PassReadingTestScreen.routeName);
+      }
     }
   }
 }

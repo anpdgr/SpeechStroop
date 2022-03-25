@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/components/button/floating_button.dart';
 import 'package:speech_stroop/screens/auth/register2.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
 import 'package:speech_stroop/components/appbar.dart';
@@ -155,7 +156,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 140),
                   child: TextFormField(
                     controller: confirmPasswordController,
                     obscureText: !confirmPasswordVisibility,
@@ -209,7 +210,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Align(
                     alignment: const AlignmentDirectional(0.9, 0),
-                    child: NextButton('ถัดไป', () {
+                    child: FloatingButton(() {
                       if (formGlobalKey.currentState.validate()) {
                         formGlobalKey.currentState.save();
                         if (passwordController.text ==
@@ -225,7 +226,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       const Register2Screen()));
                         }
                       }
-                    }))
+                    })
+
+                    // NextButton('ถัดไป', )
+                    )
               ],
             ),
           ),
