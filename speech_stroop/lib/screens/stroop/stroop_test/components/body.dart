@@ -212,7 +212,6 @@ class _BodyState extends State<Body> {
       //every section, except last Q
       var durationDelay = (answered == -1)
           ? const Duration(milliseconds: 1000)
-          //TODO: edit ms
           : const Duration(milliseconds: 3000);
       Future.delayed(durationDelay, () {
         setState(() {
@@ -224,7 +223,7 @@ class _BodyState extends State<Body> {
     }
     if (answered == QUESTIONS_AMOUNT - 1) {
       Widget nextWidget;
-      //TODO: push db
+      //TODO: db
 
       //TODO: set scores to 0
 

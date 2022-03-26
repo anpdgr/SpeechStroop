@@ -1,12 +1,19 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/screens/precondition_test/color_test/fail_color_test.dart';
+import 'package:speech_stroop/screens/precondition_test/color_test/pass_color_test.dart';
+import 'package:speech_stroop/screens/precondition_test/components/mic_button.dart';
+import 'package:speech_stroop/theme.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 // import '../providers/speech_lib.dart';
+import 'package:speech_stroop/constants.dart';
 
-import '../auth/login.dart';
-import '../../utils/speech_lib.dart';
+import '../../auth/login.dart';
+import '../../../utils/speech_lib.dart';
 
 class ColorTestScreen extends StatefulWidget {
   const ColorTestScreen({Key key}) : super(key: key);
@@ -27,15 +34,19 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   int answered = 0;
   List textArr;
   bool isCorrect = false;
+  int score = 0;
   List<SpeechRecognitionWords> valAlternates;
 
-  Icon micButton() {
-    if (isListening) {
-      return const Icon(Icons.mic, size: 100);
-    } else {
-      return const Icon(Icons.mic_none, size: 100);
-    }
-  }
+  // List<Widget> micButton() {
+  //   if (isListening) {
+  //     return <Widget>[const Icon(Icons.mic, size: 100), Text("กดเพื่อหยุด")];
+  //   } else {
+  //     return <Widget>[
+  //       const Icon(Icons.mic_none, size: 100),
+  //       Text("กดเพื่อพูด")
+  //     ];
+  //   }
+  // }
 
   @override
   void initState() {
@@ -47,27 +58,11 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
+      appBar: AppBarBack('การทดสอบการจำแนกสี'),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: AvatarGlow(
-        animate: isListening,
-        glowColor: Colors.orangeAccent[100],
-        endRadius: 100.0,
-        duration: const Duration(milliseconds: 2000),
-        repeatPauseDuration: const Duration(milliseconds: 100),
-        repeat: true,
-        child: SizedBox(
-            height: 130,
-            width: 130,
-            child: FloatingActionButton(
-              onPressed: () {
-                listen();
-              },
-              child: micButton(),
-              backgroundColor: Colors.orange[700],
-            )),
-      ),
+      floatingActionButton: MicButton(isListening, listen),
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -77,21 +72,6 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const Align(
-                    alignment: AlignmentDirectional(-0.9, 0),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child: Text(
-                        'ทดสอบการจำแนกสี',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          color: Color(0xFFD5B5FF),
-                          fontSize: 28,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Divider(),
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                     child: Text(
@@ -162,6 +142,7 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
     if (isAnswerCorrect()) {
       setState(() {
         text = 'Correct!';
+        score++;
       });
       print(text);
     } else {
@@ -192,10 +173,12 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
         });
       });
     } else {
-      Future.delayed(const Duration(milliseconds: 1500), () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()));
-      });
+      // TODO: change to fail
+      if (score < 7) {
+        Navigator.pushNamed(context, PassColorTestScreen.routeName);
+      } else {
+        Navigator.pushNamed(context, PassColorTestScreen.routeName);
+      }
     }
   }
 }
