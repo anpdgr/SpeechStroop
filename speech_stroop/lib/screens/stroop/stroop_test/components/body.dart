@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:speech_stroop/model/test%20module/history.dart';
-import 'package:speech_stroop/model/test%20module/question.dart';
+import 'package:speech_stroop/model/test_module/history.dart';
+import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/screens/auth/login.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
