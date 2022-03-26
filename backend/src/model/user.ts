@@ -20,8 +20,13 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    hnId: {
+      //TODO: TBD
+      type: String,
+      required: false,
+    },
     lastFourId: {
-      type: Number,
+      type: String,
       required: true,
     },
     dateOfBirth: {
@@ -67,7 +72,8 @@ export type UserDocument = mongoose.Document & {
   password: string
   name: string
   email: string
-  lastFourId: number
+  hnId: string
+  lastFourId: string
   dateOfBirth: Date
   gender: string
   education: string

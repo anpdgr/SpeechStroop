@@ -8,7 +8,8 @@ export interface RegisterDTO {
   password: string
   name: string
   email: string
-  lastFourId: number
+  hnId: string
+  lastFourId: string
   dateOfBirth: Date
   gender: string
   education: string
@@ -42,6 +43,7 @@ export async function register(
     password: hashedPassword,
     name: registerDTO.name,
     email: registerDTO.email,
+    hnId: registerDTO.hnId,
     lastFourId: registerDTO.lastFourId,
     dateOfBirth: registerDTO.dateOfBirth,
     gender: registerDTO.gender,
