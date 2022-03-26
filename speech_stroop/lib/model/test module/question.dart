@@ -18,7 +18,16 @@ class Question {
       this.answerAt,
       this.reactionTimeMs);
 
-  // set setUserAnswer(String answer) {
-  //   userAnswer = answer;
-  // }
+  Map<String, dynamic> toJson() {
+    return {
+      "questionNumber": questionNumber,
+      "problem": problem,
+      "condition": condition,
+      "expectedAnswer": expectedAnswer,
+      "userAnswer": userAnswer,
+      "startAt": startAt,
+      "answerAt": answerAt,
+      "reactionTimeMs": reactionTimeMs,
+    };
+  }
 }

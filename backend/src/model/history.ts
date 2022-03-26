@@ -97,7 +97,6 @@ export type HistoryDocument = mongoose.Document & {
   },
 }
 
-// const History = mongoose.model('History', historySchema)
 const History = mongoose.model<HistoryDocument>('History', historySchema)
 
 export { History }

@@ -1,13 +1,24 @@
-import 'package:mongo_dart/mongo_dart.dart';
+import 'package:speech_stroop/model/test%20module/health_scores.dart';
 
 import './section.dart';
+import 'dart:convert';
 
 class History {
   String _id;
   String userId;
   int totalScore;
   List<Section> sections;
-  Map<String, Map<String, int>> healthScores;
+  HealthScores healthScores;
+  List<String> badge;
 
-  History(this.userId, this.totalScore, this.sections, this.healthScores);
+  History(this.totalScore, this.sections, [this.healthScores, this.badge]);
+
+  Map<String, dynamic> toJson() {
+    return {
+      "totalScore": totalScore,
+      "sections": sections,
+      "healthScores": healthScores,
+      "badge": badge
+    };
+  }
 }
