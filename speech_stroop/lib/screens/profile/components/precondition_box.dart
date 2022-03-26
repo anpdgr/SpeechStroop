@@ -5,7 +5,7 @@ var date = "02 มกราคม 2564";
 
 class PreconditionBox extends StatelessWidget {
   PreconditionBox(this.title);
-  String title;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
