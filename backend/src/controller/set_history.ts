@@ -1,10 +1,9 @@
 import { ObjectId } from 'mongodb'
 import { History, HistoryDocument } from 'src/model/history'
-import { UserDocument } from 'src/model/user'
 
 export interface HistoryDTO {
-  totalScore: string
-  section: [
+  totalScore: number
+  sections: [
     {
       section: number
       score: {
@@ -55,10 +54,11 @@ export async function setHistory(
   const newHistory = new History({
     userId: userId,
     totalScore: historyDTO.totalScore,
-    section: historyDTO.section,
+    sections: historyDTO.sections,
     healthScores: historyDTO.healthScores,
     badge: historyDTO.badge,
   })
+  console.log(newHistory)
 
   await newHistory.save()
   return newHistory

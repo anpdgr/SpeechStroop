@@ -34,6 +34,6 @@ Future<http.Response> setHistory() async {
         'Authorization':
             'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjNlYjU0ZjUxODg0NTIwYTRkZThlOTUiLCJpYXQiOjE2NDgyNzY4MjZ9.MGGqHkHGBBQps-wzrtTPTHv4lRY4yLatgUE5QNELdLE',
       },
-      body: jsonEncode(history.toJson()));
+      body: jsonEncode(history));
   return res;
 }
