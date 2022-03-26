@@ -19,7 +19,7 @@ import 'package:speech_stroop/screens/precondition_test/microphone_test/pass_mic
 import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/reading_test.dart';
-import 'package:speech_stroop/screens/stroop/break/break_screen.dart';
+import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 
 // All our routes will be available here
@@ -50,7 +50,7 @@ final Map<String, WidgetBuilder> routes = {
 
   // Stroop Test
   StroopTestScreen.routeName: (context) => const StroopTestScreen(),
-  BreakScreen.routeName: (context) => const BreakScreen(),
+  BreakScreen.routeName: (context) => BreakScreen(),
 
   // Buttom NevBar
   HomeScreen.routeName: (context) => const HomeScreen(),
