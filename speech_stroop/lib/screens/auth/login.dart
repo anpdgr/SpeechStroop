@@ -1,15 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:speech_stroop/screens/auth/register.dart';
+import 'package:speech_stroop/model/auth.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:http/http.dart' as http;
 
 import '../precondition_test/reading_test/reading_test.dart';
+
+Auth auth;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -171,24 +172,27 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                     ),
                   ),
                   PrimaryButton('เข้าสู่ระบบ', () async {
-                    // if (formGlobalKey.currentState.validate()) {
-                    //   formGlobalKey.currentState.save();
-                    //   var res = await http.post(
-                    //       Uri.parse("http://localhost:3000/auth/login"),
-                    //       headers: {'Content-Type': 'application/json'},
-                    //       body: jsonEncode({
-                    //         "tel": telController.text,
-                    //         "password": passwordController.text,
-                    //       }));
-                    //   print(res.body);
-                    //   // Navigator.push(
-                    //   //     context,
-                    //   //     MaterialPageRoute(
-                    //   //         builder: (context) =>
-                    //   //             const ColorTestScreen()));
-                    // }
-                    //TODO: delete me
-                    Navigator.pushNamed(context, HomeScreen.routeName);
+                    if (formGlobalKey.currentState.validate()) {
+                      formGlobalKey.currentState.save();
+                      var res = await http.post(
+                          Uri.parse("http://localhost:3000/auth/login"),
+                          headers: {'Content-Type': 'application/json'},
+                          body: jsonEncode({
+                            "tel": telController.text,
+                            "password": passwordController.text,
+                          }));
+
+                      if (res.statusCode == 200) {
+                        auth = Auth.fromJson(jsonDecode(res.body));
+                        print("login success");
+                        Navigator.pushNamed(context, HomeScreen.routeName);
+                      } else {} //TODO: handle failed login
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             const ColorTestScreen()));
+                    }
                   }),
                   SecondaryButton(
                       'สมัครสมาชิก',
