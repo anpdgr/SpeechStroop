@@ -20,7 +20,7 @@ class _FailColorTestState extends State<FailColorTestScreen> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFFBFBFF),
-        appBar: AppBarBack('ไม่ผ่านการทดสอบการจำแนกสี'),
+        appBar: CustomAppBar('ไม่ผ่านการทดสอบการจำแนกสี'),
         body: Column(
           children: [
             Expanded(

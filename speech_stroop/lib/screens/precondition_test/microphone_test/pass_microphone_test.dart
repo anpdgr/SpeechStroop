@@ -20,7 +20,7 @@ class _PassMicrophoneTestState extends State<PassMicrophoneTestScreen> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFFBFBFF),
-        appBar: AppBarBack('ผ่านการทดสอบไมโครโฟน'),
+        appBar: CustomAppBar('ผ่านการทดสอบไมโครโฟน'),
         body: Column(
           children: [
             Expanded(

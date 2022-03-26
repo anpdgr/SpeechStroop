@@ -43,7 +43,7 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: AppBarBack('การทดสอบไมโครโฟน'),
+      appBar: CustomAppBar('การทดสอบไมโครโฟน'),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: MicButton(isListening, listen),
       key: scaffoldKey,

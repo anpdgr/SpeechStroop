@@ -22,7 +22,7 @@ class _IntroductionState extends State<IntroductionScreen> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFFBFBFF),
-        appBar: AppBarBack('เตรียมความพร้อมก่อนทดสอบ'),
+        appBar: CustomAppBar('เตรียมความพร้อมก่อนทดสอบ'),
         body: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(

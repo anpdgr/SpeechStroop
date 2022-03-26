@@ -20,7 +20,7 @@ class _PassColorTestState extends State<PassColorTestScreen> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFFBFBFF),
-        appBar: AppBarBack('ผ่านการทดสอบการจำแนกสี'),
+        appBar: CustomAppBar('ผ่านการทดสอบการจำแนกสี'),
         body: Column(
           children: [
             Expanded(

@@ -23,7 +23,7 @@ class _PassReadingTestState extends State<PassReadingTestScreen> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFFBFBFF),
-        appBar: AppBarBack('ผ่านการทดสอบการอ่าน'),
+        appBar: CustomAppBar('ผ่านการทดสอบการอ่าน'),
         body: Column(
           children: [
             Padding(

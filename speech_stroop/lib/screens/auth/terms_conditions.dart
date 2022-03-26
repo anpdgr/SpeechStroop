@@ -40,7 +40,7 @@ class _TermsConditionsScreenWidgetState extends State<TermsConditionsScreen> {
     }
 
     return Scaffold(
-      appBar: AppBarBack('ข้อกำหนดและเงื่อนไข'),
+      appBar: CustomAppBar('ข้อกำหนดและเงื่อนไข'),
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       backgroundColor: const Color(0xFFFBFBFF),

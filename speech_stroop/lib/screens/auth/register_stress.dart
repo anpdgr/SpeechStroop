@@ -35,7 +35,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBarBack('แบบสอบถามด้านความเครียด'),
+      appBar: CustomAppBar('แบบสอบถามด้านความเครียด'),
       backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Padding(

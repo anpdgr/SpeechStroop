@@ -21,7 +21,7 @@ class _FailMicrophoneTestState extends State<FailMicrophoneTestScreen> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFFBFBFF),
-        appBar: AppBarBack('ไม่ผ่านการทดสอบไมโครโฟน'),
+        appBar: CustomAppBar('ไม่ผ่านการทดสอบไมโครโฟน'),
         body: Column(
           children: [
             Expanded(

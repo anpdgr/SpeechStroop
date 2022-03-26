@@ -22,7 +22,7 @@ class _FailReadingTestState extends State<FailReadingTestScreen> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFFBFBFF),
-        appBar: AppBarBack('ไม่ผ่านการทดสอบการอ่าน'),
+        appBar: CustomAppBar('ไม่ผ่านการทดสอบการอ่าน'),
         body: Column(
           children: [
             Padding(

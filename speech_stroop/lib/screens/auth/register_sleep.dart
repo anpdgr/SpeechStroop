@@ -33,7 +33,7 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBarBack('แบบสอบถามการนอนหลับ'),
+      appBar: CustomAppBar('แบบสอบถามการนอนหลับ'),
       backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Column(

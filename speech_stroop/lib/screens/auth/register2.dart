@@ -56,7 +56,7 @@ class _Register2ScreenState extends State<Register2Screen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         key: scaffoldKey,
-        appBar: AppBarBack('สมัครสมาชิก'),
+        appBar: CustomAppBar('สมัครสมาชิก'),
         backgroundColor: const Color(0xFFFBFBFF),
         body: SafeArea(
           child: Padding(
