@@ -121,8 +121,9 @@ class CustomBottomNavBar extends StatelessWidget {
                     onPressed: () => {
                       if (MenuState.profile != selectedMenu)
                         {
+                          getUserProfile(),
                           Navigator.pushNamed(context, ProfileScreen.routeName),
-                        }
+                        },
                     },
                   ),
                   const SizedBox(height: 1),
