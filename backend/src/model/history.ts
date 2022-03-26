@@ -37,12 +37,14 @@ const historySchema = new Schema(
     healthScores: {
       stress: {
         start: Number,
-        break: Number,
+        break1: Number,
+        break2: Number,
         end: Number
       },
       awake: {
         start: Number,
-        break: Number,
+        break1: Number,
+        break2: Number,
         end: Number
       }
     },
