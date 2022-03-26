@@ -58,7 +58,7 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: AppBarBack('การทดสอบการจำแนกสี'),
+      appBar: CustomAppBar('การทดสอบการจำแนกสี'),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: MicButton(isListening, listen),
       key: scaffoldKey,

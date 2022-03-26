@@ -3,6 +3,8 @@ import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/components/home_screen_appbar.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 
 var bestScore = 58;
 var recentScore = 44;
@@ -161,7 +163,9 @@ class _BodyState extends State<Body> {
                       child: Column(children: [
                         PrimaryButton("ต้องการ", () => {print('save')}),
                         SecondaryButton(
-                            "ไม่ต้องการ", () => Navigator.pop(context, false))
+                            "ไม่ต้องการ",
+                            () => Navigator.pushNamed(
+                                context, BreakScreen.routeName))
                       ]),
                     ),
                     Row(
