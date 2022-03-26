@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/model/test%20module/history.dart';
 import 'package:speech_stroop/model/test%20module/question.dart';
 import 'package:speech_stroop/screens/auth/login.dart';
-import 'package:speech_stroop/screens/stroop/break/break_screen.dart';
+import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:tuple/tuple.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'dart:math';
+
+int sectionNumber = 0;
+int QUESTIONS_AMOUNT = 20;
+List<Tuple3<String, Color, String>> testTemplate = [];
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -212,7 +217,7 @@ class _BodyState extends State<Body> {
       //every section, except last Q
       var durationDelay = (answered == -1)
           ? const Duration(milliseconds: 1000)
-          : const Duration(milliseconds: 3000);
+          : const Duration(milliseconds: 30); //TODO: 3000
       Future.delayed(durationDelay, () {
         setState(() {
           scoreCounting();
@@ -231,19 +236,19 @@ class _BodyState extends State<Body> {
         scoreCounting();
 
         isListening = false;
-        if (sectionNumber < 3) {
-          //section 1-2, last Q
-          // nextWidget = const LoginScreen();
-          nextWidget = const BreakScreen();
-        } else if (sectionNumber == 3) {
-          //section 3, last Q
-          nextWidget = const LoginScreen();
-        }
+        // if (sectionNumber < 3) {
+        //   //section 1-2, last Q
+        //   // nextWidget = const LoginScreen();
+        //   nextWidget = BreakScreen();
+        // } else if (sectionNumber == ) {
+        //   //section 3, last Q
+        //   nextWidget = const LoginScreen();
+        // }
       });
+
       Future.delayed(const Duration(milliseconds: 3000), () {
         speech.stop();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => nextWidget));
+        Navigator.pushNamed(context, BreakScreen.routeName);
       });
     }
   }

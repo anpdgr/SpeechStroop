@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/model/test%20module/health_scores.dart';
+import 'package:speech_stroop/model/test%20module/history.dart';
 import 'package:speech_stroop/model/test%20module/question.dart';
-import 'package:tuple/tuple.dart';
+import 'package:speech_stroop/model/test%20module/section.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-int sectionNumber = 1;
-int QUESTIONS_AMOUNT = 20;
-List<Tuple3<String, Color, String>> testTemplate = [];
-List sections = [];
+int totalScore = 0;
+List<Section> sections = [];
 List<Question> questions = [];
-var historyTest = {};
+HealthScores healthScores;
+HealthScore stress = HealthScore(0, 0, 0, 0);
+HealthScore awake = HealthScore(0, 0, 0, 0);
 
 class StroopTestScreen extends StatelessWidget {
   const StroopTestScreen({Key key}) : super(key: key);
@@ -20,4 +24,16 @@ class StroopTestScreen extends StatelessWidget {
       body: Body(),
     );
   }
+}
+
+Future<http.Response> setHistory() async {
+  var history = History(totalScore, sections, healthScores, null);
+  var res = await http.post(Uri.parse("http://localhost:3000/history"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjNlYjU0ZjUxODg0NTIwYTRkZThlOTUiLCJpYXQiOjE2NDgyNzY4MjZ9.MGGqHkHGBBQps-wzrtTPTHv4lRY4yLatgUE5QNELdLE',
+      },
+      body: jsonEncode(history));
+  return res;
 }

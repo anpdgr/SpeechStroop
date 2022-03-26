@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:speech_stroop/model/test%20module/section.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 
 int answered = -1;
@@ -44,14 +45,18 @@ void scoreCounting() {
   }
   if (answered == QUESTIONS_AMOUNT - 1) {
     var totalScoreThisSection = scores["congruent"] + scores["incongruent"];
-    var section = Section(sectionNumber, scores, 0, questions, "test");
-    print(section);
-    // sections.add(section);
+    totalScore += totalScoreThisSection;
+    //TODO: fix avgRTtime, audioUrl
+    var section = Section(sectionNumber, scores, 0, questions, "audioUrl");
+    sections.add(section);
   }
   print(scores);
 }
 
 bool isAnswerCorrect() {
+  valAlternates.sort((a, b) => a.confidence.compareTo(b.confidence));
+  var userAnswer = valAlternates[0].recognizedWords;
+
   for (var predictedResult in valAlternates) {
     var predictedWord = predictedResult.recognizedWords;
     if (predictedWord ==
@@ -59,11 +64,15 @@ bool isAnswerCorrect() {
             (k) => colorsMapDefault[k] == testTemplate[answered].item2,
             orElse: () => '')) {
       isCorrect = true;
-      questions[answered].userAnswer = predictedWord;
-      return isCorrect;
+      userAnswer = predictedWord;
+      break;
     } else {
       isCorrect = false;
     }
   }
+
+  questions[answered].userAnswer = userAnswer;
+  print("userAnswer" + questions[answered].userAnswer);
+
   return isCorrect;
 }
