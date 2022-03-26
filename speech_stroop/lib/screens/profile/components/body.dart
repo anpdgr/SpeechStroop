@@ -8,6 +8,7 @@ import 'package:speech_stroop/screens/home/components/body.dart';
 import 'package:speech_stroop/screens/profile/components/precondition_box.dart';
 import 'package:speech_stroop/screens/profile/components/profile_form.dart';
 import 'package:speech_stroop/screens/profile/components/profile_pic.dart';
+import 'package:speech_stroop/screens/profile/components/profile_save_modal.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
 
 class Body extends StatefulWidget {
@@ -41,7 +42,7 @@ class _BodyState extends State<Body> {
               ),
             ),
             const SizedBox(height: 5),
-            ProfileForm(),
+            const ProfileForm(),
             PrimaryButton(
                 "แก้ไขข้อมูล",
                 () => {
@@ -75,49 +76,7 @@ class _BodyState extends State<Body> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0)),
-            child: Container(
-              constraints: const BoxConstraints(maxHeight: 270),
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        onPressed: () => Navigator.pop(context, false),
-                        icon: const Icon(
-                          Icons.close,
-                          color: Color(0xFF37265F),
-                        ),
-                        iconSize: 30,
-                      ),
-                    ),
-                    Container(
-                        alignment: Alignment.center,
-                        child: (const Text('ต้องการบันทึกหรือไม่',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xFF22005D),
-                                fontFamily: 'BaiJamjuree',
-                                wordSpacing: 1)))),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                      child: Column(children: [
-                        PrimaryButton("บันทึก", () => {print('save')}),
-                        SecondaryButton(
-                            "ยกเลิก", () => Navigator.pop(context, false))
-                      ]),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return const ProfileSaveModal();
         });
   }
 }

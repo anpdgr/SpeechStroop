@@ -4,6 +4,7 @@ import 'constants.dart';
 
 ThemeData theme() {
   return ThemeData(
+    backgroundColor: backgroundColor,
     useMaterial3: true,
     primarySwatch: primaryColorMaterial,
     fontFamily: 'BaiJamjuree',
