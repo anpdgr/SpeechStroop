@@ -34,13 +34,13 @@ class User {
       json['email'] as String,
       json['hnId'] as String,
       json['lastFourId'] as String,
-      json['dateOfBirth'] as DateTime,
+      DateTime.parse(json['dateOfBirth']),
       json['gender'] as String,
       json['education'] as String,
       json['historyId'] as List<String>,
       json['badge'] as List<String>,
       json['peconditionId'] as String,
-      json['healthScores'] as UserHealthScore,
+      UserHealthScore.fromJson(json['healthScores']),
     );
   }
 
