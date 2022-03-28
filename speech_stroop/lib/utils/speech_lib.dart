@@ -72,7 +72,8 @@ bool isAnswerCorrect() {
   }
 
   questions[answered].userAnswer = userAnswer;
-  print("userAnswer" + questions[answered].userAnswer);
+  //TODO: fix bug
+  // print("userAnswer" + questions[answered].userAnswer);
 
   return isCorrect;
 }
