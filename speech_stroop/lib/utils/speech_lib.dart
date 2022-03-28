@@ -45,11 +45,19 @@ void scoreCounting() {
   if (answered == QUESTIONS_AMOUNT - 1) {
     var totalScoreThisSection = scores["congruent"] + scores["incongruent"];
     totalScore += totalScoreThisSection;
-    //TODO: fix avgRTtime, audioUrl
-    var section = Section(sectionNumber, scores, 0, questions, "audioUrl");
+
+    var notEmptyReactionTime = questions
+        .map((q) => q.reactionTimeMs)
+        .where((rt) => rt != null)
+        .toList();
+    double avgReactionTime = (notEmptyReactionTime.reduce((a, b) => a + b)) /
+        notEmptyReactionTime.length;
+    //TODO: fix audioUrl
+    var section =
+        Section(sectionNumber, scores, avgReactionTime, questions, "audioUrl");
     sections.add(section);
+    scores = {"congruent": 0, "incongruent": 0};
   }
-  print(scores);
 }
 
 bool isAnswerCorrect() {

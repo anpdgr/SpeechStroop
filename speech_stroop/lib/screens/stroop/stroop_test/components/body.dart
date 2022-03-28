@@ -15,8 +15,9 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 
 int sectionNumber = 0;
 int QUESTIONS_AMOUNT = 20;
-List<Tuple3<String, Color, String>> testTemplate = [];
-Stopwatch stopwatch = Stopwatch();
+List<Tuple3<String, Color, String>> testTemplate;
+Stopwatch stopwatchRT = Stopwatch();
+Stopwatch stopwatchAudio = Stopwatch();
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -75,7 +76,7 @@ class _BodyState extends State<Body> {
                                 textAlign: TextAlign.center,
                               )
                             : AnimatedTextKit(
-                                pause: const Duration(milliseconds: 250),
+                                pause: const Duration(milliseconds: 150),
                                 isRepeatingAnimation: false,
                                 animatedTexts: [
                                   RotateAnimatedText(
@@ -102,6 +103,9 @@ class _BodyState extends State<Body> {
                                 ],
                                 onFinished: () {
                                   buildTest();
+                                  stopwatchAudio.reset();
+                                  stopwatchAudio.start();
+                                  //TODO: record audio
                                   navigatePage();
                                   listen();
                                 },
@@ -229,9 +233,16 @@ class _BodyState extends State<Body> {
   }
 
   Future<void> onResultListen(val) async {
-    stopwatch.stop();
-    print("time: " + stopwatch.elapsedMilliseconds.toString());
-    stopwatch.reset();
+    stopwatchRT.stop();
+    // check if answerAt and reactionTimeMs exists for avoiding override
+
+    if (answered >= 0 &&
+        questions[answered].answerAt == null &&
+        questions[answered].reactionTimeMs == null) {
+      questions[answered].answerAt = stopwatchAudio.elapsedMilliseconds;
+      questions[answered].reactionTimeMs = stopwatchRT.elapsedMilliseconds;
+    }
+
     valAlternates = val.alternates;
     if (isAnswerCorrect()) {
       setState(() {
@@ -246,19 +257,21 @@ class _BodyState extends State<Body> {
   }
 
   void navigatePage() {
-    print('answered' + answered.toString());
-
     if (answered < QUESTIONS_AMOUNT - 1) {
       //every section, except last Q
       var durationDelay = (answered == -1)
-          ? const Duration(milliseconds: 1000) //TODO: 321 countdown
-          : const Duration(milliseconds: 5000); //TODO: 3000
+          ? const Duration(milliseconds: 500)
+          : const Duration(milliseconds: 3000); //TODO: 3000
       Future.delayed(durationDelay, () {
         setState(() {
           scoreCounting();
           answered++;
+          stopwatchRT.reset();
+          if (answered >= 0) {
+            questions[answered].startAt = stopwatchAudio.elapsedMilliseconds;
+          }
+          stopwatchRT.start();
           navigatePage();
-          stopwatch.start();
         });
       });
     }
@@ -268,7 +281,8 @@ class _BodyState extends State<Body> {
 
       setState(() {
         scoreCounting();
-
+        print('stop audio');
+        stopwatchAudio.stop();
         isListening = false;
         // if (sectionNumber < 3) {
         //   //section 1-2, last Q
