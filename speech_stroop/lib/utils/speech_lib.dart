@@ -36,8 +36,7 @@ List colorsCode = const [
 ];
 
 void scoreCounting() {
-  if (scorePerQuestion != 0) {
-    //if it's correct
+  if (answered != -1 && scorePerQuestion != 0) {
     String condition = testTemplate[answered].item3;
     scores[condition]++;
 
