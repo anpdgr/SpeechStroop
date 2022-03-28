@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/components/button/mic_button.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
@@ -41,6 +42,9 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton:
+          answered >= 0 ? MicButton(isListening, () => {}, true) : null,
       key: scaffoldKey,
       body: Container(
         decoration: BoxDecoration(
