@@ -8,7 +8,7 @@ export interface HistoryDTO {
       section: number
       score: {
         congruent: number
-        incrongruent: number
+        incongruent: number
       }
       avgReactionTimeMs: number
       questions: [
@@ -21,8 +21,8 @@ export interface HistoryDTO {
           condition: string
           expectedAnswer: string
           userAnswer: string
-          startAt: Date
-          answerAt: Date
+          startAt: number
+          answerAt: number
           reactionTimeMs: number
         },
       ]

@@ -4,9 +4,9 @@ class Question {
   String condition;
   String expectedAnswer;
   String userAnswer;
-  DateTime startAt;
-  DateTime answerAt;
-  double reactionTimeMs;
+  int startAt;
+  int answerAt;
+  int reactionTimeMs;
 
   Question(
       this.questionNumber,

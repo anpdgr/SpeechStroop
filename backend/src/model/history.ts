@@ -17,7 +17,7 @@ const historySchema = new Schema(
         section: Number,
         score: {
           congruent: Number,
-          incrongruent: Number,
+          incongruent: Number,
         },
         avgReactionTimeMs: Number,
         questions: [
@@ -30,8 +30,8 @@ const historySchema = new Schema(
             condition: String,
             expectedAnswer: String,
             userAnswer: String,
-            startAt: Date,
-            answerAt: Date,
+            startAt: Number,
+            answerAt: Number,
             reactionTimeMs: Number,
           },
         ],
@@ -68,7 +68,7 @@ export type HistoryDocument = mongoose.Document & {
       section: number
       score: {
         congruent: number
-        incrongruent: number
+        incongruent: number
       }
       avgReactionTimeMs: number
       questions: [
@@ -81,8 +81,8 @@ export type HistoryDocument = mongoose.Document & {
           condition: string
           expectedAnswer: string
           userAnswer: string
-          startAt: Date
-          answerAt: Date
+          startAt: number
+          answerAt: number
           reactionTimeMs: number
         },
       ]
