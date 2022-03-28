@@ -47,7 +47,7 @@ class _BodyState extends State<Body> {
             height: 60,
           ),
           PrimaryButton('ดูผลลัพธ์', () async {
-            sectionNumber++;
+            sectionNumber = 0;
             answered = -1;
             stress.end = stressLevel.toInt();
             awake.end = awakeLevel.toInt();

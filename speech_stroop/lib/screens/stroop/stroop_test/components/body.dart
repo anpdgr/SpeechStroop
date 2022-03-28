@@ -273,23 +273,18 @@ class _BodyState extends State<Body> {
       Widget nextWidget;
       //TODO: set scores to 0
 
-      setState(() {
-        scoreCounting();
-        print('stop audio');
-        stopwatchAudio.stop();
-        isListening = false;
-        // if (sectionNumber < 3) {
-        //   //section 1-2, last Q
-        //   // nextWidget = const LoginScreen();
-        //   nextWidget = BreakScreen();
-        // } else if (sectionNumber == ) {
-        //   //section 3, last Q
-        //   nextWidget = const LoginScreen();
-        // }
-      });
+      // setState(() {
+      scoreCounting();
+
+      // });
 
       Future.delayed(const Duration(milliseconds: 3000), () {
+        print('stop audio');
+        stopwatchAudio.stop();
         speech.stop();
+        setState(() {
+          isListening = false;
+        });
         Navigator.pushNamed(context, BreakScreen.routeName);
       });
     }
