@@ -160,6 +160,7 @@ class _BodyState extends State<Body> {
                         child: Text('คุณต้องการดูวิธีการทดสอบหรือไม่',
                             style: Theme.of(context).textTheme.titleMedium)),
                     Container(
+                      alignment: Alignment.center,
                       child: Column(children: [
                         PrimaryButton("ต้องการ", () => {print('save')}),
                         SecondaryButton(
