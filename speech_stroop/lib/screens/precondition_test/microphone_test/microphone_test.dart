@@ -2,7 +2,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/constants.dart';
-import 'package:speech_stroop/screens/precondition_test/components/mic_button.dart';
+import 'package:speech_stroop/components/button/mic_button.dart';
 import 'package:speech_stroop/screens/precondition_test/microphone_test/fail_microphone_test.dart';
 import 'package:speech_stroop/screens/precondition_test/microphone_test/pass_microphone_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';

@@ -1,15 +1,12 @@
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:speech_stroop/constants.dart';
-import 'package:speech_stroop/screens/precondition_test/components/mic_button.dart';
+import 'package:speech_stroop/components/button/mic_button.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import '../../../components/appbar.dart';
-import '../../auth/login.dart';
 import '../../../utils/speech_lib.dart';
 
 class ReadingTestScreen extends StatefulWidget {
