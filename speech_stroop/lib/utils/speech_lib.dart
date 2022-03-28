@@ -50,8 +50,11 @@ void scoreCounting() {
         .map((q) => q.reactionTimeMs)
         .where((rt) => rt != null)
         .toList();
-    double avgReactionTime = (notEmptyReactionTime.reduce((a, b) => a + b)) /
-        notEmptyReactionTime.length;
+    int notEmptyReactionTimeLength = notEmptyReactionTime.length;
+    double avgReactionTime = notEmptyReactionTimeLength == 0
+        ? null
+        : (notEmptyReactionTime.reduce((a, b) => a + b)) /
+            notEmptyReactionTimeLength;
     //TODO: fix audioUrl
     var section =
         Section(sectionNumber, scores, avgReactionTime, questions, "audioUrl");
