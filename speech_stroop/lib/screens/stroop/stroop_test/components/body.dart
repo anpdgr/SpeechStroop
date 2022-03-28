@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
-import 'package:speech_stroop/screens/auth/login.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
-import 'package:speech_stroop/theme.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:tuple/tuple.dart';
@@ -122,13 +119,13 @@ class _BodyState extends State<Body> {
   }
 
   void buildTest() {
-    print('answered' + answered.toString());
     Random rn = Random();
     int idxName = 0, idxCode = 0, congruent = 0, incongruent = 0;
     List colorsCodeNoName = [];
     Tuple3<String, Color, String> questionTemplate;
-    Question question;
-    testTemplate = <Tuple3<String, Color, String>>[];
+
+    testTemplate = [];
+    questions = [];
 
     switch (sectionNumber) {
       case 1:
@@ -147,53 +144,38 @@ class _BodyState extends State<Body> {
     }
 
     String condition;
-    String expectedAnswer;
+
+    // Congruent
     for (var i = 0; i < congruent; i++) {
       condition = "congruent";
+      // random index for WORD
       idxName = rn.nextInt(colorsName.length);
-      expectedAnswer = colorsName[idxName];
-      questionTemplate =
-          Tuple3(colorsName[idxName], colorsCode[idxName], condition);
+      // get WORD and COLOR code
+      String colorWord = colorsName[idxName];
+      Color colorCode = colorsCode[idxName];
 
-      question = Question(
-          i + 1,
-          {"color": expectedAnswer, "word": colorsName[idxName]},
-          condition,
-          expectedAnswer,
-          null,
-          null,
-          null,
-          null);
-      questions.add(question);
-
+      questionTemplate = Tuple3(colorWord, colorCode, condition);
       testTemplate.add(questionTemplate);
     }
+
+    // Incongruent
     for (var i = 0; i < incongruent; i++) {
       condition = "incongruent";
+      // random index for WORD
       idxName = rn.nextInt(colorsName.length);
+      // get WORD
+      String colorWord = colorsName[idxName];
+      // build list of color without WORD (only for incongruent)
       colorsCodeNoName = colorsCode
-          .where((c) => c != colorsMapDefault[colorsName[idxName]])
+          .where((code) => code != colorsMapDefault[colorsName[idxName]])
           .toList();
 
+      // random index for COLOR code
       idxCode = rn.nextInt(colorsCodeNoName.length);
-      var colorNameNoName = colorsMapDefault.keys
-          .firstWhere((k) => colorsMapDefault[k] == colorsCodeNoName[idxCode]);
+      // get COLOR code
+      Color colorCode = colorsCodeNoName[idxCode];
 
-      expectedAnswer = colorNameNoName;
-      questionTemplate =
-          Tuple3(colorsName[idxName], colorsCodeNoName[idxCode], condition);
-
-      question = Question(
-          i + 1,
-          {"color": expectedAnswer, "word": colorsName[idxName]},
-          condition,
-          expectedAnswer,
-          null,
-          null,
-          null,
-          null);
-      questions.add(question);
-
+      questionTemplate = Tuple3(colorWord, colorCode, condition);
       isQuestionExist(questionTemplate, testTemplate)
           ? (i--)
           : testTemplate.add(questionTemplate);
@@ -202,7 +184,15 @@ class _BodyState extends State<Body> {
     //TODO: avoid same element being next to each other
     testTemplate.shuffle();
 
-    print(testTemplate.toString() + (testTemplate.length).toString());
+    var i = 0;
+    testTemplate.forEach((q) {
+      i++;
+      int displayColorCodeIdx = colorsCode.indexOf(q.item2);
+      String displayColor = colorsName[displayColorCodeIdx];
+      String displayWord = q.item1;
+      questions.add(Question(i, {"color": displayColor, "word": displayWord},
+          q.item3, displayColor, null, null, null, null));
+    });
   }
 
   bool isQuestionExist(question, testTemplate) {
