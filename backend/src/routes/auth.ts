@@ -17,6 +17,11 @@ router.post('/login', async (req: Request<{}, {}, LoginDTO>, res: Response) => {
   res.json(response)
 })
 
+router.post('/logout', function (req, res) {
+  req.logOut()
+  res.redirect('/')
+})
+
 router.post(
   '/register',
   async (req: Request<{}, {}, RegisterDTO>, res: Response) => {
