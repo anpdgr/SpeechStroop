@@ -25,6 +25,9 @@ Color tertiaryColor = const Color(0xFFFFE7E2);
 
 Color backgroundColor = const Color(0xFFFBFBFF);
 
+Color formText = const Color(0xFF525252);
+Color formBorder = const Color(0xFFA7A5A5);
+
 // API path
 class APIPath {
   final baseUrl = "http://localhost:3000";
