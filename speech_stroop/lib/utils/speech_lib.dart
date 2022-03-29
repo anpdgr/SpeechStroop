@@ -36,8 +36,7 @@ List colorsCode = const [
 ];
 
 void scoreCounting() {
-  if (scorePerQuestion != 0) {
-    //if it's correct
+  if (answered != -1 && scorePerQuestion != 0) {
     String condition = testTemplate[answered].item3;
     scores[condition]++;
 
@@ -46,11 +45,22 @@ void scoreCounting() {
   if (answered == QUESTIONS_AMOUNT - 1) {
     var totalScoreThisSection = scores["congruent"] + scores["incongruent"];
     totalScore += totalScoreThisSection;
-    //TODO: fix avgRTtime, audioUrl
-    var section = Section(sectionNumber, scores, 0, questions, "audioUrl");
+
+    var notEmptyReactionTime = questions
+        .map((q) => q.reactionTimeMs)
+        .where((rt) => rt != null)
+        .toList();
+    int notEmptyReactionTimeLength = notEmptyReactionTime.length;
+    double avgReactionTime = notEmptyReactionTimeLength == 0
+        ? null
+        : (notEmptyReactionTime.reduce((a, b) => a + b)) /
+            notEmptyReactionTimeLength;
+    //TODO: fix audioUrl
+    var section =
+        Section(sectionNumber, scores, avgReactionTime, questions, "audioUrl");
     sections.add(section);
+    scores = {"congruent": 0, "incongruent": 0};
   }
-  print(scores);
 }
 
 bool isAnswerCorrect() {
@@ -72,7 +82,8 @@ bool isAnswerCorrect() {
   }
 
   questions[answered].userAnswer = userAnswer;
-  print("userAnswer" + questions[answered].userAnswer);
+  //TODO: fix bug
+  // print("userAnswer" + questions[answered].userAnswer);
 
   return isCorrect;
 }

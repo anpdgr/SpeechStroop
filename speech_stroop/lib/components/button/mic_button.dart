@@ -2,8 +2,11 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 
-List<Widget> micButton(isListening) {
+List<Widget> micButton(isListening, isStroop) {
   if (isListening) {
+    if (isStroop) {
+      return <Widget>[const Icon(Icons.mic, size: 100), Text("พูดได้เลย")];
+    }
     return <Widget>[const Icon(Icons.mic, size: 100), Text("กดเพื่อหยุด")];
   } else {
     return <Widget>[const Icon(Icons.mic_none, size: 100), Text("กดเพื่อพูด")];
@@ -13,8 +16,9 @@ List<Widget> micButton(isListening) {
 class MicButton extends StatelessWidget {
   final bool isListening;
   final void Function() handler;
+  final bool isStroop;
 
-  MicButton(this.isListening, this.handler);
+  MicButton(this.isListening, this.handler, [this.isStroop = false]);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class MicButton extends StatelessWidget {
           width: 130,
           child: FloatingActionButton.extended(
             label: Column(
-              children: micButton(isListening),
+              children: micButton(isListening, isStroop),
             ),
             onPressed: () {
               handler();

@@ -5,7 +5,7 @@ import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/fail_color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/pass_color_test.dart';
-import 'package:speech_stroop/screens/precondition_test/components/mic_button.dart';
+import 'package:speech_stroop/components/button/mic_button.dart';
 import 'package:speech_stroop/theme.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
