@@ -1,3 +1,8 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:speech_stroop/model/auth.dart';
+
 class User {
   String _id;
   String tel;
@@ -76,4 +81,26 @@ class UserHealthScore {
       "sleep": sleep,
     };
   }
+}
+
+User userProfile;
+
+getUserProfile() async {
+  if (userProfile == null) {
+    String token = auth.token;
+    var res = await http.get(
+      Uri.parse("http://localhost:3000/user/profile"),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (res.statusCode == 200) {
+      print(res.body);
+      userProfile = User.fromJson(jsonDecode(res.body));
+    } else {
+      //TODO: handle
+    }
+    print(userProfile.toJson());
+  }
+  return userProfile;
 }
