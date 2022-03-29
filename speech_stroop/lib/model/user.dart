@@ -25,7 +25,7 @@ class User {
       this.historyId,
       this.badge,
       this.peconditionId,
-      this.healthScores); //TODO: add this!
+      this.healthScores);
 
   factory User.fromJson(dynamic json) {
     return User(
@@ -37,8 +37,8 @@ class User {
       DateTime.parse(json['dateOfBirth']),
       json['gender'] as String,
       json['education'] as String,
-      json['historyId'] as List<String>,
-      json['badge'] as List<String>,
+      List<String>.from(json['historyId']),
+      List<String>.from(json['badge']),
       json['peconditionId'] as String,
       UserHealthScore.fromJson(json['healthScores']),
     );
