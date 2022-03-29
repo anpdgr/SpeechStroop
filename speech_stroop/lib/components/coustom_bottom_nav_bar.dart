@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/history/history_screen.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:speech_stroop/screens/profile/profile_screen.dart';

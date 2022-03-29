@@ -10,8 +10,6 @@ import 'package:http/http.dart' as http;
 
 import '../precondition_test/reading_test/reading_test.dart';
 
-Auth auth;
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
   static String routeName = "/login";
