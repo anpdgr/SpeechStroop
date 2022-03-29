@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/enums.dart';
+import 'package:speech_stroop/theme.dart';
+import 'package:tuple/tuple.dart';
 
 // Color
 Map<int, Color> color = {
@@ -27,6 +30,13 @@ Color backgroundColor = const Color(0xFFFBFBFF);
 
 Color formText = const Color(0xFF525252);
 Color formBorder = const Color(0xFFA7A5A5);
+
+// Button
+Map<ButtonType, Tuple2<Size, TextStyle>> buttonStyle = {
+  ButtonType.small: Tuple2(const Size(350, 42), textTheme().titleMedium),
+  ButtonType.medium: Tuple2(const Size(350, 60), textTheme().titleLarge),
+  ButtonType.large: Tuple2(const Size(350, 72), textTheme().titleLarge)
+};
 
 // API path
 class APIPath {
