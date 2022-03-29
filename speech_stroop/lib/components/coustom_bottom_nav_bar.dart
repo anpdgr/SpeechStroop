@@ -119,10 +119,10 @@ class CustomBottomNavBar extends StatelessWidget {
                           ? primaryColor
                           : inActiveIconColor,
                     ),
-                    onPressed: () => {
+                    onPressed: () async => {
                       if (MenuState.profile != selectedMenu)
                         {
-                          getUserProfile(),
+                          await getUserProfile(),
                           Navigator.pushNamed(context, ProfileScreen.routeName),
                         },
                     },
