@@ -3,6 +3,7 @@ import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/components/home_screen_appbar.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/enums.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 
@@ -112,8 +113,15 @@ class _BodyState extends State<Body> {
                 ),
               ),
               PrimaryButton(
-                  "เริ่มทดสอบ", () => {showSimpleModalDialogTutorial(context)}),
-              SecondaryButton("วิธีการทดสอบ", () => {print("tutorial")})
+                "เริ่มทดสอบ",
+                () => {showSimpleModalDialogTutorial(context)},
+                ButtonType.medium,
+              ),
+              SecondaryButton(
+                "วิธีการทดสอบ",
+                () => {print("tutorial")},
+                ButtonType.medium,
+              )
             ],
           )),
         )));
