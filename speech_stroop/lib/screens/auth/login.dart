@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/model/auth.dart';
+import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
@@ -182,6 +183,7 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
 
                       if (res.statusCode == 200) {
                         auth = Auth.fromJson(jsonDecode(res.body));
+                        getUserProfile();
                         print("login success");
                         Navigator.pushNamed(context, HomeScreen.routeName);
                       } else {} //TODO: handle failed login
