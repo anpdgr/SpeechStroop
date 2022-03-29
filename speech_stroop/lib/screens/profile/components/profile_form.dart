@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/components/button/primary_button.dart';
+import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/user.dart';
-import 'package:speech_stroop/screens/profile/components/body.dart';
 import 'package:speech_stroop/theme.dart';
 
 class ProfileForm extends StatefulWidget {
@@ -14,12 +15,14 @@ class ProfileFormState extends State<ProfileForm> {
   @override
   void initState() {
     super.initState();
+    profileFormEnabled = false;
     nameController = TextEditingController();
     emailController = TextEditingController();
     lastFourIdController = TextEditingController();
     dobController = TextEditingController();
   }
 
+  bool profileFormEnabled;
   String genderValue;
   String educationValue;
   DateTime dob;
@@ -43,6 +46,20 @@ class ProfileFormState extends State<ProfileForm> {
     return const Color(0xFF525252);
   }
 
+  Widget getFormButton() {
+    Widget button;
+    profileFormEnabled
+        ? button = SecondaryButton(
+            "บันทึกข้อมูล", () => {showSimpleModalDialog(context)})
+        : button = PrimaryButton(
+            "แก้ไขข้อมูล",
+            () => {
+                  setState(() => {profileFormEnabled = true}),
+                });
+    //SecondaryButton("บันทึกข้อมูล", showSimpleModalDialog(context));
+    return button;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,7 +78,7 @@ class ProfileFormState extends State<ProfileForm> {
                     child: TextFormField(
                       initialValue: userProfile.name,
                       decoration: InputDecoration(
-                        enabled: false,
+                        enabled: profileFormEnabled,
                         labelText: 'ชื่อเล่น',
                         labelStyle:
                             textTheme().labelLarge.apply(color: formText),
@@ -95,7 +112,7 @@ class ProfileFormState extends State<ProfileForm> {
                   child: TextFormField(
                     initialValue: userProfile.email,
                     decoration: InputDecoration(
-                      enabled: false,
+                      enabled: profileFormEnabled,
                       labelText: 'อีเมล',
                       labelStyle: textTheme().labelLarge.apply(color: formText),
                       border: OutlineInputBorder(
@@ -136,7 +153,7 @@ class ProfileFormState extends State<ProfileForm> {
                             initialValue: userProfile.dateOfBirth
                                 .toIso8601String()
                                 .split('T')[0],
-                            enabled: false,
+                            enabled: profileFormEnabled,
                             decoration: InputDecoration(
                               labelText: 'วันเกิด',
                               labelStyle:
@@ -200,7 +217,7 @@ class ProfileFormState extends State<ProfileForm> {
                         child: TextFormField(
                           initialValue: userProfile.gender,
                           decoration: InputDecoration(
-                            enabled: false,
+                            enabled: profileFormEnabled,
                             labelText: 'เพศ',
                             labelStyle:
                                 textTheme().labelLarge.apply(color: formText),
@@ -229,7 +246,7 @@ class ProfileFormState extends State<ProfileForm> {
                   child: TextFormField(
                     initialValue: userProfile.education,
                     decoration: InputDecoration(
-                      enabled: false,
+                      enabled: profileFormEnabled,
                       labelText: 'ระดับการศึกษาสูงสุด',
                       labelStyle: textTheme().labelLarge.apply(color: formText),
                       border: OutlineInputBorder(
@@ -249,9 +266,68 @@ class ProfileFormState extends State<ProfileForm> {
                     },
                   ),
                 ),
+                getFormButton(),
               ],
             )),
       ),
     );
+  }
+
+  showSimpleModalDialog(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+            child: Container(
+              constraints: const BoxConstraints(maxHeight: 270),
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        icon: const Icon(
+                          Icons.close,
+                          color: Color(0xFF37265F),
+                        ),
+                        iconSize: 30,
+                      ),
+                    ),
+                    Container(
+                        alignment: Alignment.center,
+                        child: (const Text('ต้องการบันทึกหรือไม่',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                                color: Color(0xFF22005D),
+                                fontFamily: 'BaiJamjuree',
+                                wordSpacing: 1)))),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      child: Column(children: [
+                        PrimaryButton(
+                          "บันทึก",
+                          () => {
+                            print('save'),
+                            setState(() => {profileFormEnabled = false}),
+                            Navigator.pop(context, false)
+                          },
+                        ),
+                        SecondaryButton(
+                            "ยกเลิก", () => Navigator.pop(context, false))
+                      ]),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+          ;
+        });
   }
 }
