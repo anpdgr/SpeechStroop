@@ -183,7 +183,7 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
 
                       if (res.statusCode == 200) {
                         auth = Auth.fromJson(jsonDecode(res.body));
-                        getUserProfile();
+                        await getUserProfile();
                         print("login success");
                         Navigator.pushNamed(context, HomeScreen.routeName);
                       } else {} //TODO: handle failed login

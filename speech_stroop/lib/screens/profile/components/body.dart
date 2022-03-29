@@ -52,9 +52,9 @@ class _BodyState extends State<Body> {
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
-              onPressed: () {
+              onPressed: () async {
                 print('log out');
-                logout();
+                await logout();
                 Navigator.push(
                     context,
                     MaterialPageRoute(
