@@ -3,8 +3,8 @@ import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/components/home_screen_appbar.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 
 var bestScore = 58;
 var recentScore = 44;
@@ -20,6 +20,7 @@ bool wantTutorial = false;
 
 class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +47,7 @@ class _BodyState extends State<Body> {
                 padding: const EdgeInsets.only(left: 10),
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'สวัสดี, คุณ$userName👋',
+                  'สวัสดี, คุณ${userProfile.name} 👋',
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
