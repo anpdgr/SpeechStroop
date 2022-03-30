@@ -114,5 +114,13 @@ flutter:
     - assets/images/avartar_default.png
     - assets/images/pass.png
     - assets/images/failed.png
+    - assets/images/down.png
+    - assets/images/up.png
     - assets/images/precondition-passed.png
     - assets/images/precondition-failed.png
+    - assets/images/badges/badge-1-1-raw.png
+    - assets/images/badges/badge-1-3-raw.png
+    - assets/images/badges/badge-1-5-raw.png
+    - assets/images/badges/badge-1-7-raw.png
+    - assets/images/badges/badge-1-14-raw.png
+    - assets/images/badges/badge-1-30-raw.png
