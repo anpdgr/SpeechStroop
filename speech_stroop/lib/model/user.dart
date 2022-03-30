@@ -6,6 +6,7 @@ import 'package:speech_stroop/model/auth.dart';
 class User {
   String _id;
   String tel;
+  String password;
   String name;
   String email;
   String hnId;
@@ -15,38 +16,40 @@ class User {
   String education;
   List<String> historyId;
   List<String> badge;
-  String peconditionId;
+  String preconditionId;
   UserHealthScore healthScores;
 
   User(
-      this.tel,
-      this.name,
-      this.email,
-      this.hnId,
-      this.lastFourId,
-      this.dateOfBirth,
-      this.gender,
-      this.education,
-      this.historyId,
-      this.badge,
-      this.peconditionId,
-      this.healthScores);
+    this.tel,
+    this.name,
+    this.email,
+    this.lastFourId,
+    this.dateOfBirth,
+    this.gender,
+    this.education,
+    this.healthScores, [
+    this.password,
+    this.hnId,
+    this.historyId,
+    this.badge,
+    this.preconditionId,
+  ]);
 
   factory User.fromJson(dynamic json) {
     return User(
-      json['tel'] as String,
-      json['name'] as String,
-      json['email'] as String,
-      json['hnId'] as String,
-      json['lastFourId'] as String,
-      DateTime.parse(json['dateOfBirth']),
-      json['gender'] as String,
-      json['education'] as String,
-      List<String>.from(json['historyId']),
-      List<String>.from(json['badge']),
-      json['peconditionId'] as String,
-      UserHealthScore.fromJson(json['healthScores']),
-    );
+        json['tel'] as String,
+        json['name'] as String,
+        json['email'] as String,
+        json['lastFourId'] as String,
+        DateTime.parse(json['dateOfBirth'] as String),
+        json['gender'] as String,
+        json['education'] as String,
+        UserHealthScore.fromJson(json['healthScores']),
+        json['password'] as String,
+        json['hnId'] as String,
+        List<String>.from(json['historyId']),
+        List<String>.from(json['badge']),
+        json['preconditionId'] as String);
   }
 
   Map<String, dynamic> toJson() {
@@ -54,15 +57,16 @@ class User {
       "tel": tel,
       "name": name,
       "email": email,
-      "hnId": hnId,
       "lastFourId": lastFourId,
-      "dateOfBirth": dateOfBirth,
+      "dateOfBirth": dateOfBirth.toIso8601String(),
       "gender": gender,
       "education": education,
+      "healthScores": healthScores,
+      "password": password,
+      "hnId": hnId,
       "historyId": historyId,
       "badge": badge,
-      "peconditionId": peconditionId,
-      "healthScores": healthScores,
+      "preconditionId": preconditionId,
     };
   }
 }

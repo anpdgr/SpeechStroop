@@ -15,7 +15,7 @@ export interface RegisterDTO {
   education: string
   historyId: [ObjectId]
   badge: [ObjectId]
-  preconditionId: ObjectId
+  preconditionId: [ObjectId]
   healthScores: {
     stress: number
     sleep: number
@@ -32,9 +32,12 @@ export async function register(
   const user = await User.findOne({
     tel: registerDTO.tel,
   })
+  
+  // ไม่ควร check ในนี้ เพราะอันนี้จะ trigger ตอน sleep form
   if (user) {
     throw new HttpError(409, 'user with this phone number already exists')
   }
+
   // TODO: validate register request body
 
   const hashedPassword = bcrypt.hashSync(registerDTO.password, saltRounds)

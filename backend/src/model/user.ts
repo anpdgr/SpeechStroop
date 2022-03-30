@@ -30,7 +30,7 @@ const userSchema = new Schema(
       required: true,
     },
     dateOfBirth: {
-      type: String,
+      type: Date,
       required: true,
     },
     gender: {
@@ -51,7 +51,7 @@ const userSchema = new Schema(
     },
     preconditionId: {
       type: ObjectId,
-      required: true,
+      required: false,
     },
     healthScores: {
       stress: {
@@ -79,7 +79,7 @@ export type UserDocument = mongoose.Document & {
   education: string
   historyId: [ObjectId]
   badge: [ObjectId]
-  preconditionId: ObjectId
+  preconditionId: [ObjectId]
   healthScores: {
     stress: number
     sleep: number
