@@ -105,3 +105,22 @@ getUserProfile() async {
   }
   return userProfile;
 }
+
+updateUserProfile() async {
+  String token = auth.token;
+  var res = await http.post(Uri.parse("http://localhost:3000/user/profile"),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(userProfile));
+
+  print("/user/profile " + res.statusCode.toString());
+
+  //TODO: handle
+  if (res.statusCode == 200) {
+    print(res.body);
+  } else {}
+  print(userProfile.toJson());
+
+  return userProfile;
+}
