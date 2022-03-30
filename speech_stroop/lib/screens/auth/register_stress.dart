@@ -14,7 +14,7 @@ class StressRegisterScreen extends StatefulWidget {
   _StressRegisterScreenState createState() => _StressRegisterScreenState();
 }
 
-enum StressLevel { never, rarely, sometimes, frequently, always }
+int stressScore = 0;
 
 class _StressRegisterScreenState extends State<StressRegisterScreen> {
   double _radioValue1 = 1;
@@ -358,58 +358,26 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                           child: FloatingButton(() {
                             if (formGlobalKey.currentState.validate()) {
                               formGlobalKey.currentState.save();
-                              registerReq = {
-                                ...registerReq,
-                                'stress': _radioValue1 +
-                                    _radioValue2 +
-                                    _radioValue3 +
-                                    _radioValue4 +
-                                    _radioValue5 +
-                                    _radioValue6 +
-                                    _radioValue7 +
-                                    _radioValue8 +
-                                    _radioValue9 +
-                                    _radioValue10
-                              };
+
+                              userHealthScores.stress = (_radioValue1 +
+                                      _radioValue2 +
+                                      _radioValue3 +
+                                      _radioValue4 +
+                                      _radioValue5 +
+                                      _radioValue6 +
+                                      _radioValue7 +
+                                      _radioValue8 +
+                                      _radioValue9 +
+                                      _radioValue10)
+                                  .toInt();
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           const SleepRegisterScreen()));
                             }
-                          })
-                          // ElevatedButton(
-                          //     onPressed: () {
-                          //       if (formGlobalKey.currentState.validate()) {
-                          //         formGlobalKey.currentState.save();
-                          //         registerReq = {
-                          //           ...registerReq,
-                          //           'stress': _radioValue1 +
-                          //               _radioValue2 +
-                          //               _radioValue3 +
-                          //               _radioValue4 +
-                          //               _radioValue5 +
-                          //               _radioValue6 +
-                          //               _radioValue7 +
-                          //               _radioValue8 +
-                          //               _radioValue9 +
-                          //               _radioValue10
-                          //         };
-                          //         Navigator.push(
-                          //             context,
-                          //             MaterialPageRoute(
-                          //                 builder: (context) =>
-                          //                     const SleepRegisterScreen()));
-                          //       }
-                          //     },
-                          //     child: const Text('ถัดไป'),
-                          //     style: ElevatedButton.styleFrom(
-                          //         shape: const StadiumBorder(),
-                          //         primary: Colors.deepPurpleAccent,
-                          //         textStyle: const TextStyle(
-                          //             fontSize: 18,
-                          //             fontFamily: 'BaiJamjuree'))),
-                          ),
+                          })),
                     )
                   ],
                 )),

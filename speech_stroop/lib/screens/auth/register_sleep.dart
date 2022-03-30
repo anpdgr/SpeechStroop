@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/floating_button.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
+import 'package:speech_stroop/screens/auth/register_stress.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
 import 'package:http/http.dart' as http;
 
@@ -189,24 +191,21 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                             child: FloatingButton(() async {
                               if (formGlobalKey.currentState.validate()) {
                                 formGlobalKey.currentState.save();
-                                registerReq = {
-                                  ...registerReq,
-                                  'sleep': _radioValue1 +
-                                      _radioValue2 +
-                                      _radioValue3 +
-                                      _radioValue4
-                                };
-                                //TODO: db
-                                // var res = await http.post(
-                                //     Uri.parse(
-                                //         "http://localhost:3000/auth/register"),
-                                //     headers: {
-                                //       'Content-Type': 'application/json'
-                                //     },
-                                //     body: jsonEncode(
-                                //       registerReq,
-                                //     ));
-                                // print(res.body);
+
+                                userHealthScores.sleep = (_radioValue1 +
+                                        _radioValue2 +
+                                        _radioValue3 +
+                                        _radioValue4)
+                                    .toInt();
+                                registerReq.healthScores = userHealthScores;
+
+                                var res = await http.post(
+                                    Uri.parse(
+                                        "http://localhost:3000/auth/register"),
+                                    headers: {
+                                      'Content-Type': 'application/json'
+                                    },
+                                    body: jsonEncode(registerReq));
                                 Navigator.pushNamed(
                                     context, IntroductionScreen.routeName);
                               }
