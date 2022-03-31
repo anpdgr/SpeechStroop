@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/screens/history_all/components/score_box.dart';
 
 class Body extends StatefulWidget {
@@ -23,8 +24,7 @@ class _BodyState extends State<Body> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const ScoreBox(),
-                      const ScoreBox(),
+                      for (var history in userHistory) ScoreBox(history),
                     ],
                   ),
                 ),

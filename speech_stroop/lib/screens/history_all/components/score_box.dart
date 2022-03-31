@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/model/test_module/history.dart';
 import 'dart:async';
 
 import 'package:speech_stroop/screens/history_all/components/section_box.dart';
+import 'package:speech_stroop/utils/date_format.dart';
 
 class ScoreBox extends StatefulWidget {
-  const ScoreBox({Key key}) : super(key: key);
+  ScoreBox(this.historyData, {Key key}) : super(key: key);
+  History historyData;
   @override
   _ScoreBoxState createState() => _ScoreBoxState();
 }
 
 class _ScoreBoxState extends State<ScoreBox> {
   final formGlobalKey = GlobalKey<FormState>();
-
   bool expanded;
   bool canExpaned;
+  History historyData;
 
   @override
   void initState() {
     expanded = false;
     canExpaned = false;
+    historyData = widget.historyData;
     super.initState();
   }
 
@@ -39,7 +43,7 @@ class _ScoreBoxState extends State<ScoreBox> {
           children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                "68",
+                "${historyData.totalScore}",
                 textAlign: TextAlign.left,
                 style: Theme.of(context)
                     .textTheme
@@ -58,7 +62,7 @@ class _ScoreBoxState extends State<ScoreBox> {
             const Spacer(),
             Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Text(
-                "13 ตุลาคม 2564",
+                convertDateTime(historyData.createdAt),
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.titleSmall,
               ),
