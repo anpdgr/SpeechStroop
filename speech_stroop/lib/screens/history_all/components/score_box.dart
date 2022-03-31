@@ -112,17 +112,14 @@ class _ScoreBoxState extends State<ScoreBox> {
               child: Row(
                 // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  const Expanded(
-                    child: SectionBox(1, 20, 0.34),
-                  ),
-                  const SizedBox(width: 5),
-                  const Expanded(
-                    child: SectionBox(2, 18, 0.24),
-                  ),
-                  const SizedBox(width: 5),
-                  const Expanded(
-                    child: SectionBox(3, 10, 0.38),
-                  ),
+                  for (var s in historyData.sections)
+                    Expanded(
+                      child: SectionBox(
+                          s.section,
+                          s.score["congruent"] + (s.score["incongruent"] ?? 0),
+                          s.avgReactionTimeMs),
+                    ),
+                  //if (s.section != 3) const SizedBox(width: 5),
                 ],
               ),
             ),

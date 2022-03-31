@@ -13,6 +13,7 @@ class SectionBox extends StatelessWidget {
     return Container(
       width: 93,
       height: 107,
+      margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
       padding: const EdgeInsets.fromLTRB(5, 20, 5, 2),
       decoration: BoxDecoration(
         color: const Color(0xFF211338).withOpacity(0.03),
@@ -30,7 +31,7 @@ class SectionBox extends StatelessWidget {
             ),
             const SizedBox(height: 2),
             Text(
-              '$reactionTime วินาที',
+              '${reactionTime.toStringAsFixed(2)} วิ', //TODO: วินาที
               style:
                   Theme.of(context).textTheme.labelSmall.apply(color: formText),
             ),
