@@ -41,6 +41,8 @@ dependencies:
   material: ^1.0.0+2
   tuple: ^2.0.0
   animated_text_kit: ^4.2.1
+  intl: ^0.16.1
+  buddhist_datetime_dateformat: ^1.0.6
   # auto_size_text:
   # cached_network_image:
   # font_awesome_flutter:
