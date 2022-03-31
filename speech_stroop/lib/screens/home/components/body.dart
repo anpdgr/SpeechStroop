@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
-import 'package:speech_stroop/components/home_screen_appbar.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/enums.dart';
 import 'package:speech_stroop/model/user.dart';
@@ -25,106 +24,105 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: HomeScreenAppBar('Speech Stroop', false),
         body: Center(
             child: Container(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-          child: (Column(
-            children: [
-              Container(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  onPressed: () {
-                    showSimpleModalDialogAboutUs(context);
-                  },
-                  icon: const Icon(
-                    Icons.info,
-                    color: Color(0xFFC4C4C4),
+      padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+      child: (Column(
+        children: [
+          Container(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              onPressed: () {
+                showSimpleModalDialogAboutUs(context);
+              },
+              icon: const Icon(
+                Icons.info,
+                color: Color(0xFFC4C4C4),
+              ),
+              iconSize: 37.0,
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(left: 10),
+            alignment: Alignment.topLeft,
+            child: Text(
+              'สวัสดี, คุณ${userProfile.name} 👋',
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(top: 10),
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: primaryColor),
+                      borderRadius: BorderRadius.circular(10)),
+                  padding: EdgeInsets.all(40),
+                  margin: EdgeInsets.all(5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/images/score_best.png'),
+                      Text(
+                        bestScore.toString(),
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 64.0,
+                        ),
+                      ),
+                      Text(
+                        "คะแนนสูงสุด",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      )
+                    ],
                   ),
-                  iconSize: 37.0,
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(left: 10),
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'สวัสดี, คุณ${userProfile.name} 👋',
-                  textAlign: TextAlign.left,
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 10),
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: primaryColor),
-                          borderRadius: BorderRadius.circular(10)),
-                      padding: EdgeInsets.all(40),
-                      margin: EdgeInsets.all(5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/images/score_best.png'),
-                          Text(
-                            bestScore.toString(),
-                            style: TextStyle(
-                              color: primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 64.0,
-                            ),
-                          ),
-                          Text(
-                            "คะแนนสูงสุด",
-                            style: Theme.of(context).textTheme.titleMedium,
-                          )
-                        ],
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: primaryColor),
+                      borderRadius: BorderRadius.circular(10)),
+                  padding: EdgeInsets.all(40),
+                  margin: EdgeInsets.all(5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/images/score_recent.png'),
+                      Text(
+                        recentScore.toString(),
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 64.0,
+                        ),
                       ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: primaryColor),
-                          borderRadius: BorderRadius.circular(10)),
-                      padding: EdgeInsets.all(40),
-                      margin: EdgeInsets.all(5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/images/score_recent.png'),
-                          Text(
-                            recentScore.toString(),
-                            style: TextStyle(
-                              color: primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 64.0,
-                            ),
-                          ),
-                          Text(
-                            "คะแนนล่าสุด",
-                            style: Theme.of(context).textTheme.titleMedium,
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+                      Text(
+                        "คะแนนล่าสุด",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              PrimaryButton(
-                "เริ่มทดสอบ",
-                () => {showSimpleModalDialogTutorial(context)},
-                ButtonType.medium,
-              ),
-              SecondaryButton(
-                "วิธีการทดสอบ",
-                () => {print("tutorial")},
-                ButtonType.medium,
-              )
-            ],
-          )),
-        )));
+              ],
+            ),
+          ),
+          PrimaryButton(
+            "เริ่มทดสอบ",
+            () => {showSimpleModalDialogTutorial(context)},
+            ButtonType.medium,
+          ),
+          SecondaryButton(
+            "วิธีการทดสอบ",
+            () => {print("tutorial")},
+            ButtonType.medium,
+          )
+        ],
+      )),
+    )));
   }
 
   showSimpleModalDialogTutorial(context) {

@@ -1,38 +1,26 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
-import 'package:speech_stroop/components/home_screen_appbar.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/model/test_module/history.dart';
+import 'package:speech_stroop/screens/history_all/history_all_screen.dart';
 
 class Body extends StatefulWidget {
-  const Body({Key key}) : super(key: key);
+  Body({Key key}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  TextEditingController telController;
-  TextEditingController passwordController;
-  bool passwordVisibility;
-  TextEditingController confirmPasswordController;
-  bool confirmPasswordVisibility;
   final formGlobalKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    telController = TextEditingController();
-    passwordController = TextEditingController();
-    passwordVisibility = false;
-    confirmPasswordController = TextEditingController();
-    confirmPasswordVisibility = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    final PageController controller = PageController();
     return Scaffold(
         body: SingleChildScrollView(
             child: Stack(children: [
@@ -41,7 +29,12 @@ class _BodyState extends State<Body> {
           child: Column(
             children: [
               Image.asset('assets/images/his_trophy.png'),
-              PrimaryButton("ดูประวัติทั้งหมด", () => {print(1)}),
+              PrimaryButton(
+                  "ดูประวัติทั้งหมด",
+                  () async => {
+                        await getHistory(),
+                        Navigator.pushNamed(context, HistoryAllScreen.routeName)
+                      }),
               Container(
                 margin: EdgeInsets.all(40),
                 child: Column(
@@ -109,7 +102,7 @@ class _BodyState extends State<Body> {
                                       .apply(color: secondaryColor)),
                             ],
                           ),
-                          Divider(
+                          const Divider(
                             color: Color(0xFF381E73),
                             height: 25,
                             thickness: 2,
@@ -142,7 +135,7 @@ class _BodyState extends State<Body> {
                                       .apply(color: secondaryColor)),
                             ],
                           ),
-                          Divider(
+                          const Divider(
                             color: Color(0xFF381E73),
                             height: 25,
                             thickness: 2,

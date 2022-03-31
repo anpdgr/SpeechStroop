@@ -18,6 +18,19 @@ class Question {
       this.answerAt,
       this.reactionTimeMs);
 
+  factory Question.fromJson(dynamic json) {
+    return Question(
+      json['questionNumber'] as int,
+      Map<String, String>.from(json['problem']),
+      json['condition'] as String,
+      json['expectedAnswer'] as String,
+      json['userAnswer'] as String,
+      json['startAt'] as int,
+      json['answerAt'] as int,
+      json['reactionTimeMs'] as int,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       "questionNumber": questionNumber,
