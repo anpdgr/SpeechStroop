@@ -5,6 +5,7 @@ import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/components/health_slider.dart';
+import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
@@ -55,7 +56,7 @@ class _BodyState extends State<Body> {
 
             var res = await setHistory();
             print(res.body);
-            Navigator.pushNamed(context, HomeScreen.routeName);
+            Navigator.pushNamed(context, ResultScreen.routeName);
           })
         ]),
       ),
