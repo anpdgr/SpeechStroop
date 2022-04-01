@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/history/history_screen.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
@@ -53,9 +54,10 @@ class CustomBottomNavBar extends StatelessWidget {
                               ? primaryColor
                               : inActiveIconColor,
                         ),
-                        onPressed: () => {
+                        onPressed: () async => {
                           if (MenuState.history != selectedMenu)
                             {
+                              await getHistory(),
                               Navigator.pushNamed(
                                   context, HistoryScreen.routeName),
                             }
@@ -85,9 +87,10 @@ class CustomBottomNavBar extends StatelessWidget {
                               ? primaryColor
                               : inActiveIconColor,
                         ),
-                        onPressed: () => {
+                        onPressed: () async => {
                           if (MenuState.home != selectedMenu)
                             {
+                              await getUserProfile(),
                               Navigator.pushNamed(
                                   context, HomeScreen.routeName),
                             }

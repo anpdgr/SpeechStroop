@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
-import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/screens/history/components/badge_section.dart';
 import 'package:speech_stroop/screens/history/components/score_bar_section.dart';
@@ -35,8 +34,7 @@ class _BodyState extends State<Body> {
                     Image.asset('assets/images/his_trophy.png'),
                     PrimaryButton(
                         "ดูประวัติทั้งหมด",
-                        () async => {
-                              await getHistory(),
+                        () => {
                               Navigator.pushNamed(
                                   context, HistoryAllScreen.routeName)
                             }),
