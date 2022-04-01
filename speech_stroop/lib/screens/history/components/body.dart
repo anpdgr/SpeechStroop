@@ -24,23 +24,31 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-            child: Stack(children: [
-      Container(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-          child: Column(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Stack(
             children: [
-              Image.asset('assets/images/his_trophy.png'),
-              PrimaryButton(
-                  "ดูประวัติทั้งหมด",
-                  () async => {
-                        await getHistory(),
-                        Navigator.pushNamed(context, HistoryAllScreen.routeName)
-                      }),
-              ScoreBarSection(userHistory),
-              BadgeSection(userHistory),
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: Column(
+                  children: [
+                    Image.asset('assets/images/his_trophy.png'),
+                    PrimaryButton(
+                        "ดูประวัติทั้งหมด",
+                        () async => {
+                              await getHistory(),
+                              Navigator.pushNamed(
+                                  context, HistoryAllScreen.routeName)
+                            }),
+                    ScoreBarSection(userHistory),
+                    BadgeSection(userHistory),
+                  ],
+                ),
+              ),
             ],
-          ))
-    ])));
+          ),
+        ),
+      ),
+    );
   }
 }
