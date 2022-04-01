@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
+import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/components/health_slider.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
@@ -56,6 +57,8 @@ class _BodyState extends State<Body> {
 
             var res = await setHistory();
             print(res.body);
+            // Get new history every after finish stroop test
+            await getHistory();
             Navigator.pushNamed(context, ResultScreen.routeName);
           })
         ]),
