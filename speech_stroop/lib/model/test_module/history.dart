@@ -70,17 +70,25 @@ getHistory() async {
       //TODO: handle
     }
   }
+}
 
-  // Print
-  // for (var h in userHistory) {
-  //   print("totalScore: $h.totalScore");
-  //   print("healthScores: ${h.healthScores.toJson().toString()}");
-  //   print("sections: ");
+List highestScoresList;
+List<int> getHighestScores() {
+  List<History> userHistorySortedByTotalScore = userHistory;
+  userHistorySortedByTotalScore
+      .sort((b, a) => a.totalScore.compareTo(b.totalScore));
 
-  //   for (var s in h.sections) {
-  //     for (var q in s.questions) {
-  //       print("section: ${q.toJson()}");
-  //     }
-  //   }
-  // }
+  highestScoresList =
+      userHistorySortedByTotalScore.map((item) => item.totalScore).toList();
+  return highestScoresList;
+}
+
+List latesScoresList;
+List<int> getlatesScores() {
+  List<History> userHistorySortedByDate = userHistory;
+  userHistorySortedByDate.sort((b, a) => a.createdAt.compareTo(b.createdAt));
+
+  latesScoresList =
+      userHistorySortedByDate.map((item) => item.totalScore).toList();
+  return latesScoresList;
 }
