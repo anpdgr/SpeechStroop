@@ -3,11 +3,10 @@ import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/enums.dart';
+import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 
-var bestScore = 58;
-var recentScore = 44;
 var userName = "มะลิ";
 
 class Body extends StatefulWidget {
@@ -20,6 +19,16 @@ bool wantTutorial = false;
 
 class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List<int> bestScores;
+  List<int> latesScores;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    bestScores = getHighestScores();
+    latesScores = getlatesScores();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +77,7 @@ class _BodyState extends State<Body> {
                     children: [
                       Image.asset('assets/images/score_best.png'),
                       Text(
-                        bestScore.toString(),
+                        bestScores[0].toString(),
                         style: TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.bold,
@@ -93,7 +102,7 @@ class _BodyState extends State<Body> {
                     children: [
                       Image.asset('assets/images/score_recent.png'),
                       Text(
-                        recentScore.toString(),
+                        latesScores[0].toString(),
                         style: TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.bold,
