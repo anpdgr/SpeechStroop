@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:speech_stroop/model/auth.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:http/http.dart' as http;
+import 'package:tuple/tuple.dart';
 import './section.dart';
 
 class History {
@@ -73,22 +74,30 @@ getHistory() async {
 }
 
 List highestScoresList;
-List<int> getHighestScores() {
+List<Tuple2<int, DateTime>> getHighestScores() {
   List<History> userHistorySortedByTotalScore = userHistory;
   userHistorySortedByTotalScore
       .sort((b, a) => a.totalScore.compareTo(b.totalScore));
 
-  highestScoresList =
-      userHistorySortedByTotalScore.map((item) => item.totalScore).toList();
+  highestScoresList = userHistorySortedByTotalScore
+      .map((item) => Tuple2(
+            item.totalScore,
+            item.createdAt,
+          ))
+      .toList();
   return highestScoresList;
 }
 
 List latesScoresList;
-List<int> getlatesScores() {
+List<Tuple2<int, DateTime>> getlatesScores() {
   List<History> userHistorySortedByDate = userHistory;
   userHistorySortedByDate.sort((b, a) => a.createdAt.compareTo(b.createdAt));
 
-  latesScoresList =
-      userHistorySortedByDate.map((item) => item.totalScore).toList();
+  latesScoresList = userHistorySortedByDate
+      .map((item) => Tuple2(
+            item.totalScore,
+            item.createdAt,
+          ))
+      .toList();
   return latesScoresList;
 }

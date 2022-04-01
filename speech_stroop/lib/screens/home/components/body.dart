@@ -6,6 +6,7 @@ import 'package:speech_stroop/enums.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
+import 'package:tuple/tuple.dart';
 
 var userName = "มะลิ";
 
@@ -19,8 +20,8 @@ bool wantTutorial = false;
 
 class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  List<int> bestScores;
-  List<int> latesScores;
+  List<Tuple2<int, DateTime>> bestScores;
+  List<Tuple2<int, DateTime>> latesScores;
 
   @override
   void initState() {
@@ -77,7 +78,7 @@ class _BodyState extends State<Body> {
                     children: [
                       Image.asset('assets/images/score_best.png'),
                       Text(
-                        bestScores[0].toString(),
+                        bestScores[0].item1.toString(),
                         style: TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.bold,
@@ -102,7 +103,7 @@ class _BodyState extends State<Body> {
                     children: [
                       Image.asset('assets/images/score_recent.png'),
                       Text(
-                        latesScores[0].toString(),
+                        latesScores[0].item1.toString(),
                         style: TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.bold,
