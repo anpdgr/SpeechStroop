@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:speech_stroop/model/auth.dart';
+import 'package:speech_stroop/model/precondition.dart';
 
 class User {
   String _id;
@@ -16,7 +17,7 @@ class User {
   String education;
   List<String> historyId;
   List<String> badge;
-  String preconditionId;
+  Precondition precondition;
   UserHealthScore healthScores;
 
   User(
@@ -27,29 +28,30 @@ class User {
     this.dateOfBirth,
     this.gender,
     this.education,
-    this.healthScores, [
+    this.healthScores,
+    this.precondition, [
     this.password,
     this.hnId,
     this.historyId,
     this.badge,
-    this.preconditionId,
   ]);
 
   factory User.fromJson(dynamic json) {
     return User(
-        json['tel'] as String,
-        json['name'] as String,
-        json['email'] as String,
-        json['lastFourId'] as String,
-        DateTime.parse(json['dateOfBirth'] as String),
-        json['gender'] as String,
-        json['education'] as String,
-        UserHealthScore.fromJson(json['healthScores']),
-        json['password'] as String,
-        json['hnId'] as String,
-        List<String>.from(json['historyId']),
-        List<String>.from(json['badge']),
-        json['preconditionId'] as String);
+      json['tel'] as String,
+      json['name'] as String,
+      json['email'] as String,
+      json['lastFourId'] as String,
+      DateTime.parse(json['dateOfBirth'] as String),
+      json['gender'] as String,
+      json['education'] as String,
+      UserHealthScore.fromJson(json['healthScores']),
+      Precondition.fromJson(json['precondition']),
+      json['password'] as String,
+      json['hnId'] as String,
+      List<String>.from(json['historyId']),
+      List<String>.from(json['badge']),
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -62,11 +64,11 @@ class User {
       "gender": gender,
       "education": education,
       "healthScores": healthScores,
+      "precondition": precondition,
       "password": password,
       "hnId": hnId,
       "historyId": historyId,
       "badge": badge,
-      "preconditionId": preconditionId,
     };
   }
 }

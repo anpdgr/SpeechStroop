@@ -49,9 +49,17 @@ const userSchema = new Schema(
       type: [ObjectId],
       required: false,
     },
-    preconditionId: {
-      type: ObjectId,
-      required: false,
+    precondition: {
+        isColorBlind: { type: Boolean, required: true },
+        colorVisibilityTest: {
+          score: { type: Number, required: true },
+          date: { type: Date, required: true }
+        },
+        readingAbilityTest: {
+          score: { type: Number, required: true },
+          date: { type: Date, required: true }
+        },
+        isPassAll: { type: Boolean, required: true }
     },
     healthScores: {
       stress: {
@@ -79,7 +87,18 @@ export type UserDocument = mongoose.Document & {
   education: string
   historyId: [ObjectId]
   badge: [ObjectId]
-  preconditionId: [ObjectId]
+  precondition: {
+    isColorBlind: boolean
+    colorVisibilityTest: {
+      score: number
+      date: Date
+    }
+    readingAbilityTest: {
+      score: number
+      date: Date
+    }
+    isPassAll: boolean
+  }
   healthScores: {
     stress: number
     sleep: number

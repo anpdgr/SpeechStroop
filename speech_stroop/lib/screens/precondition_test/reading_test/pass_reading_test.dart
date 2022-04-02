@@ -4,8 +4,11 @@ import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/screens/auth/login.dart';
+import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:speech_stroop/theme.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class PassReadingTestScreen extends StatefulWidget {
   const PassReadingTestScreen({Key key}) : super(key: key);
@@ -50,9 +53,18 @@ class _PassReadingTestState extends State<PassReadingTestScreen> {
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 80),
-              child: PrimaryButton('เข้าสู่หน้าหลัก', () {
-                //TODO: db
-                //TODO: home screen
+              child: PrimaryButton('เข้าสู่หน้าหลัก', () async {
+                precondition.isPassAll = true;
+                registerReq.precondition = precondition;
+
+                var res = await http.post(
+                    Uri.parse("http://localhost:3000/auth/register"),
+                    headers: {'Content-Type': 'application/json'},
+                    body: jsonEncode(registerReq));
+                print(res.body);
+
+                //TODO: login with this user
+
                 Navigator.pushNamed(context, HomeScreen.routeName);
               }),
             )

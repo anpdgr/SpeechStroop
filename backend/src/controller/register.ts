@@ -15,7 +15,18 @@ export interface RegisterDTO {
   education: string
   historyId: [ObjectId]
   badge: [ObjectId]
-  preconditionId: [ObjectId]
+  precondition: {
+    isColorBlind: boolean
+    colorVisibilityTest: {
+      score: number
+      date: Date
+    }
+    readingAbilityTest: {
+      score: number
+      date: Date
+    }
+    isPassAll: boolean
+  }
   healthScores: {
     stress: number
     sleep: number
@@ -53,7 +64,18 @@ export async function register(
     education: registerDTO.education,
     historyId: registerDTO.historyId,
     badge: registerDTO.badge,
-    preconditionId: registerDTO.preconditionId,
+    precondition: {
+        isColorBlind: registerDTO.precondition.isColorBlind,
+        colorVisibilityTest: {
+          score: registerDTO.precondition.colorVisibilityTest.score,
+          date: registerDTO.precondition.colorVisibilityTest.date
+        },
+        readingAbilityTest: {
+          score: registerDTO.precondition.readingAbilityTest.score,
+          date: registerDTO.precondition.readingAbilityTest.date
+        },
+        isPassAll: registerDTO.precondition.isPassAll
+    },
     healthScores: {
       stress: registerDTO.healthScores.stress,
       sleep: registerDTO.healthScores.sleep,

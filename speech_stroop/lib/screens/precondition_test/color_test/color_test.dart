@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/fail_color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/pass_color_test.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
@@ -165,6 +166,8 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
       if (score < 7) {
         Navigator.pushNamed(context, PassColorTestScreen.routeName);
       } else {
+        precondition.colorVisibilityTest.score = score;
+        precondition.colorVisibilityTest.date = DateTime.now();
         Navigator.pushNamed(context, PassColorTestScreen.routeName);
       }
     }

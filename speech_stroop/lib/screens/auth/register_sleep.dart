@@ -196,13 +196,6 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                                     .toInt();
                                 registerReq.healthScores = userHealthScores;
 
-                                var res = await http.post(
-                                    Uri.parse(
-                                        "http://localhost:3000/auth/register"),
-                                    headers: {
-                                      'Content-Type': 'application/json'
-                                    },
-                                    body: jsonEncode(registerReq));
                                 Navigator.pushNamed(
                                     context, IntroductionScreen.routeName);
                               }

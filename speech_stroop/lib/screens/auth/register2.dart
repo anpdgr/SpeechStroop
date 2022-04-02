@@ -397,6 +397,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                             onChanged: (bool value) {
                               setState(() {
                                 isChecked = value;
+                                precondition.isColorBlind = true;
                               });
                             },
                           ),
