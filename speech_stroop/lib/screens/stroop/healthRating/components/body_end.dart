@@ -53,11 +53,6 @@ class _BodyState extends State<Body> {
             awake.end = awakeLevel.toInt();
             healthScores = HealthScores(stress, awake);
 
-            print(
-                '${healthScores.stress.start}, ${healthScores.stress.break1}, ${healthScores.stress.break2}, ${healthScores.stress.end}');
-            print(
-                '${healthScores.awake.start}, ${healthScores.awake.break1}, ${healthScores.awake.break2}, ${healthScores.awake.end}');
-
             var res = await setHistory();
             print(res.body);
             Navigator.pushNamed(context, HomeScreen.routeName);

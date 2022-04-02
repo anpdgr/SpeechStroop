@@ -33,7 +33,7 @@ export async function register(
     tel: registerDTO.tel,
   })
   
-  // ไม่ควร check ในนี้ เพราะอันนี้จะ trigger ตอน sleep form
+  // TODO: ไม่ควร check ในนี้ เพราะอันนี้จะ trigger ตอน sleep form
   if (user) {
     throw new HttpError(409, 'user with this phone number already exists')
   }

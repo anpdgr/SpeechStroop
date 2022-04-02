@@ -37,17 +37,6 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   int score = 0;
   List<SpeechRecognitionWords> valAlternates;
 
-  // List<Widget> micButton() {
-  //   if (isListening) {
-  //     return <Widget>[const Icon(Icons.mic, size: 100), Text("กดเพื่อหยุด")];
-  //   } else {
-  //     return <Widget>[
-  //       const Icon(Icons.mic_none, size: 100),
-  //       Text("กดเพื่อพูด")
-  //     ];
-  //   }
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -144,7 +133,6 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
         text = 'Correct!';
         score++;
       });
-      print(text);
     } else {
       setState(() {
         text = '';

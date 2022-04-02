@@ -299,8 +299,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                                 genderValue = val;
                               });
                               if (formGlobalKey.currentState.validate()) {
-                                print('save');
-
                                 formGlobalKey.currentState.save();
                                 setState(() {
                                   genderValue = val;
@@ -418,7 +416,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                           if (formGlobalKey.currentState.validate() &&
                               isChecked) {
                             formGlobalKey.currentState.save();
-                            print("$genderValue and $educationValue");
 
                             List<int> splitDob = dobController.text
                                 .split("-")
@@ -430,7 +427,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                             registerReq.lastFourId = lastFourIdController.text;
                             registerReq.dateOfBirth =
                                 DateTime(splitDob[0], splitDob[1], splitDob[2]);
-                            //TODO: drop down null
                             registerReq.gender = genderValue ?? 'unknown';
                             registerReq.education = educationValue ?? 'unknown';
 

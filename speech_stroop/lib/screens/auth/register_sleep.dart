@@ -7,11 +7,8 @@ import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
 import 'package:http/http.dart' as http;
-
 import 'dart:convert';
-
 import 'package:speech_stroop/theme.dart';
-
 import '../precondition_test/introduction.dart';
 
 class SleepRegisterScreen extends StatefulWidget {

@@ -212,7 +212,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         const ReadingTestScreen()));
-                            // const StroopTestScreen()));
                           },
                           child: const Text('ลืมรหัสผ่าน'),
                           style: TextButton.styleFrom(

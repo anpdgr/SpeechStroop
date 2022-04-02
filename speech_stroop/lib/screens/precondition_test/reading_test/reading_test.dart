@@ -125,7 +125,6 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
         text = 'Correct!';
         score++;
       });
-      print(text);
     } else {
       setState(() {
         text = '';

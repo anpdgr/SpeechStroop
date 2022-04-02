@@ -26,7 +26,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       shape: Border(bottom: BorderSide(color: tertiaryColor, width: 1)),
       backgroundColor: const Color(0xFFFBFBFF),
-      //TODO: change to false
       automaticallyImplyLeading: isLeading,
       leading: leadingIcon,
       //`true` if you want Flutter to automatically add Back Button when needed,

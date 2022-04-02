@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/floating_button.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/components/appbar.dart';
-import 'package:speech_stroop/components/button/primary_button.dart';
 
 class TermsConditionsScreen extends StatefulWidget {
   const TermsConditionsScreen({Key key}) : super(key: key);
@@ -161,33 +160,8 @@ class _TermsConditionsScreenWidgetState extends State<TermsConditionsScreen> {
                                         const RegisterScreen()))
                           }
                       })
-                  // PrimaryButton(
-                  //     'ถัดไป',
-                  //     () => {
-                  //           if (isChecked)
-                  //             {
-                  //               Navigator.push(
-                  //                   context,
-                  //                   MaterialPageRoute(
-                  //                       builder: (context) =>
-                  //                           const RegisterScreen()))
-                  //             }
-                  //         })
                 ],
               ),
-              // Positioned(
-              //   bottom: 5,
-              //   child: FloatingButton(() => {
-              //         if (isChecked)
-              //           {
-              //             Navigator.push(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                     builder: (context) => const RegisterScreen()))
-              //           }
-              //         // print('pressed')
-              //       }),
-              // ),
             ])),
       ),
     );
