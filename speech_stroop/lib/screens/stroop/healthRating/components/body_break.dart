@@ -69,8 +69,6 @@ class _BodyState extends State<Body> {
             }
             healthScores = HealthScores(stress, awake);
 
-            print('secNo = ' + sectionNumber.toString());
-
             Navigator.pushNamed(context, StroopTestScreen.routeName);
           })
         ]),

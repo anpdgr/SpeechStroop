@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
+import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
@@ -125,7 +126,6 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
         text = 'Correct!';
         score++;
       });
-      print(text);
     } else {
       setState(() {
         text = '';
@@ -156,8 +156,11 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
     } else {
       //TODO: change to fail
       if (score < 7) {
+        // Navigator.pushNamed(context, FailReadingTestScreen.routeName);
         Navigator.pushNamed(context, PassReadingTestScreen.routeName);
       } else {
+        precondition.readingAbilityTest.score = score;
+        precondition.readingAbilityTest.date = DateTime.now();
         Navigator.pushNamed(context, PassReadingTestScreen.routeName);
       }
     }

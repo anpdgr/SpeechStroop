@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/floating_button.dart';
+import 'package:speech_stroop/model/precondition.dart';
+import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/auth/register2.dart';
-import 'package:speech_stroop/screens/auth/register_stress.dart';
 import 'package:speech_stroop/components/appbar.dart';
-import 'package:speech_stroop/components/button/next_button.dart';
 
-Map registerReq = {};
+UserHealthScore userHealthScores = UserHealthScore(0, 0);
+PreconditionScore colorVisibilityTest = PreconditionScore(0, DateTime.now());
+PreconditionScore readingAbilityTest = PreconditionScore(0, DateTime.now());
+Precondition precondition =
+    Precondition(false, colorVisibilityTest, readingAbilityTest, false);
+User registerReq = User(
+    '', '', '', '', DateTime.now(), '', '', userHealthScores, precondition);
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key key}) : super(key: key);
@@ -215,10 +221,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         formGlobalKey.currentState.save();
                         if (passwordController.text ==
                             confirmPasswordController.text) {
-                          registerReq = {
-                            'tel': telController.text,
-                            'password': passwordController.text
-                          };
+                          registerReq.tel = telController.text;
+                          registerReq.password = passwordController.text;
                           Navigator.push(
                               context,
                               MaterialPageRoute(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/fail_color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/pass_color_test.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
@@ -36,17 +37,6 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   bool isCorrect = false;
   int score = 0;
   List<SpeechRecognitionWords> valAlternates;
-
-  // List<Widget> micButton() {
-  //   if (isListening) {
-  //     return <Widget>[const Icon(Icons.mic, size: 100), Text("กดเพื่อหยุด")];
-  //   } else {
-  //     return <Widget>[
-  //       const Icon(Icons.mic_none, size: 100),
-  //       Text("กดเพื่อพูด")
-  //     ];
-  //   }
-  // }
 
   @override
   void initState() {
@@ -144,7 +134,6 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
         text = 'Correct!';
         score++;
       });
-      print(text);
     } else {
       setState(() {
         text = '';
@@ -177,6 +166,8 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
       if (score < 7) {
         Navigator.pushNamed(context, PassColorTestScreen.routeName);
       } else {
+        precondition.colorVisibilityTest.score = score;
+        precondition.colorVisibilityTest.date = DateTime.now();
         Navigator.pushNamed(context, PassColorTestScreen.routeName);
       }
     }

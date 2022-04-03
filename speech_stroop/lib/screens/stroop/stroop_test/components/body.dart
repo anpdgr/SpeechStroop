@@ -279,7 +279,6 @@ class _BodyState extends State<Body> {
       // });
 
       Future.delayed(const Duration(milliseconds: 3000), () {
-        print('stop audio');
         stopwatchAudio.stop();
         speech.stop();
         setState(() {
