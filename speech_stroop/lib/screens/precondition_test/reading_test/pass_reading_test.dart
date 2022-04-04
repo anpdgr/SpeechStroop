@@ -61,7 +61,7 @@ class _PassReadingTestState extends State<PassReadingTestScreen> {
                     Uri.parse("http://localhost:3000/auth/register"),
                     headers: {'Content-Type': 'application/json'},
                     body: jsonEncode(registerReq));
-                print(res.body);
+                print('res body = ${res.body}');
 
                 //TODO: login with this user
 
