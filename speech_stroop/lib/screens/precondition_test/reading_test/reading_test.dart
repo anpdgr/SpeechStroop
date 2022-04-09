@@ -106,7 +106,6 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
     } else {
       setState(() {
         isListening = false;
-        // text = '';
       });
       Future.delayed(const Duration(milliseconds: 800), () {
         speech.stop();
@@ -116,15 +115,10 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   }
 
   Future<void> onResultListen(val) async {
-    // text = val.recognizedWords;
     valAlternates = val.alternates;
-    // if (val.hasConfidenceRating && val.confidence > 0) {
-    //   confidence = val.confidence;
-    // }
     if (isAnswerCorrect()) {
       setState(() {
         text = 'Correct!';
-        score++;
       });
     } else {
       setState(() {

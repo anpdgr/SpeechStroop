@@ -1,19 +1,12 @@
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
-import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/fail_color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/pass_color_test.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
-import 'package:speech_stroop/theme.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-// import '../providers/speech_lib.dart';
-import 'package:speech_stroop/constants.dart';
-
-import '../../auth/login.dart';
 import '../../../utils/speech_lib.dart';
 
 class ColorTestScreen extends StatefulWidget {
@@ -48,7 +41,7 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: CustomAppBar('การทดสอบการจำแนกสี'),
+      appBar: const CustomAppBar('การทดสอบการจำแนกสี'),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: MicButton(isListening, listen),
       key: scaffoldKey,
@@ -114,7 +107,6 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
     } else {
       setState(() {
         isListening = false;
-        // text = '';
       });
       Future.delayed(const Duration(milliseconds: 800), () {
         speech.stop();
@@ -124,15 +116,10 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   }
 
   Future<void> onResultListen(val) async {
-    // text = val.recognizedWords;
     valAlternates = val.alternates;
-    // if (val.hasConfidenceRating && val.confidence > 0) {
-    //   confidence = val.confidence;
-    // }
     if (isAnswerCorrect()) {
       setState(() {
         text = 'Correct!';
-        score++;
       });
     } else {
       setState(() {

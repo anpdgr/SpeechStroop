@@ -192,11 +192,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                         print("login success");
                         Navigator.pushNamed(context, HomeScreen.routeName);
                       } else {} //TODO: handle failed login
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) =>
-                      //             const ColorTestScreen()));
                     }
                   }),
                   SecondaryButton(
