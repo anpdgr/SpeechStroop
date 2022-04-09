@@ -372,7 +372,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                             DropdownMenuItem(
                                 child: Text("อนุปริญญา"), value: "associate"),
                             DropdownMenuItem(
-                                child: Text("ปริญญาตรี"), value: "bd"),
+                                child: Text("ปริญญาตรี "), value: "bd"),
                             DropdownMenuItem(
                                 child: Text("ปริญญาโท"), value: "md"),
                             DropdownMenuItem(
