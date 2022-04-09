@@ -401,7 +401,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                             onChanged: (bool value) {
                               setState(() {
                                 isChecked = value;
-                                precondition.isColorBlind = true;
                               });
                             },
                           ),
@@ -434,6 +433,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                                 DateTime(splitDob[0], splitDob[1], splitDob[2]);
                             registerReq.gender = genderValue ?? 'unknown';
                             registerReq.education = educationValue ?? 'unknown';
+                            precondition.isColorBlind = !isChecked;
 
                             Navigator.push(
                                 context,
