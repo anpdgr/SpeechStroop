@@ -102,7 +102,6 @@ getUserProfile() async {
     );
     print("/user/profile " + res.statusCode.toString());
     if (res.statusCode == 200) {
-      print(res.body);
       userProfile = User.fromJson(jsonDecode(res.body));
     } else {
       //TODO: handle

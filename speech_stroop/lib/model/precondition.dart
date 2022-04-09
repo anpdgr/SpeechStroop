@@ -1,16 +1,15 @@
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-import 'package:speech_stroop/model/auth.dart';
-
 class Precondition {
   bool isColorBlind;
   PreconditionScore colorVisibilityTest;
   PreconditionScore readingAbilityTest;
   bool isPassAll;
 
-  Precondition(this.isColorBlind, this.colorVisibilityTest,
-      this.readingAbilityTest, this.isPassAll);
+  Precondition(
+    this.isColorBlind,
+    this.colorVisibilityTest,
+    this.readingAbilityTest,
+    this.isPassAll,
+  );
 
   factory Precondition.fromJson(dynamic json) {
     return Precondition(
@@ -25,7 +24,7 @@ class Precondition {
       "isColorBlind": isColorBlind,
       "colorVisibilityTest": colorVisibilityTest,
       "readingAbilityTest": readingAbilityTest,
-      "isPassAll": isPassAll
+      "isPassAll": isPassAll,
     };
   }
 }

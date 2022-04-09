@@ -21,13 +21,13 @@ bool wantTutorial = false;
 class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<Tuple2<int, DateTime>> bestScores;
-  List<Tuple2<int, DateTime>> latesScores;
+  List<Tuple2<int, DateTime>> latestScores;
 
   @override
   void initState() {
     // TODO: implement initState
     bestScores = getHighestScores();
-    latesScores = getlatesScores();
+    latestScores = getlatestScores();
     super.initState();
   }
 
