@@ -142,16 +142,18 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   }
 
   void navigatePage() {
+    isCorrect ? score++ : null;
+    isCorrect = false;
     if (answered < 6) {
       Future.delayed(const Duration(milliseconds: 800), () {
         setState(() {
+          text = '';
           answered++;
         });
       });
     } else {
-      // TODO: change to fail
       if (score < 7) {
-        Navigator.pushNamed(context, PassColorTestScreen.routeName);
+        Navigator.pushNamed(context, FailColorTestScreen.routeName);
       } else {
         precondition.colorVisibilityTest.score = score;
         precondition.colorVisibilityTest.date = DateTime.now();

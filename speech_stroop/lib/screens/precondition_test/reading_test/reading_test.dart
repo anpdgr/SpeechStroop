@@ -141,17 +141,18 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   }
 
   void navigatePage() {
+    isCorrect ? score++ : null;
+    isCorrect = false;
     if (answered < 6) {
       Future.delayed(const Duration(milliseconds: 800), () {
         setState(() {
+          text = '';
           answered++;
         });
       });
     } else {
-      //TODO: change to fail
       if (score < 7) {
-        // Navigator.pushNamed(context, FailReadingTestScreen.routeName);
-        Navigator.pushNamed(context, PassReadingTestScreen.routeName);
+        Navigator.pushNamed(context, FailReadingTestScreen.routeName);
       } else {
         precondition.readingAbilityTest.score = score;
         precondition.readingAbilityTest.date = DateTime.now();
