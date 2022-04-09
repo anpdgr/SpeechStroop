@@ -78,7 +78,9 @@ class _BodyState extends State<Body> {
                     children: [
                       Image.asset('assets/images/score_best.png'),
                       Text(
-                        bestScores[0].item1.toString(),
+                        bestScores.isEmpty
+                            ? '-'
+                            : bestScores[0].item1.toString(),
                         style: TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.bold,
@@ -103,7 +105,9 @@ class _BodyState extends State<Body> {
                     children: [
                       Image.asset('assets/images/score_recent.png'),
                       Text(
-                        latesScores[0].item1.toString(),
+                        bestScores.isEmpty
+                            ? '-'
+                            : latestScores[0].item1.toString(),
                         style: TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.bold,

@@ -75,6 +75,9 @@ getHistory() async {
 
 List highestScoresList;
 List<Tuple2<int, DateTime>> getHighestScores() {
+  if (userHistory.isEmpty) {
+    return [];
+  }
   List<History> userHistorySortedByTotalScore = userHistory;
   userHistorySortedByTotalScore
       .sort((b, a) => a.totalScore.compareTo(b.totalScore));
@@ -88,16 +91,19 @@ List<Tuple2<int, DateTime>> getHighestScores() {
   return highestScoresList;
 }
 
-List latesScoresList;
-List<Tuple2<int, DateTime>> getlatesScores() {
+List latestScoresList;
+List<Tuple2<int, DateTime>> getlatestScores() {
+  if (userHistory.isEmpty) {
+    return [];
+  }
   List<History> userHistorySortedByDate = userHistory;
   userHistorySortedByDate.sort((b, a) => a.createdAt.compareTo(b.createdAt));
 
-  latesScoresList = userHistorySortedByDate
+  latestScoresList = userHistorySortedByDate
       .map((item) => Tuple2(
             item.totalScore,
             item.createdAt,
           ))
       .toList();
-  return latesScoresList;
+  return latestScoresList;
 }

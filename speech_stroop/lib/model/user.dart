@@ -37,6 +37,12 @@ class User {
   ]);
 
   factory User.fromJson(dynamic json) {
+    List<String> historyId =
+        json['historyId'] != null ? List<String>.from(json['historyId']) : [];
+
+    List<String> badge =
+        json['badge'] != null ? List<String>.from(json['badge']) : [];
+
     return User(
       json['tel'] as String,
       json['name'] as String,
@@ -49,8 +55,8 @@ class User {
       Precondition.fromJson(json['precondition']),
       json['password'] as String,
       json['hnId'] as String,
-      List<String>.from(json['historyId']),
-      List<String>.from(json['badge']),
+      historyId,
+      badge,
     );
   }
 
