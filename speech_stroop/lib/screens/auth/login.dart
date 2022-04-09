@@ -112,6 +112,9 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                           if (val.length != 10) {
                             return 'เบอร์โทรศัพท์ประกอบไปด้วย 10 ตัวอักษร';
                           }
+                          if (int.tryParse(val) == null) {
+                            return 'โปรดกรอกตัวเลขเท่านั้น';
+                          }
                           return null;
                         },
                         onChanged: (val) {

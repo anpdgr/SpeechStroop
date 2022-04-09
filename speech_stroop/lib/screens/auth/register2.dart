@@ -194,6 +194,9 @@ class _Register2ScreenState extends State<Register2Screen> {
                           if (val.length != 4) {
                             return 'โปรดระบุเลขประจำตัวบัตรประชาชน 4 ตัวท้าย';
                           }
+                          if (int.tryParse(val) == null) {
+                            return 'โปรดกรอกตัวเลขเท่านั้น';
+                          }
                           return null;
                         },
                         onChanged: (val) {
@@ -253,6 +256,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                                   } else if (matches.isEmpty) {
                                     return 'โปรดระบุวันเกิดของคุณให้ถูกต้อง';
                                   }
+                                  //TODO: check if value is before today
                                   return null;
                                 },
                                 onTap: () {
