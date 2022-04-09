@@ -409,7 +409,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                             child: Text(
                               """หากคุณไม่มีภาวะตาบอดสี โปรดทำเครื่องหมายถูกในช่องว่างเพื่อยืนยัน เนื่องจากผู้ที่มีภาวะตาบอดสีจะไม่สามารถทำแบบทดสอบภายในแอปพลิเคชัน Speech Stroop ได้""",
                               style:
-                                  TextStyle(fontSize: 14, letterSpacing: 0.5),
+                                  TextStyle(fontSize: 16, letterSpacing: 0.5),
                             ),
                           ),
                         ],

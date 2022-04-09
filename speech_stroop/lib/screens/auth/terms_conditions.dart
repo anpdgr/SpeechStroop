@@ -143,7 +143,7 @@ class _TermsConditionsScreenWidgetState extends State<TermsConditionsScreen> {
                         const Flexible(
                           child: Text(
                             """ข้าพเจ้าได้อ่านรายละเอียดในเอกสารนี้และเข้าใจครบถ้วนแล้วและขอเข้าร่วม โครงการวิจัย เรื่อง Speech Stroop Test แอปพลิเคชันเพื่อบ่งชี้ถึงภาวะการ ทำงานของสมองที่เสื่อมถอยลงที่มีความสัมพันธ์กับอายุสำหรับผู้สูงอายุในประเทศไทย""",
-                            style: TextStyle(fontSize: 11, letterSpacing: 0.5),
+                            style: TextStyle(fontSize: 16, letterSpacing: 0.5),
                           ),
                         ),
                       ],
