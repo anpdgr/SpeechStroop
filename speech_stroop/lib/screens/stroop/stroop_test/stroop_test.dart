@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/model/auth.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
@@ -32,8 +33,7 @@ Future<http.Response> setHistory() async {
   var res = await http.post(Uri.parse("http://localhost:3000/history"),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjNlYjU0ZjUxODg0NTIwYTRkZThlOTUiLCJpYXQiOjE2NDgyNzY4MjZ9.MGGqHkHGBBQps-wzrtTPTHv4lRY4yLatgUE5QNELdLE',
+        'Authorization': 'Bearer ${auth.token}',
       },
       body: jsonEncode(latestTest));
   return res;
