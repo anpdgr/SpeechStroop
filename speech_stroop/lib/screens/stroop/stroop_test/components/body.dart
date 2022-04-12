@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
@@ -33,6 +34,8 @@ class _BodyState extends State<Body> {
   bool isListening = false;
   String text = '';
   List textArr;
+  String problem = '';
+  Color problemColor = backgroundColor;
 
   @override
   void initState() {
@@ -70,9 +73,9 @@ class _BodyState extends State<Body> {
                     child: Center(
                         child: answered >= 0
                             ? Text(
-                                testTemplate[answered].item1,
+                                problem,
                                 style: TextStyle(
-                                  color: testTemplate[answered].item2,
+                                  color: problemColor,
                                   fontSize: 70,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -267,11 +270,25 @@ class _BodyState extends State<Body> {
       var durationDelay = (answered == -1)
           ? const Duration(milliseconds: 500)
           : const Duration(milliseconds: 3000); //TODO: 3000
+      var durationDelayInterval = (answered == -1)
+          ? const Duration(milliseconds: 0)
+          : const Duration(milliseconds: 1000); //TODO: 3000
+
       Future.delayed(durationDelay, () {
         setState(() {
           scoreCounting();
-          answered++;
+          text = '';
+          problem = '';
+          problemColor = backgroundColor;
           stopwatchRT.reset();
+        });
+
+        Future.delayed(durationDelayInterval, () {
+          setState(() {
+            answered++; //เปลี่ยนข้อ
+            problem = testTemplate[answered].item1;
+            problemColor = testTemplate[answered].item2;
+          });
           if (answered >= 0) {
             questions[answered].startAt = stopwatchAudio.elapsedMilliseconds;
           }
@@ -282,13 +299,7 @@ class _BodyState extends State<Body> {
     }
     if (answered == QUESTIONS_AMOUNT - 1) {
       Widget nextWidget;
-      //TODO: set scores to 0
-
-      // setState(() {
       scoreCounting();
-
-      // });
-
       Future.delayed(const Duration(milliseconds: 3000), () {
         stopwatchAudio.stop();
         speech.stop();
