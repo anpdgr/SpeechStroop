@@ -47,8 +47,8 @@ class _BodyState extends State<Body> {
             sectionNumber = 0;
             answered = -1;
             stress.end = stressLevel.toInt();
-            awake.end = awakeLevel.toInt();
-            healthScores = HealthScores(stress, awake);
+            arousel.end = arouselLevel.toInt();
+            healthScores = HealthScores(stress, arousel);
 
             var res = await setHistory();
             print(res.body);

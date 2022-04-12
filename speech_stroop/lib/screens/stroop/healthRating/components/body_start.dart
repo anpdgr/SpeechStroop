@@ -56,8 +56,8 @@ class _BodyState extends State<Body> {
             sectionNumber++;
             answered = -1;
             stress.start = stressLevel.toInt();
-            awake.start = awakeLevel.toInt();
-            healthScores = HealthScores(stress, awake);
+            arousel.start = arouselLevel.toInt();
+            healthScores = HealthScores(stress, arousel);
 
             Navigator.pushNamed(context, StroopTestScreen.routeName);
           })

@@ -58,16 +58,16 @@ class _BodyState extends State<Body> {
             switch (sectionNumber) {
               case 2:
                 stress.break1 = stressLevel.toInt();
-                awake.break1 = awakeLevel.toInt();
+                arousel.break1 = arouselLevel.toInt();
                 break;
               case 3:
                 stress.break2 = stressLevel.toInt();
-                awake.break2 = awakeLevel.toInt();
+                arousel.break2 = arouselLevel.toInt();
                 break;
               default:
                 break;
             }
-            healthScores = HealthScores(stress, awake);
+            healthScores = HealthScores(stress, arousel);
 
             Navigator.pushNamed(context, StroopTestScreen.routeName);
           })

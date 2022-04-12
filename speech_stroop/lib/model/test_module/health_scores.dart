@@ -1,20 +1,20 @@
 class HealthScores {
   HealthScore stress;
-  HealthScore awake;
+  HealthScore arousel;
 
-  HealthScores(this.stress, this.awake);
+  HealthScores(this.stress, this.arousel);
 
   factory HealthScores.fromJson(dynamic json) {
     return HealthScores(
       HealthScore.fromJson(json['stress']),
-      HealthScore.fromJson(json['awake']),
+      HealthScore.fromJson(json['arousel']),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       "stress": stress,
-      "awake": awake,
+      "arousel": arousel,
     };
   }
 }

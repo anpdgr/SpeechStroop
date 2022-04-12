@@ -13,7 +13,7 @@ List<Section> sections = [];
 List<Question> questions = [];
 HealthScores healthScores;
 HealthScore stress = HealthScore(0, 0, 0, 0);
-HealthScore awake = HealthScore(0, 0, 0, 0);
+HealthScore arousel = HealthScore(0, 0, 0, 0);
 
 class StroopTestScreen extends StatelessWidget {
   const StroopTestScreen({Key key}) : super(key: key);
