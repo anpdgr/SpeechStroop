@@ -235,7 +235,6 @@ class _BodyState extends State<Body> {
           localeId: 'th-TH',
           partialResults: true,
         );
-        //listenFor: const Duration(seconds: 23));
       }
     }
   }

@@ -64,7 +64,6 @@ getHistory() async {
     );
     print("/history ${res.statusCode}");
     if (res.statusCode == 200) {
-      print(res.body);
       Iterable l = json.decode(res.body);
       userHistory = List<History>.from(l.map((data) => History.fromJson(data)));
     } else {

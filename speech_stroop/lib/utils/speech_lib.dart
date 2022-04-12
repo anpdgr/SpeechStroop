@@ -80,6 +80,7 @@ bool isAnswerCorrect() {
       isCorrect = false;
     }
   }
+  print('userAnswer: $userAnswer');
 
   questions[answered].userAnswer = userAnswer;
   //TODO: fix bug
