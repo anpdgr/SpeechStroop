@@ -12,6 +12,8 @@ import 'dart:core';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 int sectionNumber = 0;
+int level = 0;
+List<int> prevLevel = [];
 int QUESTIONS_AMOUNT = 20;
 List<Tuple3<String, Color, String>> testTemplate;
 Stopwatch stopwatchRT = Stopwatch();
@@ -131,7 +133,16 @@ class _BodyState extends State<Body> {
     testTemplate = [];
     questions = [];
 
-    switch (sectionNumber) {
+    // random level
+    do {
+      level = rn.nextInt(4);
+    } while (prevLevel.contains(level) || level == 0);
+    prevLevel.add(level);
+    if (sectionNumber == 3) {
+      prevLevel.clear();
+    }
+
+    switch (level) {
       case 1:
         congruent = 14;
         incongruent = 6;
