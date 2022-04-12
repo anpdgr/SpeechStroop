@@ -32,7 +32,7 @@ class _BodyState extends State<Body> {
   stt.SpeechToText speech;
 
   bool isListening = false;
-  String text = '';
+  String text = 'w';
   List textArr;
   String problem = '';
   Color problemColor = backgroundColor;
@@ -252,12 +252,18 @@ class _BodyState extends State<Body> {
     valAlternates = val.alternates;
     if (isAnswerCorrect()) {
       setState(() {
-        text = 'Correct!';
+        if (text == 'w' || text == 'Wrong!') {
+          text = 'Correct!';
+          print(text);
+        }
         scorePerQuestion++;
       });
     } else {
       setState(() {
-        text = '';
+        if (text == 'w' || text == 'Correct!') {
+          text = 'Wrong!';
+        }
+        ;
       });
     }
   }
@@ -285,6 +291,7 @@ class _BodyState extends State<Body> {
 
         Future.delayed(durationDelayInterval, () {
           setState(() {
+            text = 'w';
             answered++; //เปลี่ยนข้อ
             problem = testTemplate[answered].item1;
             problemColor = testTemplate[answered].item2;
