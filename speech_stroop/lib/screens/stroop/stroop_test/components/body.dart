@@ -113,7 +113,6 @@ class _BodyState extends State<Body> {
                                   stopwatchAudio.start();
                                   //TODO: record audio
                                   navigatePage();
-                                  listen();
                                 },
                               )),
                   ),
@@ -279,6 +278,8 @@ class _BodyState extends State<Body> {
           text = '';
           problem = '';
           problemColor = backgroundColor;
+          speech.stop();
+          isListening = false;
           stopwatchRT.reset();
         });
 
@@ -291,6 +292,7 @@ class _BodyState extends State<Body> {
           if (answered >= 0) {
             questions[answered].startAt = stopwatchAudio.elapsedMilliseconds;
           }
+          listen();
           stopwatchRT.start();
           navigatePage();
         });
