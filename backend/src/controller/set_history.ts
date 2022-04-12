@@ -35,7 +35,7 @@ export interface HistoryDTO {
       break: number
       end: number
     }
-    awake: {
+    arousel: {
       start: number
       break: number
       end: number
