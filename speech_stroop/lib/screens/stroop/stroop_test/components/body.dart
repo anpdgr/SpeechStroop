@@ -80,27 +80,27 @@ class _BodyState extends State<Body> {
                                 pause: const Duration(milliseconds: 150),
                                 isRepeatingAnimation: false,
                                 animatedTexts: [
-                                  RotateAnimatedText(
-                                    '3',
-                                    textStyle: const TextStyle(
-                                        fontSize: 144,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  RotateAnimatedText(
-                                    '2',
-                                    textStyle: const TextStyle(
-                                        fontSize: 144,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  RotateAnimatedText(
-                                    '1',
-                                    textStyle: const TextStyle(
-                                        fontSize: 144,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                  ScaleAnimatedText('3',
+                                      textStyle: const TextStyle(
+                                          fontSize: 144,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                      duration:
+                                          const Duration(milliseconds: 1500)),
+                                  ScaleAnimatedText('2',
+                                      textStyle: const TextStyle(
+                                          fontSize: 144,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                      duration:
+                                          const Duration(milliseconds: 1500)),
+                                  ScaleAnimatedText('1',
+                                      textStyle: const TextStyle(
+                                          fontSize: 144,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                      duration:
+                                          const Duration(milliseconds: 1500)),
                                 ],
                                 onFinished: () {
                                   buildTest();
