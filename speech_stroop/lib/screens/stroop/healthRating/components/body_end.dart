@@ -50,6 +50,7 @@ class _BodyState extends State<Body> {
             arousel.end = arouselLevel.toInt();
             healthScores = HealthScores(stress, arousel);
             var res = await setHistory();
+            sections.clear();
             // Get new history every after finish stroop test
             await getHistory();
             Navigator.pushNamed(context, ResultScreen.routeName);
