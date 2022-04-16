@@ -5,7 +5,6 @@ import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({Key key}) : super(key: key);
-
   static String routeName = "/result";
   @override
   Widget build(BuildContext context) {
