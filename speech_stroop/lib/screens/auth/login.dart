@@ -221,7 +221,27 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                               textStyle: const TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'BaiJamjuree',
-                                  color: Color(0xFF838383)))))
+                                  color: Color(0xFF838383))))),
+
+                  //TODO: DELETE ME!!!! (for admin)
+                  SecondaryButton('Developer', () async {
+                    formGlobalKey.currentState.save();
+                    var res = await http.post(
+                        Uri.parse("http://localhost:3000/auth/login"),
+                        headers: {'Content-Type': 'application/json'},
+                        body: jsonEncode({
+                          "tel": "0000000001",
+                          "password": "00000000",
+                        }));
+
+                    if (res.statusCode == 200) {
+                      auth = Auth.fromJson(jsonDecode(res.body));
+                      await getUserProfile();
+                      await getHistory();
+                      print("login dev success");
+                      Navigator.pushNamed(context, HomeScreen.routeName);
+                    } else {} //TODO: handle failed login
+                  }),
                 ],
               )),
         ),
