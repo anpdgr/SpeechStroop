@@ -5,6 +5,7 @@ import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:tuple/tuple.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
@@ -19,6 +20,7 @@ int QUESTIONS_AMOUNT = 20;
 List<Tuple3<String, Color, String>> testTemplate;
 Stopwatch stopwatchRT = Stopwatch();
 Stopwatch stopwatchAudio = Stopwatch();
+String recogWord = '';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -32,7 +34,7 @@ class _BodyState extends State<Body> {
   stt.SpeechToText speech;
 
   bool isListening = false;
-  String text = 'w';
+  String text = '';
   List textArr;
   String problem = '';
   Color problemColor = backgroundColor;
@@ -221,7 +223,7 @@ class _BodyState extends State<Body> {
     return false;
   }
 
-  void listen() async {
+  Future<void> listen() async {
     if (!isListening) {
       bool available = await speech.initialize(
           // onStatus: (val) => print('onStatus: $val'),
@@ -230,7 +232,10 @@ class _BodyState extends State<Body> {
       if (available) {
         setState(() => isListening = true);
         speech.listen(
-          onResult: onResultListen,
+          onResult: (val) => setState(() {
+            recogWord = val.recognizedWords;
+          }),
+          // onResultListen,
           localeId: 'th-TH',
           partialResults: true,
         );
@@ -238,7 +243,9 @@ class _BodyState extends State<Body> {
     }
   }
 
-  Future<void> onResultListen(val) async {
+  void onResultListen(SpeechRecognitionResult val) {
+    // print('(${answered}) val: ${val}');
+    print('(${answered}) val.recognizedWords: ${val.recognizedWords}');
     stopwatchRT.stop();
     // check if answerAt and reactionTimeMs exists for avoiding override
 
@@ -268,30 +275,58 @@ class _BodyState extends State<Body> {
     }
   }
 
+  void checkAnswer() {
+    if (answered >= 0) {
+      String correctAnswer = colorsMapDefault.keys.firstWhere(
+          (k) => colorsMapDefault[k] == testTemplate[answered].item2,
+          orElse: () => '');
+      print('=' * 20);
+      print('(${answered}) recogWord: $recogWord');
+      print('(${answered}) correctAnswer: $correctAnswer');
+      if (recogWord == correctAnswer) {
+        setState(() {
+          text = 'Correct! (recog)';
+        });
+        print('(${answered}) textC: ${text}');
+      } else {
+        setState(() {
+          text = 'Wrong! (recog)';
+        });
+        print('(${answered}) textW: ${text}');
+      }
+      print('=' * 20);
+    }
+  }
+
   void navigatePage() {
+    var durationDelay = (answered == -1)
+        ? const Duration(milliseconds: 500)
+        : const Duration(milliseconds: 3000); //TODO: 3000
+    var durationDelayInterval = (answered == -1)
+        ? const Duration(milliseconds: 0)
+        : const Duration(milliseconds: 1000); //TODO: 3000
     if (answered < QUESTIONS_AMOUNT - 1) {
-      //every section, except last Q
-      var durationDelay = (answered == -1)
-          ? const Duration(milliseconds: 500)
-          : const Duration(milliseconds: 3000); //TODO: 3000
-      var durationDelayInterval = (answered == -1)
-          ? const Duration(milliseconds: 0)
-          : const Duration(milliseconds: 1000); //TODO: 3000
+      //every section, except last Question
 
       Future.delayed(durationDelay, () {
+        //ตอนจบของข้อเก่า
         setState(() {
           scoreCounting();
-          text = '';
           problem = '';
           problemColor = backgroundColor;
+
           speech.stop();
           isListening = false;
           stopwatchRT.reset();
+          checkAnswer();
+          recogWord = ''; // reset value
         });
 
-        Future.delayed(durationDelayInterval, () {
+        Future.delayed(durationDelayInterval, () async {
+          //ตอนเริ่มของข้อใหม่
           setState(() {
-            text = 'w';
+            text = '';
+            print('answered เปลั้ยนข้อ: ${answered}');
             answered++; //เปลี่ยนข้อ
             problem = testTemplate[answered].item1;
             problemColor = testTemplate[answered].item2;
@@ -307,14 +342,24 @@ class _BodyState extends State<Body> {
     }
     if (answered == QUESTIONS_AMOUNT - 1) {
       Widget nextWidget;
-      scoreCounting();
-      Future.delayed(const Duration(milliseconds: 3000), () {
-        stopwatchAudio.stop();
-        speech.stop();
+      Future.delayed(durationDelay, () {
+        //ตอนจบของข้อเก่า
         setState(() {
+          scoreCounting();
+          problem = '';
+          problemColor = backgroundColor;
+
+          speech.stop();
           isListening = false;
+          stopwatchRT.reset();
+          checkAnswer();
+          recogWord = ''; // reset value
         });
-        Navigator.pushNamed(context, BreakScreen.routeName);
+        stopwatchAudio.stop();
+
+        Future.delayed(durationDelayInterval, () async {
+          Navigator.pushNamed(context, BreakScreen.routeName);
+        });
       });
     }
   }
