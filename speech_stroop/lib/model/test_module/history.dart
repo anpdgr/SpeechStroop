@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:speech_stroop/model/auth.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:http/http.dart' as http;
+import 'package:speech_stroop/utils/loggger.dart';
 import 'package:tuple/tuple.dart';
 import './section.dart';
 
@@ -53,22 +54,22 @@ List<History> userHistory;
 
 //TODO: navigation
 getHistory() async {
-  if (true) {
-    //userHistory == null
-    var token = auth.token;
-    var res = await http.get(
-      Uri.parse("http://localhost:3000/history"),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    );
-    print("/history ${res.statusCode}");
-    if (res.statusCode == 200) {
-      Iterable l = json.decode(res.body);
-      userHistory = List<History>.from(l.map((data) => History.fromJson(data)));
-    } else {
-      //TODO: handle
-    }
+  var token = auth.token;
+  var res = await http.get(
+    Uri.parse("http://localhost:3000/history"),
+    headers: {
+      'Authorization': 'Bearer $token',
+    },
+  );
+  print("/history ${res.statusCode}");
+
+  if (res.statusCode == 200) {
+    Iterable l = json.decode(res.body);
+    userHistory = List<History>.from(l.map((data) => History.fromJson(data)));
+    userHistory.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+  } else {
+    logger.e("getHistory failed");
+    //TODO: handle
   }
 }
 
