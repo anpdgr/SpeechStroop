@@ -32,16 +32,48 @@ class _BodyState extends State<Body> {
   stt.SpeechToText speech;
 
   bool isListening = false;
-  String text = '';
   String feedback = '';
+  String feedbackImg = '';
   List textArr;
   String problem = '';
   Color problemColor = backgroundColor;
+  List<Color> stroopBackgroundColor;
 
   @override
   void initState() {
     super.initState();
+    setBackgroundColor();
     speech = stt.SpeechToText();
+  }
+
+  void setBackgroundColor() {
+    if (answered >= 0) {
+      switch (feedback) {
+        case '':
+          stroopBackgroundColor = [
+            const Color(0xFFF5F5F5),
+            const Color(0xFFF5F5F5)
+          ];
+          break;
+        case 'Correct':
+          stroopBackgroundColor = [
+            const Color(0xFF6FC2A0),
+            const Color(0xFF6FC2A0)
+          ];
+          break;
+        case 'Wrong':
+          stroopBackgroundColor = [
+            const Color(0xFFDA4F2C),
+            const Color(0xFFDA4F2C)
+          ];
+          break;
+      }
+    } else {
+      stroopBackgroundColor = [
+        const Color(0xff503B7F),
+        const Color(0xffEB8D8D)
+      ];
+    }
   }
 
   @override
@@ -49,17 +81,16 @@ class _BodyState extends State<Body> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton:
-          answered >= 0 ? MicButton(isListening, () => {}, true) : null,
+      floatingActionButton: answered >= 0 && isListening == true
+          ? MicButton(isListening, () => {}, true)
+          : null,
       key: scaffoldKey,
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: answered >= 0
-                    ? [const Color(0xFFF5F5F5), const Color(0xFFF5F5F5)]
-                    : [const Color(0xff503B7F), const Color(0xffEB8D8D)])),
+                colors: stroopBackgroundColor)),
         child: SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -119,12 +150,12 @@ class _BodyState extends State<Body> {
                   ),
                   feedback != ''
                       ? Image.asset(
-                          feedback,
-                          width: 31,
-                          height: 31,
+                          feedbackImg,
+                          width: 100,
+                          height: 100,
                         )
-                      : Text(feedback),
-                  Text(text)
+                      : Text(feedbackImg),
+                  Text(feedback)
                 ],
               ),
             ],
@@ -271,8 +302,9 @@ class _BodyState extends State<Body> {
       if (recogWord == correctAnswer) {
         setState(() {
           isCorrect = true;
-          text = 'Correct! (recog)';
-          feedback = 'assets/images/pass.png';
+          feedback = 'Correct';
+          feedbackImg = 'assets/images/correct.png';
+          setBackgroundColor();
         });
       }
 
@@ -280,14 +312,15 @@ class _BodyState extends State<Body> {
       else {
         setState(() {
           isCorrect = false;
-          text = 'Wrong! (recog)';
-          feedback = 'assets/images/true.png';
+          feedback = 'Wrong';
+          feedbackImg = 'assets/images/wrong.png';
+          setBackgroundColor();
         });
       }
 
       print('=' * 20);
       print(
-          '($answered) text: $text [$isCorrect]\t recogWord: $recogWord\t correctAnswer: $correctAnswer');
+          '($answered) feedback: $feedback [$isCorrect]\t recogWord: $recogWord\t correctAnswer: $correctAnswer');
       print('=' * 20);
 
       scoreCounting(isCorrect);
@@ -302,8 +335,8 @@ class _BodyState extends State<Body> {
   }
 
   void setNextQuestionValue() {
-    text = '';
     feedback = '';
+    feedbackImg = '';
     answered++;
     problem = testTemplate[answered].item1;
     problemColor = testTemplate[answered].item2;
@@ -345,6 +378,7 @@ class _BodyState extends State<Body> {
         Future.delayed(durationDelayInterval, () async {
           setState(() {
             setNextQuestionValue();
+            setBackgroundColor();
           });
           startNextQuestion();
         });
