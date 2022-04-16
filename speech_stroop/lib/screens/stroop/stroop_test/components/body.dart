@@ -272,7 +272,6 @@ class _BodyState extends State<Body> {
           onResult: (val) => setState(() {
             stopwatchRT.stop();
             recogWord = val.recognizedWords;
-
             // set questions[anwser]
             if (answered >= 0 &&
                 questions[answered].answerAt == null &&
@@ -321,7 +320,6 @@ class _BodyState extends State<Body> {
       print('=' * 20);
       print(
           '($answered) feedback: $feedback [$isCorrect]\t recogWord: $recogWord\t correctAnswer: $correctAnswer');
-      print('=' * 20);
 
       scoreCounting(isCorrect);
     }
@@ -369,7 +367,8 @@ class _BodyState extends State<Body> {
       checkAnswer();
       if (answered >= 0) {
         questions[answered].userAnswer = recogWord;
-        print('userAnswer: ${questions[answered].userAnswer}');
+        print('($answered) userAnswer: ${questions[answered].userAnswer}');
+        print('=' * 20);
       }
       resetQuestion();
 
