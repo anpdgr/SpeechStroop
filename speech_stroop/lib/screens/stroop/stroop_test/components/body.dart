@@ -5,7 +5,6 @@ import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
-import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:tuple/tuple.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
@@ -34,6 +33,7 @@ class _BodyState extends State<Body> {
 
   bool isListening = false;
   String text = '';
+  String feedback = '';
   List textArr;
   String problem = '';
   Color problemColor = backgroundColor;
@@ -117,6 +117,13 @@ class _BodyState extends State<Body> {
                                 },
                               )),
                   ),
+                  feedback != ''
+                      ? Image.asset(
+                          feedback,
+                          width: 31,
+                          height: 31,
+                        )
+                      : Text(feedback),
                   Text(text)
                 ],
               ),
@@ -232,9 +239,19 @@ class _BodyState extends State<Body> {
         setState(() => isListening = true);
         speech.listen(
           onResult: (val) => setState(() {
+            stopwatchRT.stop();
             recogWord = val.recognizedWords;
+
+            // set questions[anwser]
+            if (answered >= 0 &&
+                questions[answered].answerAt == null &&
+                questions[answered].reactionTimeMs == null) {
+              questions[answered].userAnswer = recogWord;
+              questions[answered].answerAt = stopwatchAudio.elapsedMilliseconds;
+              questions[answered].reactionTimeMs =
+                  stopwatchRT.elapsedMilliseconds;
+            }
           }),
-          // onResultListen,
           localeId: 'th-TH',
           partialResults: true,
         );
@@ -242,70 +259,51 @@ class _BodyState extends State<Body> {
     }
   }
 
-  void onResultListen(SpeechRecognitionResult val) {
-    // print('(${answered}) val: ${val}');
-    print('(${answered}) val.recognizedWords: ${val.recognizedWords}');
-    stopwatchRT.stop();
-    // check if answerAt and reactionTimeMs exists for avoiding override
-
-    if (answered >= 0 &&
-        questions[answered].answerAt == null &&
-        questions[answered].reactionTimeMs == null) {
-      questions[answered].answerAt = stopwatchAudio.elapsedMilliseconds;
-      questions[answered].reactionTimeMs = stopwatchRT.elapsedMilliseconds;
-    }
-
-    valAlternates = val.alternates;
-    if (isAnswerCorrect()) {
-      setState(() {
-        if (text == 'w' || text == 'Wrong!') {
-          text = 'Correct!';
-          print(text);
-        }
-        scorePerQuestion++;
-      });
-    } else {
-      setState(() {
-        if (text == 'w' || text == 'Correct!') {
-          text = 'Wrong!';
-        }
-        ;
-      });
-    }
-  }
-
   void checkAnswer() {
+    bool isCorrect = false;
     if (answered >= 0) {
+      // check answer
       String correctAnswer = colorsMapDefault.keys.firstWhere(
           (k) => colorsMapDefault[k] == testTemplate[answered].item2,
           orElse: () => '');
-      print('=' * 20);
-      print('(${answered}) recogWord: $recogWord');
-      print('(${answered}) correctAnswer: $correctAnswer');
+
+      // correct answer
       if (recogWord == correctAnswer) {
         setState(() {
+          isCorrect = true;
           text = 'Correct! (recog)';
+          feedback = 'assets/images/pass.png';
         });
-        print('(${answered}) textC: ${text}');
-      } else {
-        setState(() {
-          text = 'Wrong! (recog)';
-        });
-        print('(${answered}) textW: ${text}');
       }
+
+      // wrong answer
+      else {
+        setState(() {
+          isCorrect = false;
+          text = 'Wrong! (recog)';
+          feedback = 'assets/images/true.png';
+        });
+      }
+
       print('=' * 20);
+      print(
+          '($answered) text: $text [$isCorrect]\t recogWord: $recogWord\t correctAnswer: $correctAnswer');
+      print('=' * 20);
+
+      scoreCounting(isCorrect);
     }
   }
 
   void resetQuestion() {
     problem = '';
     problemColor = backgroundColor;
-    recogWord = ''; // reset value
+    recogWord = '';
     stopwatchRT.reset();
   }
 
   void setNextQuestionValue() {
     text = '';
+    feedback = '';
     answered++;
     problem = testTemplate[answered].item1;
     problemColor = testTemplate[answered].item2;
@@ -331,19 +329,21 @@ class _BodyState extends State<Body> {
 
     Future.delayed(durationDelay, () {
       // end of each questions
-      scoreCounting();
       speech.stop();
       setState(() {
         isListening = false;
       });
       checkAnswer();
+      if (answered >= 0) {
+        questions[answered].userAnswer = recogWord;
+        print('userAnswer: ${questions[answered].userAnswer}');
+      }
       resetQuestion();
 
       // prepare for the next question
       if (answered < stroopQuestionsAmount - 1) {
         Future.delayed(durationDelayInterval, () async {
           setState(() {
-            print('answered เปลั้ยนข้อ: ${answered}');
             setNextQuestionValue();
           });
           startNextQuestion();
@@ -352,6 +352,7 @@ class _BodyState extends State<Body> {
       // end of each sections
       else if (answered == stroopQuestionsAmount - 1) {
         stopwatchAudio.stop();
+        scores = {"congruent": 0, "incongruent": 0};
         Future.delayed(durationDelayInterval, () async {
           Navigator.pushNamed(context, BreakScreen.routeName);
         });
