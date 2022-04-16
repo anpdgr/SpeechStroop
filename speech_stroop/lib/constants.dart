@@ -43,3 +43,8 @@ class APIPath {
   final baseUrl = "http://localhost:3000";
   final user = "/user";
 }
+
+// Stroop
+int stroopQuestionsAmount = 20;
+int stroopQuestionDurationMs = 3000;
+int stroopIntervalDurationMs = 3000;

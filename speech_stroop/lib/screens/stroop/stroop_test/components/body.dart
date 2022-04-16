@@ -16,7 +16,6 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 int sectionNumber = 0;
 int level = 0;
 List<int> prevLevel = [];
-int QUESTIONS_AMOUNT = 20;
 List<Tuple3<String, Color, String>> testTemplate;
 Stopwatch stopwatchRT = Stopwatch();
 Stopwatch stopwatchAudio = Stopwatch();
@@ -301,7 +300,7 @@ class _BodyState extends State<Body> {
   void navigatePage() {
     var durationDelay = (answered == -1)
         ? const Duration(milliseconds: 500)
-        : const Duration(milliseconds: 3000); //TODO: 3000
+        : Duration(milliseconds: stroopQuestionDurationMs);
     var durationDelayInterval = (answered == -1)
         ? const Duration(milliseconds: 0)
         : const Duration(milliseconds: 1000); //TODO: 3000
@@ -314,6 +313,7 @@ class _BodyState extends State<Body> {
           scoreCounting();
           problem = '';
           problemColor = backgroundColor;
+        : Duration(milliseconds: stroopIntervalDurationMs);
 
           speech.stop();
           isListening = false;

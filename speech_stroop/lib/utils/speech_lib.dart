@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
@@ -42,7 +43,7 @@ void scoreCounting() {
 
     scorePerQuestion = 0;
   }
-  if (answered == QUESTIONS_AMOUNT - 1) {
+  if (answered == stroopQuestionsAmount - 1) {
     var totalScoreThisSection = scores["congruent"] + scores["incongruent"];
     totalScore += totalScoreThisSection;
 
