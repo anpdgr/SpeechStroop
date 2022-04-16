@@ -14,7 +14,7 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
       child: Container(
         decoration: BoxDecoration(
           boxShadow: const [
