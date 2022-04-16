@@ -330,11 +330,11 @@ class _BodyState extends State<Body> {
   void resetQuestion() {
     problem = '';
     problemColor = backgroundColor;
-    recogWord = '';
     stopwatchRT.reset();
   }
 
   void setNextQuestionValue() {
+    recogWord = '';
     feedback = '';
     feedbackImg = '';
     answered++;
