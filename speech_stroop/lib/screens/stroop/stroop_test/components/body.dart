@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:logger/logger.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
+import 'package:speech_stroop/utils/loggger.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:tuple/tuple.dart';
@@ -317,10 +319,14 @@ class _BodyState extends State<Body> {
         });
       }
 
-      print('=' * 20);
-      print(
-          '($answered) feedback: $feedback [$isCorrect]\t recogWord: $recogWord\t correctAnswer: $correctAnswer');
-
+      loggerNoStack.d(
+        {
+          'answered': answered,
+          'feedback': feedback,
+          'recogWord': recogWord,
+          'correctAnswer': correctAnswer
+        },
+      );
       scoreCounting(isCorrect);
     }
   }
@@ -367,8 +373,6 @@ class _BodyState extends State<Body> {
       checkAnswer();
       if (answered >= 0) {
         questions[answered].userAnswer = recogWord;
-        print('($answered) userAnswer: ${questions[answered].userAnswer}');
-        print('=' * 20);
       }
       resetQuestion();
 
