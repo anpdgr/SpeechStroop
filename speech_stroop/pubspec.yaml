@@ -116,6 +116,8 @@ flutter:
     - assets/images/avartar_default.png
     - assets/images/pass.png
     - assets/images/failed.png
+    - assets/images/correct.png
+    - assets/images/wrong.png
     - assets/images/down.png
     - assets/images/up.png
     - assets/images/precondition-passed.png
