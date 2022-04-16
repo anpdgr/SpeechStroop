@@ -297,70 +297,65 @@ class _BodyState extends State<Body> {
     }
   }
 
+  void resetQuestion() {
+    problem = '';
+    problemColor = backgroundColor;
+    recogWord = ''; // reset value
+    stopwatchRT.reset();
+  }
+
+  void setNextQuestionValue() {
+    text = '';
+    answered++;
+    problem = testTemplate[answered].item1;
+    problemColor = testTemplate[answered].item2;
+  }
+
+  void startNextQuestion() {
+    // set startAt timestamp of next question
+    if (answered >= 0) {
+      questions[answered].startAt = stopwatchAudio.elapsedMilliseconds;
+    }
+    listen();
+    stopwatchRT.start();
+    navigatePage();
+  }
+
   void navigatePage() {
     var durationDelay = (answered == -1)
         ? const Duration(milliseconds: 500)
         : Duration(milliseconds: stroopQuestionDurationMs);
     var durationDelayInterval = (answered == -1)
         ? const Duration(milliseconds: 0)
-        : const Duration(milliseconds: 1000); //TODO: 3000
-    if (answered < QUESTIONS_AMOUNT - 1) {
-      //every section, except last Question
-
-      Future.delayed(durationDelay, () {
-        //ตอนจบของข้อเก่า
-        setState(() {
-          scoreCounting();
-          problem = '';
-          problemColor = backgroundColor;
         : Duration(milliseconds: stroopIntervalDurationMs);
 
-          speech.stop();
-          isListening = false;
-          stopwatchRT.reset();
-          checkAnswer();
-          recogWord = ''; // reset value
-        });
-
-        Future.delayed(durationDelayInterval, () async {
-          //ตอนเริ่มของข้อใหม่
-          setState(() {
-            text = '';
-            print('answered เปลั้ยนข้อ: ${answered}');
-            answered++; //เปลี่ยนข้อ
-            problem = testTemplate[answered].item1;
-            problemColor = testTemplate[answered].item2;
-          });
-          if (answered >= 0) {
-            questions[answered].startAt = stopwatchAudio.elapsedMilliseconds;
-          }
-          listen();
-          stopwatchRT.start();
-          navigatePage();
-        });
+    Future.delayed(durationDelay, () {
+      // end of each questions
+      scoreCounting();
+      speech.stop();
+      setState(() {
+        isListening = false;
       });
-    }
-    if (answered == QUESTIONS_AMOUNT - 1) {
-      Widget nextWidget;
-      Future.delayed(durationDelay, () {
-        //ตอนจบของข้อเก่า
-        setState(() {
-          scoreCounting();
-          problem = '';
-          problemColor = backgroundColor;
+      checkAnswer();
+      resetQuestion();
 
-          speech.stop();
-          isListening = false;
-          stopwatchRT.reset();
-          checkAnswer();
-          recogWord = ''; // reset value
+      // prepare for the next question
+      if (answered < stroopQuestionsAmount - 1) {
+        Future.delayed(durationDelayInterval, () async {
+          setState(() {
+            print('answered เปลั้ยนข้อ: ${answered}');
+            setNextQuestionValue();
+          });
+          startNextQuestion();
         });
+      }
+      // end of each sections
+      else if (answered == stroopQuestionsAmount - 1) {
         stopwatchAudio.stop();
-
         Future.delayed(durationDelayInterval, () async {
           Navigator.pushNamed(context, BreakScreen.routeName);
         });
-      });
-    }
+      }
+    });
   }
 }
