@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/history/history_screen.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
@@ -18,37 +18,35 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color inActiveIconColor = Color(0xFFB6B6B6);
+    Color inActiveIconColor = const Color(0xFFB6B6B6);
     return Container(
+      alignment: Alignment.center,
+      height: 120,
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, -15),
-            blurRadius: 20,
-            color: Color(0xFFDADADA).withOpacity(0.15),
-          ),
-        ],
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
-        ),
-      ),
-      child: SafeArea(
-          top: false,
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, -15),
+              blurRadius: 20,
+              color: const Color(0xFFDADADA).withOpacity(0.15),
+            ),
+          ],
+          borderRadius: const BorderRadius.all(Radius.circular(40))),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                padding: EdgeInsets.only(top: 5),
-                height: 77,
+              Expanded(
+                flex: 1,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       IconButton(
-                        padding: EdgeInsets.all(0),
+                        padding: const EdgeInsets.all(0),
                         icon: Icon(
                           Icons.bar_chart_rounded,
                           size: 50.0,
@@ -56,9 +54,10 @@ class CustomBottomNavBar extends StatelessWidget {
                               ? primaryColor
                               : inActiveIconColor,
                         ),
-                        onPressed: () => {
+                        onPressed: () async => {
                           if (MenuState.history != selectedMenu)
                             {
+                              await getHistory(),
                               Navigator.pushNamed(
                                   context, HistoryScreen.routeName),
                             }
@@ -73,15 +72,14 @@ class CustomBottomNavBar extends StatelessWidget {
                               ))
                     ]),
               ),
-              Container(
-                padding: EdgeInsets.only(top: 5),
-                height: 77,
+              Expanded(
+                flex: 1,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       IconButton(
-                        padding: EdgeInsets.all(0),
+                        padding: const EdgeInsets.all(0),
                         icon: Icon(
                           Icons.home,
                           size: 50.0,
@@ -89,9 +87,10 @@ class CustomBottomNavBar extends StatelessWidget {
                               ? primaryColor
                               : inActiveIconColor,
                         ),
-                        onPressed: () => {
+                        onPressed: () async => {
                           if (MenuState.home != selectedMenu)
                             {
+                              await getUserProfile(),
                               Navigator.pushNamed(
                                   context, HomeScreen.routeName),
                             }
@@ -106,12 +105,11 @@ class CustomBottomNavBar extends StatelessWidget {
                               ))
                     ]),
               ),
-              Container(
-                padding: EdgeInsets.only(top: 5),
-                height: 77,
+              Expanded(
+                flex: 1,
                 child: Column(children: [
                   IconButton(
-                    padding: EdgeInsets.all(0),
+                    padding: const EdgeInsets.all(0),
                     icon: Icon(
                       Icons.person,
                       size: 50.0,
@@ -119,10 +117,10 @@ class CustomBottomNavBar extends StatelessWidget {
                           ? primaryColor
                           : inActiveIconColor,
                     ),
-                    onPressed: () => {
+                    onPressed: () async => {
                       if (MenuState.profile != selectedMenu)
                         {
-                          getUserProfile(),
+                          await getUserProfile(),
                           Navigator.pushNamed(context, ProfileScreen.routeName),
                         },
                     },
@@ -137,7 +135,9 @@ class CustomBottomNavBar extends StatelessWidget {
                 ]),
               )
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -4,17 +4,17 @@ import mongoose from 'mongoose'
 import { MONGO_URI, PORT } from './config'
 import { errorHandler } from './errors'
 import authRouter from './routes/auth'
+import historyRouter from './routes/history'
 import passportRouter from './routes/passport'
 import uploadRouter from './routes/upload'
 import userRouter from './routes/user'
-import historyRouter from './routes/history'
 
 const app = express()
 
 app.use(cors())
 
 app.get('/', (req, res) => {
-  res.status(200).send('Hello, World!')
+  res.status(200).send('Hello, Stroop!')
 })
 
 app.use('/auth', authRouter)

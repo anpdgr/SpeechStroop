@@ -106,7 +106,6 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
     } else {
       setState(() {
         isListening = false;
-        // text = '';
       });
       Future.delayed(const Duration(milliseconds: 800), () {
         speech.stop();
@@ -116,15 +115,10 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   }
 
   Future<void> onResultListen(val) async {
-    // text = val.recognizedWords;
     valAlternates = val.alternates;
-    // if (val.hasConfidenceRating && val.confidence > 0) {
-    //   confidence = val.confidence;
-    // }
     if (isAnswerCorrect()) {
       setState(() {
         text = 'Correct!';
-        score++;
       });
     } else {
       setState(() {
@@ -147,17 +141,18 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   }
 
   void navigatePage() {
+    isCorrect ? score++ : null;
+    isCorrect = false;
     if (answered < 6) {
       Future.delayed(const Duration(milliseconds: 800), () {
         setState(() {
+          text = '';
           answered++;
         });
       });
     } else {
-      //TODO: change to fail
       if (score < 7) {
-        // Navigator.pushNamed(context, FailReadingTestScreen.routeName);
-        Navigator.pushNamed(context, PassReadingTestScreen.routeName);
+        Navigator.pushNamed(context, FailReadingTestScreen.routeName);
       } else {
         precondition.readingAbilityTest.score = score;
         precondition.readingAbilityTest.date = DateTime.now();

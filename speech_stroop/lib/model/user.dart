@@ -37,6 +37,12 @@ class User {
   ]);
 
   factory User.fromJson(dynamic json) {
+    List<String> historyId =
+        json['historyId'] != null ? List<String>.from(json['historyId']) : [];
+
+    List<String> badge =
+        json['badge'] != null ? List<String>.from(json['badge']) : [];
+
     return User(
       json['tel'] as String,
       json['name'] as String,
@@ -49,8 +55,8 @@ class User {
       Precondition.fromJson(json['precondition']),
       json['password'] as String,
       json['hnId'] as String,
-      List<String>.from(json['historyId']),
-      List<String>.from(json['badge']),
+      historyId,
+      badge,
     );
   }
 
@@ -100,13 +106,32 @@ getUserProfile() async {
         'Authorization': 'Bearer $token',
       },
     );
+    print("/user/profile " + res.statusCode.toString());
     if (res.statusCode == 200) {
-      print(res.body);
       userProfile = User.fromJson(jsonDecode(res.body));
     } else {
       //TODO: handle
     }
     print(userProfile.toJson());
   }
+  return userProfile;
+}
+
+updateUserProfile() async {
+  String token = auth.token;
+  var res = await http.post(Uri.parse("http://localhost:3000/user/profile"),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(userProfile));
+
+  print("/user/profile " + res.statusCode.toString());
+
+  //TODO: handle
+  if (res.statusCode == 200) {
+    print(res.body);
+  } else {}
+  print(userProfile.toJson());
+
   return userProfile;
 }

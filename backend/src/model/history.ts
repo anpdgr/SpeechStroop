@@ -45,7 +45,7 @@ const historySchema = new Schema(
         break2: Number,
         end: Number,
       },
-      awake: {
+      arousel: {
         start: Number,
         break1: Number,
         break2: Number,
@@ -95,7 +95,7 @@ export type HistoryDocument = mongoose.Document & {
       break: number
       end: number
     }
-    awake: {
+    arousel: {
       start: number
       break: number
       end: number

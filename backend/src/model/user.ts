@@ -21,7 +21,6 @@ const userSchema = new Schema(
       required: true,
     },
     hnId: {
-      //TODO: TBD
       type: String,
       required: false,
     },

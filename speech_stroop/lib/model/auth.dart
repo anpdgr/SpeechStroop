@@ -22,20 +22,16 @@ class Auth {
 Auth auth;
 
 logout() async {
-  if (userProfile == null) {
-    String token = auth.token;
-    var res = await http.get(
-      Uri.parse("http://localhost:3000/auth/logout"),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    );
-    if (res.statusCode == 200) {
-      print("log out");
-      print(res.body);
-    } else {
-      //TODO: handle
-    }
-    userProfile = null;
-  }
+  String token = auth.token;
+  var res = await http.get(
+    Uri.parse("http://localhost:3000/auth/logout"),
+    headers: {
+      'Authorization': 'Bearer $token',
+    },
+  );
+  print("auth/logout" + res.statusCode.toString());
+  //TODO: handle
+  if (res.statusCode == 200) {
+  } else {}
+  userProfile = null;
 }

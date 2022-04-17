@@ -84,6 +84,5 @@ export async function register(
 
   await newUser.save()
   newUser.set('password', undefined) //not return password
-  console.log(newUser)
   return newUser
 }

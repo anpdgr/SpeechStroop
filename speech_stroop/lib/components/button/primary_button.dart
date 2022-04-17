@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/enums.dart';
 
 // typedef void HandleFunc();
 
 class PrimaryButton extends StatelessWidget {
   final String text;
+  final ButtonType buttonType;
   final void Function() handler;
-  PrimaryButton(
-    this.text,
-    this.handler,
-  );
+
+  PrimaryButton(this.text, this.handler, [this.buttonType = ButtonType.small]);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
       child: Container(
         decoration: BoxDecoration(
           boxShadow: const [
@@ -35,7 +36,8 @@ class PrimaryButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.0),
               ),
             ),
-            minimumSize: MaterialStateProperty.all(const Size(350, 42)),
+            minimumSize:
+                MaterialStateProperty.all(buttonStyle[buttonType].item1),
             backgroundColor: MaterialStateProperty.all(Colors.transparent),
             shadowColor: MaterialStateProperty.all(Colors.transparent),
           ),
@@ -49,11 +51,7 @@ class PrimaryButton extends StatelessWidget {
             ),
             child: Text(
               text,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
+              style: buttonStyle[buttonType].item2.apply(color: Colors.white),
             ),
           ),
         ),

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/model/auth.dart';
+import 'package:speech_stroop/model/test_module/history.dart';
+import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
@@ -110,6 +112,9 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                           if (val.length != 10) {
                             return 'เบอร์โทรศัพท์ประกอบไปด้วย 10 ตัวอักษร';
                           }
+                          if (int.tryParse(val) == null) {
+                            return 'โปรดกรอกตัวเลขเท่านั้น';
+                          }
                           return null;
                         },
                         onChanged: (val) {
@@ -182,14 +187,11 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
 
                       if (res.statusCode == 200) {
                         auth = Auth.fromJson(jsonDecode(res.body));
+                        await getUserProfile();
+                        await getHistory();
                         print("login success");
                         Navigator.pushNamed(context, HomeScreen.routeName);
                       } else {} //TODO: handle failed login
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) =>
-                      //             const ColorTestScreen()));
                     }
                   }),
                   SecondaryButton(
@@ -219,7 +221,27 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                               textStyle: const TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'BaiJamjuree',
-                                  color: Color(0xFF838383)))))
+                                  color: Color(0xFF838383))))),
+
+                  //TODO: DELETE ME!!!! (for admin)
+                  SecondaryButton('Developer', () async {
+                    formGlobalKey.currentState.save();
+                    var res = await http.post(
+                        Uri.parse("http://localhost:3000/auth/login"),
+                        headers: {'Content-Type': 'application/json'},
+                        body: jsonEncode({
+                          "tel": "0000000001",
+                          "password": "00000000",
+                        }));
+
+                    if (res.statusCode == 200) {
+                      auth = Auth.fromJson(jsonDecode(res.body));
+                      await getUserProfile();
+                      await getHistory();
+                      print("login dev success");
+                      Navigator.pushNamed(context, HomeScreen.routeName);
+                    } else {} //TODO: handle failed login
+                  }),
                 ],
               )),
         ),

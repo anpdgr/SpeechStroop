@@ -1,11 +1,7 @@
-import 'dart:developer';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
-import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/components/health_slider.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
@@ -58,16 +54,16 @@ class _BodyState extends State<Body> {
             switch (sectionNumber) {
               case 2:
                 stress.break1 = stressLevel.toInt();
-                awake.break1 = awakeLevel.toInt();
+                arousel.break1 = arouselLevel.toInt();
                 break;
               case 3:
                 stress.break2 = stressLevel.toInt();
-                awake.break2 = awakeLevel.toInt();
+                arousel.break2 = arouselLevel.toInt();
                 break;
               default:
                 break;
             }
-            healthScores = HealthScores(stress, awake);
+            healthScores = HealthScores(stress, arousel);
 
             Navigator.pushNamed(context, StroopTestScreen.routeName);
           })

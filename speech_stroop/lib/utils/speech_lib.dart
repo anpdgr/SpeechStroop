@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
@@ -35,17 +36,18 @@ List colorsCode = const [
   Color(0xFF8F00FF)
 ];
 
-void scoreCounting() {
-  if (answered != -1 && scorePerQuestion != 0) {
+void scoreCounting(bool isCorrect) {
+  // count score for each questions
+  if (answered >= 0 && isCorrect) {
     String condition = testTemplate[answered].item3;
     scores[condition]++;
-
-    scorePerQuestion = 0;
   }
-  if (answered == QUESTIONS_AMOUNT - 1) {
+  // count score for each sections
+  if (answered == stroopQuestionsAmount - 1) {
     var totalScoreThisSection = scores["congruent"] + scores["incongruent"];
     totalScore += totalScoreThisSection;
 
+    // culculate average reaction time
     var notEmptyReactionTime = questions
         .map((q) => q.reactionTimeMs)
         .where((rt) => rt != null)
@@ -55,35 +57,10 @@ void scoreCounting() {
         ? null
         : (notEmptyReactionTime.reduce((a, b) => a + b)) /
             notEmptyReactionTimeLength;
-    //TODO: fix audioUrl
+
+    //TODO: add audioUrl
     var section =
         Section(sectionNumber, scores, avgReactionTime, questions, "audioUrl");
     sections.add(section);
-    scores = {"congruent": 0, "incongruent": 0};
   }
-}
-
-bool isAnswerCorrect() {
-  valAlternates.sort((a, b) => a.confidence.compareTo(b.confidence));
-  var userAnswer = valAlternates[0].recognizedWords;
-
-  for (var predictedResult in valAlternates) {
-    var predictedWord = predictedResult.recognizedWords;
-    if (predictedWord ==
-        colorsMapDefault.keys.firstWhere(
-            (k) => colorsMapDefault[k] == testTemplate[answered].item2,
-            orElse: () => '')) {
-      isCorrect = true;
-      userAnswer = predictedWord;
-      break;
-    } else {
-      isCorrect = false;
-    }
-  }
-
-  questions[answered].userAnswer = userAnswer;
-  //TODO: fix bug
-  // print("userAnswer" + questions[answered].userAnswer);
-
-  return isCorrect;
 }

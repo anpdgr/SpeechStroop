@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/constants.dart';
-import 'package:speech_stroop/screens/auth/login.dart';
+import 'package:speech_stroop/model/auth.dart';
+import 'package:speech_stroop/model/test_module/history.dart';
+import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:speech_stroop/theme.dart';
@@ -26,7 +28,7 @@ class _PassReadingTestState extends State<PassReadingTestScreen> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFFBFBFF),
-        appBar: CustomAppBar('ผ่านการทดสอบการอ่าน'),
+        appBar: const CustomAppBar('ผ่านการทดสอบการอ่าน'),
         body: Column(
           children: [
             Padding(
@@ -61,9 +63,15 @@ class _PassReadingTestState extends State<PassReadingTestScreen> {
                     Uri.parse("http://localhost:3000/auth/register"),
                     headers: {'Content-Type': 'application/json'},
                     body: jsonEncode(registerReq));
-                print('res body = ${res.body}');
 
                 //TODO: login with this user
+                if (res.statusCode == 200) {
+                  auth = Auth.fromJson(jsonDecode(res.body));
+                  await getUserProfile();
+                  await getHistory();
+                  print("login success");
+                  Navigator.pushNamed(context, HomeScreen.routeName);
+                }
 
                 Navigator.pushNamed(context, HomeScreen.routeName);
               }),

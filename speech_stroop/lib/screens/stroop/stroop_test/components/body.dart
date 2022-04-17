@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:logger/logger.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
+import 'package:speech_stroop/utils/loggger.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:tuple/tuple.dart';
@@ -12,10 +15,12 @@ import 'dart:core';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 int sectionNumber = 0;
-int QUESTIONS_AMOUNT = 20;
+int level = 0;
+List<int> prevLevel = [];
 List<Tuple3<String, Color, String>> testTemplate;
 Stopwatch stopwatchRT = Stopwatch();
 Stopwatch stopwatchAudio = Stopwatch();
+String recogWord = '';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -29,13 +34,48 @@ class _BodyState extends State<Body> {
   stt.SpeechToText speech;
 
   bool isListening = false;
-  String text = '';
+  String feedback = '';
+  String feedbackImg = '';
   List textArr;
+  String problem = '';
+  Color problemColor = backgroundColor;
+  List<Color> stroopBackgroundColor;
 
   @override
   void initState() {
     super.initState();
+    setBackgroundColor();
     speech = stt.SpeechToText();
+  }
+
+  void setBackgroundColor() {
+    if (answered >= 0) {
+      switch (feedback) {
+        case '':
+          stroopBackgroundColor = [
+            const Color(0xFFF5F5F5),
+            const Color(0xFFF5F5F5)
+          ];
+          break;
+        case 'Correct':
+          stroopBackgroundColor = [
+            const Color(0xFF6FC2A0),
+            const Color(0xFF6FC2A0)
+          ];
+          break;
+        case 'Wrong':
+          stroopBackgroundColor = [
+            const Color(0xFFDA4F2C),
+            const Color(0xFFDA4F2C)
+          ];
+          break;
+      }
+    } else {
+      stroopBackgroundColor = [
+        const Color(0xff503B7F),
+        const Color(0xffEB8D8D)
+      ];
+    }
   }
 
   @override
@@ -43,17 +83,16 @@ class _BodyState extends State<Body> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton:
-          answered >= 0 ? MicButton(isListening, () => {}, true) : null,
+      floatingActionButton: answered >= 0 && isListening == true
+          ? MicButton(isListening, () => {}, true)
+          : null,
       key: scaffoldKey,
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: answered >= 0
-                    ? [const Color(0xFFF5F5F5), const Color(0xFFF5F5F5)]
-                    : [const Color(0xff503B7F), const Color(0xffEB8D8D)])),
+                colors: stroopBackgroundColor)),
         child: SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -68,9 +107,9 @@ class _BodyState extends State<Body> {
                     child: Center(
                         child: answered >= 0
                             ? Text(
-                                testTemplate[answered].item1,
+                                problem,
                                 style: TextStyle(
-                                  color: testTemplate[answered].item2,
+                                  color: problemColor,
                                   fontSize: 70,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -80,27 +119,27 @@ class _BodyState extends State<Body> {
                                 pause: const Duration(milliseconds: 150),
                                 isRepeatingAnimation: false,
                                 animatedTexts: [
-                                  RotateAnimatedText(
-                                    '3',
-                                    textStyle: const TextStyle(
-                                        fontSize: 144,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  RotateAnimatedText(
-                                    '2',
-                                    textStyle: const TextStyle(
-                                        fontSize: 144,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  RotateAnimatedText(
-                                    '1',
-                                    textStyle: const TextStyle(
-                                        fontSize: 144,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                  ScaleAnimatedText('3',
+                                      textStyle: const TextStyle(
+                                          fontSize: 144,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                      duration:
+                                          const Duration(milliseconds: 1500)),
+                                  ScaleAnimatedText('2',
+                                      textStyle: const TextStyle(
+                                          fontSize: 144,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                      duration:
+                                          const Duration(milliseconds: 1500)),
+                                  ScaleAnimatedText('1',
+                                      textStyle: const TextStyle(
+                                          fontSize: 144,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                      duration:
+                                          const Duration(milliseconds: 1500)),
                                 ],
                                 onFinished: () {
                                   buildTest();
@@ -108,11 +147,17 @@ class _BodyState extends State<Body> {
                                   stopwatchAudio.start();
                                   //TODO: record audio
                                   navigatePage();
-                                  listen();
                                 },
                               )),
                   ),
-                  Text(text)
+                  feedback != ''
+                      ? Image.asset(
+                          feedbackImg,
+                          width: 100,
+                          height: 100,
+                        )
+                      : Text(feedbackImg),
+                  Text(feedback)
                 ],
               ),
             ],
@@ -131,7 +176,16 @@ class _BodyState extends State<Body> {
     testTemplate = [];
     questions = [];
 
-    switch (sectionNumber) {
+    // random level
+    do {
+      level = rn.nextInt(4);
+    } while (prevLevel.contains(level) || level == 0);
+    prevLevel.add(level);
+    if (sectionNumber == 3) {
+      prevLevel.clear();
+    }
+
+    switch (level) {
       case 1:
         congruent = 14;
         incongruent = 6;
@@ -208,7 +262,7 @@ class _BodyState extends State<Body> {
     return false;
   }
 
-  void listen() async {
+  Future<void> listen() async {
     if (!isListening) {
       bool available = await speech.initialize(
           // onStatus: (val) => print('onStatus: $val'),
@@ -217,75 +271,129 @@ class _BodyState extends State<Body> {
       if (available) {
         setState(() => isListening = true);
         speech.listen(
-          onResult: onResultListen,
+          onResult: (val) => setState(() {
+            stopwatchRT.stop();
+            recogWord = val.recognizedWords;
+            // set questions[anwser]
+            if (answered >= 0 &&
+                questions[answered].answerAt == null &&
+                questions[answered].reactionTimeMs == null) {
+              questions[answered].userAnswer = recogWord;
+              questions[answered].answerAt = stopwatchAudio.elapsedMilliseconds;
+              questions[answered].reactionTimeMs =
+                  stopwatchRT.elapsedMilliseconds;
+            }
+          }),
           localeId: 'th-TH',
           partialResults: true,
         );
-        //listenFor: const Duration(seconds: 23));
       }
     }
   }
 
-  Future<void> onResultListen(val) async {
-    stopwatchRT.stop();
-    // check if answerAt and reactionTimeMs exists for avoiding override
+  void checkAnswer() {
+    bool isCorrect = false;
+    if (answered >= 0) {
+      // check answer
+      String correctAnswer = colorsMapDefault.keys.firstWhere(
+          (k) => colorsMapDefault[k] == testTemplate[answered].item2,
+          orElse: () => '');
 
-    if (answered >= 0 &&
-        questions[answered].answerAt == null &&
-        questions[answered].reactionTimeMs == null) {
-      questions[answered].answerAt = stopwatchAudio.elapsedMilliseconds;
-      questions[answered].reactionTimeMs = stopwatchRT.elapsedMilliseconds;
-    }
+      // correct answer
+      if (recogWord == correctAnswer) {
+        setState(() {
+          isCorrect = true;
+          feedback = 'Correct';
+          feedbackImg = 'assets/images/correct.png';
+          setBackgroundColor();
+        });
+      }
 
-    valAlternates = val.alternates;
-    if (isAnswerCorrect()) {
-      setState(() {
-        text = 'Correct!';
-        scorePerQuestion++;
-      });
-    } else {
-      setState(() {
-        text = '';
-      });
+      // wrong answer
+      else {
+        setState(() {
+          isCorrect = false;
+          feedback = 'Wrong';
+          feedbackImg = 'assets/images/wrong.png';
+          setBackgroundColor();
+        });
+      }
+
+      loggerNoStack.d(
+        {
+          'answered': answered,
+          'feedback': feedback,
+          'recogWord': recogWord,
+          'correctAnswer': correctAnswer
+        },
+      );
+      scoreCounting(isCorrect);
     }
   }
 
+  void resetQuestion() {
+    problem = '';
+    problemColor = backgroundColor;
+    stopwatchRT.reset();
+  }
+
+  void setNextQuestionValue() {
+    recogWord = '';
+    feedback = '';
+    feedbackImg = '';
+    answered++;
+    problem = testTemplate[answered].item1;
+    problemColor = testTemplate[answered].item2;
+  }
+
+  void startNextQuestion() {
+    // set startAt timestamp of next question
+    if (answered >= 0) {
+      questions[answered].startAt = stopwatchAudio.elapsedMilliseconds;
+    }
+    listen();
+    stopwatchRT.start();
+    navigatePage();
+  }
+
   void navigatePage() {
-    if (answered < QUESTIONS_AMOUNT - 1) {
-      //every section, except last Q
-      var durationDelay = (answered == -1)
-          ? const Duration(milliseconds: 500)
-          : const Duration(milliseconds: 3000); //TODO: 3000
-      Future.delayed(durationDelay, () {
-        setState(() {
-          scoreCounting();
-          answered++;
-          stopwatchRT.reset();
-          if (answered >= 0) {
-            questions[answered].startAt = stopwatchAudio.elapsedMilliseconds;
-          }
-          stopwatchRT.start();
-          navigatePage();
-        });
+    var durationDelay = (answered == -1)
+        ? const Duration(milliseconds: 500)
+        : Duration(milliseconds: stroopQuestionDurationMs);
+    var durationDelayInterval = (answered == -1)
+        ? const Duration(milliseconds: 0)
+        : Duration(milliseconds: stroopIntervalDurationMs);
+
+    Future.delayed(durationDelay, () {
+      // end of each questions
+      speech.stop();
+      setState(() {
+        isListening = false;
       });
-    }
-    if (answered == QUESTIONS_AMOUNT - 1) {
-      Widget nextWidget;
-      //TODO: set scores to 0
+      checkAnswer();
+      if (answered >= 0) {
+        questions[answered].userAnswer = recogWord;
+      }
+      resetQuestion();
 
-      // setState(() {
-      scoreCounting();
-
-      // });
-
-      Future.delayed(const Duration(milliseconds: 3000), () {
+      // prepare for the next question
+      if (answered < stroopQuestionsAmount - 1) {
+        Future.delayed(durationDelayInterval, () async {
+          setState(() {
+            setNextQuestionValue();
+            setBackgroundColor();
+          });
+          startNextQuestion();
+        });
+      }
+      // end of each sections
+      else if (answered == stroopQuestionsAmount - 1) {
         stopwatchAudio.stop();
-        speech.stop();
-        setState(() {
-          isListening = false;
+        scores = {"congruent": 0, "incongruent": 0};
+        Future.delayed(durationDelayInterval, () async {
+          Navigator.pushNamed(context, BreakScreen.routeName);
         });
-        Navigator.pushNamed(context, BreakScreen.routeName);
-      });
-    }
+      }
+    });
   }
 }

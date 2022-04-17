@@ -194,6 +194,9 @@ class _Register2ScreenState extends State<Register2Screen> {
                           if (val.length != 4) {
                             return 'โปรดระบุเลขประจำตัวบัตรประชาชน 4 ตัวท้าย';
                           }
+                          if (int.tryParse(val) == null) {
+                            return 'โปรดกรอกตัวเลขเท่านั้น';
+                          }
                           return null;
                         },
                         onChanged: (val) {
@@ -253,6 +256,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                                   } else if (matches.isEmpty) {
                                     return 'โปรดระบุวันเกิดของคุณให้ถูกต้อง';
                                   }
+                                  //TODO: check if value is before today
                                   return null;
                                 },
                                 onTap: () {
@@ -368,7 +372,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                             DropdownMenuItem(
                                 child: Text("อนุปริญญา"), value: "associate"),
                             DropdownMenuItem(
-                                child: Text("ปริญญาตรี"), value: "bd"),
+                                child: Text("ปริญญาตรี "), value: "bd"),
                             DropdownMenuItem(
                                 child: Text("ปริญญาโท"), value: "md"),
                             DropdownMenuItem(
@@ -397,7 +401,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                             onChanged: (bool value) {
                               setState(() {
                                 isChecked = value;
-                                precondition.isColorBlind = false;
                               });
                             },
                           ),
@@ -405,7 +408,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                             child: Text(
                               """หากคุณไม่มีภาวะตาบอดสี โปรดทำเครื่องหมายถูกในช่องว่างเพื่อยืนยัน เนื่องจากผู้ที่มีภาวะตาบอดสีจะไม่สามารถทำแบบทดสอบภายในแอปพลิเคชัน Speech Stroop ได้""",
                               style:
-                                  TextStyle(fontSize: 14, letterSpacing: 0.5),
+                                  TextStyle(fontSize: 16, letterSpacing: 0.5),
                             ),
                           ),
                         ],
@@ -430,6 +433,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                                 DateTime(splitDob[0], splitDob[1], splitDob[2]);
                             registerReq.gender = genderValue ?? 'unknown';
                             registerReq.education = educationValue ?? 'unknown';
+                            precondition.isColorBlind = !isChecked;
 
                             Navigator.push(
                                 context,

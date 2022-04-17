@@ -10,7 +10,7 @@ class HealthSlider extends StatefulWidget {
 }
 
 double stressLevel = 1;
-double awakeLevel = 1;
+double arouselLevel = 1;
 
 class HealthSliderState extends State<HealthSlider> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -19,7 +19,7 @@ class HealthSliderState extends State<HealthSlider> {
   void initState() {
     super.initState();
     stressLevel = 1;
-    awakeLevel = 1;
+    arouselLevel = 1;
   }
 
   @override
@@ -71,14 +71,14 @@ class HealthSliderState extends State<HealthSlider> {
         activeColor: secondaryColor,
         thumbColor: secondaryColor,
         inactiveColor: tertiaryColor,
-        value: awakeLevel,
+        value: arouselLevel,
         min: 1,
         max: 4,
         divisions: 3,
-        label: awakeLevel.round().toString(),
+        label: arouselLevel.round().toString(),
         onChanged: (double value) {
           setState(() {
-            awakeLevel = value;
+            arouselLevel = value;
           });
         },
       )

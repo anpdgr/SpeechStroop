@@ -27,7 +27,11 @@ router.post(
   async (req: Request<{}, {}, RegisterDTO>, res: Response) => {
     const body = req.body
     const user = await register(body)
-    res.json(user)
+    const response = await login({
+      tel: user.tel,
+      password: body.password
+    });
+    res.json(response)
   },
 )
 
