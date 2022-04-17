@@ -28,7 +28,7 @@ class _BodyState extends State<Body> {
           child: Stack(
             children: [
               Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                padding: const EdgeInsets.all(3),
                 child: Column(
                   children: [
                     Image.asset('assets/images/his_trophy.png'),
