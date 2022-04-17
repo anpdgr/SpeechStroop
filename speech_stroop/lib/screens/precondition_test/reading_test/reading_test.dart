@@ -42,7 +42,7 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: CustomAppBar('การทดสอบการอ่าน'),
+      appBar: const CustomAppBar('การทดสอบการอ่าน'),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: MicButton(isListening, listen),
       key: scaffoldKey,
