@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
+import 'package:speech_stroop/components/button/secondary_button.dart';
+import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/microphone_test/microphone_test.dart';
+import 'package:speech_stroop/screens/precondition_test/reading_test/reading_test.dart';
+import 'package:speech_stroop/theme.dart';
 
 class FailMicrophoneTestScreen extends StatefulWidget {
   const FailMicrophoneTestScreen({Key key}) : super(key: key);
@@ -21,7 +26,7 @@ class _FailMicrophoneTestState extends State<FailMicrophoneTestScreen> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFFBFBFF),
-        appBar: CustomAppBar('ไม่ผ่านการทดสอบไมโครโฟน'),
+        appBar: const CustomAppBar('โปรดตรวจสอบไมโครโฟน'),
         body: Column(
           children: [
             Expanded(
@@ -36,9 +41,25 @@ class _FailMicrophoneTestState extends State<FailMicrophoneTestScreen> {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                'โปรดตรวจสอบการเข้าถึงไมโครโฟนภายในการตั้งค่าอุปกรณ์ของคุณ และทำการทดสอบในสถานที่ที่ไม่มีเสียงรบกวน',
+                style: textTheme().titleLarge,
+              ),
+            ),
+            //TODO: (optional) add button to ask user for the microphone permission again
+            // Padding(
+            //   padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+            //   child: SecondaryButton('ให้อนุญาตการเข้าถึงไมโครโฟน', () async {
+            //     await Permission.microphone.request();
+            //   }),
+            // ),
+            Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 80),
               child: PrimaryButton('ทดสอบอีกครั้ง', () {
-                Navigator.pushNamed(context, MicrophoneTestScreen.routeName);
+                (precondition.readingAbilityTest.score != 7)
+                    ? Navigator.pushNamed(context, ReadingTestScreen.routeName)
+                    : Navigator.pushNamed(context, ColorTestScreen.routeName);
               }),
             )
           ],

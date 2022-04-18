@@ -5,6 +5,7 @@ import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/fail_color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/pass_color_test.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
+import 'package:speech_stroop/screens/precondition_test/microphone_test/fail_microphone_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../../../utils/speech_lib.dart';
@@ -97,8 +98,11 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
     if (!isListening) {
       bool available = await speech.initialize(
           // onStatus: (val) => print('onStatus: $val'),
-          // onError: (val) => print('onError: $val'),
-          );
+          onError: (val) => {
+                Navigator.pushNamed(
+                    context, FailMicrophoneTestScreen.routeName),
+                print('onError: $val'),
+              });
       if (available) {
         setState(() => isListening = true);
         speech.listen(
