@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/screens/precondition_test/components/precon_box.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/microphone_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/reading_test.dart';
 import 'package:speech_stroop/theme.dart';
 
@@ -38,8 +37,8 @@ class _IntroductionState extends State<IntroductionScreen> {
                 direction: Axis.vertical,
                 spacing: 25,
                 children: [
-                  PreconBox('ทดสอบทักษะการอ่าน'),
-                  PreconBox('ทดสอบทักษะการจำแนกสี')
+                  PreconBox('1. ทดสอบทักษะการอ่าน'),
+                  PreconBox('2. ทดสอบทักษะการจำแนกสี')
                 ],
               ),
               const SizedBox(height: 50),

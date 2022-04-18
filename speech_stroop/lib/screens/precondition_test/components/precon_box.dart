@@ -23,14 +23,6 @@ class PreconBox extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: tertiaryColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 0,
-            blurRadius: 4,
-            offset: const Offset(0, 3),
-          ),
-        ],
       ),
     );
   }
