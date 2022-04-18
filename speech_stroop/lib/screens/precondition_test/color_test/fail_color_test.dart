@@ -4,6 +4,8 @@ import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
 
+import '../../../theme.dart';
+
 class FailColorTestScreen extends StatefulWidget {
   const FailColorTestScreen({Key key}) : super(key: key);
   static String routeName = "/precondition_fail_color";
@@ -32,6 +34,13 @@ class _FailColorTestState extends State<FailColorTestScreen> {
                   height: MediaQuery.of(context).size.height * 0.55,
                   fit: BoxFit.fitHeight,
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                'โปรดตรวจสอบระดับความสว่างและการแสดงผลหน้าจอที่มีผลต่อสี และโปรดตอบเพียงชื่อสีโดยไม่มีคำว่าสี เช่น แดง เขียว เป็นต้น',
+                style: textTheme().titleLarge,
               ),
             ),
             Padding(
