@@ -26,7 +26,7 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 10, bottom: 10),
-      padding: const EdgeInsets.all(30.0),
+      padding: const EdgeInsets.all(30),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,12 +47,15 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "คะแนนเฉลี่ย",
+                      "คะแนนเฉลี่ยต่อสัปดาห๋",
                       textAlign: TextAlign.left,
                       style: Theme.of(context)
                           .textTheme
-                          .labelLarge
+                          .bodyLarge
                           .apply(color: const Color(0xFF525252)),
+                    ),
+                    const SizedBox(
+                      height: 5,
                     ),
                     Text(
                       avgScorePerWeek.toString(),
@@ -63,17 +66,33 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
                       height: 20,
                     ),
                     SfCartesianChart(
-                        primaryXAxis: CategoryAxis(),
-                        primaryYAxis:
-                            NumericAxis(minimum: 0, maximum: 60, interval: 10),
-                        series: <ChartSeries<_ChartData, String>>[
-                          ColumnSeries<_ChartData, String>(
-                              dataSource: chartData,
-                              xValueMapper: (_ChartData data, _) => data.x,
-                              yValueMapper: (_ChartData data, _) => data.y,
-                              color: secondaryColor,
-                              borderRadius: BorderRadius.circular(15))
-                        ])
+                      primaryXAxis: CategoryAxis(
+                        labelStyle:
+                            Theme.of(context).textTheme.labelLarge.apply(
+                                  color: formText,
+                                ),
+                      ),
+                      primaryYAxis: NumericAxis(
+                        minimum: 0,
+                        maximum: 60,
+                        interval: 10,
+                        labelStyle:
+                            Theme.of(context).textTheme.labelLarge.apply(
+                                  color: formText,
+                                ),
+                      ),
+                      series: <ChartSeries<_ChartData, String>>[
+                        ColumnSeries<_ChartData, String>(
+                          dataSource: chartData,
+                          xValueMapper: (_ChartData data, _) => data.x,
+                          yValueMapper: (_ChartData data, _) => data.y,
+                          color: secondaryColor,
+                          width: 0.5,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ],
+                      plotAreaBorderWidth: 0,
+                    ),
                   ]),
             )
           ]),
