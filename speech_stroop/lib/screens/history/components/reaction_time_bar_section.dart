@@ -59,7 +59,8 @@ class _ReactionTimeBarSectionState extends State<ReactionTimeBarSection> {
                       height: 5,
                     ),
                     Text(
-                      '${(avgReactionTimePerWeek).toStringAsFixed(2)} วิ',
+                      //'10',
+                      '${(avgReactionTimePerWeek).toDouble().toStringAsFixed(2)} วิ',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
@@ -111,10 +112,11 @@ class _ChartData {
 double calculateAvgReactionTimePerWeek(List<_ChartData> data) {
   double sum = 0.0;
   double avg = 0.0;
+  double len = data.length * 1.0;
   for (_ChartData d in data) {
     sum += d.y;
   }
-  avg = sum / data.length;
+  avg = sum / len;
   return avg;
 }
 
