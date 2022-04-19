@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:tuple/tuple.dart';
 
 class ScoreBarSection extends StatefulWidget {
   ScoreBarSection(this.historyData, {Key key}) : super(key: key);
@@ -14,11 +15,14 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
   final formGlobalKey = GlobalKey<FormState>();
   List<_ChartData> chartData;
   int avgScorePerWeek = 0;
+  int testedDatys = 0;
 
   @override
   void initState() {
-    chartData = setScoreChartData();
-    avgScorePerWeek = calculateAvgScorePerWeek(chartData);
+    var output = setScoreChartData();
+    chartData = output.item1;
+    testedDatys = output.item2;
+    avgScorePerWeek = calculateAvgScorePerWeek(chartData, testedDatys);
     super.initState();
   }
 
@@ -107,17 +111,17 @@ class _ChartData {
   final double y;
 }
 
-int calculateAvgScorePerWeek(List<_ChartData> data) {
+int calculateAvgScorePerWeek(List<_ChartData> data, int testedDatys) {
   double sum = 0.0;
   int avg = 0;
   for (_ChartData d in data) {
     sum += d.y;
   }
-  avg = (sum / data.length).round();
+  avg = (sum / testedDatys).round();
   return avg;
 }
 
-List<_ChartData> setScoreChartData() {
+Tuple2<List<_ChartData>, int> setScoreChartData() {
   // init data
   List<_ChartData> data = [];
   dateLabel.forEach((key, value) {
@@ -146,7 +150,10 @@ List<_ChartData> setScoreChartData() {
   double avgScorePerDay = 0.0;
   int sumScorePerDay = 0;
   int countTestPerDay = 0;
+  int idx = 0;
+  int testedDatys = 0;
   for (History h in historyThisWeek) {
+    idx++;
     currDate = h.createdAt.weekday;
     // only first round
     if (prevDate == 0) {
@@ -163,10 +170,21 @@ List<_ChartData> setScoreChartData() {
       // cal avg score
       avgScorePerDay = sumScorePerDay / countTestPerDay;
       data[prevDate] = _ChartData(dateLabel[prevDate], avgScorePerDay);
+      testedDatys++;
 
       // clear
       countTestPerDay = 0;
       sumScorePerDay = 0;
+
+      countTestPerDay++;
+      sumScorePerDay += h.totalScore;
+
+      // if last elem
+      if (idx == historyThisWeek.length - 1) {
+        avgScorePerDay = sumScorePerDay / countTestPerDay;
+        data[currDate] = _ChartData(dateLabel[currDate], avgScorePerDay);
+        testedDatys++;
+      }
     }
     prevDate = currDate;
   }
@@ -174,7 +192,12 @@ List<_ChartData> setScoreChartData() {
   if (testOnlyOneDate) {
     avgScorePerDay = sumScorePerDay / countTestPerDay;
     data[prevDate] = _ChartData(dateLabel[prevDate], avgScorePerDay);
+    testedDatys++;
   }
 
-  return data;
+  for (_ChartData d in data) {
+    print("${d.x} :  ${d.y}");
+  }
+
+  return Tuple2(data, testedDatys);
 }
