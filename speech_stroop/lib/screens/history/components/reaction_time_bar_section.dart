@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
-import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ReactionTimeBarSection extends StatefulWidget {
@@ -20,6 +19,7 @@ class _ReactionTimeBarSectionState extends State<ReactionTimeBarSection> {
   void initState() {
     chartData = setReactionTimeChartData();
     avgReactionTimePerWeek = calculateAvgReactionTimePerWeek(chartData);
+    //TODO: count testedDay
     super.initState();
   }
 
