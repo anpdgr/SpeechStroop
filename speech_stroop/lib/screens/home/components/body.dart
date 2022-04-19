@@ -135,9 +135,7 @@ class _BodyState extends State<Body> {
             "วิธีการทดสอบ",
             () => {
               //TODO: remove me
-              print("tutorial"),
-              latestTest = userHistory[0],
-              print(userHistory[0].createdAt),
+              print("tutorials"),
               Navigator.pushNamed(context, ResultScreen.routeName),
             },
             ButtonType.medium,

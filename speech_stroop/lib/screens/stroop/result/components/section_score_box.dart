@@ -31,7 +31,7 @@ class SectionScoreBox extends StatelessWidget {
             ),
             const SizedBox(height: 2),
             Text(
-              '${(reactionTime / 1000).toStringAsFixed(2)} วิ', //TODO: วินาที
+              '${(reactionTime / 1000).toStringAsFixed(2)} วิ',
               style:
                   Theme.of(context).textTheme.labelSmall.apply(color: formText),
             ),

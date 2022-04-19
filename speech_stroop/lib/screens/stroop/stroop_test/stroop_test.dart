@@ -8,7 +8,6 @@ import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-History latestTest;
 int totalScore = 0;
 List<Section> sections = [];
 List<Question> questions = [];
@@ -29,6 +28,7 @@ class StroopTestScreen extends StatelessWidget {
 }
 
 Future<http.Response> setHistory() async {
+  History latestTest;
   latestTest = History(totalScore, sections, healthScores, null);
   var res = await http.post(Uri.parse("http://localhost:3000/history"),
       headers: {
