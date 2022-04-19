@@ -48,3 +48,14 @@ class APIPath {
 int stroopQuestionsAmount = 20;
 int stroopQuestionDurationMs = 3000;
 int stroopIntervalDurationMs = 3000;
+
+// Chart
+Map<int, String> dateLabel = {
+  1: 'จ.',
+  2: 'อ.',
+  3: 'พ.',
+  4: 'พฤ.',
+  5: 'ศ.',
+  6: 'ส.',
+  7: 'อา.',
+};

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 
-class SectionBox extends StatelessWidget {
-  const SectionBox(this.section, this.score, this.reactionTime, {Key key})
-      : super(key: key);
-  final int section;
+class TypeScoreBox extends StatelessWidget {
+  TypeScoreBox(this.questionType, this.label, this.score);
+
+  final String questionType;
+  final String label;
   final int score;
-  final double reactionTime;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 93,
-      height: 107,
+      height: 120,
       margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
       padding: const EdgeInsets.fromLTRB(5, 20, 5, 2),
       decoration: BoxDecoration(
@@ -21,9 +21,10 @@ class SectionBox extends StatelessWidget {
       ),
       child: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Section $section",
+              questionType,
               style: Theme.of(context)
                   .textTheme
                   .titleSmall
@@ -31,7 +32,7 @@ class SectionBox extends StatelessWidget {
             ),
             const SizedBox(height: 2),
             Text(
-              '${(reactionTime / 1000).toStringAsFixed(2)} วิ', //TODO: วินาที
+              label,
               style:
                   Theme.of(context).textTheme.labelSmall.apply(color: formText),
             ),
@@ -40,7 +41,7 @@ class SectionBox extends StatelessWidget {
               '$score',
               style: Theme.of(context)
                   .textTheme
-                  .titleMedium
+                  .headlineLarge
                   .apply(color: secondaryColor),
             ),
           ],

@@ -44,6 +44,7 @@ dependencies:
   intl: ^0.16.1
   buddhist_datetime_dateformat: ^1.0.6
   logger: ^1.1.0
+  syncfusion_flutter_charts: ^18.4.49
   # auto_size_text:
   # cached_network_image:
   # font_awesome_flutter:
