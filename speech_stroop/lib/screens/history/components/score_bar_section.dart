@@ -3,10 +3,25 @@ import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class ScoreBarSection extends StatelessWidget {
-  ScoreBarSection(this.scoreHistory, {Key key}) : super(key: key);
-  final List<History> scoreHistory;
-  var data = setScoreChartData();
+class ScoreBarSection extends StatefulWidget {
+  ScoreBarSection(this.historyData, {Key key}) : super(key: key);
+  List<History> historyData;
+  @override
+  _ScoreBarSectionState createState() => _ScoreBarSectionState();
+}
+
+class _ScoreBarSectionState extends State<ScoreBarSection> {
+  final formGlobalKey = GlobalKey<FormState>();
+  List<_ChartData> chartData;
+  int avgScorePerWeek = 0;
+
+  @override
+  void initState() {
+    chartData = setScoreChartData();
+    avgScorePerWeek = calculateAvgScorePerWeek(chartData);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,14 +52,14 @@ class ScoreBarSection extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .labelLarge
-                          .apply(color: Color(0xFF525252)),
+                          .apply(color: const Color(0xFF525252)),
                     ),
                     Text(
-                      "27",
+                      avgScorePerWeek.toString(),
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     SfCartesianChart(
@@ -53,10 +68,9 @@ class ScoreBarSection extends StatelessWidget {
                             NumericAxis(minimum: 0, maximum: 60, interval: 10),
                         series: <ChartSeries<_ChartData, String>>[
                           ColumnSeries<_ChartData, String>(
-                              dataSource: data,
+                              dataSource: chartData,
                               xValueMapper: (_ChartData data, _) => data.x,
                               yValueMapper: (_ChartData data, _) => data.y,
-                              name: 'Gold',
                               color: secondaryColor,
                               borderRadius: BorderRadius.circular(15))
                         ])
@@ -74,73 +88,74 @@ class _ChartData {
   final double y;
 }
 
-List<_ChartData> setScoreChartData() {
-  List<_ChartData> list = [];
-  // List<String> DateLabel = [
-  //   'วันจันทร์',
-  //   'วันอังคาร',
-  //   'วันพุธ',
-  //   'วันพฤหัส',
-  //   'วันศุกร์',
-  //   'วันเสาร์',
-  //   'วันอาทิตย์',
-  // ];
-
-  List<String> DateLabel = [
-    'จ.',
-    'อ.',
-    'พ.',
-    'พฤ.',
-    'ศ.',
-    'ส.',
-    'อา.',
-  ];
-
-  for (String d in DateLabel) {
-    list.add(_ChartData(d, 0));
+int calculateAvgScorePerWeek(List<_ChartData> data) {
+  double sum = 0.0;
+  int avg = 0;
+  for (_ChartData d in data) {
+    sum += d.y;
   }
+  avg = (sum / data.length).round();
+  return avg;
+}
+
+List<_ChartData> setScoreChartData() {
+  // init data
+  List<_ChartData> data = [];
+  dateLabel.forEach((key, value) {
+    data.add(_ChartData(value, 0));
+  });
 
   DateTime now = DateTime.now();
   DateTime startWeekDate = now.subtract(Duration(days: now.weekday - 1));
   DateTime endWeekDate =
       now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
 
+  // filter history of this week
+  List<History> historyThisWeek = [];
+  for (History h in userHistory) {
+    if (h.createdAt.isAfter(startWeekDate) ||
+        h.createdAt.isAfter(endWeekDate.add(const Duration(days: 1)))) {
+      historyThisWeek.add(h);
+    } else {
+      break;
+    }
+  }
+
+  int currDate = 0;
+  int prevDate = 0;
+  bool testOnlyOneDate = true;
   double avgScorePerDay = 0.0;
   int sumScorePerDay = 0;
   int countTestPerDay = 0;
-  int currDate = endWeekDate.weekday;
-
-  for (History h in userHistory) {
-    if (h.createdAt.isBefore(startWeekDate) ||
-        h.createdAt.isAfter(endWeekDate)) {
-      print("end--------------------");
-      break;
-    } else {
-      int testDate = h.createdAt.weekday;
-      print('currDate $currDate \t testDate $testDate');
-      if (testDate == currDate) {
-        sumScorePerDay = sumScorePerDay + h.totalScore;
-        countTestPerDay++;
-      } else {
-        // set prev date
-        avgScorePerDay = sumScorePerDay / countTestPerDay;
-        print("&&&&&&&&&&&&&&&&&&& testDate: $testDate");
-        list[testDate - 1] =
-            _ChartData(DateLabel[testDate - 1], avgScorePerDay);
-
-        // clear date
-        currDate = testDate;
-        sumScorePerDay = 0;
-        countTestPerDay = 0;
-        avgScorePerDay = 0.0;
-
-        // prepare curr date
-        sumScorePerDay = sumScorePerDay + h.totalScore;
-        countTestPerDay++;
-      }
+  for (History h in historyThisWeek) {
+    currDate = h.createdAt.weekday;
+    // only first round
+    if (prevDate == 0) {
+      prevDate = currDate;
     }
-  }
-  print(list[1].x + list[1].y.toString() + DateLabel[5]);
+    // other round
+    if (currDate == prevDate) {
+      countTestPerDay++;
+      sumScorePerDay += h.totalScore;
+    } else {
+      // set testOnlyOneDate flag
+      testOnlyOneDate = false;
 
-  return list;
+      // cal avg score
+      avgScorePerDay = sumScorePerDay / countTestPerDay;
+      data[prevDate] = _ChartData(dateLabel[prevDate], avgScorePerDay);
+
+      // clear
+      countTestPerDay = 0;
+      sumScorePerDay = 0;
+    }
+    prevDate = currDate;
+  }
+  // check has test only 1 date
+  if (testOnlyOneDate) {
+    avgScorePerDay = sumScorePerDay / countTestPerDay;
+    data[prevDate] = _ChartData(dateLabel[prevDate], avgScorePerDay);
+  }
+
+  return data;
 }
