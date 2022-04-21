@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/screens/history/components/badge_box.dart';
 
