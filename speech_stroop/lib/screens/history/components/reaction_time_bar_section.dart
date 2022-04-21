@@ -2,27 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:tuple/tuple.dart';
 
-class ScoreBarSection extends StatefulWidget {
-  ScoreBarSection(this.historyData, {Key key}) : super(key: key);
+class ReactionTimeBarSection extends StatefulWidget {
+  ReactionTimeBarSection(this.historyData, {Key key}) : super(key: key);
   List<History> historyData;
   @override
-  _ScoreBarSectionState createState() => _ScoreBarSectionState();
+  _ReactionTimeBarSectionState createState() => _ReactionTimeBarSectionState();
 }
 
-class _ScoreBarSectionState extends State<ScoreBarSection> {
+class _ReactionTimeBarSectionState extends State<ReactionTimeBarSection> {
   final formGlobalKey = GlobalKey<FormState>();
   List<_ChartData> chartData;
-  int avgScorePerWeek = 0;
-  int testedDatys = 0;
+  double avgReactionTimePerWeek = 0.0;
 
   @override
   void initState() {
-    var output = setScoreChartData();
-    chartData = output.item1;
-    testedDatys = output.item2;
-    avgScorePerWeek = calculateAvgScorePerWeek(chartData, testedDatys);
+    chartData = setReactionTimeChartData();
+    avgReactionTimePerWeek = calculateAvgReactionTimePerWeek(chartData);
+    //TODO: count testedDay
     super.initState();
   }
 
@@ -36,7 +33,7 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "คะแนนของสัปดาห์นี้",
+              "เวลาตอบสนองของสัปดาห์นี้",
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.titleMedium,
             ),
@@ -51,7 +48,7 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "คะแนนเฉลี่ยต่อสัปดาห๋",
+                      "เวลาตอบสนองเฉลี่ยต่อสัปดาห๋",
                       textAlign: TextAlign.left,
                       style: Theme.of(context)
                           .textTheme
@@ -62,7 +59,7 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
                       height: 5,
                     ),
                     Text(
-                      avgScorePerWeek.toString(),
+                      '${(avgReactionTimePerWeek).toStringAsFixed(2)} วิ',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
@@ -78,8 +75,8 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
                       ),
                       primaryYAxis: NumericAxis(
                         minimum: 0,
-                        maximum: 60,
-                        interval: 10,
+                        maximum: 3, //TODO: use const
+                        interval: 0.1,
                         labelStyle:
                             Theme.of(context).textTheme.labelLarge.apply(
                                   color: formText,
@@ -111,17 +108,17 @@ class _ChartData {
   final double y;
 }
 
-int calculateAvgScorePerWeek(List<_ChartData> data, int testedDatys) {
+double calculateAvgReactionTimePerWeek(List<_ChartData> data) {
   double sum = 0.0;
-  int avg = 0;
+  double avg = 0.0;
   for (_ChartData d in data) {
     sum += d.y;
   }
-  avg = (sum / testedDatys).round();
+  avg = sum / data.length;
   return avg;
 }
 
-Tuple2<List<_ChartData>, int> setScoreChartData() {
+List<_ChartData> setReactionTimeChartData() {
   // init data
   List<_ChartData> data = [];
   dateLabel.forEach((key, value) {
@@ -147,13 +144,13 @@ Tuple2<List<_ChartData>, int> setScoreChartData() {
   int currDate = 0;
   int prevDate = 0;
   bool testOnlyOneDate = true;
-  double avgScorePerDay = 0.0;
-  int sumScorePerDay = 0;
+  double avgReactionTimePerDay = 0.0;
+  double sumReactionTimePerDay = 0.0;
   int countTestPerDay = 0;
-  int idx = 0;
-  int testedDatys = 0;
+  double rtPerTest = 0.0;
+  double sumPerTest = 0.0;
+  List<double> rtList = [];
   for (History h in historyThisWeek) {
-    idx++;
     currDate = h.createdAt.weekday;
     // only first round
     if (prevDate == 0) {
@@ -161,43 +158,37 @@ Tuple2<List<_ChartData>, int> setScoreChartData() {
     }
     // other round
     if (currDate == prevDate) {
+      rtList = h.sections
+          .where((s) => s.avgReactionTimeMs > 0.0)
+          .map((s) => s.avgReactionTimeMs)
+          .toList();
+      if (rtList.isEmpty) {
+        continue;
+      }
+
       countTestPerDay++;
-      sumScorePerDay += h.totalScore;
+      sumPerTest = rtList.reduce((value, element) => value + element);
+      rtPerTest = sumPerTest / rtList.length;
+      sumReactionTimePerDay += rtPerTest;
     } else {
       // set testOnlyOneDate flag
       testOnlyOneDate = false;
 
-      // cal avg score
-      avgScorePerDay = sumScorePerDay / countTestPerDay;
-      data[prevDate] = _ChartData(dateLabel[prevDate], avgScorePerDay);
-      testedDatys++;
+      // cal avg ReactionTime
+      avgReactionTimePerDay = (sumReactionTimePerDay / countTestPerDay) / 1000;
+      data[prevDate] = _ChartData(dateLabel[prevDate], avgReactionTimePerDay);
 
       // clear
       countTestPerDay = 0;
-      sumScorePerDay = 0;
-
-      countTestPerDay++;
-      sumScorePerDay += h.totalScore;
-
-      // if last elem
-      if (idx == historyThisWeek.length - 1) {
-        avgScorePerDay = sumScorePerDay / countTestPerDay;
-        data[currDate] = _ChartData(dateLabel[currDate], avgScorePerDay);
-        testedDatys++;
-      }
+      sumReactionTimePerDay = 0;
     }
     prevDate = currDate;
   }
   // check has test only 1 date
   if (testOnlyOneDate) {
-    avgScorePerDay = sumScorePerDay / countTestPerDay;
-    data[prevDate] = _ChartData(dateLabel[prevDate], avgScorePerDay);
-    testedDatys++;
+    avgReactionTimePerDay = sumReactionTimePerDay / countTestPerDay / 1000;
+    data[prevDate] = _ChartData(dateLabel[prevDate], avgReactionTimePerDay);
   }
 
-  for (_ChartData d in data) {
-    print("${d.x} :  ${d.y}");
-  }
-
-  return Tuple2(data, testedDatys);
+  return data;
 }

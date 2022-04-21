@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 
-class SectionBox extends StatelessWidget {
-  const SectionBox(this.section, this.score, this.reactionTime, {Key key})
+class SectionScoreBox extends StatelessWidget {
+  const SectionScoreBox(this.section, this.score, this.reactionTime, {Key key})
       : super(key: key);
   final int section;
   final int score;
@@ -12,7 +12,7 @@ class SectionBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 93,
-      height: 107,
+      height: 120,
       margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
       padding: const EdgeInsets.fromLTRB(5, 20, 5, 2),
       decoration: BoxDecoration(
@@ -31,7 +31,7 @@ class SectionBox extends StatelessWidget {
             ),
             const SizedBox(height: 2),
             Text(
-              '${(reactionTime / 1000).toStringAsFixed(2)} วิ', //TODO: วินาที
+              '${(reactionTime / 1000).toStringAsFixed(2)} วิ',
               style:
                   Theme.of(context).textTheme.labelSmall.apply(color: formText),
             ),
@@ -40,7 +40,7 @@ class SectionBox extends StatelessWidget {
               '$score',
               style: Theme.of(context)
                   .textTheme
-                  .titleMedium
+                  .headlineLarge
                   .apply(color: secondaryColor),
             ),
           ],
