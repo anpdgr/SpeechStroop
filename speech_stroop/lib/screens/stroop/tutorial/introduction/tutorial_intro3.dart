@@ -57,10 +57,13 @@ class _TutorialIntroduction3State extends State<TutorialIntroduction3Screen> {
                 textAlign: TextAlign.center,
               ),
               sliderExampleBox(),
-              PrimaryButton('เริ่มทดลองทำ', () => {}),
-              FloatingButton(() {
-                Navigator.pushNamed(context, MicrophoneTestScreen.routeName);
-              }, true, false),
+              PrimaryButton(
+                  'เริ่มทดลองทำ',
+                  () => {
+                        Navigator.pushNamed(
+                            context, MicrophoneTestScreen.routeName)
+                      }),
+              FloatingButton(() {}, true, false),
             ],
           ),
         ));

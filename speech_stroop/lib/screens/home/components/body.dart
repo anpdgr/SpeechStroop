@@ -187,7 +187,10 @@ class _BodyState extends State<Body> {
                     Container(
                       alignment: Alignment.center,
                       child: Column(children: [
-                        PrimaryButton("ต้องการ", () => {print('save')}),
+                        PrimaryButton(
+                            "ต้องการ",
+                            () => Navigator.pushNamed(context,
+                                TutorialIntroduction1Screen.routeName)),
                         SecondaryButton(
                             "ไม่ต้องการ",
                             () => Navigator.pushNamed(
