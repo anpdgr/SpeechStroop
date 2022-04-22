@@ -13,16 +13,16 @@ class ScoreBarSection extends StatefulWidget {
 
 class _ScoreBarSectionState extends State<ScoreBarSection> {
   final formGlobalKey = GlobalKey<FormState>();
-  List<_ChartData> chartData;
+  List<ScoreChartData> chartData;
   int avgScorePerWeek = 0;
-  int testedDatys = 0;
+  int testedDays = 0;
 
   @override
   void initState() {
-    var output = setScoreChartData();
+    var output = setScoreChartData(widget.historyData);
     chartData = output.item1;
-    testedDatys = output.item2;
-    avgScorePerWeek = calculateAvgScorePerWeek(chartData, testedDatys);
+    testedDays = output.item2;
+    avgScorePerWeek = calculateAvgScorePerWeek(chartData, testedDays);
     super.initState();
   }
 
@@ -71,6 +71,7 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
                     ),
                     SfCartesianChart(
                       primaryXAxis: CategoryAxis(
+                        maximumLabels: 7,
                         labelStyle:
                             Theme.of(context).textTheme.labelLarge.apply(
                                   color: formText,
@@ -85,11 +86,11 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
                                   color: formText,
                                 ),
                       ),
-                      series: <ChartSeries<_ChartData, String>>[
-                        ColumnSeries<_ChartData, String>(
+                      series: <ChartSeries<ScoreChartData, String>>[
+                        ColumnSeries<ScoreChartData, String>(
                           dataSource: chartData,
-                          xValueMapper: (_ChartData data, _) => data.x,
-                          yValueMapper: (_ChartData data, _) => data.y,
+                          xValueMapper: (ScoreChartData data, _) => data.x,
+                          yValueMapper: (ScoreChartData data, _) => data.y,
                           color: secondaryColor,
                           width: 0.5,
                           borderRadius: BorderRadius.circular(15),
@@ -104,28 +105,28 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
   }
 }
 
-class _ChartData {
-  _ChartData(this.x, this.y);
+class ScoreChartData {
+  ScoreChartData(this.x, this.y);
 
   final String x;
   final double y;
 }
 
-int calculateAvgScorePerWeek(List<_ChartData> data, int testedDatys) {
+int calculateAvgScorePerWeek(List<ScoreChartData> data, int testedDays) {
   double sum = 0.0;
   int avg = 0;
-  for (_ChartData d in data) {
+  for (ScoreChartData d in data) {
     sum += d.y;
   }
-  avg = (sum / testedDatys).round();
+  avg = (sum / testedDays).round();
   return avg;
 }
 
-Tuple2<List<_ChartData>, int> setScoreChartData() {
+Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
   // init data
-  List<_ChartData> data = [];
+  List<ScoreChartData> data = [];
   dateLabel.forEach((key, value) {
-    data.add(_ChartData(value, 0));
+    data.add(ScoreChartData(value, 0));
   });
 
   DateTime now = DateTime.now();
@@ -135,14 +136,19 @@ Tuple2<List<_ChartData>, int> setScoreChartData() {
 
   // filter history of this week
   List<History> historyThisWeek = [];
-  for (History h in userHistory) {
-    if (h.createdAt.isAfter(startWeekDate) ||
-        h.createdAt.isAfter(endWeekDate.add(const Duration(days: 1)))) {
-      historyThisWeek.add(h);
-    } else {
-      break;
+  if (historyData != null) {
+    for (History h in historyData) {
+      if (h.createdAt.isAfter(startWeekDate) ||
+          h.createdAt.isAfter(endWeekDate.add(const Duration(days: 1)))) {
+        historyThisWeek.add(h);
+      } else {
+        break;
+      }
     }
   }
+  print("=" * 30);
+  print(historyData.length);
+  print(historyThisWeek.length);
 
   int currDate = 0;
   int prevDate = 0;
@@ -151,7 +157,7 @@ Tuple2<List<_ChartData>, int> setScoreChartData() {
   int sumScorePerDay = 0;
   int countTestPerDay = 0;
   int idx = 0;
-  int testedDatys = 0;
+  int testedDays = 0;
   for (History h in historyThisWeek) {
     idx++;
     currDate = h.createdAt.weekday;
@@ -169,8 +175,8 @@ Tuple2<List<_ChartData>, int> setScoreChartData() {
 
       // cal avg score
       avgScorePerDay = sumScorePerDay / countTestPerDay;
-      data[prevDate] = _ChartData(dateLabel[prevDate], avgScorePerDay);
-      testedDatys++;
+      data[prevDate - 1] = ScoreChartData(dateLabel[prevDate], avgScorePerDay);
+      testedDays++;
 
       // clear
       countTestPerDay = 0;
@@ -182,8 +188,9 @@ Tuple2<List<_ChartData>, int> setScoreChartData() {
       // if last elem
       if (idx == historyThisWeek.length - 1) {
         avgScorePerDay = sumScorePerDay / countTestPerDay;
-        data[currDate] = _ChartData(dateLabel[currDate], avgScorePerDay);
-        testedDatys++;
+        data[currDate - 1] =
+            ScoreChartData(dateLabel[currDate], avgScorePerDay);
+        testedDays++;
       }
     }
     prevDate = currDate;
@@ -191,13 +198,13 @@ Tuple2<List<_ChartData>, int> setScoreChartData() {
   // check has test only 1 date
   if (testOnlyOneDate) {
     avgScorePerDay = sumScorePerDay / countTestPerDay;
-    data[prevDate] = _ChartData(dateLabel[prevDate], avgScorePerDay);
-    testedDatys++;
+    data[prevDate - 1] = ScoreChartData(dateLabel[prevDate], avgScorePerDay);
+    testedDays++;
   }
 
-  for (_ChartData d in data) {
+  for (ScoreChartData d in data) {
     print("${d.x} :  ${d.y}");
   }
 
-  return Tuple2(data, testedDatys);
+  return Tuple2(data, testedDays);
 }
