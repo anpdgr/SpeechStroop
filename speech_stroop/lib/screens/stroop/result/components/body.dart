@@ -4,6 +4,9 @@ import 'package:speech_stroop/enums.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
+import 'package:speech_stroop/screens/stroop/result/components/score_bar_section.dart';
+import 'package:speech_stroop/screens/stroop/result/components/section_badge.dart';
+import 'package:speech_stroop/screens/stroop/result/components/section_high_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/section_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/total_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/type_score.dart';
@@ -20,6 +23,7 @@ class _BodyState extends State<Body> {
   History latestTestData;
   int sumCongruentScore = 0;
   int sumIncongruentScore = 0;
+  List<History> historyData;
 
   void calculateTypeScore() {
     for (Section s in latestTestData.sections) {
@@ -31,6 +35,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     latestTestData = widget.latestTestData;
+    historyData = getUserHistory();
     calculateTypeScore();
     super.initState();
   }
@@ -49,6 +54,12 @@ class _BodyState extends State<Body> {
               SectionScore(latestTestData.sections),
               const SizedBox(height: 5),
               TypeScore(sumCongruentScore, sumIncongruentScore),
+              const SizedBox(height: 5),
+              ScoreBarSection(historyData),
+              const SizedBox(height: 5),
+              SectionHighScore(),
+              const SizedBox(height: 5),
+              SectionBadge(),
               const SizedBox(height: 5),
               PrimaryButton(
                   "เข้าสู่หน้าหลัก",
