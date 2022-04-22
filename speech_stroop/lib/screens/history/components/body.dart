@@ -15,9 +15,11 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final formGlobalKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List<History> historyData;
 
   @override
   void initState() {
+    historyData = getUserHistory();
     super.initState();
   }
 
@@ -39,9 +41,9 @@ class _BodyState extends State<Body> {
                               Navigator.pushNamed(
                                   context, HistoryAllScreen.routeName)
                             }),
-                    ScoreBarSection(userHistory),
-                    ReactionTimeBarSection(userHistory),
-                    BadgeSection(userHistory),
+                    ScoreBarSection(historyData),
+                    ReactionTimeBarSection(historyData),
+                    BadgeSection(historyData),
                   ],
                 ),
               ),
