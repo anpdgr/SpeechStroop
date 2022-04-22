@@ -9,7 +9,7 @@ UserHealthScore userHealthScores = UserHealthScore(0, 0);
 PreconditionScore colorVisibilityTest = PreconditionScore(0, DateTime.now());
 PreconditionScore readingAbilityTest = PreconditionScore(0, DateTime.now());
 Precondition precondition =
-    Precondition(false, colorVisibilityTest, readingAbilityTest, false);
+    Precondition(true, colorVisibilityTest, readingAbilityTest, false);
 User registerReq = User(
     '', '', '', '', DateTime.now(), '', '', userHealthScores, precondition);
 

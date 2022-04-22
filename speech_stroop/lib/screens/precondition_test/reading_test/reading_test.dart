@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
+import 'package:speech_stroop/screens/precondition_test/microphone_test/fail_microphone_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
@@ -42,7 +43,7 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: CustomAppBar('การทดสอบการอ่าน'),
+      appBar: const CustomAppBar('การทดสอบการอ่าน'),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: MicButton(isListening, listen),
       key: scaffoldKey,
@@ -96,8 +97,11 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
     if (!isListening) {
       bool available = await speech.initialize(
           // onStatus: (val) => print('onStatus: $val'),
-          // onError: (val) => print('onError: $val'),
-          );
+          onError: (val) => {
+                Navigator.pushNamed(
+                    context, FailMicrophoneTestScreen.routeName),
+                print('onError: $val'),
+              });
       if (available) {
         setState(() => isListening = true);
         speech.listen(

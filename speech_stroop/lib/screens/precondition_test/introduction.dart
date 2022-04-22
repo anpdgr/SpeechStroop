@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/screens/precondition_test/components/precon_box.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/microphone_test.dart';
+import 'package:speech_stroop/screens/precondition_test/reading_test/reading_test.dart';
 import 'package:speech_stroop/theme.dart';
 
 class IntroductionScreen extends StatefulWidget {
@@ -22,14 +22,14 @@ class _IntroductionState extends State<IntroductionScreen> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFFBFBFF),
-        appBar: CustomAppBar('เตรียมความพร้อมก่อนทดสอบ'),
+        appBar: const CustomAppBar('เตรียมความพร้อมก่อนทดสอบ'),
         body: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
               const SizedBox(height: 30),
               Text(
-                'แบบทดสอบนี้ทำขึ้นเพื่อให้มั่นใจว่าคุณสามารถที่จะทำแบบทดสอบ Stroop test ได้อย่างไม่มีเงื่อนไขใด ๆ โดยเป็นการทำเพียงครั้งเดียวหลังการสมัครสมาชิก  หากต้องการทำแบบทดสอบอีกครั้งสามารถเลือกทำได้ในหน้าโปรไฟล์',
+                'แบบทดสอบนี้ทำขึ้นเพื่อให้มั่นใจว่าคุณสามารถที่จะทำแบบทดสอบ Stroop test ได้อย่างไม่มีเงื่อนไขใด ๆ โดยเป็นการทำเพียงครั้งเดียวหลังการสมัครสมาชิก หากต้องการทำแบบทดสอบอีกครั้งสามารถเลือกทำได้ในหน้าโปรไฟล์ \nซึ่งการเตรียมความพร้อมก่อนการทดสอบ Stroop test จะประกอบไปด้วยการทดสอบที่จำเป็นต้องให้อนุญาตการเข้าถึงไมโครโฟน และใช้เสียงพูดในการตอบ ซึ่งผู้ทดสอบจะต้องตอบเพียงชื่อสีโดยไม่มีคำว่า สี เช่น แดง เขียว เป็นต้น',
                 style: textTheme().bodyLarge.apply(color: Colors.black),
               ),
               const SizedBox(height: 50),
@@ -37,14 +37,13 @@ class _IntroductionState extends State<IntroductionScreen> {
                 direction: Axis.vertical,
                 spacing: 25,
                 children: [
-                  PreconBox('ทดสอบไมโครโฟน'),
-                  PreconBox('ทดสอบทักษะการจำแนกสี'),
-                  PreconBox('ทดสอบทักษะการอ่าน')
+                  PreconBox('1. ทดสอบทักษะการอ่าน'),
+                  PreconBox('2. ทดสอบทักษะการจำแนกสี')
                 ],
               ),
               const SizedBox(height: 50),
               PrimaryButton('เริ่มการเตรียมความพร้อม', () {
-                Navigator.pushNamed(context, MicrophoneTestScreen.routeName);
+                Navigator.pushNamed(context, ReadingTestScreen.routeName);
               })
             ],
           ),
