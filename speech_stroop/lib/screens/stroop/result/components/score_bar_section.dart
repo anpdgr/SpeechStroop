@@ -176,9 +176,9 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
     testedDays++;
   }
 
-  for (ScoreChartData d in data) {
-    print("${d.x} :  ${d.y}");
-  }
+  // for (ScoreChartData d in data) {
+  //   print("${d.x} :  ${d.y}");
+  // }
 
   return Tuple2(data, testedDays);
 }

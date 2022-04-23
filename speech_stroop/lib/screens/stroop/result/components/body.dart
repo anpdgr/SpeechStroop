@@ -12,8 +12,8 @@ import 'package:speech_stroop/screens/stroop/result/components/total_score.dart'
 import 'package:speech_stroop/screens/stroop/result/components/type_score.dart';
 
 class Body extends StatefulWidget {
-  Body(this.latestTestData, {Key key}) : super(key: key);
   History latestTestData;
+  Body(this.latestTestData, {Key key}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -26,6 +26,7 @@ class _BodyState extends State<Body> {
   List<History> historyData;
 
   void calculateTypeScore() {
+    print("len section: ${latestTestData.sections.length}");
     for (Section s in latestTestData.sections) {
       sumCongruentScore = sumCongruentScore + s.score["congruent"];
       sumIncongruentScore = sumIncongruentScore + s.score["incongruent"];
@@ -35,6 +36,12 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     latestTestData = widget.latestTestData;
+    print({
+      "createdAt": latestTestData.createdAt,
+      "userId": latestTestData.userId,
+      "sections": latestTestData.sections,
+      "totalScore": latestTestData.totalScore,
+    });
     historyData = getUserHistory();
     calculateTypeScore();
     super.initState();

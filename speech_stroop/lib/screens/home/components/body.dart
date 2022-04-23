@@ -7,7 +7,6 @@ import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:tuple/tuple.dart';
 
 var userName = "มะลิ";
@@ -27,7 +26,7 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    getHistory();
     bestScores = getHighestScores();
     latestScores = getlatestScores();
     super.initState();

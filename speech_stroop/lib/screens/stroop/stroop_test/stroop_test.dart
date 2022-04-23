@@ -45,7 +45,7 @@ class StroopTestScreen extends StatelessWidget {
   }
 }
 
-Future<http.Response> setHistory() async {
+Future<Tuple2<int, History>> setHistory() async {
   History latestTest;
   latestTest = History(totalScore, sections, healthScores, null);
   var res = await http.post(Uri.parse("http://localhost:3000/history"),
@@ -54,5 +54,13 @@ Future<http.Response> setHistory() async {
         'Authorization': 'Bearer ${auth.token}',
       },
       body: jsonEncode(latestTest));
-  return res;
+
+  print({
+    "arousel": latestTest.healthScores.arousel,
+    "createdAt": latestTest.createdAt,
+    "userId": latestTest.userId,
+    "sections": latestTest.sections,
+    "totalScore": latestTest.totalScore,
+  });
+  return Tuple2(res.statusCode, latestTest);
 }
