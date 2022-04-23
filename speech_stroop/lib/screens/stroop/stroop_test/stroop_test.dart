@@ -30,7 +30,8 @@ String recogWord = '';
 Stopwatch stopwatchRT = Stopwatch();
 Stopwatch stopwatchAudio = Stopwatch();
 // audio
-RecordAudio recordAudio = RecordAudio(0, DateTime.now());
+RecordAudio recordAudio;
+DateTime recordAudioDataTime = DateTime.now();
 
 class StroopTestScreen extends StatelessWidget {
   const StroopTestScreen({Key key}) : super(key: key);

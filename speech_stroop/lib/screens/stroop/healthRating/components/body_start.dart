@@ -54,7 +54,6 @@ class _BodyState extends State<Body> {
           ),
           PrimaryButton('เริ่มแบบทดสอบที่ ${sectionNumber + 1}', () {
             sectionNumber++;
-            recordAudio.section = sectionNumber;
             answered = -1;
             stress.start = stressLevel.toInt();
             arousel.start = arouselLevel.toInt();

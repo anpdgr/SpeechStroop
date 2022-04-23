@@ -31,7 +31,7 @@ class RecordAudio {
   }
 
   String getFileName() {
-    return '$section-$datetime';
+    return 'stroop-section_$section-$datetime';
   }
 
   Future<IOSink> createFile() async {

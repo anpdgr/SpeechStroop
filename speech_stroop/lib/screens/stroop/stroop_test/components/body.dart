@@ -4,6 +4,7 @@ import 'package:speech_stroop/components/button/mic_button.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/components/flutter_sound.dart';
 import 'package:speech_stroop/utils/loggger.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -12,14 +13,6 @@ import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'dart:math';
 import 'dart:core';
 import 'package:animated_text_kit/animated_text_kit.dart';
-
-// int sectionNumber = 0;
-// List<Tuple3<String, Color, String>> testTemplate;
-// int level = 0;
-// List<int> prevLevel = [];
-// String recogWord = '';
-// Stopwatch stopwatchRT = Stopwatch();
-// Stopwatch stopwatchAudio = Stopwatch();
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -45,6 +38,13 @@ class _BodyState extends State<Body> {
     super.initState();
     setBackgroundColor();
     speech = stt.SpeechToText();
+    recordAudio = RecordAudio(sectionNumber, recordAudioDataTime);
+
+    loggerNoStack.d("init state", {
+      "sectionNumber": recordAudio.section,
+      "recordAudioDataTime": recordAudio.datetime,
+    });
+
     recordAudio.openRecorder();
   }
 
@@ -146,7 +146,7 @@ class _BodyState extends State<Body> {
                                   stopwatchAudio.reset();
                                   stopwatchAudio.start();
                                   //TODO: record audio
-                                  recordAudio.getRecorderFn();
+                                  recordAudio.getRecorderFn()();
                                   navigatePage();
                                 },
                               )),
@@ -390,7 +390,7 @@ class _BodyState extends State<Body> {
       // end of each sections
       else if (answered == stroopQuestionsAmount - 1) {
         stopwatchAudio.stop();
-        recordAudio.getRecorderFn();
+        recordAudio.getRecorderFn()();
         scores = {"congruent": 0, "incongruent": 0};
         Future.delayed(durationDelayInterval, () async {
           Navigator.pushNamed(context, BreakScreen.routeName);
