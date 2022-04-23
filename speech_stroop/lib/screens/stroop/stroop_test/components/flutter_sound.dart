@@ -19,12 +19,14 @@ class RecordAudio {
   Future<String> getFilePathWAV() async {
     var tempDir = await getTemporaryDirectory();
     var fileName = getFileName();
+    print('${tempDir.path}/$fileName.wav');
     return '${tempDir.path}/$fileName.wav';
   }
 
   Future<String> getFilePathPCM() async {
     var tempDir = await getTemporaryDirectory();
     var fileName = getFileName();
+    print('${tempDir.path}/$fileName.pcm');
     return '${tempDir.path}/$fileName.pcm';
   }
 
@@ -42,6 +44,7 @@ class RecordAudio {
   }
 
   Future<void> openRecorder() async {
+    print('openRecorder');
     await mRecorder.openRecorder();
 
     final session = await AudioSession.instance;
@@ -75,6 +78,7 @@ class RecordAudio {
   // }
 
   Future<void> record() async {
+    print("stopRrecordecorder");
     assert(mRecorderIsInited);
     var sink = await createFile();
     var recordingDataController = StreamController<Food>();
@@ -94,6 +98,7 @@ class RecordAudio {
   }
 
   Future<void> stopRecorder() async {
+    print("stopRecorder");
     isRecording = false;
     await mRecorder.stopRecorder();
     if (mRecordingDataSubscription != null) {
@@ -110,15 +115,21 @@ class RecordAudio {
       numChannels: 1,
       sampleRate: tSampleRate,
     );
+    mRecorder.closeRecorder();
+    mRecorder = null;
     print('Recorded success at $wavPath');
   }
 
   void Function() getRecorderFn() {
+    print("isRecording: $isRecording");
     if (!mRecorderIsInited) {
+      print('${mRecorderIsInited}');
       return null;
     }
     return !isRecording
-        ? record
+        ? () async {
+            await record();
+          }
         : () async {
             await stopRecorder();
           };
