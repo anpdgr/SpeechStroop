@@ -50,6 +50,7 @@ class _BodyState extends State<Body> {
           ),
           PrimaryButton('เริ่มแบบทดสอบที่ ${sectionNumber + 1}', () {
             sectionNumber++;
+            recordAudio.section = sectionNumber;
             answered = -1;
             switch (sectionNumber) {
               case 2:

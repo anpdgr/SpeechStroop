@@ -9,10 +9,6 @@ import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:http/http.dart' as http;
-import 'package:speech_stroop/screens/stroop/stroop_test/components/flutter_sound.dart';
-
-import '../precondition_test/reading_test/reading_test.dart';
-import '../stroop/stroop_test/components/audio_recorder.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -211,11 +207,11 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                       child: TextButton(
                           onPressed: () {
                             print('Forget password');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        RecordToStreamExample()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             RecordToStreamExample()));
                             // builder: (context) => AudioRecorderPage()));
                           },
                           child: const Text('ลืมรหัสผ่าน'),

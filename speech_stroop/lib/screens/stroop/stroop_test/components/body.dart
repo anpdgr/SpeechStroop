@@ -13,13 +13,13 @@ import 'dart:math';
 import 'dart:core';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-int sectionNumber = 0;
-int level = 0;
-List<int> prevLevel = [];
-List<Tuple3<String, Color, String>> testTemplate;
-Stopwatch stopwatchRT = Stopwatch();
-Stopwatch stopwatchAudio = Stopwatch();
-String recogWord = '';
+// int sectionNumber = 0;
+// List<Tuple3<String, Color, String>> testTemplate;
+// int level = 0;
+// List<int> prevLevel = [];
+// String recogWord = '';
+// Stopwatch stopwatchRT = Stopwatch();
+// Stopwatch stopwatchAudio = Stopwatch();
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -45,6 +45,7 @@ class _BodyState extends State<Body> {
     super.initState();
     setBackgroundColor();
     speech = stt.SpeechToText();
+    recordAudio.openRecorder();
   }
 
   void setBackgroundColor() {
@@ -145,6 +146,7 @@ class _BodyState extends State<Body> {
                                   stopwatchAudio.reset();
                                   stopwatchAudio.start();
                                   //TODO: record audio
+                                  recordAudio.getRecorderFn();
                                   navigatePage();
                                 },
                               )),
@@ -388,6 +390,7 @@ class _BodyState extends State<Body> {
       // end of each sections
       else if (answered == stroopQuestionsAmount - 1) {
         stopwatchAudio.stop();
+        recordAudio.getRecorderFn();
         scores = {"congruent": 0, "incongruent": 0};
         Future.delayed(durationDelayInterval, () async {
           Navigator.pushNamed(context, BreakScreen.routeName);

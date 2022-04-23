@@ -6,6 +6,7 @@ import 'package:speech_stroop/screens/stroop/healthRating/components/body_break.
 import 'package:speech_stroop/screens/stroop/healthRating/components/body_end.dart'
     as end;
 import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 
 class BreakScreen extends StatelessWidget {
   BreakScreen({Key key}) : super(key: key);
