@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/fail_microphone_test.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/pass_microphone_test.dart';
+import 'package:speech_stroop/theme.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import '../../../components/appbar.dart';
-import '../../auth/login.dart';
-import '../../../utils/speech_lib.dart';
 
 class MicrophoneTestScreen extends StatefulWidget {
   const MicrophoneTestScreen({Key key}) : super(key: key);
@@ -27,11 +24,8 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
 
   bool isListening = false;
   String text = '';
-  double confidence = 1.0;
-  List textArr;
-  bool isCorrect = false;
+  String result = '';
   List<SpeechRecognitionWords> valAlternates;
-  String word = '';
 
   @override
   void initState() {
@@ -43,34 +37,38 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: CustomAppBar('การทดสอบไมโครโฟน'),
+      appBar: const CustomAppBar('การทดสอบไมโครโฟน', true),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: MicButton(isListening, listen),
       key: scaffoldKey,
       backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
-                        child: Text(word,
-                            style: TextStyle(
-                                fontSize: 70, fontWeight: FontWeight.bold)),
-                      )),
-                  Text(text)
-                ],
+        child: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+          child: Column(
+            //TODO: padding
+            // mainAxisSize: MainAxisSize.max,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                  'หมายเหตุ* การอยู่ในสถานที่ที่มีเสียงรบกวนน้อยจะยิ่งทำให้การทดสอบได้ประสิทธิภาพมากยิ่งขึ้น',
+                  style: textTheme().bodyMedium),
+              Align(
+                alignment: Alignment.center,
+                child:
+                    Text('ฟ้า เขียว เหลือง', style: textTheme().displayMedium),
               ),
-            ),
-          ],
+              Align(
+                alignment: Alignment.center,
+                child:
+                    Text('ส้ม แดง ดำ ม่วง', style: textTheme().displayMedium),
+              ),
+              Text(
+                result,
+                style: TextStyle(color: secondaryColor),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -80,10 +78,12 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
     if (!isListening) {
       bool available = await speech.initialize(
           // onStatus: (val) => print('onStatus: $val'),
-          // onError: (val) => print('onError: $val'),
-          );
+          onError: (val) => setState(() {
+                result = 'โปรดลองใหม่อีกครั้ง';
+                text = '';
+              }));
       if (available) {
-        setState(() => isListening = true);
+        setState(() => {isListening = true, result = ''});
         speech.listen(
             onResult: onResultListen, localeId: 'th-TH', partialResults: true);
       }
@@ -93,10 +93,21 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
       });
       Future.delayed(const Duration(milliseconds: 800), () {
         speech.stop();
+        if (text == 'ฟ้าเขียวเหลืองส้มแดงดำม่วง') {
+          setState(() {
+            result = 'คุณผ่านการทดสอบไมโครโฟน';
+            text = '';
+          });
+          Future.delayed(const Duration(milliseconds: 1500), () {
+            //TODO: 321
+          });
+        } else {
+          setState(() {
+            result = 'โปรดลองใหม่อีกครั้ง';
+            text = '';
+          });
+        }
       });
-      // navigatePage();
-      Navigator.pushNamed(context, PassMicrophoneTestScreen.routeName);
-      // Navigator.pushNamed(context, FailMicrophoneTestScreen.routeName);
     }
   }
 
@@ -105,20 +116,4 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
 
     text = valAlternates[0].recognizedWords;
   }
-
-  //TODO: if throw aany error -> fail, else -> pass
-  // void navigatePage() {
-  //   if (answered < 6) {
-  //     Future.delayed(const Duration(milliseconds: 800), () {
-  //       setState(() {
-  //         answered++;
-  //       });
-  //     });
-  //   } else {
-  //     Future.delayed(const Duration(milliseconds: 1500), () {
-  //       Navigator.push(context,
-  //           MaterialPageRoute(builder: (context) => const LoginScreen()));
-  //     });
-  //   }
-  // }
 }

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
-import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/microphone_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/reading_test.dart';
 import 'package:speech_stroop/theme.dart';
 
