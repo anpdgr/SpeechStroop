@@ -119,10 +119,12 @@ double calculateAvgReactionTimePerWeek(
     List<ReactionTimeChartData> data, int testedDays) {
   double sum = 0.0;
   double avg = 0.0;
-  for (ReactionTimeChartData d in data) {
-    sum += d.y;
+  if (data.isNotEmpty && testedDays > 0) {
+    for (ReactionTimeChartData d in data) {
+      sum += d.y;
+    }
+    avg = sum / testedDays;
   }
-  avg = sum / testedDays;
   return avg;
 }
 
@@ -142,7 +144,7 @@ Tuple2<List<ReactionTimeChartData>, int> setReactionTimeChartData(
 
   // filter history of this week
   List<History> historyThisWeek = [];
-  if (historyData != null) {
+  if (historyData != null || historyData.isNotEmpty) {
     for (History h in historyData) {
       if (h.createdAt.isAfter(startWeekDate) ||
           h.createdAt.isAfter(endWeekDate.add(const Duration(days: 1)))) {
@@ -152,9 +154,6 @@ Tuple2<List<ReactionTimeChartData>, int> setReactionTimeChartData(
       }
     }
   }
-  print("=" * 30);
-  print(historyData.length);
-  print(historyThisWeek.length);
 
   int currDate = 0;
   int prevDate = 0;
@@ -166,61 +165,59 @@ Tuple2<List<ReactionTimeChartData>, int> setReactionTimeChartData(
   int countTestPerDay = 0;
   int idx = 0;
   int testedDays = 0;
-  for (History h in historyThisWeek) {
-    idx++;
-    currDate = h.createdAt.weekday;
-    // cal total avg reaction time per test
-    sumAvgReactionTimePerTest = h.sections
-            .map((s) => s.avgReactionTimeMs)
-            .toList()
-            .reduce((value, element) => value + element) /
-        1000;
+  if (historyThisWeek.isNotEmpty) {
+    for (History h in historyThisWeek) {
+      idx++;
+      currDate = h.createdAt.weekday;
+      // cal total avg reaction time per test
+      sumAvgReactionTimePerTest = h.sections
+              .map((s) => s.avgReactionTimeMs)
+              .toList()
+              .reduce((value, element) => value + element) /
+          1000;
 
-    // only first round
-    if (prevDate == 0) {
+      // only first round
+      if (prevDate == 0) {
+        prevDate = currDate;
+      }
+      // other round
+      if (currDate == prevDate) {
+        countTestPerDay++;
+        sumAvgReactionTimePerDay += sumAvgReactionTimePerTest;
+      } else {
+        // set testOnlyOneDate flag
+        testOnlyOneDate = false;
+
+        // cal avg ReactionTime
+        avgAvgReactionTimePerDay = sumAvgReactionTimePerDay / countTestPerDay;
+        data[prevDate - 1] = ReactionTimeChartData(
+            dateLabel[prevDate], avgAvgReactionTimePerDay);
+        testedDays++;
+
+        // clear
+        countTestPerDay = 0;
+        sumAvgReactionTimePerDay = 0;
+
+        countTestPerDay++;
+        sumAvgReactionTimePerDay += sumAvgReactionTimePerTest;
+
+        // if last elem
+        if (idx == historyThisWeek.length - 1) {
+          avgAvgReactionTimePerDay = sumAvgReactionTimePerDay / countTestPerDay;
+          data[currDate - 1] = ReactionTimeChartData(
+              dateLabel[currDate], avgAvgReactionTimePerDay);
+          testedDays++;
+        }
+      }
       prevDate = currDate;
     }
-    // other round
-    if (currDate == prevDate) {
-      countTestPerDay++;
-      sumAvgReactionTimePerDay += sumAvgReactionTimePerTest;
-    } else {
-      // set testOnlyOneDate flag
-      testOnlyOneDate = false;
-
-      // cal avg ReactionTime
+    // check has test only 1 date
+    if (testOnlyOneDate) {
       avgAvgReactionTimePerDay = sumAvgReactionTimePerDay / countTestPerDay;
       data[prevDate - 1] =
           ReactionTimeChartData(dateLabel[prevDate], avgAvgReactionTimePerDay);
       testedDays++;
-
-      // clear
-      countTestPerDay = 0;
-      sumAvgReactionTimePerDay = 0;
-
-      countTestPerDay++;
-      sumAvgReactionTimePerDay += sumAvgReactionTimePerTest;
-
-      // if last elem
-      if (idx == historyThisWeek.length - 1) {
-        avgAvgReactionTimePerDay = sumAvgReactionTimePerDay / countTestPerDay;
-        data[currDate - 1] = ReactionTimeChartData(
-            dateLabel[currDate], avgAvgReactionTimePerDay);
-        testedDays++;
-      }
     }
-    prevDate = currDate;
-  }
-  // check has test only 1 date
-  if (testOnlyOneDate) {
-    avgAvgReactionTimePerDay = sumAvgReactionTimePerDay / countTestPerDay;
-    data[prevDate - 1] =
-        ReactionTimeChartData(dateLabel[prevDate], avgAvgReactionTimePerDay);
-    testedDays++;
-  }
-
-  for (ReactionTimeChartData d in data) {
-    print("${d.x} :  ${d.y}");
   }
 
   return Tuple2(data, testedDays);

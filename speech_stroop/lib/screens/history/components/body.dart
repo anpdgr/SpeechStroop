@@ -7,7 +7,7 @@ import 'package:speech_stroop/screens/history/components/score_bar_section.dart'
 import 'package:speech_stroop/screens/history_all/history_all_screen.dart';
 
 class Body extends StatefulWidget {
-  Body({Key key}) : super(key: key);
+  const Body({Key key}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -15,11 +15,10 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final formGlobalKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  List<History> historyData;
 
   @override
   void initState() {
-    historyData = getUserHistory();
+    getHistory();
     super.initState();
   }
 
@@ -41,9 +40,9 @@ class _BodyState extends State<Body> {
                               Navigator.pushNamed(
                                   context, HistoryAllScreen.routeName)
                             }),
-                    ScoreBarSection(historyData),
-                    ReactionTimeBarSection(historyData),
-                    BadgeSection(historyData),
+                    ScoreBarSection(userHistory),
+                    ReactionTimeBarSection(userHistory),
+                    BadgeSection(userHistory),
                   ],
                 ),
               ),

@@ -115,10 +115,12 @@ class ScoreChartData {
 int calculateAvgScorePerWeek(List<ScoreChartData> data, int testedDays) {
   double sum = 0.0;
   int avg = 0;
-  for (ScoreChartData d in data) {
-    sum += d.y;
+  if (data.isNotEmpty && testedDays > 0) {
+    for (ScoreChartData d in data) {
+      sum += d.y;
+    }
+    avg = (sum / testedDays).round();
   }
-  avg = (sum / testedDays).round();
   return avg;
 }
 
@@ -136,7 +138,7 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
 
   // filter history of this week
   List<History> historyThisWeek = [];
-  if (historyData != null) {
+  if (historyData != null || historyData.isNotEmpty) {
     for (History h in historyData) {
       if (h.createdAt.isAfter(startWeekDate) ||
           h.createdAt.isAfter(endWeekDate.add(const Duration(days: 1)))) {
@@ -146,9 +148,6 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
       }
     }
   }
-  print("=" * 30);
-  print(historyData.length);
-  print(historyThisWeek.length);
 
   int currDate = 0;
   int prevDate = 0;
@@ -158,52 +157,51 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
   int countTestPerDay = 0;
   int idx = 0;
   int testedDays = 0;
-  for (History h in historyThisWeek) {
-    idx++;
-    currDate = h.createdAt.weekday;
-    // only first round
-    if (prevDate == 0) {
+  if (historyThisWeek.isNotEmpty) {
+    for (History h in historyThisWeek) {
+      idx++;
+      currDate = h.createdAt.weekday;
+      // only first round
+      if (prevDate == 0) {
+        prevDate = currDate;
+      }
+      // other round
+      if (currDate == prevDate) {
+        countTestPerDay++;
+        sumScorePerDay += h.totalScore;
+      } else {
+        // set testOnlyOneDate flag
+        testOnlyOneDate = false;
+
+        // cal avg score
+        avgScorePerDay = sumScorePerDay / countTestPerDay;
+        data[prevDate - 1] =
+            ScoreChartData(dateLabel[prevDate], avgScorePerDay);
+        testedDays++;
+
+        // clear
+        countTestPerDay = 0;
+        sumScorePerDay = 0;
+
+        countTestPerDay++;
+        sumScorePerDay += h.totalScore;
+
+        // if last elem
+        if (idx == historyThisWeek.length - 1) {
+          avgScorePerDay = sumScorePerDay / countTestPerDay;
+          data[currDate - 1] =
+              ScoreChartData(dateLabel[currDate], avgScorePerDay);
+          testedDays++;
+        }
+      }
       prevDate = currDate;
     }
-    // other round
-    if (currDate == prevDate) {
-      countTestPerDay++;
-      sumScorePerDay += h.totalScore;
-    } else {
-      // set testOnlyOneDate flag
-      testOnlyOneDate = false;
-
-      // cal avg score
+    // check has test only 1 date
+    if (testOnlyOneDate) {
       avgScorePerDay = sumScorePerDay / countTestPerDay;
       data[prevDate - 1] = ScoreChartData(dateLabel[prevDate], avgScorePerDay);
       testedDays++;
-
-      // clear
-      countTestPerDay = 0;
-      sumScorePerDay = 0;
-
-      countTestPerDay++;
-      sumScorePerDay += h.totalScore;
-
-      // if last elem
-      if (idx == historyThisWeek.length - 1) {
-        avgScorePerDay = sumScorePerDay / countTestPerDay;
-        data[currDate - 1] =
-            ScoreChartData(dateLabel[currDate], avgScorePerDay);
-        testedDays++;
-      }
     }
-    prevDate = currDate;
-  }
-  // check has test only 1 date
-  if (testOnlyOneDate) {
-    avgScorePerDay = sumScorePerDay / countTestPerDay;
-    data[prevDate - 1] = ScoreChartData(dateLabel[prevDate], avgScorePerDay);
-    testedDays++;
-  }
-
-  for (ScoreChartData d in data) {
-    print("${d.x} :  ${d.y}");
   }
 
   return Tuple2(data, testedDays);
