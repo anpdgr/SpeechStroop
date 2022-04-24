@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/model/precondition.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/introduction.dart';
-
-var date = "02 มกราคม 2564";
+import 'package:speech_stroop/utils/date_format.dart';
 
 class PreconditionBox extends StatelessWidget {
-  PreconditionBox(this.title);
+  PreconditionBox(this.title, this.precondition, {Key key}) : super(key: key);
   final String title;
+  final PreconditionScore precondition;
   String preconditionImage = 'assets/images/failed.png';
   String testRoute;
   bool isPass = true; // TODO: not hard code
@@ -28,7 +29,7 @@ class PreconditionBox extends StatelessWidget {
         testRoute = IntroductionScreen.routeName;
         break;
       default:
-        //TODO handle err
+        //TODO: handle err
         testRoute = IntroductionScreen.routeName;
     }
     return testRoute;
@@ -40,8 +41,8 @@ class PreconditionBox extends StatelessWidget {
       width: 350,
       decoration: BoxDecoration(
           color: softPrimaryColor, borderRadius: BorderRadius.circular(10)),
-      padding: EdgeInsets.all(30),
-      margin: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(30),
+      margin: const EdgeInsets.all(15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -58,7 +59,7 @@ class PreconditionBox extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            "เมื่อวันที่ $date",
+            "เมื่อวันที่ ${convertDateTime(precondition.date)}",
             style:
                 Theme.of(context).textTheme.titleMedium.apply(color: formText),
           ),
