@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
+import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/components/health_slider.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
@@ -44,12 +45,17 @@ class _BodyState extends State<Body> {
             arousel.end = arouselLevel.toInt();
             healthScores = HealthScores(stress, arousel);
 
-            var res = await setHistory();
-
-            sections.clear();
-            totalScore = 0;
+            var res = await setHistory(
+              totalScore,
+              sections,
+              healthScores,
+              null,
+            );
 
             Navigator.pushNamed(context, ResultScreen.routeName);
+
+            sections = [];
+            totalScore = 0;
           })
         ]),
       ),

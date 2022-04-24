@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:speech_stroop/model/auth.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import 'package:speech_stroop/screens/stroop/stroop_test/components/flutter_sound.dart';
 import 'package:tuple/tuple.dart';
 
+// latest test
+History latestTest;
 // section
 int sectionNumber = 0;
 List<Section> sections = [];
@@ -43,16 +42,4 @@ class StroopTestScreen extends StatelessWidget {
       body: Body(),
     );
   }
-}
-
-Future<int> setHistory() async {
-  History latestTest = History(totalScore, sections, healthScores, null);
-  var res = await http.post(Uri.parse("http://localhost:3000/history"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${auth.token}',
-      },
-      body: jsonEncode(latestTest));
-
-  return res.statusCode;
 }

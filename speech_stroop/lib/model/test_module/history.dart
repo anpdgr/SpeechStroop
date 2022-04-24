@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:speech_stroop/model/auth.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:http/http.dart' as http;
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_stroop/utils/loggger.dart';
 import 'package:tuple/tuple.dart';
 import './section.dart';
@@ -106,4 +107,21 @@ List<Tuple2<int, DateTime>> getlatestScores() {
           ))
       .toList();
   return latestScoresList;
+}
+
+Future<int> setHistory(
+  int totalScore,
+  List<Section> sections,
+  HealthScores healthScores,
+  List<String> badge,
+) async {
+  latestTest = History(totalScore, sections, healthScores, null);
+  var res = await http.post(Uri.parse("http://localhost:3000/history"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
+      },
+      body: jsonEncode(latestTest));
+
+  return res.statusCode;
 }
