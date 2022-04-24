@@ -90,7 +90,6 @@ class CustomBottomNavBar extends StatelessWidget {
                         onPressed: () async => {
                           if (MenuState.home != selectedMenu)
                             {
-                              await getUserProfile(),
                               Navigator.pushNamed(
                                   context, HomeScreen.routeName),
                             }
@@ -120,7 +119,6 @@ class CustomBottomNavBar extends StatelessWidget {
                     onPressed: () async => {
                       if (MenuState.profile != selectedMenu)
                         {
-                          await getUserProfile(),
                           Navigator.pushNamed(context, ProfileScreen.routeName),
                         },
                     },
