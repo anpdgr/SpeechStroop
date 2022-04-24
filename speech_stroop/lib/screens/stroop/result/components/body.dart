@@ -33,7 +33,11 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    getHistory();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await getHistory();
+
+      setState(() {});
+    });
     latestTestData = latestTest;
     calculateTypeScore();
     super.initState();
