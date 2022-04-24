@@ -23,7 +23,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         child: Center(
             child: Column(
           children: [
@@ -40,8 +40,10 @@ class _BodyState extends State<Body> {
             const SizedBox(height: 5),
             const ProfileForm(),
             const SizedBox(height: 30),
-            PreconditionBox("ทดสอบการจำแนกสี"),
-            PreconditionBox("ทดสอบการอ่าน"),
+            PreconditionBox("ทดสอบการจำแนกสี",
+                userProfile.precondition.colorVisibilityTest),
+            PreconditionBox(
+                "ทดสอบการอ่าน", userProfile.precondition.readingAbilityTest),
             TextButton(
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
