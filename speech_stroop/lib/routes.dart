@@ -53,7 +53,7 @@ final Map<String, WidgetBuilder> routes = {
   // Stroop Test
   StroopTestScreen.routeName: (context) => const StroopTestScreen(),
   BreakScreen.routeName: (context) => BreakScreen(),
-  //ResultScreen.routeName: (context) =>  ResultScreen(),
+  ResultScreen.routeName: (context) => const ResultScreen(),
 
   // Buttom NevBar
   HomeScreen.routeName: (context) => const HomeScreen(),

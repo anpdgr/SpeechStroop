@@ -43,22 +43,13 @@ class _BodyState extends State<Body> {
             stress.end = stressLevel.toInt();
             arousel.end = arouselLevel.toInt();
             healthScores = HealthScores(stress, arousel);
+
             var res = await setHistory();
+
             sections.clear();
             totalScore = 0;
 
-            print({
-              "arousel": res.item2.healthScores.arousel,
-              "createdAt": res.item2.createdAt,
-              "userId": res.item2.userId,
-              "sections": res.item2.sections,
-              "totalScore": res.item2.totalScore,
-            });
-
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ResultScreen(res.item2)));
+            Navigator.pushNamed(context, ResultScreen.routeName);
           })
         ]),
       ),

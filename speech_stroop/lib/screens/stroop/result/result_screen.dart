@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/appbar.dart';
-import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/screens/stroop/result/components/body.dart';
 
 class ResultScreen extends StatelessWidget {
-  History result;
-  ResultScreen(this.result, {Key key}) : super(key: key);
+  const ResultScreen({Key key}) : super(key: key);
   static String routeName = "/result";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar('ผลการทดสอบ'),
-      body: Body(result),
+    return const Scaffold(
+      appBar: CustomAppBar('ผลการทดสอบ'),
+      body: Body(),
     );
   }
 }

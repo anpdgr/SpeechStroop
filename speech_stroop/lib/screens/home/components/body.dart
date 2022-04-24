@@ -135,7 +135,6 @@ class _BodyState extends State<Body> {
             () => {
               //TODO: remove me
               print("tutorials"),
-              Navigator.pushNamed(context, ResultScreen.routeName),
             },
             ButtonType.medium,
           )

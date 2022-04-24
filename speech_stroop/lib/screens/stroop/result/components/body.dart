@@ -12,8 +12,7 @@ import 'package:speech_stroop/screens/stroop/result/components/total_score.dart'
 import 'package:speech_stroop/screens/stroop/result/components/type_score.dart';
 
 class Body extends StatefulWidget {
-  History latestTestData;
-  Body(this.latestTestData, {Key key}) : super(key: key);
+  const Body({Key key}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -23,10 +22,8 @@ class _BodyState extends State<Body> {
   History latestTestData;
   int sumCongruentScore = 0;
   int sumIncongruentScore = 0;
-  List<History> historyData;
 
   void calculateTypeScore() {
-    print("len section: ${latestTestData.sections.length}");
     for (Section s in latestTestData.sections) {
       sumCongruentScore = sumCongruentScore + s.score["congruent"];
       sumIncongruentScore = sumIncongruentScore + s.score["incongruent"];
@@ -35,14 +32,15 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    latestTestData = widget.latestTestData;
+    //TODO: มันยังไม่เป็น test ล่าสุด
+    getHistory();
+    latestTestData = userHistory[0];
     print({
       "createdAt": latestTestData.createdAt,
       "userId": latestTestData.userId,
       "sections": latestTestData.sections,
       "totalScore": latestTestData.totalScore,
     });
-    historyData = getUserHistory();
     calculateTypeScore();
     super.initState();
   }
@@ -62,7 +60,7 @@ class _BodyState extends State<Body> {
               const SizedBox(height: 5),
               TypeScore(sumCongruentScore, sumIncongruentScore),
               const SizedBox(height: 5),
-              ScoreBarSection(historyData),
+              ScoreBarSection(userHistory),
               const SizedBox(height: 5),
               SectionHighScore(),
               const SizedBox(height: 5),
