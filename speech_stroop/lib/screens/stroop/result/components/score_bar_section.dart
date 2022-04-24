@@ -89,10 +89,13 @@ class ScoreChartData {
 int calculateAvgScorePerWeek(List<ScoreChartData> data, int testedDays) {
   double sum = 0.0;
   int avg = 0;
-  for (ScoreChartData d in data) {
-    sum += d.y;
+
+  if (data.isNotEmpty && testedDays > 0) {
+    for (ScoreChartData d in data) {
+      sum += d.y;
+    }
+    avg = (sum / testedDays).round();
   }
-  avg = (sum / testedDays).round();
   return avg;
 }
 
@@ -129,7 +132,7 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
   int countTestPerDay = 0;
   int idx = 0;
   int testedDays = 0;
-  if (historyThisWeek.isNotEmpty || historyThisWeek != null) {
+  if (historyThisWeek.isNotEmpty && historyThisWeek != null) {
     for (History h in historyThisWeek) {
       idx++;
       currDate = h.createdAt.weekday;

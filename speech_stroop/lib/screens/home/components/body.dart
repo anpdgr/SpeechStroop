@@ -9,8 +9,6 @@ import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro1.dart';
 import 'package:tuple/tuple.dart';
 
-var userName = "มะลิ";
-
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
   @override
@@ -18,20 +16,30 @@ class Body extends StatefulWidget {
 }
 
 bool wantTutorial = false;
+String userName = '';
 
 class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Tuple2<int, DateTime>> bestScores;
-  List<Tuple2<int, DateTime>> latestScores;
+  List<Tuple2<int, DateTime>> bestScores = [];
+  List<Tuple2<int, DateTime>> latestScores = [];
 
   @override
   void initState() {
-    getUserProfile();
-    getHistory();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _asyncFunc();
+      setState(() {
+        userName = userProfile.name;
+        bestScores = getHighestScores();
+        latestScores = getlatestScores();
+      });
+    });
 
-    bestScores = getHighestScores();
-    latestScores = getlatestScores();
     super.initState();
+  }
+
+  _asyncFunc() async {
+    await getUserProfile();
+    await getHistory();
   }
 
   @override
@@ -59,7 +67,7 @@ class _BodyState extends State<Body> {
             padding: const EdgeInsets.only(left: 10),
             alignment: Alignment.topLeft,
             child: Text(
-              'สวัสดี, คุณ${userProfile.name} 👋',
+              'สวัสดี, คุณ$userName 👋',
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
@@ -129,7 +137,11 @@ class _BodyState extends State<Body> {
           ),
           PrimaryButton(
             "เริ่มทดสอบ",
-            () => {showSimpleModalDialogTutorial(context)},
+            () => {
+              userHistory.isEmpty
+                  ? showSimpleModalDialogTutorial(context)
+                  : Navigator.pushNamed(context, BreakScreen.routeName)
+            },
             ButtonType.medium,
           ),
           SecondaryButton(
