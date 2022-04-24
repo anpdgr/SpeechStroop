@@ -21,6 +21,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final formGlobalKey = GlobalKey<FormState>();
   History latestTestData;
+  List<History> history;
   int sumCongruentScore = 0;
   int sumIncongruentScore = 0;
 
@@ -35,11 +36,14 @@ class _BodyState extends State<Body> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getHistory();
-
-      setState(() {});
+      setState(() {
+        history = userHistory;
+      });
     });
+
     latestTestData = latestTest;
     calculateTypeScore();
+
     super.initState();
   }
 
@@ -58,7 +62,7 @@ class _BodyState extends State<Body> {
               const SizedBox(height: 5),
               TypeScore(sumCongruentScore, sumIncongruentScore),
               const SizedBox(height: 5),
-              ScoreBarSection(userHistory),
+              ScoreBarSection(history),
               const SizedBox(height: 5),
               SectionHighScore(),
               const SizedBox(height: 5),
