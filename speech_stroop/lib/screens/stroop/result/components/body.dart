@@ -4,13 +4,16 @@ import 'package:speech_stroop/enums.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
+import 'package:speech_stroop/screens/stroop/result/components/score_bar_section.dart';
+import 'package:speech_stroop/screens/stroop/result/components/section_badge.dart';
+import 'package:speech_stroop/screens/stroop/result/components/section_high_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/section_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/total_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/type_score.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 
 class Body extends StatefulWidget {
-  Body(this.latestTestData, {Key key}) : super(key: key);
-  History latestTestData;
+  const Body({Key key}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -30,7 +33,8 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    latestTestData = widget.latestTestData;
+    getHistory();
+    latestTestData = latestTest;
     calculateTypeScore();
     super.initState();
   }
@@ -49,6 +53,12 @@ class _BodyState extends State<Body> {
               SectionScore(latestTestData.sections),
               const SizedBox(height: 5),
               TypeScore(sumCongruentScore, sumIncongruentScore),
+              const SizedBox(height: 5),
+              ScoreBarSection(userHistory),
+              const SizedBox(height: 5),
+              SectionHighScore(),
+              const SizedBox(height: 5),
+              SectionBadge(),
               const SizedBox(height: 5),
               PrimaryButton(
                   "เข้าสู่หน้าหลัก",

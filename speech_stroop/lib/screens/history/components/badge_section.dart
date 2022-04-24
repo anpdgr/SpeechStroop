@@ -9,7 +9,7 @@ class BadgeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10, bottom: 10),
+      margin: const EdgeInsets.only(top: 10),
       padding: const EdgeInsets.all(30.0),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

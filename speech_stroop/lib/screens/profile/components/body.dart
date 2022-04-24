@@ -16,6 +16,7 @@ class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
+    getUserProfile();
     super.initState();
   }
 

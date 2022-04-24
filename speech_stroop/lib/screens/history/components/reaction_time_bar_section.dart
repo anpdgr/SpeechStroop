@@ -2,31 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:tuple/tuple.dart';
 
 class ReactionTimeBarSection extends StatefulWidget {
-  ReactionTimeBarSection(this.historyData, {Key key}) : super(key: key);
-  List<History> historyData;
+  const ReactionTimeBarSection(this.historyData, {Key key}) : super(key: key);
+  final List<History> historyData;
+
   @override
   _ReactionTimeBarSectionState createState() => _ReactionTimeBarSectionState();
 }
 
 class _ReactionTimeBarSectionState extends State<ReactionTimeBarSection> {
   final formGlobalKey = GlobalKey<FormState>();
-  List<_ChartData> chartData;
+  List<ReactionTimeChartData> chartData;
   double avgReactionTimePerWeek = 0.0;
+  int testedDays = 0;
 
   @override
   void initState() {
-    chartData = setReactionTimeChartData();
-    avgReactionTimePerWeek = calculateAvgReactionTimePerWeek(chartData);
-    //TODO: count testedDay
+    var output = setReactionTimeChartData(widget.historyData);
+    chartData = output.item1;
+    testedDays = output.item2;
+    avgReactionTimePerWeek =
+        calculateAvgReactionTimePerWeek(chartData, testedDays);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10, bottom: 10),
+      margin: const EdgeInsets.only(top: 10),
       padding: const EdgeInsets.all(30),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -48,7 +53,7 @@ class _ReactionTimeBarSectionState extends State<ReactionTimeBarSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "เวลาตอบสนองเฉลี่ยต่อสัปดาห๋",
+                      "เวลาตอบสนองเฉลี่ยต่อสัปดาห์",
                       textAlign: TextAlign.left,
                       style: Theme.of(context)
                           .textTheme
@@ -59,7 +64,8 @@ class _ReactionTimeBarSectionState extends State<ReactionTimeBarSection> {
                       height: 5,
                     ),
                     Text(
-                      '${(avgReactionTimePerWeek).toStringAsFixed(2)} วิ',
+                      //'10',
+                      '${(avgReactionTimePerWeek).toDouble().toStringAsFixed(2)} วิ',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
@@ -82,11 +88,13 @@ class _ReactionTimeBarSectionState extends State<ReactionTimeBarSection> {
                                   color: formText,
                                 ),
                       ),
-                      series: <ChartSeries<_ChartData, String>>[
-                        ColumnSeries<_ChartData, String>(
+                      series: <ChartSeries<ReactionTimeChartData, String>>[
+                        ColumnSeries<ReactionTimeChartData, String>(
                           dataSource: chartData,
-                          xValueMapper: (_ChartData data, _) => data.x,
-                          yValueMapper: (_ChartData data, _) => data.y,
+                          xValueMapper: (ReactionTimeChartData data, _) =>
+                              data.x,
+                          yValueMapper: (ReactionTimeChartData data, _) =>
+                              data.y,
                           color: secondaryColor,
                           width: 0.5,
                           borderRadius: BorderRadius.circular(15),
@@ -101,28 +109,33 @@ class _ReactionTimeBarSectionState extends State<ReactionTimeBarSection> {
   }
 }
 
-class _ChartData {
-  _ChartData(this.x, this.y);
+class ReactionTimeChartData {
+  ReactionTimeChartData(this.x, this.y);
 
   final String x;
   final double y;
 }
 
-double calculateAvgReactionTimePerWeek(List<_ChartData> data) {
+double calculateAvgReactionTimePerWeek(
+    List<ReactionTimeChartData> data, int testedDays) {
   double sum = 0.0;
   double avg = 0.0;
-  for (_ChartData d in data) {
-    sum += d.y;
+  if (data.isNotEmpty && testedDays > 0) {
+    for (ReactionTimeChartData d in data) {
+      sum += d.y;
+    }
+    avg = sum / testedDays;
   }
-  avg = sum / data.length;
   return avg;
 }
 
-List<_ChartData> setReactionTimeChartData() {
+Tuple2<List<ReactionTimeChartData>, int> setReactionTimeChartData(
+  List<History> historyData,
+) {
   // init data
-  List<_ChartData> data = [];
+  List<ReactionTimeChartData> data = [];
   dateLabel.forEach((key, value) {
-    data.add(_ChartData(value, 0));
+    data.add(ReactionTimeChartData(value, 0));
   });
 
   DateTime now = DateTime.now();
@@ -132,63 +145,88 @@ List<_ChartData> setReactionTimeChartData() {
 
   // filter history of this week
   List<History> historyThisWeek = [];
-  for (History h in userHistory) {
-    if (h.createdAt.isAfter(startWeekDate) ||
-        h.createdAt.isAfter(endWeekDate.add(const Duration(days: 1)))) {
-      historyThisWeek.add(h);
-    } else {
-      break;
+  if (historyData != null || historyData.isNotEmpty) {
+    for (History h in historyData) {
+      if (h.createdAt.isAfter(startWeekDate) ||
+          h.createdAt.isAfter(endWeekDate.add(const Duration(days: 1)))) {
+        historyThisWeek.add(h);
+      } else {
+        break;
+      }
     }
   }
 
   int currDate = 0;
   int prevDate = 0;
   bool testOnlyOneDate = true;
-  double avgReactionTimePerDay = 0.0;
-  double sumReactionTimePerDay = 0.0;
+  double avgAvgReactionTimePerDay = 0.0;
+  double sumAvgReactionTimePerDay = 0.0;
+  double avgAvgReactionTimePerTest = 0.0;
+  double sumAvgReactionTimePerTest = 0.0;
+  List<double> nonZeroReactionTime = [];
+
   int countTestPerDay = 0;
-  double rtPerTest = 0.0;
-  double sumPerTest = 0.0;
-  List<double> rtList = [];
-  for (History h in historyThisWeek) {
-    currDate = h.createdAt.weekday;
-    // only first round
-    if (prevDate == 0) {
+  int idx = 0;
+  int testedDays = 0;
+  if (historyThisWeek.isNotEmpty) {
+    for (History h in historyThisWeek) {
+      idx++;
+      currDate = h.createdAt.weekday;
+
+      // cal total avg reaction time per test
+      nonZeroReactionTime = h.sections
+          .map((s) => s.avgReactionTimeMs)
+          .where((rt) => rt > 0 || rt != null)
+          .toList();
+      sumAvgReactionTimePerTest =
+          nonZeroReactionTime.reduce((value, element) => value + element) /
+              1000;
+      avgAvgReactionTimePerTest =
+          sumAvgReactionTimePerTest / nonZeroReactionTime.length;
+
+      // only first round
+      if (prevDate == 0) {
+        prevDate = currDate;
+      }
+      // other round
+      if (currDate == prevDate) {
+        countTestPerDay++;
+        sumAvgReactionTimePerDay += avgAvgReactionTimePerTest;
+      } else {
+        // set testOnlyOneDate flag
+        testOnlyOneDate = false;
+
+        // cal avg ReactionTime
+        avgAvgReactionTimePerDay = sumAvgReactionTimePerDay / countTestPerDay;
+        data[prevDate - 1] = ReactionTimeChartData(
+            dateLabel[prevDate], avgAvgReactionTimePerDay);
+        testedDays++;
+
+        // clear
+        countTestPerDay = 0;
+        sumAvgReactionTimePerDay = 0;
+
+        countTestPerDay++;
+        sumAvgReactionTimePerDay += avgAvgReactionTimePerTest;
+
+        // if last elem
+        if (idx == historyThisWeek.length) {
+          avgAvgReactionTimePerDay = sumAvgReactionTimePerDay / countTestPerDay;
+          data[currDate - 1] = ReactionTimeChartData(
+              dateLabel[currDate], avgAvgReactionTimePerDay);
+          testedDays++;
+        }
+      }
       prevDate = currDate;
     }
-    // other round
-    if (currDate == prevDate) {
-      rtList = h.sections
-          .where((s) => s.avgReactionTimeMs > 0.0)
-          .map((s) => s.avgReactionTimeMs)
-          .toList();
-      if (rtList.isEmpty) {
-        continue;
-      }
-
-      countTestPerDay++;
-      sumPerTest = rtList.reduce((value, element) => value + element);
-      rtPerTest = sumPerTest / rtList.length;
-      sumReactionTimePerDay += rtPerTest;
-    } else {
-      // set testOnlyOneDate flag
-      testOnlyOneDate = false;
-
-      // cal avg ReactionTime
-      avgReactionTimePerDay = (sumReactionTimePerDay / countTestPerDay) / 1000;
-      data[prevDate] = _ChartData(dateLabel[prevDate], avgReactionTimePerDay);
-
-      // clear
-      countTestPerDay = 0;
-      sumReactionTimePerDay = 0;
+    // check has test only 1 date
+    if (testOnlyOneDate) {
+      avgAvgReactionTimePerDay = sumAvgReactionTimePerDay / countTestPerDay;
+      data[prevDate - 1] =
+          ReactionTimeChartData(dateLabel[prevDate], avgAvgReactionTimePerDay);
+      testedDays++;
     }
-    prevDate = currDate;
-  }
-  // check has test only 1 date
-  if (testOnlyOneDate) {
-    avgReactionTimePerDay = sumReactionTimePerDay / countTestPerDay / 1000;
-    data[prevDate] = _ChartData(dateLabel[prevDate], avgReactionTimePerDay);
   }
 
-  return data;
+  return Tuple2(data, testedDays);
 }

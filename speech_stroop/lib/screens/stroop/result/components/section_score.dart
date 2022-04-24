@@ -33,9 +33,8 @@ class SectionScore extends StatelessWidget {
                       child: SectionScoreBox(
                           s.section,
                           s.score["congruent"] + (s.score["incongruent"] ?? 0),
-                          s.avgReactionTimeMs),
+                          s.avgReactionTimeMs ?? 0),
                     ),
-                  //if (s.section != 3) const SizedBox(width: 5),
                 ],
               ),
             ],

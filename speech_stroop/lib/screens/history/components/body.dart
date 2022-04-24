@@ -7,7 +7,7 @@ import 'package:speech_stroop/screens/history/components/score_bar_section.dart'
 import 'package:speech_stroop/screens/history_all/history_all_screen.dart';
 
 class Body extends StatefulWidget {
-  Body({Key key}) : super(key: key);
+  const Body({Key key}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -18,6 +18,7 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
+    getHistory();
     super.initState();
   }
 

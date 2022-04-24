@@ -68,8 +68,6 @@ class _PassColorTestState extends State<PassColorTestScreen> {
                 //TODO: login with this user
                 if (res.statusCode == 200) {
                   auth = Auth.fromJson(jsonDecode(res.body));
-                  await getUserProfile();
-                  await getHistory();
                   print("login success");
                   Navigator.pushNamed(context, HomeScreen.routeName);
                 }

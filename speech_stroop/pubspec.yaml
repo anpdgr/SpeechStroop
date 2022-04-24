@@ -38,6 +38,7 @@ dependencies:
   avatar_glow: ^2.0.2
   highlight_text: ^1.3.0
   permission_handler: ^9.2.0
+  flutter_sound: ^9.1.9
   material: ^1.0.0+2
   tuple: ^2.0.0
   animated_text_kit: ^4.2.1
@@ -45,6 +46,7 @@ dependencies:
   buddhist_datetime_dateformat: ^1.0.6
   logger: ^1.1.0
   syncfusion_flutter_charts: ^18.4.49
+  audio_session: ^0.1.6+1
   # auto_size_text:
   # cached_network_image:
   # font_awesome_flutter:
@@ -122,6 +124,7 @@ flutter:
     - assets/images/wrong.png
     - assets/images/down.png
     - assets/images/up.png
+    - assets/images/empty_data.png
     - assets/images/precondition-passed.png
     - assets/images/precondition-failed.png
     - assets/images/badges/badge-1-1-raw.png

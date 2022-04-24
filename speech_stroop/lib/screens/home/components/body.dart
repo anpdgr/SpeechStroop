@@ -26,7 +26,9 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    getUserProfile();
+    getHistory();
+
     bestScores = getHighestScores();
     latestScores = getlatestScores();
     super.initState();
