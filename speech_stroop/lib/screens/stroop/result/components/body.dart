@@ -10,6 +10,7 @@ import 'package:speech_stroop/screens/stroop/result/components/section_high_scor
 import 'package:speech_stroop/screens/stroop/result/components/section_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/total_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/type_score.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -32,15 +33,8 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    //TODO: มันยังไม่เป็น test ล่าสุด
     getHistory();
-    latestTestData = userHistory[0];
-    print({
-      "createdAt": latestTestData.createdAt,
-      "userId": latestTestData.userId,
-      "sections": latestTestData.sections,
-      "totalScore": latestTestData.totalScore,
-    });
+    latestTestData = latestTest;
     calculateTypeScore();
     super.initState();
   }

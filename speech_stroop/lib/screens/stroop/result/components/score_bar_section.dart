@@ -120,9 +120,6 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
       }
     }
   }
-  print("=" * 30);
-  print(historyData.length);
-  print(historyThisWeek.length);
 
   int currDate = 0;
   int prevDate = 0;
@@ -178,10 +175,6 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
       testedDays++;
     }
   }
-
-  // for (ScoreChartData d in data) {
-  //   print("${d.x} :  ${d.y}");
-  // }
 
   return Tuple2(data, testedDays);
 }

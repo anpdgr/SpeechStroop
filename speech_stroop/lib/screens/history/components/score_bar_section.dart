@@ -149,7 +149,6 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
       }
     }
   }
-  print("historyThisWeek len: ${historyThisWeek.length}");
 
   int currDate = 0;
   int prevDate = 0;
