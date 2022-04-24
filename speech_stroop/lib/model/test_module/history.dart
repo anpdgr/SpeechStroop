@@ -52,13 +52,6 @@ class History {
 
 List<History> userHistory;
 
-List<History> getUserHistory() {
-  if (userHistory == null) {
-    getHistory();
-  }
-  return userHistory;
-}
-
 //TODO: navigation
 getHistory() async {
   var token = auth.token;

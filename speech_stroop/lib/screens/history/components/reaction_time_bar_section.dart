@@ -160,7 +160,9 @@ Tuple2<List<ReactionTimeChartData>, int> setReactionTimeChartData(
   bool testOnlyOneDate = true;
   double avgAvgReactionTimePerDay = 0.0;
   double sumAvgReactionTimePerDay = 0.0;
+  double avgAvgReactionTimePerTest = 0.0;
   double sumAvgReactionTimePerTest = 0.0;
+  int nonZeroReactionTime = 0;
 
   int countTestPerDay = 0;
   int idx = 0;
@@ -172,9 +174,14 @@ Tuple2<List<ReactionTimeChartData>, int> setReactionTimeChartData(
       // cal total avg reaction time per test
       sumAvgReactionTimePerTest = h.sections
               .map((s) => s.avgReactionTimeMs)
+              .where((rt) => rt > 0 || rt != null)
               .toList()
+              .map((rt) => nonZeroReactionTime++)
               .reduce((value, element) => value + element) /
           1000;
+      //TODO: fix
+      avgAvgReactionTimePerTest =
+          sumAvgReactionTimePerTest / nonZeroReactionTime;
 
       // only first round
       if (prevDate == 0) {
@@ -183,7 +190,7 @@ Tuple2<List<ReactionTimeChartData>, int> setReactionTimeChartData(
       // other round
       if (currDate == prevDate) {
         countTestPerDay++;
-        sumAvgReactionTimePerDay += sumAvgReactionTimePerTest;
+        sumAvgReactionTimePerDay += avgAvgReactionTimePerTest;
       } else {
         // set testOnlyOneDate flag
         testOnlyOneDate = false;

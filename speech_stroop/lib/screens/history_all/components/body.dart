@@ -20,10 +20,12 @@ class _BodyState extends State<Body> {
         child: SingleChildScrollView(
           child: Stack(children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   margin: const EdgeInsets.all(30),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       if (userHistory.isNotEmpty) ...[
