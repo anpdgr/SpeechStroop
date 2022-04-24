@@ -124,6 +124,7 @@ flutter:
     - assets/images/wrong.png
     - assets/images/down.png
     - assets/images/up.png
+    - assets/images/empty_data.png
     - assets/images/precondition-passed.png
     - assets/images/precondition-failed.png
     - assets/images/badges/badge-1-1-raw.png

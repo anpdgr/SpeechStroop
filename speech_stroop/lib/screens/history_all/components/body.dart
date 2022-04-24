@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/screens/history_all/components/score_box.dart';
+import 'package:speech_stroop/theme.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -24,7 +26,22 @@ class _BodyState extends State<Body> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      for (var history in userHistory) ScoreBox(history),
+                      if (userHistory.isNotEmpty) ...[
+                        for (History history in userHistory) ScoreBox(history)
+                      ] else ...[
+                        Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/empty_data.png',
+                            ),
+                            Text(
+                              "ยังไม่มีประวัติการทดสอบ",
+                              style:
+                                  textTheme().bodyMedium.apply(color: formText),
+                            )
+                          ],
+                        )
+                      ]
                     ],
                   ),
                 ),
