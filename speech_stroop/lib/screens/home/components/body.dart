@@ -19,23 +19,26 @@ String userName = '';
 
 class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Tuple2<int, DateTime>> bestScores;
-  List<Tuple2<int, DateTime>> latestScores;
+  List<Tuple2<int, DateTime>> bestScores = [];
+  List<Tuple2<int, DateTime>> latestScores = [];
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await getUserProfile();
-      await getHistory();
-
+      await _asyncFunc();
       setState(() {
         userName = userProfile.name;
+        bestScores = getHighestScores();
+        latestScores = getlatestScores();
       });
     });
 
-    bestScores = getHighestScores();
-    latestScores = getlatestScores();
     super.initState();
+  }
+
+  _asyncFunc() async {
+    await getUserProfile();
+    await getHistory();
   }
 
   @override
