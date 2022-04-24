@@ -5,8 +5,9 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:tuple/tuple.dart';
 
 class ScoreBarSection extends StatefulWidget {
-  ScoreBarSection(this.historyData, {Key key}) : super(key: key);
-  List<History> historyData;
+  const ScoreBarSection(this.historyData, {Key key}) : super(key: key);
+  final List<History> historyData;
+
   @override
   _ScoreBarSectionState createState() => _ScoreBarSectionState();
 }
@@ -29,7 +30,7 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10, bottom: 10),
+      margin: const EdgeInsets.only(top: 10),
       padding: const EdgeInsets.all(30),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -51,7 +52,7 @@ class _ScoreBarSectionState extends State<ScoreBarSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "คะแนนเฉลี่ยต่อสัปดาห๋",
+                      "คะแนนเฉลี่ยต่อสัปดาห์",
                       textAlign: TextAlign.left,
                       style: Theme.of(context)
                           .textTheme
@@ -148,6 +149,7 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
       }
     }
   }
+  print("historyThisWeek len: ${historyThisWeek.length}");
 
   int currDate = 0;
   int prevDate = 0;
@@ -187,7 +189,7 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
         sumScorePerDay += h.totalScore;
 
         // if last elem
-        if (idx == historyThisWeek.length - 1) {
+        if (idx == historyThisWeek.length) {
           avgScorePerDay = sumScorePerDay / countTestPerDay;
           data[currDate - 1] =
               ScoreChartData(dateLabel[currDate], avgScorePerDay);

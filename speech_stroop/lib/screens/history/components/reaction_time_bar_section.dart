@@ -5,8 +5,9 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:tuple/tuple.dart';
 
 class ReactionTimeBarSection extends StatefulWidget {
-  ReactionTimeBarSection(this.historyData, {Key key}) : super(key: key);
-  List<History> historyData;
+  const ReactionTimeBarSection(this.historyData, {Key key}) : super(key: key);
+  final List<History> historyData;
+
   @override
   _ReactionTimeBarSectionState createState() => _ReactionTimeBarSectionState();
 }
@@ -30,7 +31,7 @@ class _ReactionTimeBarSectionState extends State<ReactionTimeBarSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10, bottom: 10),
+      margin: const EdgeInsets.only(top: 10),
       padding: const EdgeInsets.all(30),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -52,7 +53,7 @@ class _ReactionTimeBarSectionState extends State<ReactionTimeBarSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "เวลาตอบสนองเฉลี่ยต่อสัปดาห๋",
+                      "เวลาตอบสนองเฉลี่ยต่อสัปดาห์",
                       textAlign: TextAlign.left,
                       style: Theme.of(context)
                           .textTheme
@@ -162,7 +163,7 @@ Tuple2<List<ReactionTimeChartData>, int> setReactionTimeChartData(
   double sumAvgReactionTimePerDay = 0.0;
   double avgAvgReactionTimePerTest = 0.0;
   double sumAvgReactionTimePerTest = 0.0;
-  int nonZeroReactionTime = 0;
+  List<double> nonZeroReactionTime = [];
 
   int countTestPerDay = 0;
   int idx = 0;
@@ -171,17 +172,17 @@ Tuple2<List<ReactionTimeChartData>, int> setReactionTimeChartData(
     for (History h in historyThisWeek) {
       idx++;
       currDate = h.createdAt.weekday;
+
       // cal total avg reaction time per test
-      sumAvgReactionTimePerTest = h.sections
-              .map((s) => s.avgReactionTimeMs)
-              .where((rt) => rt > 0 || rt != null)
-              .toList()
-              .map((rt) => nonZeroReactionTime++)
-              .reduce((value, element) => value + element) /
-          1000;
-      //TODO: fix
+      nonZeroReactionTime = h.sections
+          .map((s) => s.avgReactionTimeMs)
+          .where((rt) => rt > 0 || rt != null)
+          .toList();
+      sumAvgReactionTimePerTest =
+          nonZeroReactionTime.reduce((value, element) => value + element) /
+              1000;
       avgAvgReactionTimePerTest =
-          sumAvgReactionTimePerTest / nonZeroReactionTime;
+          sumAvgReactionTimePerTest / nonZeroReactionTime.length;
 
       // only first round
       if (prevDate == 0) {
@@ -206,10 +207,10 @@ Tuple2<List<ReactionTimeChartData>, int> setReactionTimeChartData(
         sumAvgReactionTimePerDay = 0;
 
         countTestPerDay++;
-        sumAvgReactionTimePerDay += sumAvgReactionTimePerTest;
+        sumAvgReactionTimePerDay += avgAvgReactionTimePerTest;
 
         // if last elem
-        if (idx == historyThisWeek.length - 1) {
+        if (idx == historyThisWeek.length) {
           avgAvgReactionTimePerDay = sumAvgReactionTimePerDay / countTestPerDay;
           data[currDate - 1] = ReactionTimeChartData(
               dateLabel[currDate], avgAvgReactionTimePerDay);

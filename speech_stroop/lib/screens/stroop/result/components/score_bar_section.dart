@@ -162,7 +162,7 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
         sumScorePerDay += h.totalScore;
 
         // if last elem
-        if (idx == historyThisWeek.length - 1) {
+        if (idx == historyThisWeek.length) {
           avgScorePerDay = sumScorePerDay / countTestPerDay;
           data[currDate - 1] =
               ScoreChartData(dateLabel[currDate], avgScorePerDay);
