@@ -23,9 +23,11 @@ import 'package:speech_stroop/screens/precondition_test/reading_test/reading_tes
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
+import 'package:speech_stroop/screens/stroop/tutorial/done_screen.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro1.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro2.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro3.dart';
+import 'package:speech_stroop/screens/stroop/tutorial/test/tutorial_test.dart';
 
 // All our routes will be available here
 final Map<String, WidgetBuilder> routes = {
@@ -60,6 +62,8 @@ final Map<String, WidgetBuilder> routes = {
       const TutorialIntroduction2Screen(),
   TutorialIntroduction3Screen.routeName: (context) =>
       const TutorialIntroduction3Screen(),
+  TutorialTestScreen.routeName: (context) => const TutorialTestScreen(),
+  TutorialDoneScreen.routeName: (context) => TutorialDoneScreen(),
 
   // Stroop Test
   StroopTestScreen.routeName: (context) => const StroopTestScreen(),

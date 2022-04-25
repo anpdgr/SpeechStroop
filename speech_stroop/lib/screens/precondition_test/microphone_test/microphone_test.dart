@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
+import 'package:speech_stroop/screens/stroop/tutorial/test/tutorial_test.dart';
 import 'package:speech_stroop/theme.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -50,22 +51,27 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
             // mainAxisSize: MainAxisSize.max,
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                  'หมายเหตุ* การอยู่ในสถานที่ที่มีเสียงรบกวนน้อยจะยิ่งทำให้การทดสอบได้ประสิทธิภาพมากยิ่งขึ้น',
-                  style: textTheme().bodyMedium),
-              Align(
-                alignment: Alignment.center,
-                child:
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Text(
+                    'หมายเหตุ* การอยู่ในสถานที่ที่มีเสียงรบกวนน้อยจะยิ่งทำให้การทดสอบได้ประสิทธิภาพมากยิ่งขึ้น',
+                    style: textTheme().bodyMedium),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
+                child: Column(
+                  children: [
                     Text('ฟ้า เขียว เหลือง', style: textTheme().displayMedium),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child:
                     Text('ส้ม แดง ดำ ม่วง', style: textTheme().displayMedium),
+                  ],
+                ),
               ),
-              Text(
-                result,
-                style: TextStyle(color: secondaryColor),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                child: Text(
+                  result,
+                  style: TextStyle(color: secondaryColor),
+                ),
               ),
             ],
           ),
@@ -99,7 +105,7 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
             text = '';
           });
           Future.delayed(const Duration(milliseconds: 1500), () {
-            //TODO: 321
+            Navigator.pushNamed(context, TutorialTestScreen.routeName);
           });
         } else {
           setState(() {
