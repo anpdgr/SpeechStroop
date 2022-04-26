@@ -9,7 +9,7 @@ let bucketName = 'speech-stroop.appspot.com'
 const audioFolder = 'audio'
 
 // Uploads a local file to the bucket
-export const uploadFile = async ([userId, filePath]: string) => {
+export const uploadFile = async (userId: string, filePath: string) => {
   const fileName = filePath.split('/').pop()
   const dstPath = `${audioFolder}/${userId}/${fileName}`
   await storage.bucket(bucketName).upload(filePath, {

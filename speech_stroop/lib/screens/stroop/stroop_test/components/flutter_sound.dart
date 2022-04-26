@@ -31,7 +31,13 @@ class RecordAudio {
   }
 
   String getFileName() {
-    return 'stroop_${datetime}_section-$section';
+    String dateFormatted = datetime
+        .toString()
+        .replaceAll(":", "-")
+        .replaceAll(" ", "_")
+        .split(".")[0];
+    print("dataformatted:" + dateFormatted);
+    return '${dateFormatted}_section-$section';
   }
 
   Future<IOSink> createFile() async {
