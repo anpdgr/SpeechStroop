@@ -12,6 +12,7 @@ router.post('/stroop_audio', async (req: RequestWithUser, res) => {
     const urls = await uploadStroopAudioFile(body, req.user._id)
     res.json({ urls })
   } catch (err) {
+    console.log('err:\t', err)
     res.status(400).send(err)
   }
 })

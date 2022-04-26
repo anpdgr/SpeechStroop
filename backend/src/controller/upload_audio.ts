@@ -12,20 +12,25 @@ export async function uploadStroopAudioFile(
   userId: ObjectId,
 ): Promise<string[]> {
   let urls: string[] = []
-  let filePaths: string[] = []
+  let toRemoveFilePaths: string[] = []
 
   for (let i = 0; i < 3; i++) {
-    let fileName: string = `${audioFile.dateTime}_section-${i + 1}.wav`
-    let filePath: string = `${audioFile.directory}/${fileName}`
+    let fileName: string = `${audioFile.dateTime}_section-${i + 1}`
 
-    let url: string = await uploadFile(String(userId), filePath)
+    let fileNameWAV: string = `${fileName}.wav`
+    let fileNamePCM: string = `${fileName}.pcm`
+
+    let filePathWAV: string = `${audioFile.directory}/${fileNameWAV}`
+    let filePathPCM: string = `${audioFile.directory}/${fileNamePCM}`
+
+    let url: string = await uploadFile(String(userId), filePathWAV)
 
     urls.push(url)
 
-    filePaths.push(filePath)
+    toRemoveFilePaths.push(filePathWAV, filePathPCM)
   }
 
-  await removeAudioFiles(filePaths)
+  await removeAudioFiles(toRemoveFilePaths)
 
   return urls
 }
