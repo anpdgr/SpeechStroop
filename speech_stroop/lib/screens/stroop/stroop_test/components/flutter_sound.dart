@@ -8,8 +8,8 @@ class RecordAudio {
   int section;
   final DateTime datetime;
   RecordAudio(this.section, this.datetime);
-
-  int tSampleRate = 44000;
+  // compress file with tSampleRate
+  int tSampleRate = 6000;
   FlutterSoundRecorder mRecorder = FlutterSoundRecorder();
   bool mRecorderIsInited = false;
   String pcmPath;
