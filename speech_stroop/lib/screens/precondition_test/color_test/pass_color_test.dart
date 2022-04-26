@@ -71,8 +71,6 @@ class _PassColorTestState extends State<PassColorTestScreen> {
                   print("login success");
                   Navigator.pushNamed(context, HomeScreen.routeName);
                 }
-
-                Navigator.pushNamed(context, HomeScreen.routeName);
               }),
             )
           ],

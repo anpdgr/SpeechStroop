@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/floating_button.dart';
 import 'package:speech_stroop/constants.dart';
-import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
-import 'package:speech_stroop/screens/auth/register_stress.dart';
-import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:speech_stroop/theme.dart';
 import '../precondition_test/introduction.dart';
 
@@ -32,7 +27,7 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: CustomAppBar('แบบสอบถามการนอนหลับ'),
+      appBar: const CustomAppBar('แบบสอบถามการนอนหลับ'),
       backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Column(
@@ -48,7 +43,8 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: Text(
                             'โปรดตอบความรู้สึกของคุณในรอบ 1 เดือนที่ผ่านมา ',
                             textAlign: TextAlign.center,
@@ -56,7 +52,8 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Text(
                             '1 = ไม่เคย, 2 = บางครั้ง, 3 = บ่อยครั้ง, 4 = ทุกครั้ง',
                             textAlign: TextAlign.center,

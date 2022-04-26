@@ -6,6 +6,7 @@ import 'package:speech_stroop/enums.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
+import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro1.dart';
 import 'package:tuple/tuple.dart';
 
 class Body extends StatefulWidget {
@@ -146,8 +147,8 @@ class _BodyState extends State<Body> {
           SecondaryButton(
             "วิธีการทดสอบ",
             () => {
-              //TODO: remove me
-              print("tutorials"),
+              Navigator.pushNamed(
+                  context, TutorialIntroduction1Screen.routeName)
             },
             ButtonType.medium,
           )
@@ -200,7 +201,10 @@ class _BodyState extends State<Body> {
                     Container(
                       alignment: Alignment.center,
                       child: Column(children: [
-                        PrimaryButton("ต้องการ", () => {print('save')}),
+                        PrimaryButton(
+                            "ต้องการ",
+                            () => Navigator.pushNamed(context,
+                                TutorialIntroduction1Screen.routeName)),
                         SecondaryButton(
                             "ไม่ต้องการ",
                             () => Navigator.pushNamed(

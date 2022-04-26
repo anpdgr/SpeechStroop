@@ -46,8 +46,8 @@ class APIPath {
 
 // Stroop
 int stroopQuestionsAmount = 20;
-int stroopQuestionDurationMs = 300; //3000;
-int stroopIntervalDurationMs = 300; //3000;
+int stroopQuestionDurationMs = 3000; //3000;
+int stroopIntervalDurationMs = 3000; //3000;
 
 // Chart
 Map<int, String> dateLabel = {
