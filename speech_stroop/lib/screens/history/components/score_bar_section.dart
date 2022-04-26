@@ -139,7 +139,7 @@ Tuple2<List<ScoreChartData>, int> setScoreChartData(List<History> historyData) {
 
   // filter history of this week
   List<History> historyThisWeek = [];
-  if (historyData != null || historyData.isNotEmpty) {
+  if (historyData != null && historyData.isNotEmpty) {
     for (History h in historyData) {
       if (h.createdAt.isAfter(startWeekDate) ||
           h.createdAt.isAfter(endWeekDate.add(const Duration(days: 1)))) {
