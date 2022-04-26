@@ -38,11 +38,15 @@ class _BodyState extends State<Body> {
     super.initState();
     setBackgroundColor();
     speech = stt.SpeechToText();
-    recordAudio = RecordAudio(sectionNumber, recordAudioDataTime);
+
+    if (recordAudioDateTime == "") {
+      recordAudioDateTime = getAudioFileDateFormat(DateTime.now());
+    }
+    recordAudio = RecordAudio(sectionNumber, recordAudioDateTime);
 
     loggerNoStack.d("init state", {
       "sectionNumber": recordAudio.section,
-      "recordAudioDataTime": recordAudio.datetime,
+      "recordAudioDateTime": recordAudio.datetime,
     });
 
     recordAudio.openRecorder();

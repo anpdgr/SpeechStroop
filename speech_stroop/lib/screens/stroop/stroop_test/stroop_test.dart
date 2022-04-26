@@ -30,7 +30,7 @@ Stopwatch stopwatchRT = Stopwatch();
 Stopwatch stopwatchAudio = Stopwatch();
 // audio
 RecordAudio recordAudio;
-DateTime recordAudioDataTime = DateTime.now();
+String recordAudioDateTime = "";
 
 class StroopTestScreen extends StatelessWidget {
   const StroopTestScreen({Key key}) : super(key: key);
@@ -42,4 +42,11 @@ class StroopTestScreen extends StatelessWidget {
       body: Body(),
     );
   }
+}
+
+String getAudioFileDateFormat(DateTime date) {
+  String dateFormatted =
+      date.toString().replaceAll(":", "-").replaceAll(" ", "_").split(".")[0];
+
+  return dateFormatted;
 }

@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 class RecordAudio {
   int section;
-  final DateTime datetime;
+  final String datetime;
   RecordAudio(this.section, this.datetime);
   // compress file with tSampleRate
   int tSampleRate = 6000;
@@ -31,13 +31,7 @@ class RecordAudio {
   }
 
   String getFileName() {
-    String dateFormatted = datetime
-        .toString()
-        .replaceAll(":", "-")
-        .replaceAll(" ", "_")
-        .split(".")[0];
-    print("dataformatted:" + dateFormatted);
-    return '${dateFormatted}_section-$section';
+    return '${datetime}_section-$section';
   }
 
   Future<IOSink> createFile() async {

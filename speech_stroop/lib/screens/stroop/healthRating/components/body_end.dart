@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
+import 'package:speech_stroop/model/audio.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/components/health_slider.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Body extends StatefulWidget {
-  Body(this.appbarTitle, {Key key}) : super(key: key);
-  String appbarTitle;
+  const Body(this.appbarTitle, {Key key}) : super(key: key);
+  final String appbarTitle;
   @override
   _BodyState createState() => _BodyState();
 }
@@ -44,6 +46,22 @@ class _BodyState extends State<Body> {
             stress.end = stressLevel.toInt();
             arousel.end = arouselLevel.toInt();
             healthScores = HealthScores(stress, arousel);
+
+            var tempDir = await getTemporaryDirectory();
+            String tempDirPath = tempDir.path;
+
+            var audioUrls = await uploadAudio(tempDirPath, recordAudioDateTime);
+
+            recordAudioDateTime = "";
+
+            var i = 0;
+            for (var s in sections) {
+              if (audioUrls.urls != null) {
+                String url = audioUrls.urls[i];
+                s.audioUrl = url;
+                i++;
+              }
+            }
 
             var res = await setHistory(
               totalScore,
