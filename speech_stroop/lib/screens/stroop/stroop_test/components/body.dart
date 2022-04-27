@@ -5,6 +5,7 @@ import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/flutter_sound.dart';
+import 'package:speech_stroop/theme.dart';
 import 'package:speech_stroop/utils/loggger.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -61,13 +62,13 @@ class _BodyState extends State<Body> {
             const Color(0xFFF5F5F5)
           ];
           break;
-        case 'Correct':
+        case 'ถูกต้อง':
           stroopBackgroundColor = [
             const Color(0xFF6FC2A0),
             const Color(0xFF6FC2A0)
           ];
           break;
-        case 'Wrong':
+        case 'ผิด':
           stroopBackgroundColor = [
             const Color(0xFFDA4F2C),
             const Color(0xFFDA4F2C)
@@ -149,7 +150,6 @@ class _BodyState extends State<Body> {
                                   buildTest();
                                   stopwatchAudio.reset();
                                   stopwatchAudio.start();
-                                  //TODO: record audio
                                   recordAudio.getRecorderFn()();
                                   navigatePage();
                                 },
@@ -162,7 +162,10 @@ class _BodyState extends State<Body> {
                           height: 100,
                         )
                       : Text(feedbackImg),
-                  Text(feedback)
+                  Text(
+                    feedback,
+                    style: textTheme().headlineSmall,
+                  ),
                 ],
               ),
             ],
@@ -308,7 +311,7 @@ class _BodyState extends State<Body> {
       if (recogWord == correctAnswer) {
         setState(() {
           isCorrect = true;
-          feedback = 'Correct';
+          feedback = 'ถูกต้อง';
           feedbackImg = 'assets/images/correct.png';
           setBackgroundColor();
         });
@@ -318,7 +321,7 @@ class _BodyState extends State<Body> {
       else {
         setState(() {
           isCorrect = false;
-          feedback = 'Wrong';
+          feedback = 'ผิด';
           feedbackImg = 'assets/images/wrong.png';
           setBackgroundColor();
         });

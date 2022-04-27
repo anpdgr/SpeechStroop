@@ -52,13 +52,13 @@ class _BodyState extends State<Body> {
             const Color(0xFFF5F5F5)
           ];
           break;
-        case 'Correct':
+        case 'ถูกต้อง':
           stroopBackgroundColor = [
             const Color(0xFF6FC2A0),
             const Color(0xFF6FC2A0)
           ];
           break;
-        case 'Wrong':
+        case 'ผิด':
           stroopBackgroundColor = [
             const Color(0xFFDA4F2C),
             const Color(0xFFDA4F2C)
@@ -149,7 +149,7 @@ class _BodyState extends State<Body> {
                           height: 100,
                         )
                       : Text(feedbackImg),
-                  Text(feedback),
+                  Text(feedback, style: textTheme().headlineSmall,),
                   Text(
                     correctAnswerText,
                     style: textTheme().headlineMedium,
@@ -280,7 +280,7 @@ class _BodyState extends State<Body> {
       if (recogWord == correctAnswer) {
         setState(() {
           isCorrect = true;
-          feedback = 'Correct';
+          feedback = 'ถูกต้อง';
           feedbackImg = 'assets/images/correct.png';
           setBackgroundColor();
         });
@@ -290,7 +290,7 @@ class _BodyState extends State<Body> {
       else {
         setState(() {
           isCorrect = false;
-          feedback = 'Wrong';
+          feedback = 'ผิด';
           feedbackImg = 'assets/images/wrong.png';
           setBackgroundColor();
         });
