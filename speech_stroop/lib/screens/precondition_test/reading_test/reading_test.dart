@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
+import 'package:speech_stroop/components/microphone_test/fail_microphone_test.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/fail_microphone_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';

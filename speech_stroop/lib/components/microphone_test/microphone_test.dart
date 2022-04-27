@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
+import 'package:speech_stroop/screens/home/components/body.dart';
+import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/test/tutorial_test.dart';
 import 'package:speech_stroop/theme.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
@@ -44,38 +46,35 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
       key: scaffoldKey,
       backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
-          child: Column(
-            //TODO: padding
-            // mainAxisSize: MainAxisSize.max,
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Text(
-                    'หมายเหตุ* การอยู่ในสถานที่ที่มีเสียงรบกวนน้อยจะยิ่งทำให้การทดสอบได้ประสิทธิภาพมากยิ่งขึ้น',
-                    style: textTheme().bodyMedium),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
-                child: Column(
-                  children: [
-                    Text('ฟ้า เขียว เหลือง', style: textTheme().displayMedium),
-                    Text('ส้ม แดง ดำ ม่วง', style: textTheme().displayMedium),
-                  ],
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Text(
+                      'หมายเหตุ* การอยู่ในสถานที่ที่มีเสียงรบกวนน้อยจะยิ่งทำให้การทดสอบได้ประสิทธิภาพมากยิ่งขึ้น',
+                      style: textTheme().bodyMedium),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                child: Text(
-                  result,
-                  style: TextStyle(color: secondaryColor),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
+                  child: Column(
+                    children: [
+                      Text('ฟ้า เขียว เหลือง', style: textTheme().displayMedium),
+                      Text('ส้ม แดง ดำ ม่วง', style: textTheme().displayMedium),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  child: Text(
+                    result,
+                    style: textTheme().bodyLarge.apply(color: secondaryColor),
+                  ),
+                ),
+              ],
         ),
+          ),
       ),
     );
   }
@@ -105,7 +104,9 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
             text = '';
           });
           Future.delayed(const Duration(milliseconds: 1500), () {
-            Navigator.pushNamed(context, TutorialTestScreen.routeName);
+            dstMicTest == 'tutorial'
+                ? Navigator.pushNamed(context, TutorialTestScreen.routeName)
+                : Navigator.pushNamed(context, BreakScreen.routeName);
           });
         } else {
           setState(() {

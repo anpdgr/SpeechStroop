@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:speech_stroop/components/microphone_test/fail_microphone_test.dart';
+import 'package:speech_stroop/components/microphone_test/microphone_test.dart';
 import 'package:speech_stroop/screens/auth/login.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register2.dart';
@@ -14,9 +16,6 @@ import 'package:speech_stroop/screens/precondition_test/color_test/color_test.da
 import 'package:speech_stroop/screens/precondition_test/color_test/fail_color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/pass_color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/introduction.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/fail_microphone_test.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/microphone_test.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/pass_microphone_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/reading_test.dart';
@@ -44,8 +43,6 @@ final Map<String, WidgetBuilder> routes = {
   // PreCondition Test
   IntroductionScreen.routeName: (context) => const IntroductionScreen(),
   MicrophoneTestScreen.routeName: (context) => const MicrophoneTestScreen(),
-  PassMicrophoneTestScreen.routeName: (context) =>
-      const PassMicrophoneTestScreen(),
   FailMicrophoneTestScreen.routeName: (context) =>
       const FailMicrophoneTestScreen(),
   ColorTestScreen.routeName: (context) => const ColorTestScreen(),

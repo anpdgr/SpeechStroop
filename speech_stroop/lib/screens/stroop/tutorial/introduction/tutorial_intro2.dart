@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/floating_button.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/microphone_test.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/components/colorList_box.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro3.dart';
 import 'package:speech_stroop/theme.dart';
