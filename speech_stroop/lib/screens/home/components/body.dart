@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
+import 'package:speech_stroop/components/microphone_test/microphone_test.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/enums.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
@@ -17,6 +18,7 @@ class Body extends StatefulWidget {
 
 bool wantTutorial = false;
 String userName = '';
+String dstMicTest = '';
 
 class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -138,9 +140,10 @@ class _BodyState extends State<Body> {
           PrimaryButton(
             "เริ่มทดสอบ",
             () => {
+              dstMicTest = 'test',
               userHistory.isEmpty
                   ? showSimpleModalDialogTutorial(context)
-                  : Navigator.pushNamed(context, BreakScreen.routeName)
+                  : Navigator.pushNamed(context, MicrophoneTestScreen.routeName)
             },
             ButtonType.medium,
           ),
