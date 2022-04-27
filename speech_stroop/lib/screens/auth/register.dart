@@ -47,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         key: scaffoldKey,
-        appBar: CustomAppBar('สมัครสมาชิก'),
+        appBar: const CustomAppBar('สมัครสมาชิก'),
         backgroundColor: const Color(0xFFFBFBFF),
         body: SafeArea(
           child: Padding(

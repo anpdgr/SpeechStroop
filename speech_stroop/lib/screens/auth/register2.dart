@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'package:speech_stroop/screens/auth/components/text_form_field.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
-import 'package:speech_stroop/components/appbar.dart';
 
-import '../../components/button/floating_button.dart';
+import 'package:speech_stroop/components/button/floating_button.dart';
+import 'package:speech_stroop/components/appbar.dart';
 
 class Register2Screen extends StatefulWidget {
   const Register2Screen({Key key}) : super(key: key);
@@ -14,16 +16,36 @@ class Register2Screen extends StatefulWidget {
 }
 
 class _Register2ScreenState extends State<Register2Screen> {
-  String genderValue;
-  String educationValue;
-  DateTime dob;
+  final formKey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final formGlobalKey = GlobalKey<FormState>();
+
   TextEditingController nameController;
   TextEditingController emailController;
   TextEditingController lastFourIdController;
   TextEditingController dobController;
-  final formKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  final formGlobalKey = GlobalKey<FormState>();
+  DateTime dob;
+  String genderValue;
+  List<DropdownMenuItem<dynamic>> genderList = const [
+    DropdownMenuItem(child: Text("เพศชาย"), value: "male"),
+    DropdownMenuItem(child: Text("เพศหญิง"), value: "female"),
+    DropdownMenuItem(child: Text("อื่น ๆ"), value: "etc"),
+  ];
+  String educationValue;
+  List<DropdownMenuItem<dynamic>> educationList = const [
+    DropdownMenuItem(
+        child: Text("ต่ำกว่ามัธยมศึกษาตอนต้น"), value: "elementary"),
+    DropdownMenuItem(child: Text("มัธยมศึกษาตอนต้น"), value: "lower2nd"),
+    DropdownMenuItem(child: Text("ปวช."), value: "vocational cert"),
+    DropdownMenuItem(child: Text("มัธยมศึกษาตอนปลาย"), value: "upper2nd"),
+    DropdownMenuItem(child: Text("ปวส."), value: "high vocational cert"),
+    DropdownMenuItem(child: Text("อนุปริญญา"), value: "associate"),
+    DropdownMenuItem(child: Text("ปริญญาตรี "), value: "bd"),
+    DropdownMenuItem(child: Text("ปริญญาโท"), value: "md"),
+    DropdownMenuItem(child: Text("ปริญญาเอก"), value: "phd"),
+    DropdownMenuItem(child: Text("อื่น ๆ"), value: "etc"),
+  ];
+  bool isNotColorBlind = false;
 
   @override
   void initState() {
@@ -34,7 +56,6 @@ class _Register2ScreenState extends State<Register2Screen> {
     dobController = TextEditingController();
   }
 
-  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +76,7 @@ class _Register2ScreenState extends State<Register2Screen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         key: scaffoldKey,
-        appBar: CustomAppBar('สมัครสมาชิก'),
+        appBar: const CustomAppBar('สมัครสมาชิก'),
         backgroundColor: const Color(0xFFFBFBFF),
         body: SafeArea(
           child: Padding(
@@ -70,41 +91,17 @@ class _Register2ScreenState extends State<Register2Screen> {
                       child: Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                        child: TextFormField(
-                          controller: nameController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'ชื่อเล่น',
-                            labelStyle: const TextStyle(
-                              fontWeight: FontWeight.w300,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0xFFA7A5A5),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0xFFA7A5A5),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w300,
-                          ),
-                          textAlign: TextAlign.start,
-                          keyboardType: TextInputType.name,
-                          validator: (val) {
+                        child: TextFormFieldCustom(
+                          nameController,
+                          'ชื่อเล่น',
+                          TextInputType.name,
+                          (val) {
                             if (val.isEmpty) {
                               return 'โปรดระบุชื่อเล่น';
                             }
                             return null;
                           },
-                          onChanged: (val) {
+                          (val) {
                             if (formGlobalKey.currentState.validate()) {
                               formGlobalKey.currentState.save();
                             }
@@ -115,34 +112,11 @@ class _Register2ScreenState extends State<Register2Screen> {
                     Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                      child: TextFormField(
-                        controller: emailController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'อีเมล',
-                          labelStyle: const TextStyle(
-                            fontWeight: FontWeight.w300,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFFA7A5A5),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFFA7A5A5),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                        ),
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (val) {
+                      child: TextFormFieldCustom(
+                        emailController,
+                        'อีเมล',
+                        TextInputType.emailAddress,
+                        (val) {
                           bool isEmailValid = RegExp(
                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(val);
@@ -153,7 +127,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                           }
                           return null;
                         },
-                        onChanged: (val) {
+                        (val) {
                           if (formGlobalKey.currentState.validate()) {
                             formGlobalKey.currentState.save();
                           }
@@ -163,34 +137,11 @@ class _Register2ScreenState extends State<Register2Screen> {
                     Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                      child: TextFormField(
-                        controller: lastFourIdController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'เลขประจำตัวบัตรประชาชน 4 ตัวท้าย',
-                          labelStyle: const TextStyle(
-                            fontWeight: FontWeight.w300,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFFA7A5A5),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFFA7A5A5),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                        ),
-                        keyboardType: TextInputType.number,
-                        validator: (val) {
+                      child: TextFormFieldCustom(
+                        lastFourIdController,
+                        'เลขประจำตัวบัตรประชาชน 4 ตัวท้าย',
+                        TextInputType.number,
+                        (val) {
                           if (val.length != 4) {
                             return 'โปรดระบุเลขประจำตัวบัตรประชาชน 4 ตัวท้าย';
                           }
@@ -199,7 +150,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                           }
                           return null;
                         },
-                        onChanged: (val) {
+                        (val) {
                           if (formGlobalKey.currentState.validate()) {
                             formGlobalKey.currentState.save();
                           }
@@ -218,35 +169,11 @@ class _Register2ScreenState extends State<Register2Screen> {
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 0, 5, 0),
-                              child: TextFormField(
-                                controller: dobController,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'วันเกิด',
-                                  labelStyle: const TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0xFFA7A5A5),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  suffixIcon: const Icon(Icons.calendar_today),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0xFFA7A5A5),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                ),
-                                keyboardType: TextInputType.number,
-                                validator: (val) {
+                              child: TextFormFieldCustom(
+                                dobController,
+                                'วันเกิด',
+                                TextInputType.number,
+                                (val) {
                                   RegExp exp = RegExp(
                                       r"((19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])");
                                   Iterable<RegExpMatch> matches =
@@ -259,7 +186,12 @@ class _Register2ScreenState extends State<Register2Screen> {
                                   //TODO: check if value is before today
                                   return null;
                                 },
-                                onTap: () {
+                                (val) {
+                                  if (formGlobalKey.currentState.validate()) {
+                                    formGlobalKey.currentState.save();
+                                  }
+                                },
+                                () {
                                   showDatePicker(
                                           context: context,
                                           initialDate: DateTime.now(),
@@ -276,11 +208,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                                                       : null
                                                 })
                                           });
-                                },
-                                onChanged: (val) {
-                                  if (formGlobalKey.currentState.validate()) {
-                                    formGlobalKey.currentState.save();
-                                  }
                                 },
                               ),
                             ),
@@ -309,14 +236,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                                 });
                               }
                             },
-                            items: const [
-                              DropdownMenuItem(
-                                  child: Text("เพศชาย"), value: "male"),
-                              DropdownMenuItem(
-                                  child: Text("เพศหญิง"), value: "female"),
-                              DropdownMenuItem(
-                                  child: Text("อื่น ๆ"), value: "etc"),
-                            ],
+                            items: genderList,
                             validator: (value) {
                               if (value == null) {
                                 return 'โปรดระบุเพศของคุณ';
@@ -354,32 +274,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                               });
                             }
                           },
-                          items: const [
-                            DropdownMenuItem(
-                                child: Text("ต่ำกว่ามัธยมศึกษาตอนต้น"),
-                                value: "elementary"),
-                            DropdownMenuItem(
-                                child: Text("มัธยมศึกษาตอนต้น"),
-                                value: "lower2nd"),
-                            DropdownMenuItem(
-                                child: Text("ปวช."), value: "vocational cert"),
-                            DropdownMenuItem(
-                                child: Text("มัธยมศึกษาตอนปลาย"),
-                                value: "upper2nd"),
-                            DropdownMenuItem(
-                                child: Text("ปวส."),
-                                value: "high vocational cert"),
-                            DropdownMenuItem(
-                                child: Text("อนุปริญญา"), value: "associate"),
-                            DropdownMenuItem(
-                                child: Text("ปริญญาตรี "), value: "bd"),
-                            DropdownMenuItem(
-                                child: Text("ปริญญาโท"), value: "md"),
-                            DropdownMenuItem(
-                                child: Text("ปริญญาเอก"), value: "phd"),
-                            DropdownMenuItem(
-                                child: Text("อื่น ๆ"), value: "etc"),
-                          ],
+                          items: educationList,
                           validator: (value) {
                             if (value == null) {
                               return 'โปรดระบุระดับการศึกษาสูงสุดของคุณ';
@@ -397,10 +292,10 @@ class _Register2ScreenState extends State<Register2Screen> {
                             checkColor: Colors.white,
                             fillColor:
                                 MaterialStateProperty.resolveWith(getColor),
-                            value: isChecked,
+                            value: isNotColorBlind,
                             onChanged: (bool value) {
                               setState(() {
-                                isChecked = value;
+                                isNotColorBlind = value;
                               });
                             },
                           ),
@@ -418,22 +313,10 @@ class _Register2ScreenState extends State<Register2Screen> {
                         alignment: const AlignmentDirectional(0.9, 0),
                         child: FloatingButton(() {
                           if (formGlobalKey.currentState.validate() &&
-                              isChecked) {
+                              isNotColorBlind) {
                             formGlobalKey.currentState.save();
 
-                            List<int> splitDob = dobController.text
-                                .split("-")
-                                .map((e) => int.parse(e))
-                                .toList();
-
-                            registerReq.name = nameController.text;
-                            registerReq.email = emailController.text;
-                            registerReq.lastFourId = lastFourIdController.text;
-                            registerReq.dateOfBirth =
-                                DateTime(splitDob[0], splitDob[1], splitDob[2]);
-                            registerReq.gender = genderValue ?? 'unknown';
-                            registerReq.education = educationValue ?? 'unknown';
-                            precondition.isColorBlind = !isChecked;
+                            setUserData();
 
                             Navigator.push(
                                 context,
@@ -448,5 +331,18 @@ class _Register2ScreenState extends State<Register2Screen> {
         ),
       ),
     );
+  }
+
+  setUserData() {
+    List<int> splitDob =
+        dobController.text.split("-").map((e) => int.parse(e)).toList();
+
+    registerReq.name = nameController.text;
+    registerReq.email = emailController.text;
+    registerReq.lastFourId = lastFourIdController.text;
+    registerReq.dateOfBirth = DateTime(splitDob[0], splitDob[1], splitDob[2]);
+    registerReq.gender = genderValue ?? 'unknown';
+    registerReq.education = educationValue ?? 'unknown';
+    precondition.isColorBlind = !isNotColorBlind;
   }
 }
