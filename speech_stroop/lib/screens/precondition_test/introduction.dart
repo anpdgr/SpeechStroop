@@ -37,8 +37,8 @@ class _IntroductionState extends State<IntroductionScreen> {
                 direction: Axis.vertical,
                 spacing: 25,
                 children: [
-                  PreconBox('1. ทดสอบทักษะการอ่าน'),
-                  PreconBox('2. ทดสอบทักษะการจำแนกสี')
+                  PreconBox('1. ทดสอบทักษะการอ่าน', 'พูดคำที่ปรากฏ'),
+                  PreconBox('2. ทดสอบทักษะการจำแนกสี', 'พูดสีที่ปรากฏ')
                 ],
               ),
               const SizedBox(height: 50),
