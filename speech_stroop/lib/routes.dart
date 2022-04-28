@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:speech_stroop/components/microphone_test/fail_microphone_test.dart';
+import 'package:speech_stroop/components/microphone_test/microphone_test.dart';
 import 'package:speech_stroop/screens/auth/login.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register2.dart';
@@ -14,15 +16,17 @@ import 'package:speech_stroop/screens/precondition_test/color_test/color_test.da
 import 'package:speech_stroop/screens/precondition_test/color_test/fail_color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/pass_color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/introduction.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/fail_microphone_test.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/microphone_test.dart';
-import 'package:speech_stroop/screens/precondition_test/microphone_test/pass_microphone_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/reading_test.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
+import 'package:speech_stroop/screens/stroop/tutorial/done_screen.dart';
+import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro1.dart';
+import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro2.dart';
+import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro3.dart';
+import 'package:speech_stroop/screens/stroop/tutorial/test/tutorial_test.dart';
 
 // All our routes will be available here
 final Map<String, WidgetBuilder> routes = {
@@ -39,8 +43,6 @@ final Map<String, WidgetBuilder> routes = {
   // PreCondition Test
   IntroductionScreen.routeName: (context) => const IntroductionScreen(),
   MicrophoneTestScreen.routeName: (context) => const MicrophoneTestScreen(),
-  PassMicrophoneTestScreen.routeName: (context) =>
-      const PassMicrophoneTestScreen(),
   FailMicrophoneTestScreen.routeName: (context) =>
       const FailMicrophoneTestScreen(),
   ColorTestScreen.routeName: (context) => const ColorTestScreen(),
@@ -49,6 +51,16 @@ final Map<String, WidgetBuilder> routes = {
   ReadingTestScreen.routeName: (context) => const ReadingTestScreen(),
   PassReadingTestScreen.routeName: (context) => const PassReadingTestScreen(),
   FailReadingTestScreen.routeName: (context) => const FailReadingTestScreen(),
+
+  //Tutorial
+  TutorialIntroduction1Screen.routeName: (context) =>
+      const TutorialIntroduction1Screen(),
+  TutorialIntroduction2Screen.routeName: (context) =>
+      const TutorialIntroduction2Screen(),
+  TutorialIntroduction3Screen.routeName: (context) =>
+      const TutorialIntroduction3Screen(),
+  TutorialTestScreen.routeName: (context) => const TutorialTestScreen(),
+  TutorialDoneScreen.routeName: (context) => TutorialDoneScreen(),
 
   // Stroop Test
   StroopTestScreen.routeName: (context) => const StroopTestScreen(),

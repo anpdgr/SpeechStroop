@@ -2,26 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
+import 'package:speech_stroop/model/audio.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
-import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/components/health_slider.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Body extends StatefulWidget {
+  const Body(this.appbarTitle, {Key key}) : super(key: key);
   final String appbarTitle;
-  Body(this.appbarTitle, {Key key}) : super(key: key);
   @override
-  _BodyState createState() => _BodyState(appbarTitle);
+  _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  final String appbarTitle;
-  _BodyState(this.appbarTitle);
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -33,7 +30,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: CustomAppBar(appbarTitle),
+      appBar: CustomAppBar(widget.appbarTitle),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       key: scaffoldKey,
       backgroundColor: const Color(0xFFF5F5F5),
@@ -49,12 +46,34 @@ class _BodyState extends State<Body> {
             stress.end = stressLevel.toInt();
             arousel.end = arouselLevel.toInt();
             healthScores = HealthScores(stress, arousel);
-            var res = await setHistory();
-            sections.clear();
-            totalScore = 0;
-            // Get new history every after finish stroop test
-            await getHistory();
+
+            var tempDir = await getTemporaryDirectory();
+            String tempDirPath = tempDir.path;
+
+            var audioUrls = await uploadAudio(tempDirPath, recordAudioDateTime);
+
+            recordAudioDateTime = "";
+
+            var i = 0;
+            for (var s in sections) {
+              if (audioUrls.urls != null) {
+                String url = audioUrls.urls[i];
+                s.audioUrl = url;
+                i++;
+              }
+            }
+
+            var res = await setHistory(
+              totalScore,
+              sections,
+              healthScores,
+              null,
+            );
+
             Navigator.pushNamed(context, ResultScreen.routeName);
+
+            sections = [];
+            totalScore = 0;
           })
         ]),
       ),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
+import 'package:speech_stroop/components/microphone_test/microphone_test.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/enums.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
+import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro1.dart';
 import 'package:tuple/tuple.dart';
-
-var userName = "มะลิ";
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -17,18 +17,31 @@ class Body extends StatefulWidget {
 }
 
 bool wantTutorial = false;
+String userName = '';
+String dstMicTest = '';
 
 class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Tuple2<int, DateTime>> bestScores;
-  List<Tuple2<int, DateTime>> latestScores;
+  List<Tuple2<int, DateTime>> bestScores = [];
+  List<Tuple2<int, DateTime>> latestScores = [];
 
   @override
   void initState() {
-    // TODO: implement initState
-    bestScores = getHighestScores();
-    latestScores = getlatestScores();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _asyncFunc();
+      setState(() {
+        userName = userProfile.name;
+        bestScores = getHighestScores();
+        latestScores = getlatestScores();
+      });
+    });
+
     super.initState();
+  }
+
+  _asyncFunc() async {
+    await getUserProfile();
+    await getHistory();
   }
 
   @override
@@ -56,7 +69,7 @@ class _BodyState extends State<Body> {
             padding: const EdgeInsets.only(left: 10),
             alignment: Alignment.topLeft,
             child: Text(
-              'สวัสดี, คุณ${userProfile.name} 👋',
+              'สวัสดี, คุณ$userName 👋',
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
@@ -126,12 +139,20 @@ class _BodyState extends State<Body> {
           ),
           PrimaryButton(
             "เริ่มทดสอบ",
-            () => {showSimpleModalDialogTutorial(context)},
+            () => {
+              dstMicTest = 'test',
+              userHistory.isEmpty
+                  ? showSimpleModalDialogTutorial(context)
+                  : Navigator.pushNamed(context, MicrophoneTestScreen.routeName)
+            },
             ButtonType.medium,
           ),
           SecondaryButton(
             "วิธีการทดสอบ",
-            () => {print("tutorial")},
+            () => {
+              Navigator.pushNamed(
+                  context, TutorialIntroduction1Screen.routeName)
+            },
             ButtonType.medium,
           )
         ],
@@ -183,7 +204,10 @@ class _BodyState extends State<Body> {
                     Container(
                       alignment: Alignment.center,
                       child: Column(children: [
-                        PrimaryButton("ต้องการ", () => {print('save')}),
+                        PrimaryButton(
+                            "ต้องการ",
+                            () => Navigator.pushNamed(context,
+                                TutorialIntroduction1Screen.routeName)),
                         SecondaryButton(
                             "ไม่ต้องการ",
                             () => Navigator.pushNamed(

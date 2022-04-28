@@ -7,8 +7,9 @@ import 'package:speech_stroop/screens/history_all/components/section_box.dart';
 import 'package:speech_stroop/utils/date_format.dart';
 
 class ScoreBox extends StatefulWidget {
-  ScoreBox(this.historyData, {Key key}) : super(key: key);
-  History historyData;
+  const ScoreBox(this.historyData, {Key key}) : super(key: key);
+  final History historyData;
+
   @override
   _ScoreBoxState createState() => _ScoreBoxState();
 }

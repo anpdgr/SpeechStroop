@@ -54,13 +54,13 @@ class HealthSliderState extends State<HealthSlider> {
           });
         },
       ),
-      const Align(
-        alignment: AlignmentDirectional(-1, 0),
+      Align(
+        alignment: const AlignmentDirectional(-1, 0),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
           child: Text(
-            'คุณ มะลิ รู้สึกตื่นตัวอยู่ระดับไหน?',
-            style: TextStyle(
+            'คุณ $userName รู้สึกตื่นตัวอยู่ระดับไหน?',
+            style: const TextStyle(
               color: Color(0xFF3F3F3F),
               fontSize: 16,
             ),

@@ -1,3 +1,4 @@
+import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -34,4 +35,5 @@ logout() async {
   if (res.statusCode == 200) {
   } else {}
   userProfile = null;
+  userHistory = null;
 }

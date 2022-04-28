@@ -2,15 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/model/auth.dart';
-import 'package:speech_stroop/model/test_module/history.dart';
-import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:http/http.dart' as http;
-
-import '../precondition_test/reading_test/reading_test.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -187,8 +183,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
 
                       if (res.statusCode == 200) {
                         auth = Auth.fromJson(jsonDecode(res.body));
-                        await getUserProfile();
-                        await getHistory();
                         print("login success");
                         Navigator.pushNamed(context, HomeScreen.routeName);
                       } else {} //TODO: handle failed login
@@ -209,11 +203,12 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                       child: TextButton(
                           onPressed: () {
                             print('Forget password');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ReadingTestScreen()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             RecordToStreamExample()));
+                            // builder: (context) => AudioRecorderPage()));
                           },
                           child: const Text('ลืมรหัสผ่าน'),
                           style: TextButton.styleFrom(
@@ -236,8 +231,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
 
                     if (res.statusCode == 200) {
                       auth = Auth.fromJson(jsonDecode(res.body));
-                      await getUserProfile();
-                      await getHistory();
                       print("login dev success");
                       Navigator.pushNamed(context, HomeScreen.routeName);
                     } else {} //TODO: handle failed login
