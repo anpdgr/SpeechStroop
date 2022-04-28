@@ -20,7 +20,9 @@ class _Register2ScreenState extends State<Register2Screen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formGlobalKey = GlobalKey<FormState>();
 
+  TextEditingController usernameController;
   TextEditingController nameController;
+  TextEditingController surnameController;
   TextEditingController emailController;
   TextEditingController lastFourIdController;
   TextEditingController dobController;
@@ -50,7 +52,9 @@ class _Register2ScreenState extends State<Register2Screen> {
   @override
   void initState() {
     super.initState();
+    usernameController = TextEditingController();
     nameController = TextEditingController();
+    surnameController = TextEditingController();
     emailController = TextEditingController();
     lastFourIdController = TextEditingController();
     dobController = TextEditingController();
@@ -86,27 +90,74 @@ class _Register2ScreenState extends State<Register2Screen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Align(
-                      alignment: const AlignmentDirectional(0, 0),
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                        child: TextFormFieldCustom(
-                          nameController,
-                          'ชื่อเล่น',
-                          TextInputType.name,
-                          (val) {
-                            if (val.isEmpty) {
-                              return 'โปรดระบุชื่อเล่น';
-                            }
-                            return null;
-                          },
-                          (val) {
-                            if (formGlobalKey.currentState.validate()) {
-                              formGlobalKey.currentState.save();
-                            }
-                          },
-                        ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                      child: TextFormFieldCustom(
+                        usernameController,
+                        'ชื่อเล่น',
+                        TextInputType.name,
+                        (val) {
+                          if (val.isEmpty) {
+                            return 'โปรดระบุชื่อเล่น';
+                          }
+                          return null;
+                        },
+                        // TODO: create func validateOnChanged ? 
+                        (val) {
+                          if (formGlobalKey.currentState.validate()) {
+                            formGlobalKey.currentState.save();
+                          }
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 15, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),                              
+                              child: TextFormFieldCustom(
+                                nameController,
+                                'ชื่อจริง',
+                                TextInputType.name,
+                                (val) {
+                                  if (val.isEmpty) {
+                                    return 'โปรดระบุชื่อจริง';
+                                  }
+                                  return null;
+                                },
+                                (val) {
+                                  if (formGlobalKey.currentState.validate()) {
+                                    formGlobalKey.currentState.save();
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: TextFormFieldCustom(
+                              surnameController,
+                              'นามสกุล',
+                              TextInputType.name,
+                              (val) {
+                                if (val.isEmpty) {
+                                  return 'โปรดระบุนามสกุล';
+                                }
+                                return null;
+                              },
+                              (val) {
+                                if (formGlobalKey.currentState.validate()) {
+                                  formGlobalKey.currentState.save();
+                                }
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Padding(
@@ -337,7 +388,10 @@ class _Register2ScreenState extends State<Register2Screen> {
     List<int> splitDob =
         dobController.text.split("-").map((e) => int.parse(e)).toList();
 
+    registerReq.username = usernameController.text;
+    //TODO: add user model for name, surname
     registerReq.name = nameController.text;
+    registerReq.surname = surnameController.text;
     registerReq.email = emailController.text;
     registerReq.lastFourId = lastFourIdController.text;
     registerReq.dateOfBirth = DateTime(splitDob[0], splitDob[1], splitDob[2]);
@@ -345,4 +399,5 @@ class _Register2ScreenState extends State<Register2Screen> {
     registerReq.education = educationValue ?? 'unknown';
     precondition.isColorBlind = !isNotColorBlind;
   }
+
 }

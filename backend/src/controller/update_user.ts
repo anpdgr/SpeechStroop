@@ -4,7 +4,9 @@ import { User, UserDocument } from 'src/model/user'
 export interface UpdateUserDTO {
   tel: string
   password: string
+  username: string
   name: string
+  surname: string
   email: string
   hnId: string
   lastFourId: string
@@ -32,7 +34,9 @@ export async function updateUser(
   const updatedUser = new User({
     tel: updateUserDTO.tel,
     password: updateUserDTO.password,
+    username: updateUserDTO.username,
     name: updateUserDTO.name,
+    surname: updateUserDTO.surname,
     email: updateUserDTO.email,
     hnId: updateUserDTO.hnId,
     lastFourId: updateUserDTO.lastFourId,

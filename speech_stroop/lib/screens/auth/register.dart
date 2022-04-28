@@ -15,7 +15,7 @@ PreconditionScore readingAbilityTest = PreconditionScore(0, DateTime.now());
 Precondition precondition =
     Precondition(true, colorVisibilityTest, readingAbilityTest, false);
 User registerReq = User(
-    '', '', '', '', DateTime.now(), '', '', userHealthScores, precondition);
+    '', '', '', '', '', '', DateTime.now(), '', '', userHealthScores, precondition);
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key key}) : super(key: key);
