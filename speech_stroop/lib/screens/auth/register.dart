@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+
+import 'package:speech_stroop/screens/auth/components/text_form_field.dart';
+import 'package:speech_stroop/screens/auth/register2.dart';
+
 import 'package:speech_stroop/components/button/floating_button.dart';
+import 'package:speech_stroop/components/appbar.dart';
+
 import 'package:speech_stroop/model/precondition.dart';
 import 'package:speech_stroop/model/user.dart';
-import 'package:speech_stroop/screens/auth/register2.dart';
-import 'package:speech_stroop/components/appbar.dart';
 
 UserHealthScore userHealthScores = UserHealthScore(0, 0);
 PreconditionScore colorVisibilityTest = PreconditionScore(0, DateTime.now());
@@ -22,13 +26,14 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController telController;
-  TextEditingController passwordController;
-  bool passwordVisibility;
-  TextEditingController confirmPasswordController;
-  bool confirmPasswordVisibility;
   final formGlobalKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  TextEditingController telController;
+  TextEditingController passwordController;
+  TextEditingController confirmPasswordController;
+  bool passwordVisibility;
+  bool confirmPasswordVisibility;
 
   @override
   void initState() {
@@ -59,41 +64,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     alignment: Alignment.topLeft,
                     child: Text(
                       """การสมัครสมาชิกจะประกอบไปด้วย 
-• การกรอกข้อมูลสำหรับเข้าสู่ระบบ
-• การกรอกข้อมูลเบื้องต้น
-• การกรอกข้อมูลด้านความเครียด
-• การกรอกข้อมูลด้านการนอนหลับ
-• การเตรียมความพร้อมก่อนทดสอบ""",
+    • การกรอกข้อมูลสำหรับเข้าสู่ระบบ
+    • การกรอกข้อมูลเบื้องต้น
+    • การกรอกข้อมูลด้านความเครียด
+    • การกรอกข้อมูลด้านการนอนหลับ
+    • การเตรียมความพร้อมก่อนทดสอบ""",
                       style: TextStyle(fontSize: 16, height: 2.0),
                     )),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                  child: TextFormField(
-                    controller: telController,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'เบอร์โทรศัพท์',
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Color(0xFFA7A5A5),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Color(0xFFA7A5A5),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w300,
-                    ),
-                    textAlign: TextAlign.start,
-                    keyboardType: TextInputType.phone,
-                    validator: (val) {
+                  child: TextFormFieldCustom(
+                    telController,
+                    'เบอร์โทรศัพท์',
+                    TextInputType.phone,
+                    (val) {
+                      //TODO: check if it's already been used
                       if (val.isEmpty) {
                         return 'โปรดระบุเบอร์โทรศัพท์';
                       }
@@ -105,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
-                    onChanged: (val) {
+                    (val) {
                       if (formGlobalKey.currentState.validate()) {
                         formGlobalKey.currentState.save();
                       }
@@ -224,8 +209,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         formGlobalKey.currentState.save();
                         if (passwordController.text ==
                             confirmPasswordController.text) {
-                          registerReq.tel = telController.text;
-                          registerReq.password = passwordController.text;
+
+                          setUserData();
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -233,10 +219,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       const Register2Screen()));
                         }
                       }
-                    })
-
-                    // NextButton('ถัดไป', )
-                    )
+                    }))
               ],
             ),
           ),
@@ -244,4 +227,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  setUserData() {
+    registerReq.tel = telController.text;
+    registerReq.password = passwordController.text;
+  }
+
 }
