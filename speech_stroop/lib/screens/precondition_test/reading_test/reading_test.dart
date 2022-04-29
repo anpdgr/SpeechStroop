@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:speech_stroop/components/button/mic_button.dart';
-import 'package:speech_stroop/components/microphone_test/fail_microphone_test.dart';
-import 'package:speech_stroop/screens/auth/register.dart';
-import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
-import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
+import 'package:speech_stroop/screens/auth/register.dart';
+import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
+import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
+
 import '../../../components/appbar.dart';
+import 'package:speech_stroop/components/microphone_test/fail_microphone_test.dart';
+import 'package:speech_stroop/components/button/mic_button.dart';
+
+import 'package:speech_stroop/theme.dart';
 import '../../../utils/speech_lib.dart';
 
 class ReadingTestScreen extends StatefulWidget {
@@ -25,17 +28,39 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   stt.SpeechToText speech;
 
   bool isListening = false;
-  String text = '';
-  double confidence = 1.0;
-  int answered = 0;
-  List textArr;
-  bool isCorrect = false;
-  List<SpeechRecognitionWords> valAlternates;
+  int answeredReadingTest = 0;
   int score = 0;
+  List<SpeechRecognitionWords> valAlternates;
+
+  bool isInterval = false;
+  String feedback = '';
+  String feedbackImg = '';
+  // String correctAnswerText = '';
+  String recogWordReadingTest = '';
+  Color stroopBackgroundColor;
+  Color problemWordColor = Colors.black;
+  String problemWord = colorsMapDefault.keys.toList()[0];
+
+  void setBackgroundColor() {
+    if (answeredReadingTest >= 0) {
+      switch (feedback) {
+        case '':
+          stroopBackgroundColor = const Color(0xFFF5F5F5);
+          break;
+        case 'ถูกต้อง':
+          stroopBackgroundColor = const Color(0xFF6FC2A0);
+          break;
+        case 'ผิด':
+          stroopBackgroundColor = const Color(0xFFDA4F2C);
+          break;
+      }
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    setBackgroundColor();
     speech = stt.SpeechToText();
   }
 
@@ -43,11 +68,11 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: const CustomAppBar('การทดสอบการอ่าน'),
+      appBar: isInterval ? null : const CustomAppBar('การทดสอบการอ่าน'),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: MicButton(isListening, listen),
+      floatingActionButton: isInterval ? null : MicButton(isListening, listen),
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFFBFBFF),
+      backgroundColor: stroopBackgroundColor,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -59,31 +84,44 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
-                    child: Text(
-                      '${answered + 1}/7',
-                      style: const TextStyle(
-                        color: Color(0xFF8F8F8F),
-                        fontSize: 36,
-                        fontWeight: FontWeight.w300,
-                      ),
+                    child: isInterval
+                        ? null
+                        : Text(
+                            '${answeredReadingTest + 1}/7',
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 36,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: Text(problemWord,
+                          style: TextStyle(
+                              color: problemWordColor,
+                              fontSize: 70,
+                              fontWeight: FontWeight.bold)),
                     ),
                   ),
-                  Align(
-                      // alignment: const AlignmentDirectional(0, 0),
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
-                        child: FittedBox(
-                          fit: BoxFit.cover,
-                          child: Text(colorsMapDefault.keys.toList()[answered],
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 70,
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                      )),
-                  Text(text)
+                  feedback != ''
+                      ? Image.asset(
+                          feedbackImg,
+                          width: 100,
+                          height: 100,
+                        )
+                      : Text(feedbackImg),
+                  Text(
+                    feedback,
+                    style: textTheme().headlineSmall,
+                  ),
+                  // Text(
+                  //   correctAnswerText,
+                  //   style: textTheme().headlineMedium,
+                  // )
                 ],
               ),
             ),
@@ -105,63 +143,89 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
       if (available) {
         setState(() => isListening = true);
         speech.listen(
-            onResult: onResultListen, localeId: 'th-TH', partialResults: true);
+            onResult: (val) => setState(() {
+                  recogWordReadingTest = val.recognizedWords;
+                }),
+            localeId: 'th-TH',
+            partialResults: true);
       }
     } else {
       setState(() {
         isListening = false;
       });
-      Future.delayed(const Duration(milliseconds: 800), () {
-        speech.stop();
-      });
+      speech.stop();
       navigatePage();
     }
   }
 
-  Future<void> onResultListen(val) async {
-    valAlternates = val.alternates;
-    if (isAnswerCorrect()) {
-      setState(() {
-        text = 'Correct!';
-      });
-    } else {
-      setState(() {
-        text = '';
-      });
-    }
+  void resetQuestion() {
+    problemWordColor = stroopBackgroundColor;
   }
 
-  bool isAnswerCorrect() {
-    for (var predictedResult in valAlternates) {
-      var predictedWord = predictedResult.recognizedWords;
-      if (predictedWord == colorsMapDefault.keys.toList()[answered]) {
-        isCorrect = true;
-        return isCorrect;
-      } else {
-        isCorrect = false;
+  void setNextQuestionValue() {
+    recogWordReadingTest = '';
+    // correctAnswerText = '';
+    feedback = '';
+    feedbackImg = '';
+    answeredReadingTest++;
+    problemWord = colorsMapDefault.keys.toList()[answeredReadingTest];
+    problemWordColor = Colors.black;
+  }
+
+  void checkAnswer() {
+    if (answeredReadingTest >= 0) {
+      // check answer
+      String correctAnswer = colorsMapDefault.keys.toList()[answeredReadingTest];
+      // correctAnswerText = 'เฉลย: $correctAnswer';
+
+      // correct answer
+      if (recogWordReadingTest == correctAnswer) {
+        setState(() {
+          score++;
+          feedback = 'ถูกต้อง';
+          feedbackImg = 'assets/images/correct.png';
+          setBackgroundColor();
+        });
+      }
+
+      // wrong answer
+      else {
+        setState(() {
+          feedback = 'ผิด';
+          feedbackImg = 'assets/images/wrong.png';
+          setBackgroundColor();
+        });
       }
     }
-    return false;
+    isInterval = true;
   }
 
   void navigatePage() {
-    isCorrect ? score++ : null;
-    isCorrect = false;
-    if (answered < 6) {
-      Future.delayed(const Duration(milliseconds: 800), () {
+    var durationDelayInterval = (answeredReadingTest == -1)
+        ? const Duration(milliseconds: 0)
+        : const Duration(milliseconds: 1500);
+
+    checkAnswer();
+    resetQuestion();
+
+    if (answeredReadingTest < 6) {
+      Future.delayed(durationDelayInterval, () {
         setState(() {
-          text = '';
-          answered++;
+          isInterval = false;
+          setNextQuestionValue();
+          setBackgroundColor();
         });
       });
     } else {
-      if (score < 7) {
+      Future.delayed(durationDelayInterval, () {
+        if (score < 7) {
         Navigator.pushNamed(context, FailReadingTestScreen.routeName);
-      } else {
-        precondition.readingAbilityTest.score = score;
+        } else {
+          precondition.readingAbilityTest.score = score;
         precondition.readingAbilityTest.date = DateTime.now();
         Navigator.pushNamed(context, PassReadingTestScreen.routeName);
-      }
+        }
+      });
     }
   }
 }
