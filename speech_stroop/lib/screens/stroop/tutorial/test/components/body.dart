@@ -190,10 +190,10 @@ class _BodyState extends State<Body> {
     for (var i = 0; i < congruent; i++) {
       condition = "congruent";
       // random index for WORD
-      idxName = rn.nextInt(colorsName.length);
+      idxName = rn.nextInt(stroopColorsName.length);
       // get WORD and COLOR code
-      String colorWord = colorsName[idxName];
-      Color colorCode = colorsCode[idxName];
+      String colorWord = stroopColorsName[idxName];
+      Color colorCode = stroopColorsCode[idxName];
 
       questionTemplate = Tuple3(colorWord, colorCode, condition);
       testTemplateTutorial.add(questionTemplate);
@@ -203,12 +203,12 @@ class _BodyState extends State<Body> {
     for (var i = 0; i < incongruent; i++) {
       condition = "incongruent";
       // random index for WORD
-      idxName = rn.nextInt(colorsName.length);
+      idxName = rn.nextInt(stroopColorsName.length);
       // get WORD
-      String colorWord = colorsName[idxName];
+      String colorWord = stroopColorsName[idxName];
       // build list of color without WORD (only for incongruent)
-      colorsCodeNoName = colorsCode
-          .where((code) => code != colorsMapDefault[colorsName[idxName]])
+      colorsCodeNoName = stroopColorsCode
+          .where((code) => code != stroopColorsMap[stroopColorsName[idxName]])
           .toList();
 
       // random index for COLOR code
@@ -279,9 +279,9 @@ class _BodyState extends State<Body> {
     bool isCorrect = false;
     if (answeredTutorial >= 0) {
       // check answer
-      String correctAnswer = colorsMapDefault.keys.firstWhere(
+      String correctAnswer = stroopColorsMap.keys.firstWhere(
           (k) =>
-              colorsMapDefault[k] ==
+              stroopColorsMap[k] ==
               testTemplateTutorial[answeredTutorial].item2,
           orElse: () => '');
       correctAnswerText = 'เฉลย: $correctAnswer';

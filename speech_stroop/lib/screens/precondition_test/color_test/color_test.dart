@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/precondition.dart';
 import 'package:speech_stroop/model/update_user.dart';
 import 'package:speech_stroop/model/user.dart';
@@ -41,7 +42,7 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   // String correctAnswerText = '';
   String recogWordColorTest = '';
   Color stroopBackgroundColor;
-  Color problemColor = colorsMapDefault.values.toList()[0];
+  Color problemColor = stroopColorsMap.values.toList()[0];
 
   void setBackgroundColor() {
     if (answeredColorTest >= 0) {
@@ -175,13 +176,13 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
     feedback = '';
     feedbackImg = '';
     answeredColorTest++;
-    problemColor = colorsMapDefault.values.toList()[answeredColorTest];
+    problemColor = stroopColorsMap.values.toList()[answeredColorTest];
   }
 
   void checkAnswer() {
     if (answeredColorTest >= 0) {
       // check answer
-      String correctAnswer = colorsMapDefault.keys.toList()[answeredColorTest];
+      String correctAnswer = stroopColorsMap.keys.toList()[answeredColorTest];
       // correctAnswerText = 'เฉลย: $correctAnswer';
 
       // correct answer

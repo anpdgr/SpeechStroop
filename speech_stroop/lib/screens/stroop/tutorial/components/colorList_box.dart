@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/theme.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
 
@@ -20,13 +21,13 @@ class colorListBox extends StatelessWidget {
                 Text(
                   'ม่วง',
                   style: textTheme().headlineSmall.apply(
-                      color: colorsMapDefault['ม่วง'], fontWeightDelta: 1),
+                      color: stroopColorsMap['ม่วง'], fontWeightDelta: 1),
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   'ฟ้า',
                   style: textTheme().headlineSmall.apply(
-                      color: colorsMapDefault['ฟ้า'], fontWeightDelta: 1),
+                      color: stroopColorsMap['ฟ้า'], fontWeightDelta: 1),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -37,13 +38,13 @@ class colorListBox extends StatelessWidget {
                 Text(
                   'เขียว',
                   style: textTheme().headlineSmall.apply(
-                      color: colorsMapDefault['เขียว'], fontWeightDelta: 1),
+                      color: stroopColorsMap['เขียว'], fontWeightDelta: 1),
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   'เหลือง',
                   style: textTheme().headlineSmall.apply(
-                      color: colorsMapDefault['เหลือง'], fontWeightDelta: 1),
+                      color: stroopColorsMap['เหลือง'], fontWeightDelta: 1),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -54,13 +55,13 @@ class colorListBox extends StatelessWidget {
                 Text(
                   'ส้ม',
                   style: textTheme().headlineSmall.apply(
-                      color: colorsMapDefault['ส้ม'], fontWeightDelta: 1),
+                      color: stroopColorsMap['ส้ม'], fontWeightDelta: 1),
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   'แดง',
                   style: textTheme().headlineSmall.apply(
-                      color: colorsMapDefault['แดง'], fontWeightDelta: 1),
+                      color: stroopColorsMap['แดง'], fontWeightDelta: 1),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -69,7 +70,7 @@ class colorListBox extends StatelessWidget {
               'ดำ',
               style: textTheme()
                   .headlineSmall
-                  .apply(color: colorsMapDefault['ดำ'], fontWeightDelta: 1),
+                  .apply(color: stroopColorsMap['ดำ'], fontWeightDelta: 1),
               textAlign: TextAlign.center,
             ),
           ],

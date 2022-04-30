@@ -21,7 +21,7 @@ class ExampleBox extends StatelessWidget {
               text,
               style: textTheme()
                   .displaySmall
-                  .apply(color: colorsMapDefault[color], fontWeightDelta: 3),
+                  .apply(color: stroopColorsMap[color], fontWeightDelta: 3),
               textAlign: TextAlign.center,
             ),
             Text(

@@ -15,27 +15,6 @@ List<SpeechRecognitionWords> valAlternates;
 var scores = {"congruent": 0, "incongruent": 0};
 var countTest = 0;
 
-Map colorsMapDefault = {
-  'แดง': const Color(0xFFDA5C54),
-  'ดำ': const Color(0xFF000000),
-  'เหลือง': const Color(0xFFECD933),
-  'เขียว': const Color(0xFF25CF55),
-  'ส้ม': const Color(0xFFEC8133),
-  'ฟ้า': const Color(0xFF72C4FF),
-  'ม่วง': const Color(0xFF8F00FF)
-};
-
-List colorsName = ['แดง', 'ดำ', 'เหลือง', 'เขียว', 'ส้ม', 'ฟ้า', 'ม่วง'];
-List colorsCode = const [
-  Color(0xFFDA5C54),
-  Color(0xFF000000),
-  Color(0xFFECD933),
-  Color(0xFF25CF55),
-  Color(0xFFEC8133),
-  Color(0xFF72C4FF),
-  Color(0xFF8F00FF)
-];
-
 void scoreCounting(bool isCorrect) {
   // count score for each questions
   if (answered >= 0 && isCorrect) {

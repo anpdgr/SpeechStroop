@@ -216,10 +216,10 @@ class _BodyState extends State<Body> {
     for (var i = 0; i < congruent; i++) {
       condition = "congruent";
       // random index for WORD
-      idxName = rn.nextInt(colorsName.length);
+      idxName = rn.nextInt(stroopColorsName.length);
       // get WORD and COLOR code
-      String colorWord = colorsName[idxName];
-      Color colorCode = colorsCode[idxName];
+      String colorWord = stroopColorsName[idxName];
+      Color colorCode = stroopColorsCode[idxName];
 
       questionTemplate = Tuple3(colorWord, colorCode, condition);
       testTemplate.add(questionTemplate);
@@ -229,12 +229,12 @@ class _BodyState extends State<Body> {
     for (var i = 0; i < incongruent; i++) {
       condition = "incongruent";
       // random index for WORD
-      idxName = rn.nextInt(colorsName.length);
+      idxName = rn.nextInt(stroopColorsName.length);
       // get WORD
-      String colorWord = colorsName[idxName];
+      String colorWord = stroopColorsName[idxName];
       // build list of color without WORD (only for incongruent)
-      colorsCodeNoName = colorsCode
-          .where((code) => code != colorsMapDefault[colorsName[idxName]])
+      colorsCodeNoName = stroopColorsCode
+          .where((code) => code != stroopColorsMap[stroopColorsName[idxName]])
           .toList();
 
       // random index for COLOR code
@@ -254,8 +254,8 @@ class _BodyState extends State<Body> {
     var i = 0;
     testTemplate.forEach((q) {
       i++;
-      int displayColorCodeIdx = colorsCode.indexOf(q.item2);
-      String displayColor = colorsName[displayColorCodeIdx];
+      int displayColorCodeIdx = stroopColorsCode.indexOf(q.item2);
+      String displayColor = stroopColorsName[displayColorCodeIdx];
       String displayWord = q.item1;
       questions.add(Question(i, {"color": displayColor, "word": displayWord},
           q.item3, displayColor, null, null, null, null));
@@ -305,8 +305,8 @@ class _BodyState extends State<Body> {
     bool isCorrect = false;
     if (answered >= 0) {
       // check answer
-      String correctAnswer = colorsMapDefault.keys.firstWhere(
-          (k) => colorsMapDefault[k] == testTemplate[answered].item2,
+      String correctAnswer = stroopColorsMap.keys.firstWhere(
+          (k) => stroopColorsMap[k] == testTemplate[answered].item2,
           orElse: () => '');
 
       // correct answer
