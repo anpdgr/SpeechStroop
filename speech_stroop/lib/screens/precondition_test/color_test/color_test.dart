@@ -122,9 +122,12 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
                           height: 100,
                         )
                       : Text(feedbackImg),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   Text(
                     feedback,
-                    style: textTheme().headlineSmall,
+                    style: textTheme().headlineSmall.apply(color: Colors.white),
                   ),
                   // Text(
                   //   correctAnswerText,
@@ -237,10 +240,15 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
 
   setPreconditionScore(int score) async {
     if (userProfile != null) {
-      PreconditionScore updatedColorAbilityTest = PreconditionScore(score, DateTime.now());
-      Precondition update = Precondition(userProfile.precondition.isColorBlind, updatedColorAbilityTest, userProfile.precondition.readingAbilityTest, userProfile.precondition.isPassAll);
-  
-      await updateUserPrecondition(update);      
+      PreconditionScore updatedColorAbilityTest =
+          PreconditionScore(score, DateTime.now());
+      Precondition update = Precondition(
+          userProfile.precondition.isColorBlind,
+          updatedColorAbilityTest,
+          userProfile.precondition.readingAbilityTest,
+          userProfile.precondition.isPassAll);
+
+      await updateUserPrecondition(update);
     } else {
       precondition.colorVisibilityTest.score = score;
       precondition.colorVisibilityTest.date = DateTime.now();

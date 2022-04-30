@@ -121,9 +121,12 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
                           height: 100,
                         )
                       : Text(feedbackImg),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   Text(
                     feedback,
-                    style: textTheme().headlineSmall,
+                    style: textTheme().headlineSmall.apply(color: Colors.white),
                   ),
                   // Text(
                   //   correctAnswerText,
@@ -182,8 +185,7 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   void checkAnswer() {
     if (answeredReadingTest >= 0) {
       // check answer
-      String correctAnswer =
-          stroopColorsMap.keys.toList()[answeredReadingTest];
+      String correctAnswer = stroopColorsMap.keys.toList()[answeredReadingTest];
       // correctAnswerText = 'เฉลย: $correctAnswer';
 
       // correct answer

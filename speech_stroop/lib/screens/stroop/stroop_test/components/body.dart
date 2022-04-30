@@ -164,9 +164,12 @@ class _BodyState extends State<Body> {
                           height: 100,
                         )
                       : Text(feedbackImg),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   Text(
                     feedback,
-                    style: textTheme().headlineSmall,
+                    style: textTheme().headlineSmall.apply(color: Colors.white),
                   ),
                 ],
               ),

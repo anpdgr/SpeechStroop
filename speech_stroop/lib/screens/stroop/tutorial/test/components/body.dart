@@ -17,12 +17,10 @@ import 'package:speech_stroop/utils/loggger.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/theme.dart';
 
-
 List<Tuple3<String, Color, String>> testTemplateTutorial;
 int answeredTutorial = -1;
 List<Question> questionsTutorial = [];
 String recogWordTutorial = '';
-
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -157,7 +155,12 @@ class _BodyState extends State<Body> {
                           height: 100,
                         )
                       : Text(feedbackImg),
-                  Text(feedback, style: textTheme().headlineSmall,),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(feedback,
+                      style:
+                          textTheme().headlineSmall.apply(color: Colors.white)),
                   Text(
                     correctAnswerText,
                     style: textTheme().headlineMedium,
