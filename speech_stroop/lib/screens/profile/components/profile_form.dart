@@ -23,7 +23,6 @@ class ProfileFormState extends State<ProfileForm> {
   TextEditingController dobController;
   bool profileFormEnabled;
 
-  bool isChecked = false;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formGlobalKey = GlobalKey<FormState>();
@@ -215,6 +214,7 @@ class ProfileFormState extends State<ProfileForm> {
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButtonFormField(
                     decoration: InputDecoration(
+                      enabled: profileFormEnabled,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
                     ),
@@ -253,6 +253,7 @@ class ProfileFormState extends State<ProfileForm> {
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButtonFormField(
                     decoration: InputDecoration(
+                      enabled: profileFormEnabled,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
                     ),
@@ -354,8 +355,11 @@ class ProfileFormState extends State<ProfileForm> {
                                   () async => {
                                     updateUser.name = nameController.text,
                                     updateUser.email = emailController.text,
-                                    // updateUser.dateOfBirth = ,
-                                    // updateUser.gender = gende
+                                    updateUser.dateOfBirth =
+                                        currentUser.dateOfBirth,
+                                    updateUser.gender = currentUser.gender,
+                                    updateUser.education =
+                                        currentUser.education,
                                     print({
                                       "tel": updateUser.tel,
                                       "name": updateUser.name,
