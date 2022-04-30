@@ -1,59 +1,33 @@
 import { ObjectId } from 'mongodb'
-import { User, UserDocument } from 'src/model/user'
+import { User } from 'src/model/user'
 
 export interface UpdateUserDTO {
-  tel: string
-  password: string
-  username: string
-  name: string
-  surname: string
-  email: string
-  hnId: string
-  lastFourId: string
-  dateOfBirth: Date
-  gender: string
-  education: string
-  historyId: [ObjectId]
-  badge: [ObjectId]
-  preconditionId: ObjectId
-  healthScores: {
-    stress: number
-    sleep: number
+  tel?: string
+  name?: string
+  email?: string
+  dateOfBirth?: Date
+  gender?: string
+  education?: string
+  precondition?: {
+    isColorBlind: boolean
+    colorVisibilityTest: {
+      score: number
+      date: Date
+    }
+    readingAbilityTest: {
+      score: number
+      date: Date
+    }
+    isPassAll: boolean
   }
-  createdAt: Date
-  updatedAt: Date
+  updatedAt?: Date
 }
 
 export async function updateUser(
   updateUserDTO: UpdateUserDTO,
   userID: ObjectId,
-): Promise<UserDocument> {
-  // TODO: validate register request body
+): Promise<any> {
+  await User.updateOne({ _id: userID }, updateUserDTO)
   console.log(updateUserDTO)
-
-  const updatedUser = new User({
-    tel: updateUserDTO.tel,
-    password: updateUserDTO.password,
-    username: updateUserDTO.username,
-    name: updateUserDTO.name,
-    surname: updateUserDTO.surname,
-    email: updateUserDTO.email,
-    hnId: updateUserDTO.hnId,
-    lastFourId: updateUserDTO.lastFourId,
-    dateOfBirth: updateUserDTO.dateOfBirth,
-    gender: updateUserDTO.gender,
-    education: updateUserDTO.education,
-    historyId: updateUserDTO.historyId,
-    badge: updateUserDTO.badge,
-    preconditionId: updateUserDTO.preconditionId,
-    // healthScores: {
-    //   stress: updateUserDTO.healthScores.stress,
-    //   sleep: updateUserDTO.healthScores.sleep,
-    // },
-  })
-  const query = { tel: updateUserDTO.tel }
-
-  User.findOneAndUpdate(query, { $set: updatedUser })
-  console.log(updatedUser)
-  return updatedUser
+  return updateUserDTO
 }

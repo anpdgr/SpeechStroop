@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/model/auth.dart';
+import 'package:speech_stroop/model/update_user.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/auth/login.dart';
 import 'package:speech_stroop/screens/profile/components/precondition_box.dart';
@@ -14,9 +15,28 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  UpdateUser updateUser = UpdateUser(
+    tel: userProfile.tel,
+    name: userProfile.name,
+    email: userProfile.email,
+    dateOfBirth: userProfile.dateOfBirth,
+    gender: userProfile.gender,
+    education: userProfile.education,
+    precondition: userProfile.precondition,
+  );
   @override
   void initState() {
-    getUserProfile();
+    getUserProfile(false);
+    updateUser = UpdateUser(
+      tel: userProfile.tel,
+      name: userProfile.name,
+      email: userProfile.email,
+      dateOfBirth: userProfile.dateOfBirth,
+      gender: userProfile.gender,
+      education: userProfile.education,
+      precondition: userProfile.precondition,
+    );
+
     super.initState();
   }
 
@@ -38,7 +58,7 @@ class _BodyState extends State<Body> {
               ),
             ),
             const SizedBox(height: 5),
-            const ProfileForm(),
+            ProfileForm(updateUser),
             const SizedBox(height: 30),
             PreconditionBox("ทดสอบการจำแนกสี",
                 userProfile.precondition.colorVisibilityTest),
