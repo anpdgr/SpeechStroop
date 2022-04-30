@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/model/precondition.dart';
+import 'package:speech_stroop/model/update_user.dart';
+import 'package:speech_stroop/model/user.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -95,16 +98,19 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
                             ),
                           ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Text(problemWord,
-                          style: TextStyle(
-                              color: problemWordColor,
-                              fontSize: 70,
-                              fontWeight: FontWeight.bold)),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Text(problemWord,
+                            style: TextStyle(
+                                color: problemWordColor,
+                                fontSize: 70,
+                                fontWeight: FontWeight.bold)),
+                      ),
                     ),
                   ),
                   feedback != ''
@@ -175,7 +181,8 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   void checkAnswer() {
     if (answeredReadingTest >= 0) {
       // check answer
-      String correctAnswer = colorsMapDefault.keys.toList()[answeredReadingTest];
+      String correctAnswer =
+          colorsMapDefault.keys.toList()[answeredReadingTest];
       // correctAnswerText = 'เฉลย: $correctAnswer';
 
       // correct answer
@@ -217,15 +224,31 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
         });
       });
     } else {
-      Future.delayed(durationDelayInterval, () {
+      Future.delayed(durationDelayInterval, () async {
         if (score < 7) {
-        Navigator.pushNamed(context, FailReadingTestScreen.routeName);
+          Navigator.pushNamed(context, FailReadingTestScreen.routeName);
         } else {
-          precondition.readingAbilityTest.score = score;
-        precondition.readingAbilityTest.date = DateTime.now();
-        Navigator.pushNamed(context, PassReadingTestScreen.routeName);
+          await setPreconditionScore(score);
+          Navigator.pushNamed(context, PassReadingTestScreen.routeName);
         }
       });
+    }
+  }
+
+  setPreconditionScore(int score) async {
+    if (userProfile != null) {
+      PreconditionScore updatedReadingAbilityTest =
+          PreconditionScore(score, DateTime.now());
+      Precondition update = Precondition(
+          userProfile.precondition.isColorBlind,
+          userProfile.precondition.colorVisibilityTest,
+          updatedReadingAbilityTest,
+          userProfile.precondition.isPassAll);
+
+      await updateUserPrecondition(update);
+    } else {
+      precondition.readingAbilityTest.score = score;
+      precondition.readingAbilityTest.date = DateTime.now();
     }
   }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/model/precondition.dart';
+import 'package:speech_stroop/model/update_user.dart';
+import 'package:speech_stroop/model/user.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -94,16 +97,19 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
                             ),
                           ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
-                    child: SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: problemColor,
-                          borderRadius: BorderRadius.circular(10),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                      child: SizedBox(
+                        width: 200,
+                        height: 200,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: problemColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
                       ),
                     ),
@@ -221,11 +227,22 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
         if (score < 7) {
           Navigator.pushNamed(context, FailColorTestScreen.routeName);
         } else {
-          precondition.colorVisibilityTest.score = score;
-          precondition.colorVisibilityTest.date = DateTime.now();
+          setPreconditionScore(score);
           Navigator.pushNamed(context, PassColorTestScreen.routeName);
         }
       });
+    }
+  }
+
+  setPreconditionScore(int score) async {
+    if (userProfile != null) {
+      PreconditionScore updatedColorAbilityTest = PreconditionScore(score, DateTime.now());
+      Precondition update = Precondition(userProfile.precondition.isColorBlind, updatedColorAbilityTest, userProfile.precondition.readingAbilityTest, userProfile.precondition.isPassAll);
+  
+      await updateUserPrecondition(update);      
+    } else {
+      precondition.colorVisibilityTest.score = score;
+      precondition.colorVisibilityTest.date = DateTime.now();
     }
   }
 }

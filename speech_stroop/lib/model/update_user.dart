@@ -69,3 +69,25 @@ updateUserProfile(UpdateUser updatedUser) async {
 
   return updatedUser;
 }
+
+updateUserPrecondition(Precondition updatedPreconditionValue) async {
+  String token = auth.token;
+  var updatePrecondition = {"precondition": updatedPreconditionValue};
+  print("jsonEncode(updatedUser):" + jsonEncode(updatePrecondition));
+  var res = await http.patch(Uri.parse("http://localhost:3000/user/profile"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(updatePrecondition));
+
+  print("patch: /user/profile " + res.statusCode.toString());
+
+  //TODO: handle
+  if (res.statusCode == 200) {
+    print(res.body);
+    await getUserProfile(true);
+  } else {}
+
+  return updatePrecondition;
+}
