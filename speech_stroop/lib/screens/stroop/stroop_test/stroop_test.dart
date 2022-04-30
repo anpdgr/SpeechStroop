@@ -6,8 +6,10 @@ import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 
 import 'package:speech_stroop/screens/stroop/stroop_test/components/flutter_sound.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/components/stroop_combination.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_combination.dart';
 
+// answer
+int answered = -1;
 // latest test
 History latestTest;
 // section
@@ -22,8 +24,6 @@ List<Question> questions = [];
 int totalScore = 0;
 // build test
 List<StroopQuestion> testTemplate;
-int level = 0;
-List<int> prevLevel = [];
 String recogWord = '';
 // stopwatch
 Stopwatch stopwatchRT = Stopwatch();

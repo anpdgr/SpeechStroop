@@ -16,7 +16,7 @@ import 'package:speech_stroop/components/microphone_test/fail_microphone_test.da
 import 'package:speech_stroop/components/button/mic_button.dart';
 
 import 'package:speech_stroop/theme.dart';
-import '../../stroop/stroop_test/components/speech_lib.dart';
+import '../../stroop/stroop_test/stroopHelper/speech_check.dart';
 
 class ReadingTestScreen extends StatefulWidget {
   const ReadingTestScreen({Key key}) : super(key: key);
@@ -34,7 +34,6 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   bool isListening = false;
   int answeredReadingTest = 0;
   int score = 0;
-  List<SpeechRecognitionWords> valAlternates;
 
   bool isInterval = false;
   String feedback = '';

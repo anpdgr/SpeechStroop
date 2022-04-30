@@ -16,7 +16,7 @@ import 'package:speech_stroop/components/microphone_test/fail_microphone_test.da
 import 'package:speech_stroop/components/button/mic_button.dart';
 
 import 'package:speech_stroop/theme.dart';
-import '../../stroop/stroop_test/components/speech_lib.dart';
+import '../../stroop/stroop_test/stroopHelper/speech_check.dart';
 
 class ColorTestScreen extends StatefulWidget {
   const ColorTestScreen({Key key}) : super(key: key);
@@ -34,7 +34,6 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   bool isListening = false;
   int answeredColorTest = 0;
   int score = 0;
-  List<SpeechRecognitionWords> valAlternates;
 
   bool isInterval = false;
   String feedback = '';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/theme.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/components/speech_lib.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/speech_check.dart';
 
 class colorListBox extends StatelessWidget {
   colorListBox();
@@ -26,8 +26,9 @@ class colorListBox extends StatelessWidget {
                 ),
                 Text(
                   'ฟ้า',
-                  style: textTheme().headlineSmall.apply(
-                      color: stroopColorsMap['ฟ้า'], fontWeightDelta: 1),
+                  style: textTheme()
+                      .headlineSmall
+                      .apply(color: stroopColorsMap['ฟ้า'], fontWeightDelta: 1),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -54,14 +55,16 @@ class colorListBox extends StatelessWidget {
               children: [
                 Text(
                   'ส้ม',
-                  style: textTheme().headlineSmall.apply(
-                      color: stroopColorsMap['ส้ม'], fontWeightDelta: 1),
+                  style: textTheme()
+                      .headlineSmall
+                      .apply(color: stroopColorsMap['ส้ม'], fontWeightDelta: 1),
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   'แดง',
-                  style: textTheme().headlineSmall.apply(
-                      color: stroopColorsMap['แดง'], fontWeightDelta: 1),
+                  style: textTheme()
+                      .headlineSmall
+                      .apply(color: stroopColorsMap['แดง'], fontWeightDelta: 1),
                   textAlign: TextAlign.center,
                 ),
               ],

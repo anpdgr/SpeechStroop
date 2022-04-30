@@ -44,6 +44,9 @@ class APIPath {
   final user = "/user";
 }
 
+// Tutorial
+int tutorialQuestionsAmount = 20;
+
 // Stroop
 int stroopQuestionsAmount = 20;
 int stroopQuestionDurationMs = 3000; //3000;

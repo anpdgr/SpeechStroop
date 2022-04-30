@@ -5,15 +5,16 @@ import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/flutter_sound.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/components/stroop_combination.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_background.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_combination.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_template.dart';
 import 'package:speech_stroop/theme.dart';
 import 'package:speech_stroop/utils/loggger.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/components/speech_lib.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/speech_check.dart';
 import 'package:speech_stroop/utils/time.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:tuple/tuple.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
-import 'dart:math';
 import 'dart:core';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
@@ -31,7 +32,6 @@ class _BodyState extends State<Body> {
   bool isListening = false;
   String feedback = '';
   String feedbackImg = '';
-  List textArr;
   String problem = '';
   Color problemColor = backgroundColor;
   List<Color> stroopBackgroundColor;
@@ -39,7 +39,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    setBackgroundColor();
+    stroopBackgroundColor = setBackgroundColor(answered, feedback);
     speech = stt.SpeechToText();
 
     if (recordAudioDateTime == "") {
@@ -53,36 +53,6 @@ class _BodyState extends State<Body> {
     });
 
     recordAudio.openRecorder();
-  }
-
-  void setBackgroundColor() {
-    if (answered >= 0) {
-      switch (feedback) {
-        case '':
-          stroopBackgroundColor = [
-            const Color(0xFFF5F5F5),
-            const Color(0xFFF5F5F5)
-          ];
-          break;
-        case 'ถูกต้อง':
-          stroopBackgroundColor = [
-            const Color(0xFF6FC2A0),
-            const Color(0xFF6FC2A0)
-          ];
-          break;
-        case 'ผิด':
-          stroopBackgroundColor = [
-            const Color(0xFFDA4F2C),
-            const Color(0xFFDA4F2C)
-          ];
-          break;
-      }
-    } else {
-      stroopBackgroundColor = [
-        const Color(0xff503B7F),
-        const Color(0xffEB8D8D)
-      ];
-    }
   }
 
   @override
@@ -149,7 +119,9 @@ class _BodyState extends State<Body> {
                                           const Duration(milliseconds: 1500)),
                                 ],
                                 onFinished: () {
-                                  buildTest();
+                                  testTemplate =
+                                      buildTest(false, sectionNumber);
+                                  initQuestions(testTemplate);
                                   stopwatchAudio.reset();
                                   stopwatchAudio.start();
                                   recordAudio.getRecorderFn()();
@@ -180,95 +152,11 @@ class _BodyState extends State<Body> {
     );
   }
 
-  List<StroopQuestion> randomTest(int congruentAmount, int incongruentAmount) {
-    final rn = Random();
-    List<StroopQuestion> questions = [];
-
-    for (var i = 0; i < congruentAmount; i++) {
-      var conQuestion =
-          stroopCongruentQuestions[rn.nextInt(stroopCongruentQuestions.length)];
-      questions.add(conQuestion);
-    }
-
-    for (var i = 0; i < incongruentAmount; i++) {
-      var inconQuestion = stroopIncongruentQuestions[
-          rn.nextInt(stroopIncongruentQuestions.length)];
-
-      if (!questions.contains(inconQuestion)) {
-        questions.add(inconQuestion);
-      } else {
-        i--;
-      }
-    }
-    return questions;
-  }
-
-  List<StroopQuestion> shuffleTest(List<StroopQuestion> questions) {
-    List<StroopQuestion> shuffled = [];
-    int curr = 0;
-    int prev = -1;
-
-    final rn = Random();
-
-    questions.shuffle();
-
-    // prevent same question being next to each other
-    for (StroopQuestion q in questions) {
-      curr = q.index;
-      if (curr == prev) {
-        // หยิบใหม่
-        List<StroopQuestion> filtered = stroopAllQuestions
-            .where((elem) =>
-                (elem.condition == q.condition && elem.index != q.index))
-            .toList();
-        int randomIdx = rn.nextInt(filtered.length - 1);
-        q = filtered[randomIdx];
-        curr = q.index;
-      }
-      shuffled.add(q);
-      prev = curr;
-    }
-    return shuffled;
-  }
-
-  void buildTest() {
-    Random rn = Random();
-    int congruent = 0, incongruent = 0;
-
-    testTemplate = [];
+  // for db
+  void initQuestions(List<StroopQuestion> template) {
     questions = [];
-
-    // random level
-    do {
-      level = rn.nextInt(4);
-    } while (prevLevel.contains(level) || level == 0);
-    prevLevel.add(level);
-    if (sectionNumber == 3) {
-      prevLevel.clear();
-    }
-
-    switch (level) {
-      case 1:
-        congruent = 14;
-        incongruent = 6;
-        break;
-      case 2:
-        congruent = 10;
-        incongruent = 10;
-        break;
-      case 3:
-        congruent = 6;
-        incongruent = 14;
-        break;
-      default:
-    }
-
-    testTemplate = randomTest(congruent, incongruent);
-    testTemplate = shuffleTest(testTemplate);
-
-    // for db
     var i = 0;
-    for (var q in testTemplate) {
+    for (var q in template) {
       i++;
       questions.add(Question(i, {"color": q.color, "word": q.word}, q.condition,
           q.color, null, null, null, null));
@@ -304,62 +192,17 @@ class _BodyState extends State<Body> {
     }
   }
 
-  void checkAnswer() {
-    bool isCorrect = false;
-    if (answered >= 0) {
-      // check answer
-      String correctAnswer = testTemplate[answered].color;
-
-      String realRecogWord = recogWord;
-
-      // check entire recogWord
-      if (similarWords[correctAnswer].contains(recogWord)) {
-        isCorrect = true;
-        recogWord = correctAnswer;
+  void setFeedback(bool isCorrect) {
+    setState(() {
+      if (isCorrect) {
+        feedback = 'ถูกต้อง';
+        feedbackImg = 'assets/images/correct.png';
       } else {
-        // check some part of recogWord
-        for (Tuple2 t in allSimilarWords) {
-          if (recogWord.contains(t.item2)) {
-            recogWord = recogWord.replaceAll(t.item2, ' ${t.item1} ');
-          }
-        }
-        List<String> splitRecogWord =
-            recogWord.split(" ").where((e) => e != '').toList();
-
-        recogWord = splitRecogWord.join();
-
-        for (String word in splitRecogWord) {
-          if (similarWords.keys.toList().contains(word)) {
-            if (word == correctAnswer) {
-              isCorrect = true;
-            }
-            break;
-          }
-        }
+        feedback = 'ผิด';
+        feedbackImg = 'assets/images/wrong.png';
       }
-
-      setState(() {
-        if (isCorrect) {
-          feedback = 'ถูกต้อง';
-          feedbackImg = 'assets/images/correct.png';
-        } else {
-          feedback = 'ผิด';
-          feedbackImg = 'assets/images/wrong.png';
-        }
-        setBackgroundColor();
-      });
-
-      loggerNoStack.d(
-        {
-          'answered': answered,
-          'feedback': feedback,
-          'recogWord': realRecogWord,
-          'userAnswer': recogWord,
-          'correctAnswer': correctAnswer
-        },
-      );
-      scoreCounting(isCorrect);
-    }
+      stroopBackgroundColor = setBackgroundColor(answered, feedback);
+    });
   }
 
   void resetQuestion() {
@@ -402,10 +245,25 @@ class _BodyState extends State<Body> {
       setState(() {
         isListening = false;
       });
-      checkAnswer();
+
+      Tuple2<bool, String> checkAnswerOutput =
+          checkAnswer(recogWord, answered, testTemplate);
+      bool isCorrect = checkAnswerOutput.item1;
+      String finalRecogWord = checkAnswerOutput.item2;
+
       if (answered >= 0) {
-        questions[answered].userAnswer = recogWord;
+        setFeedback(isCorrect);
+        scoreCounting(isCorrect);
+        questions[answered].userAnswer = finalRecogWord;
+        loggerNoStack.d({
+          'answered': answered,
+          'isCorrect': isCorrect,
+          'recogWord': recogWord,
+          'userAnswer': finalRecogWord,
+          "correctAnswer": testTemplate[answered].color,
+        });
       }
+
       resetQuestion();
 
       // prepare for the next question
@@ -413,7 +271,7 @@ class _BodyState extends State<Body> {
         Future.delayed(durationDelayInterval, () async {
           setState(() {
             setNextQuestionValue();
-            setBackgroundColor();
+            stroopBackgroundColor = setBackgroundColor(answered, feedback);
           });
           startNextQuestion();
         });

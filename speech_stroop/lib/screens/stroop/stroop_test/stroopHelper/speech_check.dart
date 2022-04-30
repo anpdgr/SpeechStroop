@@ -1,16 +1,45 @@
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_combination.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
-import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:tuple/tuple.dart';
 
-int answered = -1;
-List textArr;
-bool isCorrect = false;
-int scorePerSection = 0;
-int scorePerQuestion = 0;
-List<SpeechRecognitionWords> valAlternates;
 var scores = {"congruent": 0, "incongruent": 0};
-var countTest = 0;
+
+Tuple2<bool, String> checkAnswer(
+    String recogWord, int answered, List<StroopQuestion> template) {
+  bool isCorrect = false;
+  if (answered >= 0) {
+    String correctAnswer = template[answered].color;
+
+    // check entire recogWord
+    if (similarWords[correctAnswer].contains(recogWord)) {
+      isCorrect = true;
+      recogWord = correctAnswer;
+    } else {
+      // check some part of recogWord
+      for (Tuple2 t in allSimilarWords) {
+        if (recogWord.contains(t.item2)) {
+          recogWord = recogWord.replaceAll(t.item2, ' ${t.item1} ');
+        }
+      }
+      List<String> splitRecogWord =
+          recogWord.split(" ").where((e) => e != '').toList();
+
+      recogWord = splitRecogWord.join();
+
+      for (String word in splitRecogWord) {
+        if (similarWords.keys.toList().contains(word)) {
+          if (word == correctAnswer) {
+            isCorrect = true;
+          }
+          break;
+        }
+      }
+    }
+  }
+  return Tuple2(isCorrect, recogWord);
+}
 
 void scoreCounting(bool isCorrect) {
   // count score for each questions

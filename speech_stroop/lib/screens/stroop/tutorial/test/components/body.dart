@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_background.dart';
 import 'package:tuple/tuple.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -37,7 +38,6 @@ class _BodyState extends State<Body> {
   String correctAnswerText = '';
   String feedback = '';
   String feedbackImg = '';
-  List textArr;
   String problem = '';
   Color problemColor = backgroundColor;
   List<Color> stroopBackgroundColor;
@@ -45,38 +45,8 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    setBackgroundColor();
+    stroopBackgroundColor = setBackgroundColor(answeredTutorial, feedback);
     speech = stt.SpeechToText();
-  }
-
-  void setBackgroundColor() {
-    if (answeredTutorial >= 0) {
-      switch (feedback) {
-        case '':
-          stroopBackgroundColor = [
-            const Color(0xFFF5F5F5),
-            const Color(0xFFF5F5F5)
-          ];
-          break;
-        case 'ถูกต้อง':
-          stroopBackgroundColor = [
-            const Color(0xFF6FC2A0),
-            const Color(0xFF6FC2A0)
-          ];
-          break;
-        case 'ผิด':
-          stroopBackgroundColor = [
-            const Color(0xFFDA4F2C),
-            const Color(0xFFDA4F2C)
-          ];
-          break;
-      }
-    } else {
-      stroopBackgroundColor = [
-        const Color(0xff503B7F),
-        const Color(0xffEB8D8D)
-      ];
-    }
   }
 
   @override
@@ -182,9 +152,6 @@ class _BodyState extends State<Body> {
 
     testTemplateTutorial = [];
     questionsTutorial = [];
-
-    congruent = 2;
-    incongruent = 3;
 
     String condition;
 
@@ -294,7 +261,8 @@ class _BodyState extends State<Body> {
           isCorrect = true;
           feedback = 'ถูกต้อง';
           feedbackImg = 'assets/images/correct.png';
-          setBackgroundColor();
+          stroopBackgroundColor =
+              setBackgroundColor(answeredTutorial, feedback);
         });
       }
 
@@ -304,7 +272,8 @@ class _BodyState extends State<Body> {
           isCorrect = false;
           feedback = 'ผิด';
           feedbackImg = 'assets/images/wrong.png';
-          setBackgroundColor();
+          stroopBackgroundColor =
+              setBackgroundColor(answeredTutorial, feedback);
         });
       }
 
@@ -336,17 +305,18 @@ class _BodyState extends State<Body> {
       checkAnswer();
       resetQuestion();
       // prepare for the next question
-      if (answeredTutorial < 5 - 1) {
+      if (answeredTutorial < tutorialQuestionsAmount - 1) {
         Future.delayed(durationDelayInterval, () async {
           setState(() {
             setNextQuestionValue();
-            setBackgroundColor();
+            stroopBackgroundColor =
+                setBackgroundColor(answeredTutorial, feedback);
           });
           startNextQuestion();
         });
       }
       // end of each sections
-      else if (answeredTutorial == 5 - 1) {
+      else if (answeredTutorial == tutorialQuestionsAmount - 1) {
         Future.delayed(durationDelayInterval, () async {
           Navigator.pushNamed(context, TutorialDoneScreen.routeName);
         });

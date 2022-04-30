@@ -11,7 +11,7 @@ import 'package:speech_stroop/screens/stroop/healthRating/components/health_slid
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 import 'package:speech_stroop/theme.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/components/speech_lib.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/speech_check.dart';
 
 class Body extends StatefulWidget {
   final String appbarTitle;
