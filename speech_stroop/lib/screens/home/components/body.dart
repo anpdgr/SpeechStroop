@@ -16,7 +16,6 @@ class Body extends StatefulWidget {
   _BodyState createState() => _BodyState();
 }
 
-bool wantTutorial = false;
 String userName = '';
 String dstMicTest = '';
 
@@ -213,25 +212,6 @@ class _BodyState extends State<Body> {
                             () => Navigator.pushNamed(
                                 context, BreakScreen.routeName))
                       ]),
-                    ),
-                    Row(
-                      children: [
-                        Checkbox(
-                          checkColor: Colors.white,
-                          fillColor:
-                              MaterialStateProperty.resolveWith(getColor),
-                          value: wantTutorial,
-                          onChanged: (bool value) {
-                            setState(() {
-                              wantTutorial = value;
-                            });
-                          },
-                        ),
-                        Flexible(
-                          child: Text("ไม่ต้องแสดงอีก",
-                              style: Theme.of(context).textTheme.labelMedium),
-                        ),
-                      ],
                     ),
                   ],
                 ),
