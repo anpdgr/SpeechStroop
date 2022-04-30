@@ -255,6 +255,13 @@ class _BodyState extends State<Body> {
         setFeedback(isCorrect);
         scoreCounting(isCorrect);
         questions[answered].userAnswer = finalRecogWord;
+
+        if (questions[answered].userAnswer == '' ||
+            questions[answered].userAnswer == null) {
+          questions[answered].reactionTimeMs = null;
+          questions[answered].answerAt = null;
+        }
+
         loggerNoStack.d({
           'answered': answered,
           'isCorrect': isCorrect,

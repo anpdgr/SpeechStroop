@@ -63,7 +63,6 @@ void scoreCounting(bool isCorrect) {
         : (notEmptyReactionTime.reduce((a, b) => a + b)) /
             notEmptyReactionTimeLength;
 
-    //TODO: add audioUrl
     var section =
         Section(sectionNumber, scores, avgReactionTime, questions, "audioUrl");
     sections.add(section);
