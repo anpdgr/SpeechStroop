@@ -13,8 +13,8 @@ ThemeData theme() {
 }
 
 InputDecorationTheme inputDecorationTheme() {
-  OutlineInputBorder outlineInputBorder = OutlineInputBorder();
-  return InputDecorationTheme();
+  OutlineInputBorder outlineInputBorder = const OutlineInputBorder();
+  return const InputDecorationTheme();
 }
 
 TextTheme textTheme() {
@@ -66,31 +66,37 @@ TextTheme textTheme() {
     ),
     labelLarge: TextStyle(
       color: primaryColor,
+      fontWeight: FontWeight.w500,
       fontSize: 14.0,
     ),
     labelMedium: TextStyle(
       color: primaryColor,
+      fontWeight: FontWeight.w500,
       fontSize: 12.0,
     ),
     labelSmall: TextStyle(
       color: primaryColor,
+      fontWeight: FontWeight.w500,
       fontSize: 12.0,
     ),
     bodyLarge: TextStyle(
       color: primaryColor,
+      fontWeight: FontWeight.w500,
       fontSize: 16.0,
     ),
     bodyMedium: TextStyle(
       color: primaryColor,
+      fontWeight: FontWeight.w500,
       fontSize: 14.0,
     ),
     bodySmall: TextStyle(
       color: primaryColor,
+      fontWeight: FontWeight.w500,
       fontSize: 12.0,
     ),
   );
 }
 
 AppBarTheme appBarTheme() {
-  return AppBarTheme();
+  return const AppBarTheme();
 }

@@ -8,7 +8,9 @@ class User {
   String _id;
   String tel;
   String password;
+  String username;
   String name;
+  String surname;
   String email;
   String hnId;
   String lastFourId;
@@ -22,7 +24,9 @@ class User {
 
   User(
     this.tel,
+    this.username,
     this.name,
+    this.surname,
     this.email,
     this.lastFourId,
     this.dateOfBirth,
@@ -45,7 +49,9 @@ class User {
 
     return User(
       json['tel'] as String,
+      json['username'] as String,
       json['name'] as String,
+      json['surname'] as String,
       json['email'] as String,
       json['lastFourId'] as String,
       DateTime.parse(json['dateOfBirth'] as String),
@@ -63,7 +69,9 @@ class User {
   Map<String, dynamic> toJson() {
     return {
       "tel": tel,
+      "username": username,
       "name": name,
+      "surname": surname,
       "email": email,
       "lastFourId": lastFourId,
       "dateOfBirth": dateOfBirth.toIso8601String(),

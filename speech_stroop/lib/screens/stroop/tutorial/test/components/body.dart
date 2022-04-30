@@ -1,20 +1,29 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:speech_stroop/components/button/mic_button.dart';
-import 'package:speech_stroop/constants.dart';
-import 'package:speech_stroop/screens/stroop/tutorial/done_screen.dart';
-import 'package:speech_stroop/theme.dart';
-import 'package:speech_stroop/utils/loggger.dart';
-import 'package:speech_stroop/utils/speech_lib.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:tuple/tuple.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'dart:math';
 import 'dart:core';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:tuple/tuple.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:animated_text_kit/animated_text_kit.dart';
+
+import 'package:speech_stroop/screens/stroop/tutorial/done_screen.dart';
+
+import 'package:speech_stroop/components/button/mic_button.dart';
+
+import 'package:speech_stroop/model/test_module/question.dart';
+
+import 'package:speech_stroop/utils/loggger.dart';
+import 'package:speech_stroop/utils/speech_lib.dart';
+
+import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/theme.dart';
+
 
 List<Tuple3<String, Color, String>> testTemplateTutorial;
 int answeredTutorial = -1;
+List<Question> questionsTutorial = [];
+String recogWordTutorial = '';
+
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -170,7 +179,7 @@ class _BodyState extends State<Body> {
     Tuple3<String, Color, String> questionTemplate;
 
     testTemplateTutorial = [];
-    questions = [];
+    questionsTutorial = [];
 
     congruent = 2;
     incongruent = 3;
@@ -236,7 +245,8 @@ class _BodyState extends State<Body> {
         setState(() => isListening = true);
         speech.listen(
           onResult: (val) => setState(() {
-            recogWord = val.recognizedWords;
+            //TODO: edit recogWordTutorial
+            recogWordTutorial = val.recognizedWords;
           }),
           localeId: 'th-TH',
           partialResults: true,
@@ -251,7 +261,7 @@ class _BodyState extends State<Body> {
   }
 
   void setNextQuestionValue() {
-    recogWord = '';
+    recogWordTutorial = '';
     correctAnswerText = '';
     feedback = '';
     feedbackImg = '';
@@ -277,7 +287,7 @@ class _BodyState extends State<Body> {
       correctAnswerText = 'เฉลย: $correctAnswer';
 
       // correct answer
-      if (recogWord == correctAnswer) {
+      if (recogWordTutorial == correctAnswer) {
         setState(() {
           isCorrect = true;
           feedback = 'ถูกต้อง';
@@ -300,7 +310,7 @@ class _BodyState extends State<Body> {
         {
           'answeredTutorial': answeredTutorial,
           'feedback': feedback,
-          'recogWord': recogWord,
+          'recogWordTutorial': recogWordTutorial,
           'correctAnswer': correctAnswer
         },
       );
@@ -316,7 +326,7 @@ class _BodyState extends State<Body> {
         : Duration(milliseconds: stroopIntervalDurationMs);
 
     Future.delayed(durationDelay, () {
-      // end of each questions
+      // end of each questionsTutorial
       speech.stop();
       setState(() {
         isListening = false;

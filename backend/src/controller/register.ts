@@ -6,7 +6,9 @@ import { User, UserDocument } from 'src/model/user'
 export interface RegisterDTO {
   tel: string
   password: string
+  username: string
   name: string
+  surname: string
   email: string
   hnId: string
   lastFourId: string
@@ -43,7 +45,7 @@ export async function register(
   const user = await User.findOne({
     tel: registerDTO.tel,
   })
-  
+
   // TODO: ไม่ควร check ในนี้ เพราะอันนี้จะ trigger ตอน sleep form
   if (user) {
     throw new HttpError(409, 'user with this phone number already exists')
@@ -55,7 +57,9 @@ export async function register(
   const newUser = new User({
     tel: registerDTO.tel,
     password: hashedPassword,
+    username: registerDTO.username,
     name: registerDTO.name,
+    surname: registerDTO.surname,
     email: registerDTO.email,
     hnId: registerDTO.hnId,
     lastFourId: registerDTO.lastFourId,
@@ -65,16 +69,16 @@ export async function register(
     historyId: registerDTO.historyId,
     badge: registerDTO.badge,
     precondition: {
-        isColorBlind: registerDTO.precondition.isColorBlind,
-        colorVisibilityTest: {
-          score: registerDTO.precondition.colorVisibilityTest.score,
-          date: registerDTO.precondition.colorVisibilityTest.date
-        },
-        readingAbilityTest: {
-          score: registerDTO.precondition.readingAbilityTest.score,
-          date: registerDTO.precondition.readingAbilityTest.date
-        },
-        isPassAll: registerDTO.precondition.isPassAll
+      isColorBlind: registerDTO.precondition.isColorBlind,
+      colorVisibilityTest: {
+        score: registerDTO.precondition.colorVisibilityTest.score,
+        date: registerDTO.precondition.colorVisibilityTest.date,
+      },
+      readingAbilityTest: {
+        score: registerDTO.precondition.readingAbilityTest.score,
+        date: registerDTO.precondition.readingAbilityTest.date,
+      },
+      isPassAll: registerDTO.precondition.isPassAll,
     },
     healthScores: {
       stress: registerDTO.healthScores.stress,

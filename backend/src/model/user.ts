@@ -12,7 +12,15 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    username: {
+      type: String,
+      required: true,
+    },
     name: {
+      type: String,
+      required: true,
+    },
+    surname: {
       type: String,
       required: true,
     },
@@ -49,16 +57,16 @@ const userSchema = new Schema(
       required: false,
     },
     precondition: {
-        isColorBlind: { type: Boolean, required: true },
-        colorVisibilityTest: {
-          score: { type: Number, required: true },
-          date: { type: Date, required: true }
-        },
-        readingAbilityTest: {
-          score: { type: Number, required: true },
-          date: { type: Date, required: true }
-        },
-        isPassAll: { type: Boolean, required: true }
+      isColorBlind: { type: Boolean, required: true },
+      colorVisibilityTest: {
+        score: { type: Number, required: true },
+        date: { type: Date, required: true },
+      },
+      readingAbilityTest: {
+        score: { type: Number, required: true },
+        date: { type: Date, required: true },
+      },
+      isPassAll: { type: Boolean, required: true },
     },
     healthScores: {
       stress: {
@@ -77,7 +85,9 @@ const userSchema = new Schema(
 export type UserDocument = mongoose.Document & {
   tel: string
   password: string
+  username: string
   name: string
+  surname: string
   email: string
   hnId: string
   lastFourId: string
@@ -106,7 +116,6 @@ export type UserDocument = mongoose.Document & {
   updatedAt: Date
 }
 
-// const User = mongoose.model('User', userSchema)
 const User = mongoose.model<UserDocument>('User', userSchema)
 
 export { User }

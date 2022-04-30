@@ -9,6 +9,7 @@ import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:http/http.dart' as http;
+import 'package:speech_stroop/screens/profile/profile_screen.dart';
 import 'dart:convert';
 
 import '../../../theme.dart';
@@ -56,22 +57,26 @@ class _PassColorTestState extends State<PassColorTestScreen> {
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 80),
-              child: PrimaryButton('เข้าสู่หน้าหลัก', () async {
-                precondition.isPassAll = true;
-                registerReq.precondition = precondition;
+              child: userProfile != null 
+                    ? PrimaryButton('กลับสู่หน้าหลัก', () {
+                        Navigator.pushNamed(context, ProfileScreen.routeName);
+                      }) 
+                    :  PrimaryButton('เข้าสู่หน้าหลัก', () async {
+                        precondition.isPassAll = true;
+                        registerReq.precondition = precondition;
 
-                var res = await http.post(
-                    Uri.parse("http://localhost:3000/auth/register"),
-                    headers: {'Content-Type': 'application/json'},
-                    body: jsonEncode(registerReq));
+                        var res = await http.post(
+                            Uri.parse("http://localhost:3000/auth/register"),
+                            headers: {'Content-Type': 'application/json'},
+                            body: jsonEncode(registerReq));
 
-                //TODO: login with this user
-                if (res.statusCode == 200) {
-                  auth = Auth.fromJson(jsonDecode(res.body));
-                  print("login success");
-                  Navigator.pushNamed(context, HomeScreen.routeName);
-                }
-              }),
+                        //TODO: login with this user
+                        if (res.statusCode == 200) {
+                          auth = Auth.fromJson(jsonDecode(res.body));
+                          print("login success");
+                          Navigator.pushNamed(context, HomeScreen.routeName);
+                        }
+                      }),
             )
           ],
         ));
