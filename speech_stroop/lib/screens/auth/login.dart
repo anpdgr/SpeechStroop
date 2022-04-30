@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/auth.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:http/http.dart' as http;
+import 'package:speech_stroop/screens/stroop/stroop_test/components/stroop_combination.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);

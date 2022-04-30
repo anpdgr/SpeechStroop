@@ -5,6 +5,7 @@ import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/question.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/flutter_sound.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/components/stroop_combination.dart';
 import 'package:speech_stroop/theme.dart';
 import 'package:speech_stroop/utils/loggger.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/speech_lib.dart';
@@ -176,11 +177,60 @@ class _BodyState extends State<Body> {
     );
   }
 
+  List<StroopQuestion> randomTest(int congruentAmount, int incongruentAmount) {
+    final rn = Random();
+    List<StroopQuestion> questions = [];
+
+    for (var i = 0; i < congruentAmount; i++) {
+      var conQuestion =
+          stroopCongruentQuestions[rn.nextInt(stroopCongruentQuestions.length)];
+      questions.add(conQuestion);
+    }
+
+    for (var i = 0; i < incongruentAmount; i++) {
+      var inconQuestion = stroopIncongruentQuestions[
+          rn.nextInt(stroopIncongruentQuestions.length)];
+
+      if (!questions.contains(inconQuestion)) {
+        questions.add(inconQuestion);
+      } else {
+        i--;
+      }
+    }
+    return questions;
+  }
+
+  List<StroopQuestion> shuffleTest(List<StroopQuestion> questions) {
+    List<StroopQuestion> shuffled = [];
+    int curr = 0;
+    int prev = -1;
+
+    final rn = Random();
+
+    questions.shuffle();
+
+    // prevent same question being next to each other
+    for (StroopQuestion q in questions) {
+      curr = q.index;
+      if (curr == prev) {
+        // หยิบใหม่
+        List<StroopQuestion> filtered = stroopAllQuestions
+            .where((elem) =>
+                (elem.condition == q.condition && elem.index != q.index))
+            .toList();
+        int randomIdx = rn.nextInt(filtered.length - 1);
+        q = filtered[randomIdx];
+        curr = q.index;
+      }
+      shuffled.add(q);
+      prev = curr;
+    }
+    return shuffled;
+  }
+
   void buildTest() {
     Random rn = Random();
-    int idxName = 0, idxCode = 0, congruent = 0, incongruent = 0;
-    List colorsCodeNoName = [];
-    Tuple3<String, Color, String> questionTemplate;
+    int congruent = 0, incongruent = 0;
 
     testTemplate = [];
     questions = [];
@@ -210,65 +260,16 @@ class _BodyState extends State<Body> {
       default:
     }
 
-    String condition;
+    testTemplate = randomTest(congruent, incongruent);
+    testTemplate = shuffleTest(testTemplate);
 
-    // Congruent
-    for (var i = 0; i < congruent; i++) {
-      condition = "congruent";
-      // random index for WORD
-      idxName = rn.nextInt(stroopColorsName.length);
-      // get WORD and COLOR code
-      String colorWord = stroopColorsName[idxName];
-      Color colorCode = stroopColorsCode[idxName];
-
-      questionTemplate = Tuple3(colorWord, colorCode, condition);
-      testTemplate.add(questionTemplate);
-    }
-
-    // Incongruent
-    for (var i = 0; i < incongruent; i++) {
-      condition = "incongruent";
-      // random index for WORD
-      idxName = rn.nextInt(stroopColorsName.length);
-      // get WORD
-      String colorWord = stroopColorsName[idxName];
-      // build list of color without WORD (only for incongruent)
-      colorsCodeNoName = stroopColorsCode
-          .where((code) => code != stroopColorsMap[stroopColorsName[idxName]])
-          .toList();
-
-      // random index for COLOR code
-      idxCode = rn.nextInt(colorsCodeNoName.length);
-      // get COLOR code
-      Color colorCode = colorsCodeNoName[idxCode];
-
-      questionTemplate = Tuple3(colorWord, colorCode, condition);
-      isQuestionExist(questionTemplate, testTemplate)
-          ? (i--)
-          : testTemplate.add(questionTemplate);
-    }
-
-    //TODO: avoid same element being next to each other
-    testTemplate.shuffle();
-
+    // for db
     var i = 0;
-    testTemplate.forEach((q) {
+    for (var q in testTemplate) {
       i++;
-      int displayColorCodeIdx = stroopColorsCode.indexOf(q.item2);
-      String displayColor = stroopColorsName[displayColorCodeIdx];
-      String displayWord = q.item1;
-      questions.add(Question(i, {"color": displayColor, "word": displayWord},
-          q.item3, displayColor, null, null, null, null));
-    });
-  }
-
-  bool isQuestionExist(question, testTemplate) {
-    for (var elem in testTemplate) {
-      if (question == elem) {
-        return true;
-      }
+      questions.add(Question(i, {"color": q.color, "word": q.word}, q.condition,
+          q.color, null, null, null, null));
     }
-    return false;
   }
 
   Future<void> listen() async {
@@ -305,9 +306,7 @@ class _BodyState extends State<Body> {
     bool isCorrect = false;
     if (answered >= 0) {
       // check answer
-      String correctAnswer = stroopColorsMap.keys.firstWhere(
-          (k) => stroopColorsMap[k] == testTemplate[answered].item2,
-          orElse: () => '');
+      String correctAnswer = testTemplate[answered].color;
 
       // correct answer
       if (recogWord == correctAnswer) {
@@ -352,8 +351,8 @@ class _BodyState extends State<Body> {
     feedback = '';
     feedbackImg = '';
     answered++;
-    problem = testTemplate[answered].item1;
-    problemColor = testTemplate[answered].item2;
+    problem = testTemplate[answered].word;
+    problemColor = stroopColorsMap[testTemplate[answered].color];
   }
 
   void startNextQuestion() {

@@ -48,7 +48,7 @@ class APIPath {
 int stroopQuestionsAmount = 20;
 int stroopQuestionDurationMs = 3000; //3000;
 int stroopIntervalDurationMs = 3000; //3000;
-Map stroopColorsMap = {
+Map<String, Color> stroopColorsMap = {
   'แดง': const Color(0xFFDA5C54),
   'ดำ': const Color(0xFF000000),
   'เหลือง': const Color(0xFFECD933),
@@ -57,8 +57,8 @@ Map stroopColorsMap = {
   'ฟ้า': const Color(0xFF72C4FF),
   'ม่วง': const Color(0xFF8F00FF)
 };
-List stroopColorsName = stroopColorsMap.keys.toList();
-List stroopColorsCode = stroopColorsMap.values.toList();
+List<String> stroopColorsName = stroopColorsMap.keys.toList();
+List<Color> stroopColorsCode = stroopColorsMap.values.toList();
 
 // Chart
 Map<int, String> dateLabel = {

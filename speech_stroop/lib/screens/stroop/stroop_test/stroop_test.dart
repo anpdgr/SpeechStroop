@@ -6,7 +6,7 @@ import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 
 import 'package:speech_stroop/screens/stroop/stroop_test/components/flutter_sound.dart';
-import 'package:tuple/tuple.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/components/stroop_combination.dart';
 
 // latest test
 History latestTest;
@@ -21,7 +21,7 @@ HealthScore arousel = HealthScore(0, 0, 0, 0);
 List<Question> questions = [];
 int totalScore = 0;
 // build test
-List<Tuple3<String, Color, String>> testTemplate;
+List<StroopQuestion> testTemplate;
 int level = 0;
 List<int> prevLevel = [];
 String recogWord = '';
