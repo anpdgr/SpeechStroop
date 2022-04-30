@@ -27,9 +27,9 @@ class User {
     this.lastFourId,
     this.dateOfBirth,
     this.gender,
-    this.education,
+    this.education, [
     this.healthScores,
-    this.precondition, [
+    this.precondition,
     this.password,
     this.hnId,
     this.historyId,
@@ -97,8 +97,8 @@ class UserHealthScore {
 
 User userProfile;
 
-getUserProfile() async {
-  if (userProfile == null) {
+getUserProfile(bool newRequest) async {
+  if (userProfile == null || newRequest) {
     String token = auth.token;
     var res = await http.get(
       Uri.parse("http://localhost:3000/user/profile"),
@@ -106,7 +106,7 @@ getUserProfile() async {
         'Authorization': 'Bearer $token',
       },
     );
-    print("/user/profile " + res.statusCode.toString());
+    print("get: /user/profile " + res.statusCode.toString());
     if (res.statusCode == 200) {
       userProfile = User.fromJson(jsonDecode(res.body));
     } else {
@@ -114,24 +114,5 @@ getUserProfile() async {
     }
     print(userProfile.toJson());
   }
-  return userProfile;
-}
-
-updateUserProfile() async {
-  String token = auth.token;
-  var res = await http.post(Uri.parse("http://localhost:3000/user/profile"),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode(userProfile));
-
-  print("/user/profile " + res.statusCode.toString());
-
-  //TODO: handle
-  if (res.statusCode == 200) {
-    print(res.body);
-  } else {}
-  print(userProfile.toJson());
-
   return userProfile;
 }

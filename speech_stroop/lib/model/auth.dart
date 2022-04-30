@@ -1,7 +1,6 @@
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class Auth {
   String _id;
@@ -30,7 +29,7 @@ logout() async {
       'Authorization': 'Bearer $token',
     },
   );
-  print("auth/logout" + res.statusCode.toString());
+  print("get: auth/logout" + res.statusCode.toString());
   //TODO: handle
   if (res.statusCode == 200) {
   } else {}
