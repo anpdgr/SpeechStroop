@@ -291,7 +291,6 @@ class _BodyState extends State<Body> {
             if (answered >= 0 &&
                 questions[answered].answerAt == null &&
                 questions[answered].reactionTimeMs == null) {
-              questions[answered].userAnswer = recogWord;
               questions[answered].answerAt =
                   toReadableTime(stopwatchAudio.elapsedMilliseconds);
               questions[answered].reactionTimeMs =
@@ -311,31 +310,51 @@ class _BodyState extends State<Body> {
       // check answer
       String correctAnswer = testTemplate[answered].color;
 
-      // correct answer
-      if (recogWord == correctAnswer) {
-        setState(() {
-          isCorrect = true;
-          feedback = 'ถูกต้อง';
-          feedbackImg = 'assets/images/correct.png';
-          setBackgroundColor();
-        });
+      String realRecogWord = recogWord;
+
+      // check entire recogWord
+      if (similarWords[correctAnswer].contains(recogWord)) {
+        isCorrect = true;
+        recogWord = correctAnswer;
+      } else {
+        // check some part of recogWord
+        for (Tuple2 t in allSimilarWords) {
+          if (recogWord.contains(t.item2)) {
+            recogWord = recogWord.replaceAll(t.item2, ' ${t.item1} ');
+          }
+        }
+        List<String> splitRecogWord =
+            recogWord.split(" ").where((e) => e != '').toList();
+
+        recogWord = splitRecogWord.join();
+
+        for (String word in splitRecogWord) {
+          if (similarWords.keys.toList().contains(word)) {
+            if (word == correctAnswer) {
+              isCorrect = true;
+            }
+            break;
+          }
+        }
       }
 
-      // wrong answer
-      else {
-        setState(() {
-          isCorrect = false;
+      setState(() {
+        if (isCorrect) {
+          feedback = 'ถูกต้อง';
+          feedbackImg = 'assets/images/correct.png';
+        } else {
           feedback = 'ผิด';
           feedbackImg = 'assets/images/wrong.png';
-          setBackgroundColor();
-        });
-      }
+        }
+        setBackgroundColor();
+      });
 
       loggerNoStack.d(
         {
           'answered': answered,
           'feedback': feedback,
-          'recogWord': recogWord,
+          'recogWord': realRecogWord,
+          'userAnswer': recogWord,
           'correctAnswer': correctAnswer
         },
       );

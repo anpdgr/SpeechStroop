@@ -70,3 +70,20 @@ Map<int, String> dateLabel = {
   6: 'ส.',
   7: 'อา.',
 };
+
+Map<String, List<String>> similarWords = {
+  'แดง': ['แดง', 'สีแดง', 'แรง', 'แบ่ง', 'แพง'],
+  'ดำ': ['ดำ', 'สีดำ', 'ดาม', 'นำ', 'จำ'],
+  'เหลือง': ['เหลือง', 'สีเหลือง', 'เหลือ', 'เรื่อง'],
+  'เขียว': ['เขียว', 'สีเขียว', 'เดี๋ยว'],
+  'ส้ม': ['ส้ม', 'สีส้ม', 'ส่ง', 'ซ่อม'],
+  'ฟ้า': ['ฟ้า', 'สีฟ้า', 'ป๊า', 'สา', 'ฝา'],
+  'ม่วง': ['ม่วง', 'สีม่วง', 'ง่วง', 'มั่ว'],
+};
+
+List<Tuple2<String, String>> allSimilarWords = similarWords.values
+    .toList()
+    .map((arr) => arr.map((word) => Tuple2(arr[0], word)).toList())
+    .toList()
+    .expand((element) => element)
+    .toList();
