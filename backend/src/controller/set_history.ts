@@ -21,8 +21,8 @@ export interface HistoryDTO {
           condition: string
           expectedAnswer: string
           userAnswer: string
-          startAt: number
-          answerAt: number
+          startAt: string
+          answerAt: string
           reactionTimeMs: number
         },
       ]

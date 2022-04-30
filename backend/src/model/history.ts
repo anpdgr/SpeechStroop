@@ -30,8 +30,8 @@ const historySchema = new Schema(
             condition: String,
             expectedAnswer: String,
             userAnswer: String,
-            startAt: Number,
-            answerAt: Number,
+            startAt: String,
+            answerAt: String,
             reactionTimeMs: Number,
           },
         ],
@@ -81,8 +81,8 @@ export type HistoryDocument = mongoose.Document & {
           condition: string
           expectedAnswer: string
           userAnswer: string
-          startAt: number
-          answerAt: number
+          startAt: string
+          answerAt: string
           reactionTimeMs: number
         },
       ]

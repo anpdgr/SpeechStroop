@@ -4,8 +4,8 @@ class Question {
   String condition;
   String expectedAnswer;
   String userAnswer;
-  int startAt;
-  int answerAt;
+  String startAt;
+  String answerAt;
   int reactionTimeMs;
 
   Question(
@@ -25,8 +25,8 @@ class Question {
       json['condition'] as String,
       json['expectedAnswer'] as String,
       json['userAnswer'] as String,
-      json['startAt'] as int,
-      json['answerAt'] as int,
+      json['startAt'] as String,
+      json['answerAt'] as String,
       json['reactionTimeMs'] as int,
     );
   }

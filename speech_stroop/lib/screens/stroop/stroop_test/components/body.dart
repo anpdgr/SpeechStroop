@@ -8,6 +8,7 @@ import 'package:speech_stroop/screens/stroop/stroop_test/components/flutter_soun
 import 'package:speech_stroop/theme.dart';
 import 'package:speech_stroop/utils/loggger.dart';
 import 'package:speech_stroop/utils/speech_lib.dart';
+import 'package:speech_stroop/utils/time.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:tuple/tuple.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
@@ -287,7 +288,8 @@ class _BodyState extends State<Body> {
                 questions[answered].answerAt == null &&
                 questions[answered].reactionTimeMs == null) {
               questions[answered].userAnswer = recogWord;
-              questions[answered].answerAt = stopwatchAudio.elapsedMilliseconds;
+              questions[answered].answerAt =
+                  toReadableTime(stopwatchAudio.elapsedMilliseconds);
               questions[answered].reactionTimeMs =
                   stopwatchRT.elapsedMilliseconds;
             }
@@ -357,7 +359,8 @@ class _BodyState extends State<Body> {
   void startNextQuestion() {
     // set startAt timestamp of next question
     if (answered >= 0) {
-      questions[answered].startAt = stopwatchAudio.elapsedMilliseconds;
+      questions[answered].startAt =
+          toReadableTime(stopwatchAudio.elapsedMilliseconds);
     }
     listen();
     stopwatchRT.start();
