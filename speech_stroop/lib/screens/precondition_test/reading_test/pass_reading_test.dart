@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
+import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
+import 'package:speech_stroop/screens/profile/profile_screen.dart';
 
 class PassReadingTestScreen extends StatefulWidget {
   const PassReadingTestScreen({Key key}) : super(key: key);
@@ -36,9 +38,13 @@ class _PassReadingTestState extends State<PassReadingTestScreen> {
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 80),
-              child: PrimaryButton('ทำแบบทดสอบต่อไป', () {
-                Navigator.pushNamed(context, ColorTestScreen.routeName);
-              }),
+              child: userProfile != null 
+                    ? PrimaryButton('กลับสู่หน้าหลัก', () {
+                        Navigator.pushNamed(context, ProfileScreen.routeName);
+                      })
+                    : PrimaryButton('ทำแบบทดสอบต่อไป', () {
+                        Navigator.pushNamed(context, ColorTestScreen.routeName);
+                      })
             )
           ],
         ));
