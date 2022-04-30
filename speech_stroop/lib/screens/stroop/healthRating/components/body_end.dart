@@ -8,7 +8,7 @@ import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/components/health_slider.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
-import 'package:speech_stroop/utils/speech_lib.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/components/speech_lib.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Body extends StatefulWidget {

@@ -7,7 +7,7 @@ import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/flutter_sound.dart';
 import 'package:speech_stroop/theme.dart';
 import 'package:speech_stroop/utils/loggger.dart';
-import 'package:speech_stroop/utils/speech_lib.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/components/speech_lib.dart';
 import 'package:speech_stroop/utils/time.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:tuple/tuple.dart';

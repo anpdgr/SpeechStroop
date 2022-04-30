@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 
 int answered = -1;
@@ -18,7 +15,7 @@ var countTest = 0;
 void scoreCounting(bool isCorrect) {
   // count score for each questions
   if (answered >= 0 && isCorrect) {
-    String condition = testTemplate[answered].item3;
+    String condition = testTemplate[answered].condition;
     scores[condition]++;
   }
   // count score for each sections

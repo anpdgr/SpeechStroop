@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/theme.dart';
-import 'package:speech_stroop/utils/speech_lib.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/components/speech_lib.dart';
 
 class ExampleBox extends StatelessWidget {
   final String text;

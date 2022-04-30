@@ -44,7 +44,6 @@ class RecordAudio {
   }
 
   Future<void> openRecorder() async {
-    print('openRecorder');
     await mRecorder.openRecorder();
 
     final session = await AudioSession.instance;
@@ -78,7 +77,7 @@ class RecordAudio {
   // }
 
   Future<void> record() async {
-    print("stopRrecordecorder");
+    print("startRecorder");
     assert(mRecorderIsInited);
     var sink = await createFile();
     var recordingDataController = StreamController<Food>();
@@ -121,9 +120,7 @@ class RecordAudio {
   }
 
   void Function() getRecorderFn() {
-    print("isRecording: $isRecording");
     if (!mRecorderIsInited) {
-      print('${mRecorderIsInited}');
       return null;
     }
     return !isRecording

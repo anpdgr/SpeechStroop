@@ -16,7 +16,7 @@ import 'package:speech_stroop/components/microphone_test/fail_microphone_test.da
 import 'package:speech_stroop/components/button/mic_button.dart';
 
 import 'package:speech_stroop/theme.dart';
-import '../../../utils/speech_lib.dart';
+import '../../stroop/stroop_test/components/speech_lib.dart';
 
 class ReadingTestScreen extends StatefulWidget {
   const ReadingTestScreen({Key key}) : super(key: key);
