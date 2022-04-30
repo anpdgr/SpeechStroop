@@ -40,7 +40,7 @@ class _BodyState extends State<Body> {
   }
 
   _asyncFunc() async {
-    await getUserProfile();
+    await getUserProfile(false);
     await getHistory();
   }
 
