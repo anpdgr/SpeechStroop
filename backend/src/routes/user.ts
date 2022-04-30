@@ -12,6 +12,7 @@ router.get('/profile', async (req: RequestWithUser, res) => {
 
 router.patch('/profile', async (req: RequestWithUser, res) => {
   const body = req.body
+  console.log(body)
   const user = await updateUser(body, req.user.id)
   res.json(user)
 })
