@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
-import 'package:speech_stroop/theme.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ScoreData {
@@ -9,15 +8,15 @@ class ScoreData {
   final int y;
 }
 
-class TotalScore extends StatefulWidget {
-  const TotalScore(this.totalScore, {Key key}) : super(key: key);
+class SummaryChart extends StatefulWidget {
+  const SummaryChart(this.totalScore, {Key key}) : super(key: key);
   final int totalScore;
 
   @override
-  TotalScoreState createState() => TotalScoreState();
+  SummaryChartState createState() => SummaryChartState();
 }
 
-class TotalScoreState extends State<TotalScore> {
+class SummaryChartState extends State<SummaryChart> {
   List<ScoreData> scoreData;
   TooltipBehavior _tooltipBehavior;
   int totalScore = 0;
