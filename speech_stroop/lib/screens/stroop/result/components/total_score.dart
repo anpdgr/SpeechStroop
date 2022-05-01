@@ -23,8 +23,8 @@ class TotalScoreState extends State<TotalScore> {
   int totalScore = 0;
   List<ScoreData> getChartData() {
     final List<ScoreData> scoreData = [
-      ScoreData('คะแนนรวม', totalScore),
-      ScoreData('คะแนนที่เหลือ', stroopTotalQuestionsAmount - totalScore),
+      ScoreData('จำนวนข้อถูก', totalScore),
+      ScoreData('จำนวนข้อผิด', stroopTotalQuestionsAmount - totalScore),
     ];
     return scoreData;
   }
@@ -71,16 +71,58 @@ class TotalScoreState extends State<TotalScore> {
                   children: [
                     Text(
                       'คะแนนรวม',
-                      style: textTheme().headlineSmall,
-                    ),
-                    Text(
-                      '${totalScore}',
                       style: TextStyle(
-                        color: secondaryColor,
-                        fontSize: 60,
+                        color: primaryColor.withOpacity(0.4),
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${(totalScore / stroopTotalQuestionsAmount * 100).round()}',
+                          style: TextStyle(
+                            color: secondaryColor,
+                            fontSize: 60,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          '%',
+                          style: TextStyle(
+                            color: secondaryColor,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '$totalScore',
+                          style: TextStyle(
+                            color: primaryColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          '/$stroopTotalQuestionsAmount',
+                          style: TextStyle(
+                            color: primaryColor.withOpacity(0.4),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ],
                 ),
