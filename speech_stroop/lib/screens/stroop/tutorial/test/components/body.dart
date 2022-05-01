@@ -1,8 +1,11 @@
-import 'dart:math';
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/speech_check.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_background.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_combination.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_template.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:tuple/tuple.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -18,9 +21,8 @@ import 'package:speech_stroop/utils/loggger.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/theme.dart';
 
-List<Tuple3<String, Color, String>> testTemplateTutorial;
+List<StroopQuestion> testTemplateTutorial = [];
 int answeredTutorial = -1;
-List<Question> questionsTutorial = [];
 String recogWordTutorial = '';
 
 class Body extends StatefulWidget {
@@ -40,11 +42,14 @@ class _BodyState extends State<Body> {
   String feedbackImg = '';
   String problem = '';
   Color problemColor = backgroundColor;
-  List<Color> stroopBackgroundColor;
+  List<Color> stroopBackgroundColor = [];
 
   @override
   void initState() {
     super.initState();
+    testTemplateTutorial = [];
+    answeredTutorial = -1;
+    recogWordTutorial = '';
     stroopBackgroundColor = setBackgroundColor(answeredTutorial, feedback);
     speech = stt.SpeechToText();
   }
@@ -113,7 +118,7 @@ class _BodyState extends State<Body> {
                                           const Duration(milliseconds: 1500)),
                                 ],
                                 onFinished: () {
-                                  buildTest();
+                                  testTemplateTutorial = buildTest(true);
                                   navigatePage();
                                 },
                               )),
@@ -131,10 +136,15 @@ class _BodyState extends State<Body> {
                   Text(feedback,
                       style:
                           textTheme().headlineSmall.apply(color: Colors.white)),
-                  Text(
-                    correctAnswerText,
-                    style: textTheme().headlineMedium,
-                  )
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  answeredTutorial >= 0
+                      ? Text("เฉลย:  $correctAnswerText",
+                          style: textTheme()
+                              .headlineSmall
+                              .apply(color: Colors.white))
+                      : const Text('')
                 ],
               ),
             ],
@@ -142,66 +152,6 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
-  }
-
-  void buildTest() {
-    Random rn = Random();
-    int idxName = 0, idxCode = 0, congruent = 0, incongruent = 0;
-    List colorsCodeNoName = [];
-    Tuple3<String, Color, String> questionTemplate;
-
-    testTemplateTutorial = [];
-    questionsTutorial = [];
-
-    String condition;
-
-    // Congruent
-    for (var i = 0; i < congruent; i++) {
-      condition = "congruent";
-      // random index for WORD
-      idxName = rn.nextInt(stroopColorsName.length);
-      // get WORD and COLOR code
-      String colorWord = stroopColorsName[idxName];
-      Color colorCode = stroopColorsCode[idxName];
-
-      questionTemplate = Tuple3(colorWord, colorCode, condition);
-      testTemplateTutorial.add(questionTemplate);
-    }
-
-    // Incongruent
-    for (var i = 0; i < incongruent; i++) {
-      condition = "incongruent";
-      // random index for WORD
-      idxName = rn.nextInt(stroopColorsName.length);
-      // get WORD
-      String colorWord = stroopColorsName[idxName];
-      // build list of color without WORD (only for incongruent)
-      colorsCodeNoName = stroopColorsCode
-          .where((code) => code != stroopColorsMap[stroopColorsName[idxName]])
-          .toList();
-
-      // random index for COLOR code
-      idxCode = rn.nextInt(colorsCodeNoName.length);
-      // get COLOR code
-      Color colorCode = colorsCodeNoName[idxCode];
-
-      questionTemplate = Tuple3(colorWord, colorCode, condition);
-      isQuestionExist(questionTemplate, testTemplateTutorial)
-          ? (i--)
-          : testTemplateTutorial.add(questionTemplate);
-    }
-
-    //TODO: avoid same element being next to each other
-    testTemplateTutorial.shuffle();
-  }
-
-  bool isQuestionExist(question, testTemplateTutorial) {
-    for (var elem in testTemplateTutorial) {
-      if (question == elem) {
-        return true;
-      }
-    }
-    return false;
   }
 
   Future<void> listen() async {
@@ -224,6 +174,22 @@ class _BodyState extends State<Body> {
     }
   }
 
+  void setFeedback(bool isCorrect) {
+    print('setFb');
+    setState(() {
+      if (isCorrect) {
+        feedback = 'ถูกต้อง';
+        feedbackImg = 'assets/images/correct.png';
+      } else {
+        feedback = 'ผิด';
+        feedbackImg = 'assets/images/wrong.png';
+      }
+      correctAnswerText = testTemplateTutorial[answeredTutorial].color;
+      stroopBackgroundColor = setBackgroundColor(answeredTutorial, feedback);
+    });
+    print(feedback);
+  }
+
   void resetQuestion() {
     problem = '';
     problemColor = backgroundColor;
@@ -235,57 +201,14 @@ class _BodyState extends State<Body> {
     feedback = '';
     feedbackImg = '';
     answeredTutorial++;
-    problem = testTemplateTutorial[answeredTutorial].item1;
-    problemColor = testTemplateTutorial[answeredTutorial].item2;
+    problem = testTemplateTutorial[answeredTutorial].word;
+    problemColor =
+        stroopColorsMap[testTemplateTutorial[answeredTutorial].color];
   }
 
   void startNextQuestion() {
     listen();
     navigatePage();
-  }
-
-  void checkAnswer() {
-    bool isCorrect = false;
-    if (answeredTutorial >= 0) {
-      // check answer
-      String correctAnswer = stroopColorsMap.keys.firstWhere(
-          (k) =>
-              stroopColorsMap[k] ==
-              testTemplateTutorial[answeredTutorial].item2,
-          orElse: () => '');
-      correctAnswerText = 'เฉลย: $correctAnswer';
-
-      // correct answer
-      if (recogWordTutorial == correctAnswer) {
-        setState(() {
-          isCorrect = true;
-          feedback = 'ถูกต้อง';
-          feedbackImg = 'assets/images/correct.png';
-          stroopBackgroundColor =
-              setBackgroundColor(answeredTutorial, feedback);
-        });
-      }
-
-      // wrong answer
-      else {
-        setState(() {
-          isCorrect = false;
-          feedback = 'ผิด';
-          feedbackImg = 'assets/images/wrong.png';
-          stroopBackgroundColor =
-              setBackgroundColor(answeredTutorial, feedback);
-        });
-      }
-
-      loggerNoStack.d(
-        {
-          'answeredTutorial': answeredTutorial,
-          'feedback': feedback,
-          'recogWordTutorial': recogWordTutorial,
-          'correctAnswer': correctAnswer
-        },
-      );
-    }
   }
 
   void navigatePage() {
@@ -302,8 +225,23 @@ class _BodyState extends State<Body> {
       setState(() {
         isListening = false;
       });
-      checkAnswer();
+      Tuple2<bool, String> checkAnswerOutput = checkAnswer(
+          recogWordTutorial, answeredTutorial, testTemplateTutorial);
+      bool isCorrect = checkAnswerOutput.item1;
+      String finalRecogWord = checkAnswerOutput.item2;
+
+      if (answeredTutorial >= 0) {
+        setFeedback(isCorrect);
+        loggerNoStack.d({
+          'answeredTutorial': answeredTutorial,
+          'isCorrect': isCorrect,
+          'recogWord': recogWordTutorial,
+          'userAnswer': finalRecogWord,
+          "correctAnswer": testTemplateTutorial[answeredTutorial].color,
+        });
+      }
       resetQuestion();
+
       // prepare for the next question
       if (answeredTutorial < tutorialQuestionsAmount - 1) {
         Future.delayed(durationDelayInterval, () async {

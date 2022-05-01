@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 List<Color> setBackgroundColor(int answered, String feedback) {
   List<Color> stroopBackgroundColor = [];
+  print('${answered} : ${feedback}');
   if (answered >= 0) {
     switch (feedback) {
       case '':
