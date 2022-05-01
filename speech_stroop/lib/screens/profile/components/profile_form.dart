@@ -429,7 +429,8 @@ class ProfileFormState extends State<ProfileForm> {
                     Container(
                       alignment: Alignment.topRight,
                       child: IconButton(
-                        onPressed: () => Navigator.pop(context, false),
+                        onPressed: () => Navigator.pushNamed(
+                            context, ProfileScreen.routeName),
                         icon: const Icon(
                           Icons.close,
                           color: Color(0xFF37265F),
@@ -483,8 +484,10 @@ class ProfileFormState extends State<ProfileForm> {
                                         context, ProfileScreen.routeName),
                                   },
                                 ),
-                                SecondaryButton("ยกเลิก",
-                                    () => Navigator.pop(context, false))
+                                SecondaryButton(
+                                    "ยกเลิก",
+                                    () => Navigator.pushNamed(
+                                        context, ProfileScreen.routeName))
                               ],
                             ),
                           ),
