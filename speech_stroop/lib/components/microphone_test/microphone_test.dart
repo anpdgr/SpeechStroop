@@ -44,7 +44,6 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: MicButton(isListening, listen),
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Center(
           child: Column(

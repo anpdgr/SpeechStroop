@@ -16,7 +16,6 @@ class _BodyState extends State<Body> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFF5F5F5),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => {

@@ -39,7 +39,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),

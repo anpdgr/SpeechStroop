@@ -21,8 +21,7 @@ class _FailReadingTestState extends State<FailReadingTestScreen> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFFFBFBFF),
-        appBar: CustomAppBar('ไม่ผ่านการทดสอบการอ่าน'),
+        appBar: const CustomAppBar('ไม่ผ่านการทดสอบการอ่าน'),
         body: Column(
           children: [
             Padding(

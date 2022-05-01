@@ -33,7 +33,6 @@ class _BodyState extends State<Body> {
       appBar: CustomAppBar(widget.appbarTitle),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: Column(mainAxisSize: MainAxisSize.max, children: [
           const HealthSlider(),

@@ -21,7 +21,6 @@ class _PassReadingTestState extends State<PassReadingTestScreen> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFFFBFBFF),
         appBar: const CustomAppBar('ผ่านการทดสอบการอ่าน'),
         body: Column(
           children: [

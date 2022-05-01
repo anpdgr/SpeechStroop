@@ -28,7 +28,6 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
     return Scaffold(
       key: scaffoldKey,
       appBar: const CustomAppBar('แบบสอบถามการนอนหลับ'),
-      backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,

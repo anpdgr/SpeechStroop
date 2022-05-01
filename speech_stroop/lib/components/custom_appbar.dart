@@ -15,9 +15,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     IconButton leadingIcon;
     if (isLeading == true) {
       leadingIcon = IconButton(
-        icon: const Icon(
+        icon: Icon(
           Icons.arrow_back,
-          color: Color(0xFFEB8D8D),
+          color: secondaryColor,
         ),
         onPressed: () => Navigator.pop(context, false),
       );
@@ -25,7 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       shape: Border(bottom: BorderSide(color: tertiaryColor, width: 1)),
-      backgroundColor: const Color(0xFFFBFBFF),
+      backgroundColor: backgroundColor,
       automaticallyImplyLeading: isLeading,
       leading: leadingIcon,
       //`true` if you want Flutter to automatically add Back Button when needed,

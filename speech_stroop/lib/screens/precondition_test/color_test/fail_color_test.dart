@@ -21,7 +21,6 @@ class _FailColorTestState extends State<FailColorTestScreen> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFFFBFBFF),
         appBar: CustomAppBar('ไม่ผ่านการทดสอบการจำแนกสี'),
         body: Column(
           children: [

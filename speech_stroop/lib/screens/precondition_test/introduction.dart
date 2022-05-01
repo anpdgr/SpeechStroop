@@ -21,7 +21,6 @@ class _IntroductionState extends State<IntroductionScreen> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFFFBFBFF),
         appBar: const CustomAppBar('เตรียมความพร้อมก่อนทดสอบ'),
         body: Padding(
           padding: const EdgeInsets.all(15.0),

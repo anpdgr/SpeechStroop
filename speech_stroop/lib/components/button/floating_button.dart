@@ -30,7 +30,7 @@ class FloatingButton extends StatelessWidget {
                       },
                       child: Icon(Icons.arrow_back,
                           size: 30, color: secondaryColor),
-                      backgroundColor: const Color(0xFFFBFBFF),
+                      backgroundColor: backgroundColor,
                       elevation: 0,
                     ),
                   ),

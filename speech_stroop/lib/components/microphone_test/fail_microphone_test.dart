@@ -22,7 +22,6 @@ class _FailMicrophoneTestState extends State<FailMicrophoneTestScreen> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFFFBFBFF),
         appBar: const CustomAppBar('โปรดตรวจสอบไมโครโฟน'),
         body: Column(
           children: [

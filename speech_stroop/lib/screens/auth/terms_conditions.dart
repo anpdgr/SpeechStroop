@@ -42,7 +42,6 @@ class _TermsConditionsScreenWidgetState extends State<TermsConditionsScreen> {
       appBar: CustomAppBar('ข้อกำหนดและเงื่อนไข'),
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFFBFBFF),
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),

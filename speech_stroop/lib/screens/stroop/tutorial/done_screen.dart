@@ -17,7 +17,6 @@ class TutorialDoneScreen extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar('เสร็จสิ้น'),
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: Center(
           child: Column(

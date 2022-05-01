@@ -29,7 +29,6 @@ class _PassColorTestState extends State<PassColorTestScreen> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFFFBFBFF),
         appBar: const CustomAppBar('ผ่านการทดสอบการจำแนกสี'),
         body: Column(
           children: [

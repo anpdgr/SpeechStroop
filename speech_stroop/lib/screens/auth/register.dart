@@ -53,7 +53,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         resizeToAvoidBottomInset: false,
         key: scaffoldKey,
         appBar: const CustomAppBar('สมัครสมาชิก'),
-        backgroundColor: const Color(0xFFFBFBFF),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),

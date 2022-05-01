@@ -23,7 +23,6 @@ class _TutorialIntroduction3State extends State<TutorialIntroduction3Screen> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFFFBFBFF),
         appBar: const CustomAppBar('วิธีการทดสอบ'),
         body: Padding(
           padding: const EdgeInsets.all(15.0),
