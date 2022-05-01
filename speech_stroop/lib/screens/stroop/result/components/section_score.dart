@@ -10,11 +10,11 @@ class SectionScore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-      padding: const EdgeInsets.fromLTRB(5, 20, 5, 2),
+      //margin: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+      //padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
       child: Center(
         child: Container(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+          //padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
