@@ -29,6 +29,7 @@ Color tertiaryColor = const Color(0xFFFFE7E2);
 Color backgroundColor = const Color(0xFFFBFBFF);
 
 Color formText = const Color(0xFF525252);
+
 Color formBorder = const Color(0xFFA7A5A5);
 
 // Button
@@ -52,7 +53,8 @@ List<DropdownMenuItem<dynamic>> genderList = const [
 ];
 String educationValue;
 List<DropdownMenuItem<dynamic>> educationList = const [
-  DropdownMenuItem(child: Text("ต่ำกว่ามัธยมศึกษาตอนต้น"), value: "elementary"),
+  DropdownMenuItem(
+      child: Text("ต่ำกว่ามัธยมศึกษาตอนต้น"), value: "ต่ำกว่ามัธยมศึกษาตอนต้น"),
   DropdownMenuItem(child: Text("มัธยมศึกษาตอนต้น"), value: "มัธยมศึกษาตอนต้น"),
   DropdownMenuItem(child: Text("ปวช."), value: "ปวช."),
   DropdownMenuItem(
@@ -70,8 +72,8 @@ int tutorialQuestionsAmount = 5;
 
 // Stroop
 int stroopQuestionsAmount = 20;
-int stroopQuestionDurationMs = 3000; //3000;
-int stroopIntervalDurationMs = 3000; //3000;
+int stroopQuestionDurationMs = 3; //3000;
+int stroopIntervalDurationMs = 3; //3000;
 Map<String, Color> stroopColorsMap = {
   'แดง': const Color(0xFFDA5C54),
   'ดำ': const Color(0xFF000000),

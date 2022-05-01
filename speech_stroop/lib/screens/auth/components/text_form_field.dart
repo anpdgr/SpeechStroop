@@ -9,10 +9,16 @@ class TextFormFieldCustom extends StatelessWidget {
   final void Function(String val) onChanged;
   final bool enabled;
   final bool showBorder;
+  final Icon icon;
+  final void Function() onTap;
 
   TextFormFieldCustom(
       this.controller, this.labelText, this.keyboardType, this.validator,
-      [this.onChanged, this.enabled = true, this.showBorder = false]);
+      [this.onChanged,
+      this.enabled = true,
+      this.showBorder = false,
+      this.icon,
+      this.onTap]);
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +51,7 @@ class TextFormFieldCustom extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         enabled: enabled,
+        suffixIcon: icon ?? icon,
       ),
       style: enabled
           ? TextStyle(
@@ -59,6 +66,7 @@ class TextFormFieldCustom extends StatelessWidget {
       keyboardType: keyboardType,
       validator: validator,
       onChanged: onChanged,
+      onTap: onTap ?? onTap,
     );
   }
 }

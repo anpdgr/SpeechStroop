@@ -33,25 +33,7 @@ class ProfileFormState extends State<ProfileForm> {
 
   DateTime dob;
   String genderValue;
-  List<DropdownMenuItem<dynamic>> genderList = const [
-    DropdownMenuItem(child: Text("เพศชาย"), value: "male"),
-    DropdownMenuItem(child: Text("เพศหญิง"), value: "female"),
-    DropdownMenuItem(child: Text("อื่น ๆ"), value: "etc"),
-  ];
   String educationValue;
-  List<DropdownMenuItem<dynamic>> educationList = const [
-    DropdownMenuItem(
-        child: Text("ต่ำกว่ามัธยมศึกษาตอนต้น"), value: "elementary"),
-    DropdownMenuItem(child: Text("มัธยมศึกษาตอนต้น"), value: "lower2nd"),
-    DropdownMenuItem(child: Text("ปวช."), value: "vocational cert"),
-    DropdownMenuItem(child: Text("มัธยมศึกษาตอนปลาย"), value: "upper2nd"),
-    DropdownMenuItem(child: Text("ปวส."), value: "high vocational cert"),
-    DropdownMenuItem(child: Text("อนุปริญญา"), value: "associate"),
-    DropdownMenuItem(child: Text("ปริญญาตรี "), value: "bd"),
-    DropdownMenuItem(child: Text("ปริญญาโท"), value: "md"),
-    DropdownMenuItem(child: Text("ปริญญาเอก"), value: "phd"),
-    DropdownMenuItem(child: Text("อื่น ๆ"), value: "etc"),
-  ];
 
   @override
   void initState() {
@@ -254,26 +236,27 @@ class ProfileFormState extends State<ProfileForm> {
                                 formGlobalKey.currentState.save();
                               }
                             },
-                            // () {
-                            //   showDatePicker(
-                            //           context: context,
-                            //           initialDate: DateTime.now(),
-                            //           firstDate: DateTime(1940),
-                            //           lastDate:
-                            //               DateTime(DateTime.now().year + 1))
-                            //       .then((date) => {
-                            //             setState(() => {
-                            //                   dob = date,
-                            //                   dob != null
-                            //                       ? dobController.text = dob
-                            //                           .toString()
-                            //                           .split(' ')[0]
-                            //                       : null
-                            //                 })
-                            //           });
-                            // },
                             profileFormEnabled,
                             true,
+                            const Icon(Icons.calendar_today),
+                            () {
+                              showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1940),
+                                      lastDate:
+                                          DateTime(DateTime.now().year + 1))
+                                  .then((date) => {
+                                        setState(() => {
+                                              dob = date,
+                                              dob != null
+                                                  ? dobController.text = dob
+                                                      .toString()
+                                                      .split(' ')[0]
+                                                  : null
+                                            })
+                                      });
+                            },
                           ),
                         ),
                       ),
