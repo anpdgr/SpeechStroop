@@ -90,11 +90,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
-                    (val) {
-                      if (formGlobalKey.currentState.validate()) {
-                        formGlobalKey.currentState.save();
-                      }
-                    },
                   ),
                 ),
                 Padding(
@@ -140,11 +135,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return null;
                       } else {
                         return 'รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร';
-                      }
-                    },
-                    onChanged: (val) {
-                      if (formGlobalKey.currentState.validate()) {
-                        formGlobalKey.currentState.save();
                       }
                     },
                   ),
@@ -193,11 +183,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return null;
                       } else {
                         return 'ยืนยันรหัสผ่านไม่ถูกต้อง';
-                      }
-                    },
-                    onChanged: (val) {
-                      if (formGlobalKey.currentState.validate()) {
-                        formGlobalKey.currentState.save();
                       }
                     },
                   ),

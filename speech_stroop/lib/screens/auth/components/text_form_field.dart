@@ -7,8 +7,9 @@ class TextFormFieldCustom extends StatelessWidget {
   final String Function(String val) validator;
   final void Function(String val) onChanged;
 
-  TextFormFieldCustom(this.controller, this.labelText, this.keyboardType,
-      this.validator, this.onChanged);
+  TextFormFieldCustom(
+      this.controller, this.labelText, this.keyboardType, this.validator,
+      [this.onChanged]);
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/auth.dart';
+import 'package:speech_stroop/screens/auth/components/text_form_field.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
@@ -75,35 +76,12 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                      child: TextFormField(
-                        controller: telController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'เบอร์โทรศัพท์',
-                          labelStyle: const TextStyle(
-                            fontWeight: FontWeight.w300,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFFA7A5A5),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFFA7A5A5),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                        ),
-                        textAlign: TextAlign.start,
-                        keyboardType: TextInputType.phone,
-                        validator: (val) {
+                      child: TextFormFieldCustom(
+                        telController,
+                        'เบอร์โทรศัพท์',
+                        TextInputType.phone,
+                        (val) {
+                          //TODO: check if it's already been used
                           if (val.isEmpty) {
                             return 'โปรดระบุเบอร์โทรศัพท์';
                           }
@@ -114,11 +92,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                             return 'โปรดกรอกตัวเลขเท่านั้น';
                           }
                           return null;
-                        },
-                        onChanged: (val) {
-                          if (formGlobalKey.currentState.validate()) {
-                            formGlobalKey.currentState.save();
-                          }
                         },
                       ),
                     ),
@@ -165,11 +138,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                           return 'รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร';
                         }
                       },
-                      onChanged: (val) {
-                        if (formGlobalKey.currentState.validate()) {
-                          formGlobalKey.currentState.save();
-                        }
-                      },
                     ),
                   ),
                   PrimaryButton('เข้าสู่ระบบ', () async {
@@ -187,7 +155,10 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                         auth = Auth.fromJson(jsonDecode(res.body));
                         print("login success");
                         Navigator.pushNamed(context, HomeScreen.routeName);
-                      } else {} //TODO: handle failed login
+                      } else {
+                        //TODO: handle failed login
+                        print('รหัสผ่านไม่ตรง');
+                      }
                     }
                   }),
                   SecondaryButton(

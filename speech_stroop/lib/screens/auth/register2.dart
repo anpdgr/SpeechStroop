@@ -84,12 +84,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                           }
                           return null;
                         },
-                        // TODO: create func validateOnChanged ?
-                        (val) {
-                          if (formGlobalKey.currentState.validate()) {
-                            formGlobalKey.currentState.save();
-                          }
-                        },
                       ),
                     ),
                     Padding(
@@ -113,11 +107,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                                   }
                                   return null;
                                 },
-                                (val) {
-                                  if (formGlobalKey.currentState.validate()) {
-                                    formGlobalKey.currentState.save();
-                                  }
-                                },
                               ),
                             ),
                           ),
@@ -131,11 +120,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                                   return 'โปรดระบุนามสกุล';
                                 }
                                 return null;
-                              },
-                              (val) {
-                                if (formGlobalKey.currentState.validate()) {
-                                  formGlobalKey.currentState.save();
-                                }
                               },
                             ),
                           ),
@@ -160,11 +144,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                           }
                           return null;
                         },
-                        (val) {
-                          if (formGlobalKey.currentState.validate()) {
-                            formGlobalKey.currentState.save();
-                          }
-                        },
                       ),
                     ),
                     Padding(
@@ -182,11 +161,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                             return 'โปรดกรอกตัวเลขเท่านั้น';
                           }
                           return null;
-                        },
-                        (val) {
-                          if (formGlobalKey.currentState.validate()) {
-                            formGlobalKey.currentState.save();
-                          }
                         },
                       ),
                     ),
@@ -260,11 +234,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                                                       : null
                                                 })
                                           });
-                                },
-                                onChanged: (val) {
-                                  if (formGlobalKey.currentState.validate()) {
-                                    formGlobalKey.currentState.save();
-                                  }
                                 },
                               ),
                             ),
@@ -395,7 +364,6 @@ class _Register2ScreenState extends State<Register2Screen> {
         dobController.text.split("-").map((e) => int.parse(e)).toList();
 
     registerReq.username = usernameController.text;
-    //TODO: add user model for name, surname
     registerReq.name = nameController.text;
     registerReq.surname = surnameController.text;
     registerReq.email = emailController.text;
