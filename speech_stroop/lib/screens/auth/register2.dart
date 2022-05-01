@@ -255,12 +255,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                               setState(() {
                                 genderValue = val;
                               });
-                              if (formGlobalKey.currentState.validate()) {
-                                formGlobalKey.currentState.save();
-                                setState(() {
-                                  genderValue = val;
-                                });
-                              }
                             },
                             items: genderList,
                             validator: (value) {
@@ -293,12 +287,6 @@ class _Register2ScreenState extends State<Register2Screen> {
                             setState(() {
                               educationValue = val;
                             });
-                            if (formGlobalKey.currentState.validate()) {
-                              formGlobalKey.currentState.save();
-                              setState(() {
-                                educationValue = val;
-                              });
-                            }
                           },
                           items: educationList,
                           validator: (value) {
