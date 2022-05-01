@@ -163,6 +163,7 @@ List<ScoreChartData> getScoreChartData(List<History> historyData, int range) {
       data.add(ScoreChartData(prevDate, avgScorePerDay));
     }
   }
+  data = data.reversed.toList();
 
   return data;
 }
