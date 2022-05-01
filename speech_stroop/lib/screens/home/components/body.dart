@@ -7,6 +7,8 @@ import 'package:speech_stroop/enums.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
+import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro1.dart';
 import 'package:tuple/tuple.dart';
 
@@ -153,6 +155,14 @@ class _BodyState extends State<Body> {
                   context, TutorialIntroduction1Screen.routeName)
             },
             ButtonType.medium,
+          ),
+          SecondaryButton(
+            "result mock",
+            () => {
+              latestTest = userHistory[0],
+              Navigator.pushNamed(context, ResultScreen.routeName),
+            },
+            ButtonType.small,
           )
         ],
       )),
