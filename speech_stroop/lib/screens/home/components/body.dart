@@ -29,7 +29,7 @@ class _BodyState extends State<Body> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _asyncFunc();
       setState(() {
-        userName = userProfile.name;
+        userName = userProfile.username;
         bestScores = getHighestScores();
         latestScores = getlatestScores();
       });
