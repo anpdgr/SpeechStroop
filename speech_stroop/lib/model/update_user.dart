@@ -7,7 +7,9 @@ import 'package:speech_stroop/model/user.dart';
 
 class UpdateUser {
   String tel;
+  String username;
   String name;
+  String surname;
   String email;
   DateTime dateOfBirth;
   String gender;
@@ -16,7 +18,9 @@ class UpdateUser {
 
   UpdateUser({
     this.tel,
+    this.username,
     this.name,
+    this.surname,
     this.email,
     this.dateOfBirth,
     this.gender,
@@ -27,7 +31,9 @@ class UpdateUser {
   factory UpdateUser.fromJson(dynamic json) {
     return UpdateUser(
       tel: json['tel'] as String,
+      username: json['username'] as String,
       name: json['name'] as String,
+      surname: json['surname'] as String,
       email: json['email'] as String,
       dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
       gender: json['gender'] as String,
@@ -39,7 +45,9 @@ class UpdateUser {
   Map<String, dynamic> toJson() {
     return {
       "tel": tel,
+      "username": username,
       "name": name,
+      "surname": surname,
       "email": email,
       "dateOfBirth": dateOfBirth.toIso8601String(),
       "gender": gender,

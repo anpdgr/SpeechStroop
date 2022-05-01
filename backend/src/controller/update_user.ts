@@ -3,7 +3,9 @@ import { User } from 'src/model/user'
 
 export interface UpdateUserDTO {
   tel?: string
+  username?: string
   name?: string
+  surname?: string
   email?: string
   dateOfBirth?: Date
   gender?: string

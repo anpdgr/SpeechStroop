@@ -29,7 +29,9 @@ class _BodyState extends State<Body> {
     getUserProfile(false);
     updateUser = UpdateUser(
       tel: userProfile.tel,
+      username: userProfile.username,
       name: userProfile.name,
+      surname: userProfile.surname,
       email: userProfile.email,
       dateOfBirth: userProfile.dateOfBirth,
       gender: userProfile.gender,
