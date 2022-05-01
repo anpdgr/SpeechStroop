@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/constants.dart';
 
 import 'package:speech_stroop/screens/auth/components/text_form_field.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
@@ -28,25 +29,6 @@ class _Register2ScreenState extends State<Register2Screen> {
   TextEditingController dobController;
   DateTime dob;
   String genderValue;
-  List<DropdownMenuItem<dynamic>> genderList = const [
-    DropdownMenuItem(child: Text("เพศชาย"), value: "male"),
-    DropdownMenuItem(child: Text("เพศหญิง"), value: "female"),
-    DropdownMenuItem(child: Text("อื่น ๆ"), value: "etc"),
-  ];
-  String educationValue;
-  List<DropdownMenuItem<dynamic>> educationList = const [
-    DropdownMenuItem(
-        child: Text("ต่ำกว่ามัธยมศึกษาตอนต้น"), value: "elementary"),
-    DropdownMenuItem(child: Text("มัธยมศึกษาตอนต้น"), value: "lower2nd"),
-    DropdownMenuItem(child: Text("ปวช."), value: "vocational cert"),
-    DropdownMenuItem(child: Text("มัธยมศึกษาตอนปลาย"), value: "upper2nd"),
-    DropdownMenuItem(child: Text("ปวส."), value: "high vocational cert"),
-    DropdownMenuItem(child: Text("อนุปริญญา"), value: "associate"),
-    DropdownMenuItem(child: Text("ปริญญาตรี "), value: "bd"),
-    DropdownMenuItem(child: Text("ปริญญาโท"), value: "md"),
-    DropdownMenuItem(child: Text("ปริญญาเอก"), value: "phd"),
-    DropdownMenuItem(child: Text("อื่น ๆ"), value: "etc"),
-  ];
   bool isNotColorBlind = false;
 
   @override

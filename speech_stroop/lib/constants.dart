@@ -44,6 +44,27 @@ class APIPath {
   final user = "/user";
 }
 
+// Register
+List<DropdownMenuItem<dynamic>> genderList = const [
+  DropdownMenuItem(child: Text("เพศชาย"), value: "เพศชาย"),
+  DropdownMenuItem(child: Text("เพศหญิง"), value: "เพศหญิง"),
+  DropdownMenuItem(child: Text("อื่น ๆ"), value: "อื่น ๆ"),
+];
+String educationValue;
+List<DropdownMenuItem<dynamic>> educationList = const [
+  DropdownMenuItem(child: Text("ต่ำกว่ามัธยมศึกษาตอนต้น"), value: "elementary"),
+  DropdownMenuItem(child: Text("มัธยมศึกษาตอนต้น"), value: "มัธยมศึกษาตอนต้น"),
+  DropdownMenuItem(child: Text("ปวช."), value: "ปวช."),
+  DropdownMenuItem(
+      child: Text("มัธยมศึกษาตอนปลาย"), value: "มัธยมศึกษาตอนปลาย"),
+  DropdownMenuItem(child: Text("ปวส."), value: "ปวส."),
+  DropdownMenuItem(child: Text("อนุปริญญา"), value: "อนุปริญญา"),
+  DropdownMenuItem(child: Text("ปริญญาตรี "), value: "ปริญญาตรี"),
+  DropdownMenuItem(child: Text("ปริญญาโท"), value: "ปริญญาโท"),
+  DropdownMenuItem(child: Text("ปริญญาเอก"), value: "ปริญญาเอก"),
+  DropdownMenuItem(child: Text("อื่น ๆ"), value: "อื่น ๆ"),
+];
+
 // Tutorial
 int tutorialQuestionsAmount = 5;
 
