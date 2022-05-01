@@ -4,43 +4,66 @@ import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/update_user.dart';
 import 'package:speech_stroop/model/user.dart';
+import 'package:speech_stroop/screens/auth/components/text_form_field.dart';
 import 'package:speech_stroop/screens/profile/profile_screen.dart';
-import 'package:speech_stroop/theme.dart';
 
 class ProfileForm extends StatefulWidget {
-  ProfileForm(this.updateUser, {Key key}) : super(key: key);
-  UpdateUser updateUser;
+  const ProfileForm(this.updateUser, {Key key}) : super(key: key);
+  final UpdateUser updateUser;
   @override
   ProfileFormState createState() => ProfileFormState();
 }
 
 class ProfileFormState extends State<ProfileForm> {
-  User currentUser = userProfile;
-  UpdateUser updateUser;
-
-  TextEditingController nameController;
-  TextEditingController emailController;
-  TextEditingController dobController;
-  bool profileFormEnabled;
-
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formGlobalKey = GlobalKey<FormState>();
 
+  UpdateUser updateUser;
+
+  bool profileFormEnabled;
+
+  TextEditingController usernameController;
+  TextEditingController nameController;
+  TextEditingController surnameController;
+  TextEditingController emailController;
+  TextEditingController dobController;
+  TextEditingController genderController;
+  TextEditingController educationController;
+
+  DateTime dob;
+  String genderValue;
+  String educationValue;
+
   @override
   void initState() {
     super.initState();
-    currentUser = userProfile;
     updateUser = widget.updateUser;
 
-    nameController = TextEditingController(text: currentUser.name);
-    emailController = TextEditingController(text: currentUser.email);
+    usernameController = TextEditingController(text: userProfile.username);
+    nameController = TextEditingController(text: userProfile.name);
+    surnameController = TextEditingController(text: userProfile.surname);
+    emailController = TextEditingController(text: userProfile.email);
     dobController = TextEditingController(
-        text: currentUser.dateOfBirth.toString().split(' ')[0]);
-    profileFormEnabled = false;
+        text: userProfile.dateOfBirth.toString().split(' ')[0]);
+    dob = userProfile.dateOfBirth;
+    genderController = TextEditingController(text: userProfile.gender);
+    educationController = TextEditingController(text: userProfile.education);
 
-    print(currentUser.name);
-    print(nameController.text);
+    genderValue = userProfile.gender;
+    educationValue = userProfile.education;
+
+    print({
+      "username": usernameController.text,
+      "name": nameController.text,
+      "surname": surnameController.text,
+      "email": emailController.text,
+      "dateOfBirth": dobController.text,
+      "gender": genderValue,
+      "education": educationValue,
+    });
+
+    profileFormEnabled = false;
   }
 
   Color getColor(Set<MaterialState> states) {
@@ -80,62 +103,87 @@ class ProfileFormState extends State<ProfileForm> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Align(
-                  alignment: const AlignmentDirectional(0, 0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        enabled: profileFormEnabled,
-                        labelText: 'ชื่อเล่น',
-                        labelStyle:
-                            textTheme().labelLarge.apply(color: formText),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: formBorder,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      style: textTheme().bodyMedium.apply(color: formText),
-                      textAlign: TextAlign.start,
-                      keyboardType: TextInputType.name,
-                      validator: (val) {
-                        if (val.isEmpty) {
-                          return 'โปรดระบุชื่อเล่น';
-                        }
-                        return null;
-                      },
-                      onChanged: (val) {
-                        if (formGlobalKey.currentState.validate()) {
-                          formGlobalKey.currentState.save();
-                        }
-                      },
-                    ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  child: TextFormFieldCustom(
+                    usernameController,
+                    'ชื่อเล่น',
+                    TextInputType.name,
+                    (val) {
+                      if (val.isEmpty) {
+                        return 'โปรดระบุชื่อเล่น';
+                      }
+                      return null;
+                    },
+                    // TODO: create func validateOnChanged ?
+                    (val) {
+                      if (formGlobalKey.currentState.validate()) {
+                        formGlobalKey.currentState.save();
+                      }
+                    },
+                    profileFormEnabled, true,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      enabled: profileFormEnabled,
-                      labelText: 'อีเมล',
-                      labelStyle: textTheme().labelLarge.apply(color: formText),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: formBorder,
-                          width: 1,
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                          child: TextFormFieldCustom(
+                            nameController,
+                            'ชื่อจริง',
+                            TextInputType.name,
+                            (val) {
+                              if (val.isEmpty) {
+                                return 'โปรดระบุชื่อจริง';
+                              }
+                              return null;
+                            },
+                            (val) {
+                              if (formGlobalKey.currentState.validate()) {
+                                formGlobalKey.currentState.save();
+                              }
+                            },
+                            profileFormEnabled,
+                            true,
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                    style: textTheme().bodyMedium.apply(color: formText),
-                    textAlign: TextAlign.start,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (val) {
+                      Expanded(
+                        child: TextFormFieldCustom(
+                          surnameController,
+                          'นามสกุล',
+                          TextInputType.name,
+                          (val) {
+                            if (val.isEmpty) {
+                              return 'โปรดระบุนามสกุล';
+                            }
+                            return null;
+                          },
+                          (val) {
+                            if (formGlobalKey.currentState.validate()) {
+                              formGlobalKey.currentState.save();
+                            }
+                          },
+                          profileFormEnabled,
+                          true,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  child: TextFormFieldCustom(
+                    emailController,
+                    'อีเมล',
+                    TextInputType.emailAddress,
+                    (val) {
                       bool isEmailValid = RegExp(
                               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                           .hasMatch(val);
@@ -146,163 +194,218 @@ class ProfileFormState extends State<ProfileForm> {
                       }
                       return null;
                     },
-                    onChanged: (val) {
+                    (val) {
                       if (formGlobalKey.currentState.validate()) {
                         formGlobalKey.currentState.save();
                       }
                     },
+                    profileFormEnabled,
+                    true,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: dobController,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      enabled: profileFormEnabled,
-                      labelText: 'วันเกิด',
-                      labelStyle: textTheme().labelLarge.apply(color: formText),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: formBorder,
-                          width: 1,
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                          child: TextFormFieldCustom(
+                            dobController,
+                            'วันเกิด',
+                            TextInputType.number,
+                            (val) {
+                              RegExp exp = RegExp(
+                                  r"((19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])");
+                              Iterable<RegExpMatch> matches =
+                                  exp.allMatches(val);
+                              if (val == '') {
+                                return 'โปรดระบุวันเกิดของคุณ';
+                              } else if (matches.isEmpty) {
+                                return 'โปรดระบุวันเกิดของคุณให้ถูกต้อง';
+                              }
+                              //TODO: check if value is before today
+                              return null;
+                            },
+                            (val) {
+                              if (formGlobalKey.currentState.validate()) {
+                                formGlobalKey.currentState.save();
+                              }
+                            },
+                            profileFormEnabled,
+                            true,
+                            const Icon(Icons.calendar_today),
+                            () {
+                              showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1940),
+                                      lastDate:
+                                          DateTime(DateTime.now().year + 1))
+                                  .then((date) => {
+                                        setState(() => {
+                                              dob = date,
+                                              dob != null
+                                                  ? dobController.text = dob
+                                                      .toString()
+                                                      .split(' ')[0]
+                                                  : null
+                                            })
+                                      });
+                            },
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                    style: textTheme().bodyMedium.apply(color: formText),
-                    textAlign: TextAlign.start,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (val) {
-                      RegExp exp = RegExp(
-                          r"((19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])");
-                      Iterable<RegExpMatch> matches = exp.allMatches(val);
-                      if (val == '') {
-                        return 'โปรดระบุวันเกิดของคุณ';
-                      } else if (matches.isEmpty) {
-                        return 'โปรดระบุวันเกิดของคุณให้ถูกต้อง';
-                      }
-                      //TODO: check if value is before today
-                      return null;
-                    },
-                    onTap: () {
-                      showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1940),
-                              lastDate: DateTime(DateTime.now().year + 1))
-                          .then((date) => {
-                                setState(() => {
-                                      currentUser.dateOfBirth = date,
-                                      currentUser.dateOfBirth != null
-                                          ? dobController.text = currentUser
-                                              .dateOfBirth
-                                              .toString()
-                                              .split(' ')[0]
-                                          : null
-                                    })
-                              });
-                    },
-                    onChanged: (val) {
-                      if (formGlobalKey.currentState.validate()) {
-                        formGlobalKey.currentState.save();
-                      }
-                    },
+                      Expanded(
+                        child: profileFormEnabled
+                            ? DropdownButtonFormField(
+                                decoration: InputDecoration(
+                                  label: const Text(
+                                    'เพศ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: formBorder,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: formBorder,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: formBorder,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  enabled: profileFormEnabled,
+                                ),
+                                disabledHint: Text(genderValue,
+                                    style: TextStyle(
+                                      color: primaryColor,
+                                      fontWeight: FontWeight.w300,
+                                    )),
+                                value: genderValue,
+                                onChanged: profileFormEnabled
+                                    ? (val) {
+                                        setState(() {
+                                          genderValue = val;
+                                        });
+                                        if (formGlobalKey.currentState
+                                            .validate()) {
+                                          formGlobalKey.currentState.save();
+                                          setState(() {
+                                            genderValue = val;
+                                          });
+                                        }
+                                      }
+                                    : null,
+                                items: genderList,
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'โปรดระบุเพศของคุณ';
+                                  }
+                                  return null;
+                                },
+                              )
+                            : TextFormFieldCustom(
+                                genderController,
+                                'เพศ',
+                                TextInputType.text,
+                                null,
+                                null,
+                                false,
+                                true,
+                              ),
+                      ),
+                    ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      enabled: profileFormEnabled,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
-                    value: currentUser.gender,
-                    hint: const Text(
-                      'เพศ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    onChanged: (val) {
-                      setState(() {
-                        currentUser.gender = val;
-                      });
-                      if (formGlobalKey.currentState.validate()) {
-                        formGlobalKey.currentState.save();
-                        setState(() {
-                          currentUser.gender = val;
-                        });
-                      }
-                    },
-                    items: const [
-                      DropdownMenuItem(child: Text("เพศชาย"), value: "male"),
-                      DropdownMenuItem(child: Text("เพศหญิง"), value: "female"),
-                      DropdownMenuItem(child: Text("อื่น ๆ"), value: "etc"),
-                    ],
-                    validator: (value) {
-                      if (value == null) {
-                        return 'โปรดระบุเพศของคุณ';
-                      }
-                      return null;
-                    },
-                  ),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  child: profileFormEnabled
+                      ? DropdownButtonFormField(
+                          decoration: InputDecoration(
+                            label: const Text(
+                              'ระดับการศึกษาสูงสุด',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: formBorder,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: formBorder,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: formBorder,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            enabled: profileFormEnabled,
+                          ),
+                          disabledHint: Text(genderValue,
+                              style: TextStyle(
+                                color: primaryColor,
+                                fontWeight: FontWeight.w300,
+                              )),
+                          value: educationValue,
+                          onChanged: profileFormEnabled
+                              ? (val) {
+                                  setState(() {
+                                    educationValue = val;
+                                  });
+                                  if (formGlobalKey.currentState.validate()) {
+                                    formGlobalKey.currentState.save();
+                                    setState(() {
+                                      educationValue = val;
+                                    });
+                                  }
+                                }
+                              : null,
+                          items: educationList,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'โปรดระบุระดับการศึกษาสูงสุดของคุณ';
+                            }
+                            return null;
+                          },
+                        )
+                      : TextFormFieldCustom(
+                          educationController,
+                          'ระดับการศึกษาสูงสุด',
+                          TextInputType.text,
+                          null,
+                          null,
+                          false,
+                          true,
+                        ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      enabled: profileFormEnabled,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
-                    value: currentUser.education,
-                    hint: const Text(
-                      'ระดับการศึกษาสูงสุด',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    onChanged: (val) {
-                      setState(() {
-                        currentUser.education = val;
-                      });
-                      if (formGlobalKey.currentState.validate()) {
-                        formGlobalKey.currentState.save();
-                        setState(() {
-                          updateUser.education = val;
-                        });
-                      }
-                    },
-                    items: const [
-                      DropdownMenuItem(
-                          child: Text("ต่ำกว่ามัธยมศึกษาตอนต้น"),
-                          value: "elementary"),
-                      DropdownMenuItem(
-                          child: Text("มัธยมศึกษาตอนต้น"), value: "lower2nd"),
-                      DropdownMenuItem(
-                          child: Text("ปวช."), value: "vocational cert"),
-                      DropdownMenuItem(
-                          child: Text("มัธยมศึกษาตอนปลาย"), value: "upper2nd"),
-                      DropdownMenuItem(
-                          child: Text("ปวส."), value: "high vocational cert"),
-                      DropdownMenuItem(
-                          child: Text("อนุปริญญา"), value: "associate"),
-                      DropdownMenuItem(child: Text("ปริญญาตรี "), value: "bd"),
-                      DropdownMenuItem(child: Text("ปริญญาโท"), value: "md"),
-                      DropdownMenuItem(child: Text("ปริญญาเอก"), value: "phd"),
-                      DropdownMenuItem(child: Text("อื่น ๆ"), value: "etc"),
-                    ],
-                    validator: (value) {
-                      if (value == null) {
-                        return 'โปรดระบุระดับการศึกษาสูงสุดของคุณ';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                getFormButton(),
+                getFormButton()
               ],
             )),
       ),
@@ -326,7 +429,8 @@ class ProfileFormState extends State<ProfileForm> {
                     Container(
                       alignment: Alignment.topRight,
                       child: IconButton(
-                        onPressed: () => Navigator.pop(context, false),
+                        onPressed: () => Navigator.pushNamed(
+                            context, ProfileScreen.routeName),
                         icon: const Icon(
                           Icons.close,
                           color: Color(0xFF37265F),
@@ -353,16 +457,22 @@ class ProfileFormState extends State<ProfileForm> {
                                 PrimaryButton(
                                   "บันทึก",
                                   () async => {
-                                    updateUser.name = nameController.text,
-                                    updateUser.email = emailController.text,
-                                    updateUser.dateOfBirth =
-                                        currentUser.dateOfBirth,
-                                    updateUser.gender = currentUser.gender,
-                                    updateUser.education =
-                                        currentUser.education,
+                                    updateUser = UpdateUser(
+                                      tel: updateUser.tel,
+                                      username: usernameController.text,
+                                      name: nameController.text,
+                                      surname: surnameController.text,
+                                      email: emailController.text,
+                                      dateOfBirth: dob,
+                                      gender: genderValue,
+                                      education: educationValue,
+                                      precondition: updateUser.precondition,
+                                    ),
                                     print({
                                       "tel": updateUser.tel,
+                                      "username": updateUser.username,
                                       "name": updateUser.name,
+                                      "surname": updateUser.surname,
                                       "email": updateUser.email,
                                       "dateOfBirth": updateUser.dateOfBirth,
                                       "gender": updateUser.gender,
@@ -374,8 +484,10 @@ class ProfileFormState extends State<ProfileForm> {
                                         context, ProfileScreen.routeName),
                                   },
                                 ),
-                                SecondaryButton("ยกเลิก",
-                                    () => Navigator.pop(context, false))
+                                SecondaryButton(
+                                    "ยกเลิก",
+                                    () => Navigator.pushNamed(
+                                        context, ProfileScreen.routeName))
                               ],
                             ),
                           ),
