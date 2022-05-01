@@ -156,14 +156,6 @@ class _BodyState extends State<Body> {
             },
             ButtonType.medium,
           ),
-          SecondaryButton(
-            "result mock",
-            () => {
-              latestTest = userHistory[0],
-              Navigator.pushNamed(context, ResultScreen.routeName),
-            },
-            ButtonType.small,
-          )
         ],
       )),
     )));
