@@ -220,11 +220,35 @@ class _Register2ScreenState extends State<Register2Screen> {
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 0, 5, 0),
-                              child: TextFormFieldCustom(
-                                dobController,
-                                'วันเกิด',
-                                TextInputType.number,
-                                (val) {
+                              child: TextFormField(
+                                controller: dobController,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText: 'วันเกิด',
+                                  labelStyle: const TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0xFFA7A5A5),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  suffixIcon: const Icon(Icons.calendar_today),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0xFFA7A5A5),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (val) {
                                   RegExp exp = RegExp(
                                       r"((19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])");
                                   Iterable<RegExpMatch> matches =
@@ -237,12 +261,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                                   //TODO: check if value is before today
                                   return null;
                                 },
-                                (val) {
-                                  if (formGlobalKey.currentState.validate()) {
-                                    formGlobalKey.currentState.save();
-                                  }
-                                },
-                                () {
+                                onTap: () {
                                   showDatePicker(
                                           context: context,
                                           initialDate: DateTime.now(),
@@ -259,6 +278,11 @@ class _Register2ScreenState extends State<Register2Screen> {
                                                       : null
                                                 })
                                           });
+                                },
+                                onChanged: (val) {
+                                  if (formGlobalKey.currentState.validate()) {
+                                    formGlobalKey.currentState.save();
+                                  }
                                 },
                               ),
                             ),
