@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/floating_button.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/components/example_box.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro2.dart';

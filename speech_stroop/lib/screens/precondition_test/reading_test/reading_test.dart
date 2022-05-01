@@ -11,7 +11,7 @@ import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
 
-import '../../../components/appbar.dart';
+import '../../../components/custom_appbar.dart';
 import 'package:speech_stroop/components/microphone_test/fail_microphone_test.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
 

@@ -11,7 +11,7 @@ import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/fail_color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/pass_color_test.dart';
 
-import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/microphone_test/fail_microphone_test.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
 

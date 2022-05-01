@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/floating_button.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/microphone_test/microphone_test.dart';
@@ -61,10 +61,10 @@ class _TutorialIntroduction3State extends State<TutorialIntroduction3Screen> {
               PrimaryButton(
                   'เริ่มทดลองทำ',
                   () => {
-                    dstMicTest = 'tutorial',
-                    Navigator.pushNamed(
-                        context, MicrophoneTestScreen.routeName)
-                  }),
+                        dstMicTest = 'tutorial',
+                        Navigator.pushNamed(
+                            context, MicrophoneTestScreen.routeName)
+                      }),
               FloatingButton(() {}, true, false),
             ],
           ),

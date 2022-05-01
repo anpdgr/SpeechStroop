@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/screens/stroop/result/components/body.dart';
 
 class ResultScreen extends StatelessWidget {

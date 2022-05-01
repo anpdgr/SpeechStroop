@@ -5,7 +5,7 @@ import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register_stress.dart';
 
 import 'package:speech_stroop/components/button/floating_button.dart';
-import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/custom_appbar.dart';
 
 class Register2Screen extends StatefulWidget {
   const Register2Screen({Key key}) : super(key: key);
@@ -60,7 +60,6 @@ class _Register2ScreenState extends State<Register2Screen> {
     dobController = TextEditingController();
   }
 
-
   @override
   Widget build(BuildContext context) {
     Color getColor(Set<MaterialState> states) {
@@ -103,7 +102,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                           }
                           return null;
                         },
-                        // TODO: create func validateOnChanged ? 
+                        // TODO: create func validateOnChanged ?
                         (val) {
                           if (formGlobalKey.currentState.validate()) {
                             formGlobalKey.currentState.save();
@@ -112,15 +111,16 @@ class _Register2ScreenState extends State<Register2Screen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 15, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),                              
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 5, 0),
                               child: TextFormFieldCustom(
                                 nameController,
                                 'ชื่อจริง',
@@ -399,5 +399,4 @@ class _Register2ScreenState extends State<Register2Screen> {
     registerReq.education = educationValue ?? 'unknown';
     precondition.isColorBlind = !isNotColorBlind;
   }
-
 }

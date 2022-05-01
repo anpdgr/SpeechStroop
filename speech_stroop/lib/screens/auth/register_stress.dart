@@ -1,4 +1,4 @@
-import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/floating_button.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/screens/auth/register.dart';

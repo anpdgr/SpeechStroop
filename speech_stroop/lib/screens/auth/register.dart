@@ -4,7 +4,7 @@ import 'package:speech_stroop/screens/auth/components/text_form_field.dart';
 import 'package:speech_stroop/screens/auth/register2.dart';
 
 import 'package:speech_stroop/components/button/floating_button.dart';
-import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/custom_appbar.dart';
 
 import 'package:speech_stroop/model/precondition.dart';
 import 'package:speech_stroop/model/user.dart';
@@ -14,8 +14,8 @@ PreconditionScore colorVisibilityTest = PreconditionScore(0, DateTime.now());
 PreconditionScore readingAbilityTest = PreconditionScore(0, DateTime.now());
 Precondition precondition =
     Precondition(true, colorVisibilityTest, readingAbilityTest, false);
-User registerReq = User(
-    '', '', '', '', '', '', DateTime.now(), '', '', userHealthScores, precondition);
+User registerReq = User('', '', '', '', '', '', DateTime.now(), '', '',
+    userHealthScores, precondition);
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key key}) : super(key: key);
@@ -209,7 +209,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         formGlobalKey.currentState.save();
                         if (passwordController.text ==
                             confirmPasswordController.text) {
-
                           setUserData();
 
                           Navigator.push(
@@ -232,5 +231,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
     registerReq.tel = telController.text;
     registerReq.password = passwordController.text;
   }
-
 }

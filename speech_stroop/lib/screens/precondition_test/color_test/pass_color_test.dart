@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:speech_stroop/components/appbar.dart';
+import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/auth.dart';
@@ -57,26 +57,26 @@ class _PassColorTestState extends State<PassColorTestScreen> {
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 80),
-              child: userProfile != null 
-                    ? PrimaryButton('กลับสู่หน้าหลัก', () {
-                        Navigator.pushNamed(context, ProfileScreen.routeName);
-                      }) 
-                    :  PrimaryButton('เข้าสู่หน้าหลัก', () async {
-                        precondition.isPassAll = true;
-                        registerReq.precondition = precondition;
+              child: userProfile != null
+                  ? PrimaryButton('กลับสู่หน้าหลัก', () {
+                      Navigator.pushNamed(context, ProfileScreen.routeName);
+                    })
+                  : PrimaryButton('เข้าสู่หน้าหลัก', () async {
+                      precondition.isPassAll = true;
+                      registerReq.precondition = precondition;
 
-                        var res = await http.post(
-                            Uri.parse("http://localhost:3000/auth/register"),
-                            headers: {'Content-Type': 'application/json'},
-                            body: jsonEncode(registerReq));
+                      var res = await http.post(
+                          Uri.parse("http://localhost:3000/auth/register"),
+                          headers: {'Content-Type': 'application/json'},
+                          body: jsonEncode(registerReq));
 
-                        //TODO: login with this user
-                        if (res.statusCode == 200) {
-                          auth = Auth.fromJson(jsonDecode(res.body));
-                          print("login success");
-                          Navigator.pushNamed(context, HomeScreen.routeName);
-                        }
-                      }),
+                      //TODO: login with this user
+                      if (res.statusCode == 200) {
+                        auth = Auth.fromJson(jsonDecode(res.body));
+                        print("login success");
+                        Navigator.pushNamed(context, HomeScreen.routeName);
+                      }
+                    }),
             )
           ],
         ));
