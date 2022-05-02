@@ -158,30 +158,30 @@ class _BodyState extends State<Body> {
             },
             ButtonType.medium,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () => {
-                  latestTest = userHistory[0],
-                  Navigator.pushNamed(context, ResultScreen.routeName),
-                },
-                child: Text(
-                  "result mock",
-                  style: textTheme().bodySmall.apply(color: secondaryColor),
-                ),
-              ),
-              TextButton(
-                onPressed: () async => {
-                  await mockHistory(),
-                },
-                child: Text(
-                  "mockHistory",
-                  style: textTheme().bodySmall.apply(color: secondaryColor),
-                ),
-              ),
-            ],
-          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     TextButton(
+          //       onPressed: () => {
+          //         latestTest = userHistory[0],
+          //         Navigator.pushNamed(context, ResultScreen.routeName),
+          //       },
+          //       child: Text(
+          //         "result mock",
+          //         style: textTheme().bodySmall.apply(color: secondaryColor),
+          //       ),
+          //     ),
+          //     TextButton(
+          //       onPressed: () async => {
+          //         await mockHistory(),
+          //       },
+          //       child: Text(
+          //         "mockHistory",
+          //         style: textTheme().bodySmall.apply(color: secondaryColor),
+          //       ),
+          //     ),
+          //   ],
+          // )
         ],
       )),
     )));
