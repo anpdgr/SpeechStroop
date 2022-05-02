@@ -28,6 +28,7 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
   bool isListening = false;
   String text = '';
   String result = '';
+  Color resultColor = backgroundColor;
   List<SpeechRecognitionWords> valAlternates;
 
   @override
@@ -68,7 +69,7 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                 child: Text(
                   result,
-                  style: textTheme().bodyLarge.apply(color: secondaryColor),
+                  style: textTheme().bodyLarge.apply(color: resultColor),
                 ),
               ),
             ],
@@ -84,6 +85,7 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
           // onStatus: (val) => print('onStatus: $val'),
           onError: (val) => setState(() {
                 result = 'โปรดลองใหม่อีกครั้ง';
+                resultColor = const Color(0xFFDA4F2C);
                 text = '';
               }));
       if (available) {
@@ -100,6 +102,7 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
         if (text == 'ฟ้าเขียวเหลืองส้มแดงดำม่วง') {
           setState(() {
             result = 'คุณผ่านการทดสอบไมโครโฟน';
+            resultColor = const Color(0xFF6FC2A0);
             text = '';
           });
           Future.delayed(const Duration(milliseconds: 1500), () {
