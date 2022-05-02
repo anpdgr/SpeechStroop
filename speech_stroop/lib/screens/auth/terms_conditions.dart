@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/floating_button.dart';
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/components/custom_appbar.dart';
 
@@ -33,7 +34,7 @@ class _TermsConditionsScreenWidgetState extends State<TermsConditionsScreen> {
         MaterialState.focused,
       };
       if (states.any(interactiveStates.contains)) {
-        return const Color(0xFFEB8D8D);
+        return secondaryColor;
       }
       return const Color(0xFF525252);
     }

@@ -53,11 +53,11 @@ class _BodyState extends State<Body> {
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Center(
             child: Container(
-          margin: const EdgeInsets.all(20),
+          margin: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             children: [
-              TotalScore(latestTestData.totalScore),
-              const SizedBox(height: 5),
+              TotalScore(latestTestData.totalScore, sumCongruentScore,
+                  sumIncongruentScore),
               SectionScore(latestTestData.sections),
               const SizedBox(height: 5),
               TypeScore(sumCongruentScore, sumIncongruentScore),

@@ -10,6 +10,7 @@ import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_combination.dart';
+import 'package:speech_stroop/theme.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -142,20 +143,12 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                   PrimaryButton('เข้าสู่ระบบ', () async {
                     if (formGlobalKey.currentState.validate()) {
                       formGlobalKey.currentState.save();
-                      var res = await http.post(
-                          Uri.parse("http://localhost:3000/auth/login"),
-                          headers: {'Content-Type': 'application/json'},
-                          body: jsonEncode({
-                            "tel": telController.text,
-                            "password": passwordController.text,
-                          }));
-
+                      var res = await login(
+                          telController.text, passwordController.text);
                       if (res.statusCode == 200) {
-                        auth = Auth.fromJson(jsonDecode(res.body));
-                        print("login success");
                         Navigator.pushNamed(context, HomeScreen.routeName);
                       } else {
-                        //TODO: handle failed login
+                        //TODO: handle failed login : alert
                         print('รหัสผ่านไม่ตรง');
                       }
                     }
@@ -191,22 +184,58 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                                   color: Color(0xFF838383))))),
 
                   //TODO: DELETE ME!!!! (for admin)
-                  SecondaryButton('Developer', () async {
-                    formGlobalKey.currentState.save();
-                    var res = await http.post(
-                        Uri.parse("http://localhost:3000/auth/login"),
-                        headers: {'Content-Type': 'application/json'},
-                        body: jsonEncode({
-                          "tel": "0000000001",
-                          "password": "00000000",
-                        }));
-
-                    if (res.statusCode == 200) {
-                      auth = Auth.fromJson(jsonDecode(res.body));
-                      print("login dev success");
-                      Navigator.pushNamed(context, HomeScreen.routeName);
-                    } else {} //TODO: handle failed login
-                  }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () async {
+                          var res = await login("0000000001", "00000000");
+                          if (res.statusCode == 200) {
+                            Navigator.pushNamed(context, HomeScreen.routeName);
+                          } else {
+                            //TODO: handle failed login : alert
+                            print('รหัสผ่านไม่ตรง');
+                          }
+                        },
+                        child: Text(
+                          "Developer",
+                          style: textTheme()
+                              .labelLarge
+                              .apply(color: secondaryColor),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          var res = await login("0900000000", "00000000");
+                          if (res.statusCode == 200) {
+                            Navigator.pushNamed(context, HomeScreen.routeName);
+                          } else {
+                            //TODO: handle failed login : alert
+                            print('รหัสผ่านไม่ตรง');
+                          }
+                        },
+                        child: Text("มานะ",
+                            style: textTheme()
+                                .labelLarge
+                                .apply(color: secondaryColor)),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          var res = await login("0000000090", "00000000");
+                          if (res.statusCode == 200) {
+                            Navigator.pushNamed(context, HomeScreen.routeName);
+                          } else {
+                            //TODO: handle failed login : alert
+                            print('รหัสผ่านไม่ตรง');
+                          }
+                        },
+                        child: Text("มารวย ไม่เคยทำ test",
+                            style: textTheme()
+                                .labelLarge
+                                .apply(color: secondaryColor)),
+                      ),
+                    ],
+                  ),
                 ],
               )),
         ),

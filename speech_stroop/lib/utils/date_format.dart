@@ -12,3 +12,7 @@ String convertDateTime(DateTime date) {
 String chartDate(DateTime date) {
   return chartDateFormatter.formatInBuddhistCalendarThai(date);
 }
+
+String toDate(DateTime date) {
+  return date.toIso8601String().split("T")[0];
+}

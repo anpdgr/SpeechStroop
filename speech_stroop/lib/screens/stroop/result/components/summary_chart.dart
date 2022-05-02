@@ -8,25 +8,21 @@ class ScoreData {
   final int y;
 }
 
-class TotalScore extends StatefulWidget {
-  const TotalScore(this.totalScore, this.congruent, this.inCongruent, {Key key})
-      : super(key: key);
+class SummaryChart extends StatefulWidget {
+  const SummaryChart(this.totalScore, {Key key}) : super(key: key);
   final int totalScore;
-  final int congruent;
-  final int inCongruent;
 
   @override
-  TotalScoreState createState() => TotalScoreState();
+  SummaryChartState createState() => SummaryChartState();
 }
 
-class TotalScoreState extends State<TotalScore> {
+class SummaryChartState extends State<SummaryChart> {
   List<ScoreData> scoreData;
   TooltipBehavior _tooltipBehavior;
   int totalScore = 0;
   List<ScoreData> getChartData() {
     final List<ScoreData> scoreData = [
-      ScoreData('congruent', widget.congruent),
-      ScoreData('incongruent', widget.inCongruent),
+      ScoreData('จำนวนข้อถูก', totalScore),
       ScoreData('จำนวนข้อผิด', stroopTotalQuestionsAmount - totalScore),
     ];
     return scoreData;
@@ -49,11 +45,7 @@ class TotalScoreState extends State<TotalScore> {
             alignment: AlignmentDirectional.center,
             children: [
               SfCircularChart(
-                palette: <Color>[
-                  secondaryColor,
-                  primaryColor,
-                  Colors.indigo[50]
-                ],
+                palette: <Color>[secondaryColor, Colors.indigo[50]],
                 //tooltipBehavior: TooltipBehavior(enable: true),
                 // legend: Legend(
                 //   isVisible: true,

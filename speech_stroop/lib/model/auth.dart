@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:http/http.dart' as http;
@@ -36,4 +38,23 @@ logout() async {
   } else {}
   userProfile = null;
   userHistory = null;
+}
+
+Future<http.Response> login(String tel, String password) async {
+  var res = await http.post(Uri.parse("http://localhost:3000/auth/login"),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        "tel": tel,
+        "password": password,
+      }));
+
+  if (res.statusCode == 200) {
+    auth = Auth.fromJson(jsonDecode(res.body));
+    print("login success");
+    return res;
+  } else {
+    //TODO: handle failed login
+    print('รหัสผ่านไม่ตรง');
+    return res;
+  }
 }

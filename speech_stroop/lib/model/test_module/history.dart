@@ -122,6 +122,6 @@ Future<int> setHistory(
         'Authorization': 'Bearer ${auth.token}',
       },
       body: jsonEncode(latestTest));
-
+  print("post: /history " + res.statusCode.toString());
   return res.statusCode;
 }

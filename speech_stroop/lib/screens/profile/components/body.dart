@@ -52,7 +52,7 @@ class _BodyState extends State<Body> {
             const ProfilePic(),
             const SizedBox(height: 20),
             Text(
-              userProfile.name,
+              userProfile.username,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,

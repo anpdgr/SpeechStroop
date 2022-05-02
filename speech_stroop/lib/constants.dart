@@ -19,6 +19,7 @@ Map<int, Color> color = {
 
 MaterialColor primaryColorMaterial = MaterialColor(0xFF37265F, color);
 Color primaryColor = const Color(0xFF37265F);
+Color brightPrimaryColor = const Color(0xff503B7F);
 
 Color secondaryColor = const Color(0xFFEB8D8D);
 
@@ -72,8 +73,10 @@ int tutorialQuestionsAmount = 5;
 
 // Stroop
 int stroopQuestionsAmount = 20;
-int stroopQuestionDurationMs = 3; //3000;
-int stroopIntervalDurationMs = 3; //3000;
+int stroopSectionAmount = 3;
+int stroopTotalQuestionsAmount = stroopQuestionsAmount * stroopSectionAmount;
+int stroopQuestionDurationMs = 3000; //3000;
+int stroopIntervalDurationMs = 3000; //3000;
 Map<String, Color> stroopColorsMap = {
   'แดง': const Color(0xFFDA5C54),
   'ดำ': const Color(0xFF000000),
@@ -101,7 +104,7 @@ Map<int, String> dateLabel = {
 Map<String, List<String>> similarWords = {
   'แดง': ['แดง', 'สีแดง', 'แรง', 'แบ่ง', 'แพง', 'แนง', 'แมง'],
   'ดำ': ['ดำ', 'สีดำ', 'ดาม', 'นำ', 'จำ', 'ดอม'],
-  'เหลือง': ['เหลือง', 'สีเหลือง', 'เหลือ', 'เรื่อง', 'หลวง'],
+  'เหลือง': ['เหลือง', 'สีเหลือง', 'เหลือ', 'เรื่อง', 'หลวง', 'เมือง'],
   'เขียว': ['เขียว', 'สีเขียว', 'เดี๋ยว'],
   'ส้ม': ['ส้ม', 'สีส้ม', 'ส่ง', 'ซ่อม'],
   'ฟ้า': ['ฟ้า', 'สีฟ้า', 'ป๊า', 'สา', 'ฝา'],
