@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
-import 'package:speech_stroop/theme.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ScoreData {
@@ -10,8 +9,11 @@ class ScoreData {
 }
 
 class TotalScore extends StatefulWidget {
-  const TotalScore(this.totalScore, {Key key}) : super(key: key);
+  const TotalScore(this.totalScore, this.congruent, this.inCongruent, {Key key})
+      : super(key: key);
   final int totalScore;
+  final int congruent;
+  final int inCongruent;
 
   @override
   TotalScoreState createState() => TotalScoreState();
@@ -23,7 +25,8 @@ class TotalScoreState extends State<TotalScore> {
   int totalScore = 0;
   List<ScoreData> getChartData() {
     final List<ScoreData> scoreData = [
-      ScoreData('จำนวนข้อถูก', totalScore),
+      ScoreData('congruent', widget.congruent),
+      ScoreData('incongruent', widget.inCongruent),
       ScoreData('จำนวนข้อผิด', stroopTotalQuestionsAmount - totalScore),
     ];
     return scoreData;
@@ -46,7 +49,11 @@ class TotalScoreState extends State<TotalScore> {
             alignment: AlignmentDirectional.center,
             children: [
               SfCircularChart(
-                palette: <Color>[secondaryColor, Colors.indigo[50]],
+                palette: <Color>[
+                  secondaryColor,
+                  primaryColor,
+                  Colors.indigo[50]
+                ],
                 //tooltipBehavior: TooltipBehavior(enable: true),
                 // legend: Legend(
                 //   isVisible: true,

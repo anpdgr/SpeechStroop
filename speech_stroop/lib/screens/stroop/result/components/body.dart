@@ -9,7 +9,6 @@ import 'package:speech_stroop/screens/stroop/result/components/section_badge.dar
 import 'package:speech_stroop/screens/stroop/result/components/section_high_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/section_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/total_score.dart';
-import 'package:speech_stroop/screens/stroop/result/components/total_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/type_score.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 
@@ -57,7 +56,8 @@ class _BodyState extends State<Body> {
           margin: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             children: [
-              TotalScore(latestTestData.totalScore),
+              TotalScore(latestTestData.totalScore, sumCongruentScore,
+                  sumIncongruentScore),
               SectionScore(latestTestData.sections),
               const SizedBox(height: 5),
               TypeScore(sumCongruentScore, sumIncongruentScore),
