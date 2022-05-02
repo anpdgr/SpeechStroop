@@ -8,14 +8,14 @@ import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_combination.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_template.dart';
 
-Future mockHistory() async {
+mockHistory() {
   List<Section> sections = [];
   int totalScore = 0;
   HealthScores healthScores =
       HealthScores(HealthScore(1, 1, 1, 1), HealthScore(1, 1, 1, 1));
 
   for (int i = 0; i < stroopSectionAmount; i++) {
-    List<StroopQuestion> testTemp = buildTest(false);
+    List<StroopQuestion> testTemp = buildTest(false, i + 1);
     List<Question> questions = [];
     Section section = Section(
       i + 1,
@@ -25,7 +25,7 @@ Future mockHistory() async {
       'audio',
     );
 
-    int j = 1;
+    int j = 0;
     for (StroopQuestion t in testTemp) {
       Question q = Question(
         j,
@@ -38,6 +38,7 @@ Future mockHistory() async {
         1000,
       );
       questions.add(q);
+      j++;
     }
 
     var c = questions.map((e) => e.condition).toList();
@@ -58,13 +59,10 @@ Future mockHistory() async {
     sections.add(section);
   }
 
-  int res = await setHistory(
+  setHistory(
     totalScore,
     sections,
     healthScores,
     null,
   );
-  if (res == 200) {
-    print("set mock success");
-  }
 }
