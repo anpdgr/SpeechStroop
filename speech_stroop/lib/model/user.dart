@@ -54,7 +54,7 @@ class User {
       json['surname'] as String,
       json['email'] as String,
       json['lastFourId'] as String,
-      DateTime.parse(json['dateOfBirth'] as String),
+      DateTime.parse(json['dateOfBirth'] as String).toLocal(),
       json['gender'] as String,
       json['education'] as String,
       UserHealthScore.fromJson(json['healthScores']),
@@ -95,6 +95,7 @@ class UserHealthScore {
   factory UserHealthScore.fromJson(dynamic json) {
     return UserHealthScore(json['stress'] as int, json['sleep'] as int);
   }
+
   Map<String, dynamic> toJson() {
     return {
       "stress": stress,

@@ -38,7 +38,7 @@ class PreconditionScore {
   factory PreconditionScore.fromJson(dynamic json) {
     return PreconditionScore(
       json['score'] as int,
-      DateTime.parse(json['date'] as String),
+      DateTime.parse(json['date'] as String).toLocal(),
     );
   }
 

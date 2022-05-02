@@ -37,7 +37,7 @@ class History {
       sections,
       HealthScores.fromJson(json['healthScores']),
       badge,
-      DateTime.parse(json['createdAt']),
+      DateTime.parse(json['createdAt']).toLocal(),
     );
   }
 

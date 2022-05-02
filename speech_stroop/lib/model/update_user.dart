@@ -35,7 +35,7 @@ class UpdateUser {
       name: json['name'] as String,
       surname: json['surname'] as String,
       email: json['email'] as String,
-      dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
+      dateOfBirth: DateTime.parse(json['dateOfBirth'] as String).toLocal(),
       gender: json['gender'] as String,
       education: json['education'] as String,
       precondition: Precondition.fromJson(json['precondition']),
