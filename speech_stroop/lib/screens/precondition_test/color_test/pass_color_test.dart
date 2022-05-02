@@ -24,6 +24,8 @@ class PassColorTestScreen extends StatefulWidget {
 class _PassColorTestState extends State<PassColorTestScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  bool isLogin = (userProfile != null);
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -34,9 +36,12 @@ class _PassColorTestState extends State<PassColorTestScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text('ยินดีด้วย!',
-                  style:
-                      textTheme().displayMedium.apply(color: secondaryColor)),
+              child: isLogin
+                  ? null
+                  : Text('ยินดีด้วย!',
+                      style: textTheme()
+                          .displayMedium
+                          .apply(color: secondaryColor)),
             ),
             Expanded(
               child: Align(
@@ -51,12 +56,14 @@ class _PassColorTestState extends State<PassColorTestScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child:
-                  Text('ลงทะเบียนเสร็จสิ้น', style: textTheme().headlineMedium),
+              child: isLogin
+                  ? null
+                  : Text('ลงทะเบียนเสร็จสิ้น',
+                      style: textTheme().headlineMedium),
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 80),
-              child: userProfile != null
+              child: isLogin
                   ? PrimaryButton('กลับสู่หน้าหลัก', () {
                       Navigator.pushNamed(context, ProfileScreen.routeName);
                     })
