@@ -195,7 +195,7 @@ class _BodyState extends State<Body> {
         MaterialState.focused,
       };
       if (states.any(interactiveStates.contains)) {
-        return const Color(0xFFEB8D8D);
+        return secondaryColor;
       }
       return const Color(0xFF525252);
     }

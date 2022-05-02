@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/constants.dart';
 
 List<Color> setBackgroundColor(int answered, String feedback) {
   List<Color> stroopBackgroundColor = [];
@@ -25,7 +26,7 @@ List<Color> setBackgroundColor(int answered, String feedback) {
         break;
     }
   } else {
-    stroopBackgroundColor = [const Color(0xff503B7F), const Color(0xffEB8D8D)];
+    stroopBackgroundColor = [brightPrimaryColor, secondaryColor];
   }
   return stroopBackgroundColor;
 }

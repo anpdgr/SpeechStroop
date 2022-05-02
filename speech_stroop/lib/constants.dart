@@ -19,6 +19,7 @@ Map<int, Color> color = {
 
 MaterialColor primaryColorMaterial = MaterialColor(0xFF37265F, color);
 Color primaryColor = const Color(0xFF37265F);
+Color brightPrimaryColor = const Color(0xff503B7F);
 
 Color secondaryColor = const Color(0xFFEB8D8D);
 
