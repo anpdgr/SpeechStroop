@@ -4,9 +4,9 @@ import 'package:speech_stroop/enums.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
-import 'package:speech_stroop/screens/stroop/result/components/score_bar_section.dart';
 import 'package:speech_stroop/screens/stroop/result/components/section_badge.dart';
 import 'package:speech_stroop/screens/stroop/result/components/section_high_score.dart';
+import 'package:speech_stroop/screens/stroop/result/components/section_latest_score_chart.dart';
 import 'package:speech_stroop/screens/stroop/result/components/section_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/total_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/type_score.dart';
@@ -62,7 +62,7 @@ class _BodyState extends State<Body> {
               const SizedBox(height: 5),
               TypeScore(sumCongruentScore, sumIncongruentScore),
               const SizedBox(height: 5),
-              ScoreBarSection(history),
+              SectionLatesScoreChart(history, 7),
               const SizedBox(height: 5),
               SectionHighScore(),
               const SizedBox(height: 5),
