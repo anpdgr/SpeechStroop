@@ -21,11 +21,11 @@ export async function login({
     tel: tel,
   }).select('password')
   if (!user) {
-    throw new HttpError(404, "can't find this phone number")
+    throw new HttpError(404, "This phone number havn't registered yet.")
   }
 
   if (!bcrypt.compareSync(password, user.password)) {
-    throw new HttpError(400, 'invalid password')
+    throw new HttpError(401, 'Invalid password')
   }
 
   return {

@@ -53,8 +53,7 @@ Future<http.Response> login(String tel, String password) async {
     print("login success");
     return res;
   } else {
-    //TODO: handle failed login
-    print('รหัสผ่านไม่ตรง');
+    print('login failed');
     return res;
   }
 }

@@ -1,16 +1,15 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:speech_stroop/constants.dart';
-import 'package:speech_stroop/model/auth.dart';
-import 'package:speech_stroop/screens/auth/components/text_form_field.dart';
-import 'package:speech_stroop/screens/auth/terms_conditions.dart';
+
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
+
+import 'package:speech_stroop/model/auth.dart';
+
+import 'package:speech_stroop/screens/auth/components/text_form_field.dart';
+import 'package:speech_stroop/screens/auth/terms_conditions.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
-import 'package:http/http.dart' as http;
-import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_combination.dart';
 import 'package:speech_stroop/theme.dart';
+import 'package:speech_stroop/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -24,6 +23,7 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
   TextEditingController telController;
   TextEditingController passwordController;
   bool passwordVisibility;
+  String authText = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formGlobalKey = GlobalKey<FormState>();
 
@@ -47,6 +47,7 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
               key: formGlobalKey,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
@@ -81,7 +82,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                         'เบอร์โทรศัพท์',
                         TextInputType.phone,
                         (val) {
-                          //TODO: check if it's already been used
                           if (val.isEmpty) {
                             return 'โปรดระบุเบอร์โทรศัพท์';
                           }
@@ -108,7 +108,7 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                             color: Color(0xFFA7A5A5),
                             width: 1,
                           ),
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
@@ -140,6 +140,12 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                       },
                     ),
                   ),
+                  Text(
+                    authText,
+                    style: textTheme().bodyMedium.apply(
+                          color: const Color(0xFFDA4F2C),
+                        ),
+                  ),
                   PrimaryButton('เข้าสู่ระบบ', () async {
                     if (formGlobalKey.currentState.validate()) {
                       formGlobalKey.currentState.save();
@@ -147,9 +153,18 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                           telController.text, passwordController.text);
                       if (res.statusCode == 200) {
                         Navigator.pushNamed(context, HomeScreen.routeName);
+                      } else if (res.statusCode == 404) {
+                        setState(() {
+                          authText = 'เบอร์โทรศัพท์นี้ยังไม่ถูกลงทะเบียน';
+                        });
+                      } else if (res.statusCode == 401) {
+                        setState(() {
+                          authText = 'เบอร์โทรศัพท์หรือรหัสผ่านไม่ถูกต้อง';
+                        });
                       } else {
-                        //TODO: handle failed login : alert
-                        print('รหัสผ่านไม่ตรง');
+                        setState(() {
+                          authText = 'โปรดลองอีกครั้ง';
+                        });
                       }
                     }
                   }),
@@ -168,12 +183,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                       child: TextButton(
                           onPressed: () {
                             print('Forget password');
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) =>
-                            //             RecordToStreamExample()));
-                            // builder: (context) => AudioRecorderPage()));
                           },
                           child: const Text('ลืมรหัสผ่าน'),
                           style: TextButton.styleFrom(
@@ -193,7 +202,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                           if (res.statusCode == 200) {
                             Navigator.pushNamed(context, HomeScreen.routeName);
                           } else {
-                            //TODO: handle failed login : alert
                             print('รหัสผ่านไม่ตรง');
                           }
                         },
@@ -210,7 +218,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                           if (res.statusCode == 200) {
                             Navigator.pushNamed(context, HomeScreen.routeName);
                           } else {
-                            //TODO: handle failed login : alert
                             print('รหัสผ่านไม่ตรง');
                           }
                         },
@@ -225,7 +232,6 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                           if (res.statusCode == 200) {
                             Navigator.pushNamed(context, HomeScreen.routeName);
                           } else {
-                            //TODO: handle failed login : alert
                             print('รหัสผ่านไม่ตรง');
                           }
                         },
