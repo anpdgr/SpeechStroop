@@ -72,8 +72,10 @@ int tutorialQuestionsAmount = 5;
 
 // Stroop
 int stroopQuestionsAmount = 20;
-int stroopQuestionDurationMs = 3; //3000;
-int stroopIntervalDurationMs = 3; //3000;
+int stroopSectionAmount = 3;
+int stroopTotalQuestionsAmount = stroopQuestionsAmount * stroopSectionAmount;
+int stroopQuestionDurationMs = 3000; //3000;
+int stroopIntervalDurationMs = 3000; //3000;
 Map<String, Color> stroopColorsMap = {
   'แดง': const Color(0xFFDA5C54),
   'ดำ': const Color(0xFF000000),
