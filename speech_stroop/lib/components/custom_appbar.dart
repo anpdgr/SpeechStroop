@@ -15,9 +15,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     IconButton leadingIcon;
     if (isLeading == true) {
       leadingIcon = IconButton(
-        icon: const Icon(
+        icon: Icon(
           Icons.arrow_back,
-          color: Color(0xFFEB8D8D),
+          color: secondaryColor,
         ),
         onPressed: () => Navigator.pop(context, false),
       );

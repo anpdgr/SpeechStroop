@@ -109,9 +109,7 @@ class ScoreChartData {
 
 List<ScoreChartData> getScoreChartData(List<History> historyData, int range) {
   List<ScoreChartData> data = [];
-
   bool testOnlyOneDate = true;
-  double avgScorePerDay = 0.0;
   double percentAvgScorePerDay = 0.0;
   int sumScorePerDay = 0;
   int countTestPerDay = 0;
@@ -160,11 +158,10 @@ List<ScoreChartData> getScoreChartData(List<History> historyData, int range) {
     if (testOnlyOneDate) {
       percentAvgScorePerDay = _calPercentAvgScore(
           sumScorePerDay, countTestPerDay, stroopTotalQuestionsAmount);
-      data.add(ScoreChartData(prevDate, avgScorePerDay));
+      data.add(ScoreChartData(prevDate, percentAvgScorePerDay));
     }
   }
   data = data.reversed.toList();
-
   return data;
 }
 

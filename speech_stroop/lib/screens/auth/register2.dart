@@ -51,7 +51,7 @@ class _Register2ScreenState extends State<Register2Screen> {
         MaterialState.focused,
       };
       if (states.any(interactiveStates.contains)) {
-        return const Color(0xFFEB8D8D);
+        return secondaryColor;
       }
       return const Color(0xFF525252);
     }

@@ -8,8 +8,10 @@ import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/mock_history.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro1.dart';
+import 'package:speech_stroop/theme.dart';
 import 'package:tuple/tuple.dart';
 
 class Body extends StatefulWidget {
@@ -156,6 +158,30 @@ class _BodyState extends State<Body> {
             },
             ButtonType.medium,
           ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     TextButton(
+          //       onPressed: () => {
+          //         latestTest = userHistory[0],
+          //         Navigator.pushNamed(context, ResultScreen.routeName),
+          //       },
+          //       child: Text(
+          //         "result mock",
+          //         style: textTheme().bodySmall.apply(color: secondaryColor),
+          //       ),
+          //     ),
+          //     TextButton(
+          //       onPressed: () async => {
+          //         await mockHistory(),
+          //       },
+          //       child: Text(
+          //         "mockHistory",
+          //         style: textTheme().bodySmall.apply(color: secondaryColor),
+          //       ),
+          //     ),
+          //   ],
+          // )
         ],
       )),
     )));
@@ -169,7 +195,7 @@ class _BodyState extends State<Body> {
         MaterialState.focused,
       };
       if (states.any(interactiveStates.contains)) {
-        return const Color(0xFFEB8D8D);
+        return secondaryColor;
       }
       return const Color(0xFF525252);
     }

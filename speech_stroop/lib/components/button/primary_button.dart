@@ -21,11 +21,11 @@ class PrimaryButton extends StatelessWidget {
             BoxShadow(
                 color: Colors.black26, offset: Offset(0, 4), blurRadius: 5.0)
           ],
-          gradient: const LinearGradient(
+          gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            stops: [0.0, 1.0],
-            colors: [Color(0xff503B7F), Color(0xffEB8D8D)],
+            stops: const [0.0, 1.0],
+            colors: [brightPrimaryColor, secondaryColor],
           ),
           borderRadius: BorderRadius.circular(30),
         ),
