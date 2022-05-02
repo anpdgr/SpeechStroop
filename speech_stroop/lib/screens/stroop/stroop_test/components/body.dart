@@ -9,7 +9,7 @@ import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_bac
 import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_combination.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_template.dart';
 import 'package:speech_stroop/theme.dart';
-import 'package:speech_stroop/utils/loggger.dart';
+import 'package:speech_stroop/utils/logger.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/speech_check.dart';
 import 'package:speech_stroop/utils/time.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;

@@ -31,7 +31,7 @@ class _BodyState extends State<Body> {
       setState(() {
         userName = userProfile.name;
         bestScores = getHighestScores();
-        latestScores = getlatestScores();
+        latestScores = getLatestScores();
       });
     });
 

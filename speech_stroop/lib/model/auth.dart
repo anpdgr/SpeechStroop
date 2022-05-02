@@ -7,6 +7,7 @@ class Auth {
   String token;
 
   Auth(this._id, this.token);
+
   factory Auth.fromJson(dynamic json) {
     return Auth(json['_id'] as String, json['token'] as String);
   }

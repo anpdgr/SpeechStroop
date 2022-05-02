@@ -41,6 +41,7 @@ class PreconditionScore {
       DateTime.parse(json['date'] as String),
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       "score": score,

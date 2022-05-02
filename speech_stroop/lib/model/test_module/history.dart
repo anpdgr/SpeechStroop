@@ -4,7 +4,7 @@ import 'package:speech_stroop/model/auth.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:http/http.dart' as http;
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
-import 'package:speech_stroop/utils/loggger.dart';
+import 'package:speech_stroop/utils/logger.dart';
 import 'package:tuple/tuple.dart';
 import './section.dart';
 
@@ -93,7 +93,7 @@ List<Tuple2<int, DateTime>> getHighestScores() {
 }
 
 List latestScoresList;
-List<Tuple2<int, DateTime>> getlatestScores() {
+List<Tuple2<int, DateTime>> getLatestScores() {
   if (userHistory.isEmpty) {
     return [];
   }
