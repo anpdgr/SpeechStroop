@@ -144,20 +144,12 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                   PrimaryButton('เข้าสู่ระบบ', () async {
                     if (formGlobalKey.currentState.validate()) {
                       formGlobalKey.currentState.save();
-                      var res = await http.post(
-                          Uri.parse("http://localhost:3000/auth/login"),
-                          headers: {'Content-Type': 'application/json'},
-                          body: jsonEncode({
-                            "tel": telController.text,
-                            "password": passwordController.text,
-                          }));
-
+                      var res = await login(
+                          telController.text, passwordController.text);
                       if (res.statusCode == 200) {
-                        auth = Auth.fromJson(jsonDecode(res.body));
-                        print("login success");
                         Navigator.pushNamed(context, HomeScreen.routeName);
                       } else {
-                        //TODO: handle failed login
+                        //TODO: handle failed login : alert
                         print('รหัสผ่านไม่ตรง');
                       }
                     }
@@ -198,21 +190,13 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                     children: [
                       TextButton(
                         onPressed: () async {
-                          var res = await http.post(
-                              Uri.parse("http://localhost:3000/auth/login"),
-                              headers: {'Content-Type': 'application/json'},
-                              body: jsonEncode({
-                                "tel": "0000000001",
-                                "password": "00000000",
-                              }));
-
+                          var res = await login("0000000001", "00000000");
                           if (res.statusCode == 200) {
-                            auth = Auth.fromJson(jsonDecode(res.body));
-                            print("login dev success");
                             Navigator.pushNamed(context, HomeScreen.routeName);
                           } else {
-                            print("login failed");
-                          } //TODO: handle failed login
+                            //TODO: handle failed login : alert
+                            print('รหัสผ่านไม่ตรง');
+                          }
                         },
                         child: Text(
                           "Developer",
@@ -223,21 +207,13 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () async {
-                          var res = await http.post(
-                              Uri.parse("http://localhost:3000/auth/login"),
-                              headers: {'Content-Type': 'application/json'},
-                              body: jsonEncode({
-                                "tel": "0900000000",
-                                "password": "00000000",
-                              }));
-
+                          var res = await login("0900000000", "00000000");
                           if (res.statusCode == 200) {
-                            auth = Auth.fromJson(jsonDecode(res.body));
-                            print("login dev success");
                             Navigator.pushNamed(context, HomeScreen.routeName);
                           } else {
-                            print("login failed");
-                          } //TODO: handle failed login
+                            //TODO: handle failed login : alert
+                            print('รหัสผ่านไม่ตรง');
+                          }
                         },
                         child: Text("มานะ",
                             style: textTheme()
@@ -246,21 +222,13 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () async {
-                          var res = await http.post(
-                              Uri.parse("http://localhost:3000/auth/login"),
-                              headers: {'Content-Type': 'application/json'},
-                              body: jsonEncode({
-                                "tel": "0000000090",
-                                "password": "00000000",
-                              }));
-
+                          var res = await login("0000000090", "00000000");
                           if (res.statusCode == 200) {
-                            auth = Auth.fromJson(jsonDecode(res.body));
-                            print("login dev success");
                             Navigator.pushNamed(context, HomeScreen.routeName);
                           } else {
-                            print("login failed");
-                          } //TODO: handle failed login
+                            //TODO: handle failed login : alert
+                            print('รหัสผ่านไม่ตรง');
+                          }
                         },
                         child: Text("มารวย ไม่เคยทำ test",
                             style: textTheme()
