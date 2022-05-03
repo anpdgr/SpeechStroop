@@ -197,12 +197,15 @@ class _Register2ScreenState extends State<Register2Screen> {
                                 true,
                                 const Icon(Icons.calendar_today),
                                 () {
+                                  DateTime today = DateTime.now();
+                                  DateTime firstDate = DateTime(1942);
+                                  DateTime lastDate = DateTime(
+                                      today.year - 18, today.month, today.day);
                                   showDatePicker(
                                           context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(1940),
-                                          lastDate:
-                                              DateTime(DateTime.now().year + 1))
+                                          initialDate: lastDate,
+                                          firstDate: firstDate,
+                                          lastDate: lastDate)
                                       .then((date) => {
                                             setState(() => {
                                                   dob = date,
