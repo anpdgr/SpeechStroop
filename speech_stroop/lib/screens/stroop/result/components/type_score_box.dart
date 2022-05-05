@@ -15,7 +15,7 @@ class TypeScoreBox extends StatelessWidget {
       width: 93,
       height: 120,
       decoration: BoxDecoration(
-        color: const Color(0xFF211338).withOpacity(0.03),
+        color: softPrimaryColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Center(

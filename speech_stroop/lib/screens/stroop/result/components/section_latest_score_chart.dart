@@ -30,8 +30,7 @@ class _SectionLatesScoreChartState extends State<SectionLatesScoreChart> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10),
-      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +41,7 @@ class _SectionLatesScoreChartState extends State<SectionLatesScoreChart> {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             Container(
               decoration: BoxDecoration(
