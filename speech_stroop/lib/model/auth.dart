@@ -57,3 +57,14 @@ Future<http.Response> login(String tel, String password) async {
     return res;
   }
 }
+
+Future<http.Response> getUserByTel(String tel) async {
+  Map<String, String> qParams = {
+    'tel': tel,
+  };
+  final uri = Uri.http('localhost:3000', '/auth/profile_tel', qParams);
+  final res =
+      await http.get(uri, headers: {'Content-Type': 'application/json'});
+
+  return res;
+}

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:speech_stroop/model/auth.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:speech_stroop/screens/auth/components/text_form_field.dart';
 import 'package:speech_stroop/screens/auth/register2.dart';
@@ -8,6 +10,7 @@ import 'package:speech_stroop/components/custom_appbar.dart';
 
 import 'package:speech_stroop/model/precondition.dart';
 import 'package:speech_stroop/model/user.dart';
+import 'package:speech_stroop/theme.dart';
 
 UserHealthScore userHealthScores = UserHealthScore(0, 0);
 PreconditionScore colorVisibilityTest = PreconditionScore(0, DateTime.now());
@@ -34,6 +37,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController confirmPasswordController;
   bool passwordVisibility;
   bool confirmPasswordVisibility;
+
+  String validateTel = '';
 
   @override
   void initState() {
@@ -186,20 +191,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                 ),
+                Text(
+                  validateTel,
+                  style: textTheme().bodyMedium.apply(
+                        color: const Color(0xFFDA4F2C),
+                      ),
+                ),
                 Align(
                     alignment: const AlignmentDirectional(0.9, 0),
-                    child: FloatingButton(() {
+                    child: FloatingButton(() async {
                       if (formGlobalKey.currentState.validate()) {
                         formGlobalKey.currentState.save();
-                        if (passwordController.text ==
-                            confirmPasswordController.text) {
-                          setUserData();
+                        if (await isTelNotExists(telController.text)) {
+                          if (passwordController.text ==
+                              confirmPasswordController.text) {
+                            setUserData();
 
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const Register2Screen()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Register2Screen()));
+                          }
+                        } else {
+                          setState(() {
+                            validateTel =
+                                'เบอร์โทรศัพท์นี้ถูกใช้แล้ว โปรดใช้เบอร์โทรศัพท์อื่น';
+                          });
                         }
                       }
                     }))
@@ -209,6 +227,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  Future<bool> isTelNotExists(String tel) async {
+    http.Response user = await getUserByTel(tel);
+
+    return user.body == "null" ? true : false;
   }
 
   setUserData() {

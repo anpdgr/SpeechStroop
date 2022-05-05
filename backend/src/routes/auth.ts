@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express'
+import { getUserByTel, TelDTO } from 'src/controller/get_user'
 import { login, LoginDTO } from 'src/controller/login'
 import { register, RegisterDTO } from 'src/controller/register'
 
@@ -22,6 +23,16 @@ router.post('/logout', function (req, res) {
   res.redirect('/')
 })
 
+router.get('/profile_tel', async function (req: Request<{}, {}, TelDTO>, res) {
+  const queryParams = req.query
+  const tel = queryParams.tel as string
+  const body = {
+    tel: tel,
+  }
+  const response = await getUserByTel(body)
+  res.json(response)
+})
+
 router.post(
   '/register',
   async (req: Request<{}, {}, RegisterDTO>, res: Response) => {
@@ -29,8 +40,8 @@ router.post(
     const user = await register(body)
     const response = await login({
       tel: user.tel,
-      password: body.password
-    });
+      password: body.password,
+    })
     res.json(response)
   },
 )
