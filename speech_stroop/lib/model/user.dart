@@ -125,3 +125,10 @@ getUserProfile(bool newRequest) async {
   }
   return userProfile;
 }
+
+register(registerReq) async {
+  var res = await http.post(Uri.parse("http://localhost:3000/auth/register"),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(registerReq));
+  return res;
+}

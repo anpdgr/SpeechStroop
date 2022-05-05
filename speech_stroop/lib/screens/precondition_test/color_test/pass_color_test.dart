@@ -71,10 +71,7 @@ class _PassColorTestState extends State<PassColorTestScreen> {
                       precondition.isPassAll = true;
                       registerReq.precondition = precondition;
 
-                      var res = await http.post(
-                          Uri.parse("http://localhost:3000/auth/register"),
-                          headers: {'Content-Type': 'application/json'},
-                          body: jsonEncode(registerReq));
+                      var res = register(registerReq);
 
                       //TODO: login with this user
                       if (res.statusCode == 200) {
