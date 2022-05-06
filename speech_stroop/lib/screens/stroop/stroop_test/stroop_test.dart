@@ -10,6 +10,7 @@ import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_com
 
 //badge
 int correctStack = 0;
+int highestCorrectStack = 0;
 // answer
 int answered = -1;
 // latest test
