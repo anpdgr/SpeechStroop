@@ -10,14 +10,13 @@ class TypeScore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-      padding: const EdgeInsets.fromLTRB(5, 20, 5, 2),
       child: Center(
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
+                margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
                 alignment: Alignment.topLeft,
                 child: Text(
                   'คะแนนตามประเภทของคำถาม',

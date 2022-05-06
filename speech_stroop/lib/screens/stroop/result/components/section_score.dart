@@ -9,37 +9,31 @@ class SectionScore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //margin: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-      //padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-      child: Center(
-        child: Container(
-          //padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
+            alignment: Alignment.topLeft,
+            child: Text(
+              'คะแนนแต่ละส่วน',
+              style: textTheme().titleMedium,
+            ),
+          ),
+          Row(
+            // ignore: prefer_const_literals_to_create_immutables
             children: [
-              Container(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'คะแนนแต่ละส่วน',
-                  style: textTheme().titleMedium,
+              for (var s in sections)
+                Expanded(
+                  child: SectionScoreBox(
+                      s.section,
+                      s.score["congruent"] + (s.score["incongruent"] ?? 0),
+                      s.avgReactionTimeMs ?? 0),
                 ),
-              ),
-              Row(
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  for (var s in sections)
-                    Expanded(
-                      child: SectionScoreBox(
-                          s.section,
-                          s.score["congruent"] + (s.score["incongruent"] ?? 0),
-                          s.avgReactionTimeMs ?? 0),
-                    ),
-                ],
-              ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

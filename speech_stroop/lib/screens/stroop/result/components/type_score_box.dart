@@ -11,17 +11,17 @@ class TypeScoreBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
       width: 93,
       height: 120,
-      margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-      padding: const EdgeInsets.fromLTRB(5, 20, 5, 2),
       decoration: BoxDecoration(
-        color: const Color(0xFF211338).withOpacity(0.03),
+        color: softPrimaryColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               questionType,
@@ -37,12 +37,54 @@ class TypeScoreBox extends StatelessWidget {
                   Theme.of(context).textTheme.labelSmall.apply(color: formText),
             ),
             const SizedBox(height: 10),
-            Text(
-              '$score',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineLarge
-                  .apply(color: secondaryColor),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${((score / stroopTotalQuestionsAmount / 2) * 100).round()}',
+                  style: TextStyle(
+                    color: secondaryColor,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  '%',
+                  style: TextStyle(
+                    color: secondaryColor,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '$score',
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                Text(
+                  '/${(stroopTotalQuestionsAmount / 2).round()}',
+                  style: TextStyle(
+                    color: primaryColor.withOpacity(0.4),
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ],
         ),

@@ -25,8 +25,9 @@ class TotalScoreState extends State<TotalScore> {
   int totalScore = 0;
   List<ScoreData> getChartData() {
     final List<ScoreData> scoreData = [
-      ScoreData('congruent', widget.congruent),
-      ScoreData('incongruent', widget.inCongruent),
+      // ScoreData('congruent', widget.congruent),
+      // ScoreData('incongruent', widget.inCongruent),
+      ScoreData('จำนวนข้อถูก', totalScore),
       ScoreData('จำนวนข้อผิด', stroopTotalQuestionsAmount - totalScore),
     ];
     return scoreData;
@@ -51,7 +52,7 @@ class TotalScoreState extends State<TotalScore> {
               SfCircularChart(
                 palette: <Color>[
                   secondaryColor,
-                  primaryColor,
+                  //primaryColor,
                   Colors.indigo[50]
                 ],
                 //tooltipBehavior: TooltipBehavior(enable: true),
