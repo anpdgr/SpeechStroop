@@ -36,6 +36,7 @@ mockHistory() {
         "00:00",
         "00:00",
         1000,
+        true,
       );
       questions.add(q);
       j++;

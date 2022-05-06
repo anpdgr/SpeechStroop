@@ -7,16 +7,19 @@ class Question {
   String startAt;
   String answerAt;
   int reactionTimeMs;
+  bool isCorrect;
 
   Question(
-      this.questionNumber,
-      this.problem,
-      this.condition,
-      this.expectedAnswer,
-      this.userAnswer,
-      this.startAt,
-      this.answerAt,
-      this.reactionTimeMs);
+    this.questionNumber,
+    this.problem,
+    this.condition,
+    this.expectedAnswer,
+    this.userAnswer,
+    this.startAt,
+    this.answerAt,
+    this.reactionTimeMs,
+    this.isCorrect,
+  );
 
   factory Question.fromJson(dynamic json) {
     return Question(
@@ -28,6 +31,7 @@ class Question {
       json['startAt'] as String,
       json['answerAt'] as String,
       json['reactionTimeMs'] as int,
+      json['isCorrect'] as bool,
     );
   }
 
@@ -41,6 +45,7 @@ class Question {
       "startAt": startAt,
       "answerAt": answerAt,
       "reactionTimeMs": reactionTimeMs,
+      "isCorrect": isCorrect,
     };
   }
 }

@@ -24,6 +24,7 @@ export interface HistoryDTO {
           startAt: string
           answerAt: string
           reactionTimeMs: number
+          isCorrect: boolean
         },
       ]
       audioUrl: string
@@ -59,7 +60,6 @@ export async function setHistory(
     badge: historyDTO.badge,
   })
   console.log(newHistory)
-
   await newHistory.save()
   return newHistory
 }

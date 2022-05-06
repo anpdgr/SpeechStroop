@@ -159,7 +159,7 @@ class _BodyState extends State<Body> {
     for (var q in template) {
       i++;
       questions.add(Question(i, {"color": q.color, "word": q.word}, q.condition,
-          q.color, null, null, null, null));
+          q.color, null, null, null, null, false));
     }
   }
 
@@ -255,6 +255,7 @@ class _BodyState extends State<Body> {
         setFeedback(isCorrect);
         scoreCounting(isCorrect);
         questions[answered].userAnswer = finalRecogWord;
+        questions[answered].isCorrect = isCorrect;
 
         if (questions[answered].userAnswer == '' ||
             questions[answered].userAnswer == null) {

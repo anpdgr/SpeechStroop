@@ -33,6 +33,7 @@ const historySchema = new Schema(
             startAt: String,
             answerAt: String,
             reactionTimeMs: Number,
+            isCorrect: Boolean,
           },
         ],
         audioUrl: String,
@@ -84,6 +85,7 @@ export type HistoryDocument = mongoose.Document & {
           startAt: string
           answerAt: string
           reactionTimeMs: number
+          isCorrect: boolean
         },
       ]
       audioUrl: string
