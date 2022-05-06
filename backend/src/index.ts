@@ -5,6 +5,7 @@ import { MONGO_URI, PORT } from './config'
 import { errorHandler } from './errors'
 import uploadAudioRouter from './routes/audio'
 import authRouter from './routes/auth'
+import badgeRouter from './routes/badge'
 import historyRouter from './routes/history'
 import passportRouter from './routes/passport'
 import userRouter from './routes/user'
@@ -24,6 +25,7 @@ app.use(passportRouter)
 // use token to access
 app.use('/user', userRouter)
 app.use('/history', historyRouter)
+app.use('/badge', badgeRouter)
 app.use('/upload', uploadAudioRouter)
 
 // Error handling
