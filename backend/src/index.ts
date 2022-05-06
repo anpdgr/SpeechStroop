@@ -19,13 +19,13 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', authRouter)
+app.use('/badge', badgeRouter)
 
 app.use(passportRouter)
 
 // use token to access
 app.use('/user', userRouter)
 app.use('/history', historyRouter)
-app.use('/badge', badgeRouter)
 app.use('/upload', uploadAudioRouter)
 
 // Error handling

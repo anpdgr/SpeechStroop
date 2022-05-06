@@ -8,6 +8,8 @@ import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/components/flutter_sound.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_combination.dart';
 
+//badge
+int correctStack = 0;
 // answer
 int answered = -1;
 // latest test

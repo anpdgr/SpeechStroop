@@ -129,9 +129,15 @@ flutter:
     - assets/images/empty_data.png
     - assets/images/precondition-passed.png
     - assets/images/precondition-failed.png
-    - assets/images/badges/badge-1-1-raw.png
-    - assets/images/badges/badge-1-3-raw.png
-    - assets/images/badges/badge-1-5-raw.png
-    - assets/images/badges/badge-1-7-raw.png
-    - assets/images/badges/badge-1-14-raw.png
-    - assets/images/badges/badge-1-30-raw.png
+    - assets/images/badges/badges-1/badge-1-1-raw.png
+    - assets/images/badges/badges-1/badge-1-3-raw.png
+    - assets/images/badges/badges-1/badge-1-7-raw.png
+    - assets/images/badges/badges-1/badge-1-14-raw.png
+    - assets/images/badges/badges-1/badge-1-30-raw.png
+    - assets/images/badges/badges-1/badge-1-60-raw.png
+    - assets/images/badges/badges-2/badge-2-15-raw.png
+    - assets/images/badges/badges-2/badge-2-30-raw.png
+    - assets/images/badges/badges-2/badge-2-45-raw.png
+    - assets/images/badges/badges-2/badge-2-50-raw.png
+    - assets/images/badges/badges-2/badge-2-55-raw.png
+    - assets/images/badges/badges-2/badge-2-60-raw.png
