@@ -21,7 +21,7 @@ router.post('', async (req: RequestWithUser, res) => {
 router.get('/all', async (req: RequestWithUser, res) => {
   try {
     const badge = await getBadges()
-    res.json({ badge })
+    res.json(badge)
   } catch (err) {
     console.log('err:\t', err)
     res.status(400).send(err)

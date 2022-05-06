@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/enums.dart';
+import 'package:speech_stroop/model/badge.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
@@ -11,6 +12,8 @@ import 'package:speech_stroop/screens/stroop/result/components/section_score.dar
 import 'package:speech_stroop/screens/stroop/result/components/total_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/type_score.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
+
+import 'badge_modal.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -24,6 +27,7 @@ class _BodyState extends State<Body> {
   List<History> history;
   int sumCongruentScore = 0;
   int sumIncongruentScore = 0;
+  bool showModal = false;
 
   void calculateTypeScore() {
     for (Section s in latestTestData.sections) {
@@ -36,8 +40,10 @@ class _BodyState extends State<Body> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getHistory();
+      await getBadge();
       setState(() {
         history = userHistory;
+        showModal = true;
       });
     });
 
@@ -49,6 +55,18 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(
+        Duration.zero,
+        () => {
+              if (showModal == true && latestTestData.badge != null)
+                {
+                  for (var b in latestTestData.badge)
+                    {
+                      showSimpleModalDialogBadge(context, b),
+                    },
+                  showModal = false,
+                }
+            });
     return SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Center(

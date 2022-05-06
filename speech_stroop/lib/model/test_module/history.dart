@@ -115,7 +115,7 @@ Future<int> setHistory(
   HealthScores healthScores,
   List<String> badge,
 ) async {
-  latestTest = History(totalScore, sections, healthScores, null);
+  latestTest = History(totalScore, sections, healthScores, badge);
   var res = await http.post(Uri.parse("http://localhost:3000/history"),
       headers: {
         'Content-Type': 'application/json',
