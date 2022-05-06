@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 
-class SectionBox extends StatelessWidget {
-  const SectionBox(this.section, this.score, this.reactionTime, {Key key})
-      : super(key: key);
-  final int section;
+class TypeScoreBox extends StatelessWidget {
+  TypeScoreBox(this.questionType, this.label, this.score);
+
+  final String questionType;
+  final String label;
   final int score;
-  final double reactionTime;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
       width: 93,
-      height: 130,
+      height: 150,
       decoration: BoxDecoration(
         color: const Color(0xFF211338).withOpacity(0.03),
         borderRadius: BorderRadius.circular(10),
@@ -21,9 +21,10 @@ class SectionBox extends StatelessWidget {
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "ส่วนที่ $section",
+              questionType,
               style: Theme.of(context)
                   .textTheme
                   .titleSmall
@@ -31,7 +32,8 @@ class SectionBox extends StatelessWidget {
             ),
             const SizedBox(height: 2),
             Text(
-              '${(reactionTime / 1000).toStringAsFixed(2)} วิ',
+              label,
+              textAlign: TextAlign.center,
               style:
                   Theme.of(context).textTheme.labelSmall.apply(color: formText),
             ),
@@ -40,7 +42,7 @@ class SectionBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${((score / stroopQuestionsAmount) * 100).round()}',
+                  '${((score / stroopTotalQuestionsAmount / 2) * 100).round()}',
                   style: TextStyle(
                     color: secondaryColor,
                     fontSize: 25,
@@ -75,7 +77,7 @@ class SectionBox extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  '/$stroopQuestionsAmount',
+                  '/${(stroopTotalQuestionsAmount / 2).round()}',
                   style: TextStyle(
                     color: primaryColor.withOpacity(0.4),
                     fontSize: 10,

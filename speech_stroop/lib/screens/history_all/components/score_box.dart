@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
+import 'package:speech_stroop/model/test_module/section.dart';
 import 'dart:async';
 
 import 'package:speech_stroop/screens/history_all/components/section_box.dart';
+import 'package:speech_stroop/screens/history_all/components/type_score_box.dart';
 import 'package:speech_stroop/utils/date_format.dart';
 
 class ScoreBox extends StatefulWidget {
@@ -20,12 +22,43 @@ class _ScoreBoxState extends State<ScoreBox> {
   bool canExpaned;
   History historyData;
 
+  int sumCongruentScore = 0;
+  int sumIncongruentScore = 0;
+
+  void calculateTypeScore() {
+    for (Section s in historyData.sections) {
+      sumCongruentScore = sumCongruentScore + s.score["congruent"];
+      sumIncongruentScore = sumIncongruentScore + s.score["incongruent"];
+    }
+  }
+
   @override
   void initState() {
+    historyData = widget.historyData;
+
+    calculateTypeScore();
     expanded = false;
     canExpaned = false;
-    historyData = widget.historyData;
+
     super.initState();
+  }
+
+  Widget getScoreWidget() {
+    List<Widget> list = [];
+    for (var s in historyData.sections) {
+      list.add(Expanded(
+        child: SectionBox(
+            s.section,
+            s.score["congruent"] + (s.score["incongruent"] ?? 0),
+            s.avgReactionTimeMs),
+      ));
+      if (s.section != 3) {
+        list.add(const SizedBox(
+          width: 5,
+        ));
+      }
+    }
+    return Row(children: list);
   }
 
   @override
@@ -34,7 +67,7 @@ class _ScoreBoxState extends State<ScoreBox> {
       margin: const EdgeInsets.only(top: 10, bottom: 10),
       padding: const EdgeInsets.all(30.0),
       width: 800,
-      height: expanded ? 420.0 : 130.0,
+      height: expanded ? 670.0 : 130.0,
       duration: const Duration(milliseconds: 500),
       curve: Curves.fastOutSlowIn,
       decoration: BoxDecoration(
@@ -110,17 +143,46 @@ class _ScoreBoxState extends State<ScoreBox> {
             ),
             Container(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+              child: getScoreWidget(),
+            ),
+            Divider(
+              color: primaryColor.withOpacity(0.3),
+              height: 25,
+              thickness: 1,
+            ),
+            Container(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "คะแนนแต่ละประเภท",
+                textAlign: TextAlign.left,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge
+                    .apply(color: formText),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Row(
                 // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  for (var s in historyData.sections)
-                    Expanded(
-                      child: SectionBox(
-                          s.section,
-                          s.score["congruent"] + (s.score["incongruent"] ?? 0),
-                          s.avgReactionTimeMs),
+                  Expanded(
+                    child: TypeScoreBox(
+                      "Congruent",
+                      "สีที่แสดงตรงกับคำอ่าน",
+                      sumCongruentScore,
                     ),
-                  //if (s.section != 3) const SizedBox(width: 5),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: TypeScoreBox(
+                      "Incongruent",
+                      "สีที่แสดงไม่ตรงกับคำอ่าน",
+                      sumIncongruentScore,
+                    ),
+                  ),
                 ],
               ),
             ),
