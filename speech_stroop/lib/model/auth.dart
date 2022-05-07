@@ -63,7 +63,8 @@ Future<http.Response> getUserByTel(String tel) async {
   Map<String, String> qParams = {
     'tel': tel,
   };
-  final uri = Uri.http('localhost:3000', '/auth/profile_tel', qParams);
+  final uri =
+      Uri.http('speech-stroop.herokuapp.com', '/auth/profile_tel', qParams);
   final res =
       await http.get(uri, headers: {'Content-Type': 'application/json'});
 
