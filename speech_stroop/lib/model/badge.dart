@@ -7,7 +7,7 @@ class Badge {
   String id;
   String name;
   String type;
-  String condition;
+  int condition;
   String imgPath;
 
   Badge(this.name, this.type, this.condition, this.imgPath, [this.id]);
@@ -16,7 +16,7 @@ class Badge {
     return Badge(
       json['name'] as String,
       json['type'] as String,
-      json['condition'] as String,
+      json['condition'] as int,
       json['imgPath'] as String,
       json['_id'] as String,
     );

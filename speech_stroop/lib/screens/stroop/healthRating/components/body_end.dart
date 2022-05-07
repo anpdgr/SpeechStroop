@@ -3,12 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/model/audio.dart';
+import 'package:speech_stroop/model/badge.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
+import 'package:speech_stroop/model/update_user.dart';
+import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/components/health_slider.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/speech_check.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Body extends StatefulWidget {
@@ -62,11 +64,30 @@ class _BodyState extends State<Body> {
               }
             }
 
-            var res = await setHistory(
+            List<String> receivedBadges = [];
+            List<String> userBadges = userProfile.badge;
+            List<String> newUserBadge = [];
+
+            badgesMap.forEach((key, value) {
+              if (highestCorrectStack >= value.condition) {
+                receivedBadges.add(key);
+                if (!userBadges.contains(key)) {
+                  newUserBadge.add(key);
+                }
+              }
+            });
+
+            List<String> userBadgeValue = [...userBadges, ...newUserBadge];
+
+            var resBadge = await updateUserBadge(userBadgeValue);
+
+            print(resBadge);
+
+            var resHistory = await setHistory(
               totalScore,
               sections,
               healthScores,
-              null,
+              receivedBadges,
             );
 
             Navigator.pushNamed(context, ResultScreen.routeName);

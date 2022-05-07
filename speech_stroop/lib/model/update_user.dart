@@ -99,3 +99,27 @@ updateUserPrecondition(Precondition updatedPreconditionValue) async {
 
   return updatePrecondition;
 }
+
+updateUserBadge(List<String> updatedBadgeValue) async {
+  String token = auth.token;
+  var updateBadge = {"badge": updatedBadgeValue.toString()};
+
+  print("jsonEncode(updateBadge):" + jsonEncode(updateBadge));
+  //TODO:
+  var res = await http.patch(Uri.parse("http://localhost:3000/user/profile"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(updateBadge));
+
+  print("patch: /user/profile " + res.statusCode.toString());
+
+  //TODO: handle
+  if (res.statusCode == 200) {
+    print(res.body);
+    await getUserProfile(true);
+  } else {}
+
+  return updateBadge;
+}
