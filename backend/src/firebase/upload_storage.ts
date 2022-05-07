@@ -1,8 +1,8 @@
 import { Storage } from '@google-cloud/storage'
-import { SERVICE_ACCOUNT_KEY_PATH } from '../config'
+import { GOOGLE_APPLICATION_CREDENTIALS } from '../config'
 
 const storage = new Storage({
-  keyFilename: SERVICE_ACCOUNT_KEY_PATH,
+  keyFilename: GOOGLE_APPLICATION_CREDENTIALS,
 })
 
 let bucketName = 'speech-stroop.appspot.com'
