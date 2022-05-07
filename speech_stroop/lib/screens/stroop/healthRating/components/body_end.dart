@@ -64,13 +64,12 @@ class _BodyState extends State<Body> {
               }
             }
 
-            List<String> receivedBadges = [];
             List<String> userBadges = userProfile.badge;
             List<String> newUserBadge = [];
 
             badgesMap.forEach((key, value) {
-              if (value.type == 'correctStack' && highestCorrectStack >= value.condition) {
-                receivedBadges.add(key);
+              if (value.type == 'correctStack' &&
+                  highestCorrectStack >= value.condition) {
                 if (!userBadges.contains(key)) {
                   newUserBadge.add(key);
                 }
@@ -87,7 +86,7 @@ class _BodyState extends State<Body> {
               totalScore,
               sections,
               healthScores,
-              receivedBadges,
+              newUserBadge,
             );
 
             Navigator.pushNamed(context, ResultScreen.routeName);
