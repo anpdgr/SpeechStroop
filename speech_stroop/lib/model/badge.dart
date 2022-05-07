@@ -33,7 +33,7 @@ class Badge {
   }
 }
 
-Map<String, Badge> badgesMap = {};
+Map<String, Badge> badgesMap;
 
 getBadge() async {
   if (badgesMap.isEmpty) {
