@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:speech_stroop/constants.dart';
 import 'dart:convert';
 
 import 'package:speech_stroop/model/auth.dart';
@@ -48,13 +49,12 @@ Future<AudioUrls> uploadAudio(String directory, String dateTime) async {
   AudioUrls audioUrls;
   String token = auth.token;
   Audio req = Audio(directory, dateTime);
-  var res =
-      await http.post(Uri.parse("http://localhost:3000/upload/stroop_audio"),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $token',
-          },
-          body: jsonEncode(req));
+  var res = await http.post(Uri.parse("${APIPath.baseUrl}/upload/stroop_audio"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(req));
 
   print("/upload/stroop_audio " + res.statusCode.toString());
 

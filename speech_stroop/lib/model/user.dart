@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:speech_stroop/constants.dart';
 import 'dart:convert';
 
 import 'package:speech_stroop/model/auth.dart';
@@ -110,7 +111,7 @@ getUserProfile(bool newRequest) async {
   if (userProfile == null || newRequest) {
     String token = auth.token;
     var res = await http.get(
-      Uri.parse("http://localhost:3000/user/profile"),
+      Uri.parse("${APIPath.baseUrl}/user/profile"),
       headers: {
         'Authorization': 'Bearer $token',
       },
@@ -127,7 +128,7 @@ getUserProfile(bool newRequest) async {
 }
 
 register(registerReq) async {
-  var res = await http.post(Uri.parse("http://localhost:3000/auth/register"),
+  var res = await http.post(Uri.parse("${APIPath.baseUrl}/auth/register"),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(registerReq));
   return res;

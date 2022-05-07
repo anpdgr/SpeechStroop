@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/auth.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:http/http.dart' as http;
@@ -60,7 +61,7 @@ Tuple2<DateTime, int> testDayStack =
 getHistory() async {
   var token = auth.token;
   var res = await http.get(
-    Uri.parse("http://localhost:3000/history"),
+    Uri.parse("${APIPath.baseUrl}/history"),
     headers: {
       'Authorization': 'Bearer $token',
     },
@@ -149,7 +150,7 @@ Future<int> setHistory(
   List<String> badge,
 ) async {
   latestTest = History(totalScore, sections, healthScores, badge);
-  var res = await http.post(Uri.parse("http://localhost:3000/history"),
+  var res = await http.post(Uri.parse("${APIPath.baseUrl}/history"),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${auth.token}',

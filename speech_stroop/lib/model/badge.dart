@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/utils/logger.dart';
 
 class Badge {
@@ -38,7 +39,7 @@ Map<String, Badge> badgesMap = {};
 getBadge() async {
   if (badgesMap.isEmpty) {
     var res = await http.get(
-      Uri.parse("http://localhost:3000/badge/all"),
+      Uri.parse("${APIPath.baseUrl}/badge/all"),
     );
     print("/badge/all ${res.statusCode}");
 

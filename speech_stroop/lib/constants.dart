@@ -42,8 +42,8 @@ Map<ButtonType, Tuple2<Size, TextStyle>> buttonStyle = {
 
 // API path
 class APIPath {
-  final baseUrl = "http://localhost:3000";
-  final user = "/user";
+  static const baseUrl = "https://speech-stroop.herokuapp.com";
+  static const user = "/user";
 }
 
 // Register

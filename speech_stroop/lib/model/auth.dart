@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:http/http.dart' as http;
@@ -27,7 +28,7 @@ Auth auth;
 logout() async {
   String token = auth.token;
   var res = await http.get(
-    Uri.parse("http://localhost:3000/auth/logout"),
+    Uri.parse("${APIPath.baseUrl}/auth/logout"),
     headers: {
       'Authorization': 'Bearer $token',
     },
@@ -41,7 +42,7 @@ logout() async {
 }
 
 Future<http.Response> login(String tel, String password) async {
-  var res = await http.post(Uri.parse("http://localhost:3000/auth/login"),
+  var res = await http.post(Uri.parse("${APIPath.baseUrl}/auth/login"),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         "tel": tel,

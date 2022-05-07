@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:speech_stroop/constants.dart';
 import 'dart:convert';
 
 import 'package:speech_stroop/model/auth.dart';
@@ -60,7 +61,7 @@ class UpdateUser {
 updateUserProfile(UpdateUser updatedUser) async {
   String token = auth.token;
   print("jsonEncode(updatedUser):" + jsonEncode(updatedUser));
-  var res = await http.patch(Uri.parse("http://localhost:3000/user/profile"),
+  var res = await http.patch(Uri.parse("${APIPath.baseUrl}/user/profile"),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -82,7 +83,7 @@ updateUserPrecondition(Precondition updatedPreconditionValue) async {
   String token = auth.token;
   var updatePrecondition = {"precondition": updatedPreconditionValue};
   print("jsonEncode(updatedUser):" + jsonEncode(updatePrecondition));
-  var res = await http.patch(Uri.parse("http://localhost:3000/user/profile"),
+  var res = await http.patch(Uri.parse("${APIPath.baseUrl}/user/profile"),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -106,7 +107,7 @@ updateUserBadge(List<String> updatedBadgeValue) async {
 
   print("jsonEncode(updateBadge):" + jsonEncode(updateBadge));
   //TODO:
-  var res = await http.patch(Uri.parse("http://localhost:3000/user/profile"),
+  var res = await http.patch(Uri.parse("${APIPath.baseUrl}/user/profile"),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
