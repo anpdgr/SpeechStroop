@@ -251,15 +251,17 @@ class _BodyState extends State<Body> {
       bool isCorrect = checkAnswerOutput.item1;
       String finalRecogWord = checkAnswerOutput.item2;
 
-      if (isCorrect) {
-        correctStack++;
-      } else {
-        highestCorrectStack = correctStack > highestCorrectStack
-            ? correctStack
-            : highestCorrectStack;
-        correctStack = 0;
-      }
       if (answered >= 0) {
+        // count stack
+        if (isCorrect) {
+          correctStack++;
+        } else {
+          highestCorrectStack = correctStack > highestCorrectStack
+              ? correctStack
+              : highestCorrectStack;
+          correctStack = 0;
+        }
+
         setFeedback(isCorrect);
         scoreCounting(isCorrect);
         questions[answered].userAnswer = finalRecogWord;
@@ -294,9 +296,13 @@ class _BodyState extends State<Body> {
       }
       // end of each sections
       else if (answered == stroopQuestionsAmount - 1) {
-        print('highestCorrectStack: $highestCorrectStack');
         stopwatchAudio.stop();
         recordAudio.getRecorderFn()();
+
+        highestCorrectStack = correctStack > highestCorrectStack
+            ? correctStack
+            : highestCorrectStack;
+
         scores = {"congruent": 0, "incongruent": 0};
         Future.delayed(durationDelayInterval, () async {
           Navigator.pushNamed(context, BreakScreen.routeName);

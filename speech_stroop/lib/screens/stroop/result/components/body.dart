@@ -40,7 +40,6 @@ class _BodyState extends State<Body> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getHistory();
-      await getBadge();
 
       setState(() {
         history = userHistory;

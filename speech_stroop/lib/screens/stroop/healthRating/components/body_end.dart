@@ -69,7 +69,7 @@ class _BodyState extends State<Body> {
             List<String> newUserBadge = [];
 
             badgesMap.forEach((key, value) {
-              if (highestCorrectStack >= value.condition) {
+              if (value.type == 'correctStack' && highestCorrectStack >= value.condition) {
                 receivedBadges.add(key);
                 if (!userBadges.contains(key)) {
                   newUserBadge.add(key);

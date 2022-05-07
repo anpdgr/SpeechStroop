@@ -4,6 +4,7 @@ import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 
 import 'package:speech_stroop/model/auth.dart';
+import 'package:speech_stroop/model/badge.dart';
 
 import 'package:speech_stroop/screens/auth/components/text_form_field.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';

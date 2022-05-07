@@ -102,7 +102,7 @@ updateUserPrecondition(Precondition updatedPreconditionValue) async {
 
 updateUserBadge(List<String> updatedBadgeValue) async {
   String token = auth.token;
-  var updateBadge = {"badge": updatedBadgeValue.toString()};
+  var updateBadge = {"badge": updatedBadgeValue};
 
   print("jsonEncode(updateBadge):" + jsonEncode(updateBadge));
   //TODO:

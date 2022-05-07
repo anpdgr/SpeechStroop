@@ -16,7 +16,7 @@ const badgeSchema = new Schema(
       required: true,
     },
     condition: {
-      type: String,
+      type: Number,
       required: true,
     },
   },
@@ -27,7 +27,7 @@ export type BadgeDocument = mongoose.Document & {
   name: string
   imgPath: string
   type: string
-  condition: string
+  condition: Number
 }
 
 const Badge = mongoose.model<BadgeDocument>('Badge', badgeSchema)

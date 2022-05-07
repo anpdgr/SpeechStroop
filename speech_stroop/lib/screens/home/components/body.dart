@@ -4,6 +4,7 @@ import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/components/microphone_test/microphone_test.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/enums.dart';
+import 'package:speech_stroop/model/badge.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
@@ -45,6 +46,7 @@ class _BodyState extends State<Body> {
   _asyncFunc() async {
     await getUserProfile(false);
     await getHistory();
+    await getBadge();
   }
 
   @override

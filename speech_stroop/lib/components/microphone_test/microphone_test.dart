@@ -113,6 +113,7 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
         } else {
           setState(() {
             result = 'โปรดลองใหม่อีกครั้ง';
+            resultColor = const Color(0xFFDA4F2C);
             text = '';
           });
         }
