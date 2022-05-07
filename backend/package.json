@@ -32,6 +32,7 @@
     "package.json": "^2.0.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "serve": "^13.0.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
