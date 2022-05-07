@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
-import { getUserByTel, TelDTO } from 'src/controller/get_user'
-import { login, LoginDTO } from 'src/controller/login'
-import { register, RegisterDTO } from 'src/controller/register'
+import { getUserByTel, TelDTO } from '../controller/get_user'
+import { login, LoginDTO } from '../controller/login'
+import { register, RegisterDTO } from '../controller/register'
 
 const router = express.Router()
 router.use(express.json())

@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongoose'
-import { uploadFile } from 'src/firebase/upload_storage'
-import { removeAudioFiles } from 'src/utils/remove_audio_file'
+import { uploadFile } from '../firebase/upload_storage'
+import { removeAudioFiles } from '../utils/remove_audio_file'
 
 export interface AudioDTO {
   directory: string

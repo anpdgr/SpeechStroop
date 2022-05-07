@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { History, HistoryDocument } from 'src/model/history'
+import { History, HistoryDocument } from '../model/history'
 
 export interface HistoryDTO {
   totalScore: number

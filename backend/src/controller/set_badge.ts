@@ -1,4 +1,4 @@
-import { Badge, BadgeDocument } from 'src/model/badge'
+import { Badge, BadgeDocument } from '../model/badge'
 
 export interface BadgeDTO {
   name: string

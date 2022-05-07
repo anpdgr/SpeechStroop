@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { User } from 'src/model/user'
+import { User } from '../model/user'
 
 export interface UpdateUserDTO {
   tel?: string

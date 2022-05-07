@@ -1,8 +1,8 @@
 import express from 'express'
-import { getBadges } from 'src/controller/get_badge'
-import { setBadge } from 'src/controller/set_badge'
-import { BadgeDocument } from 'src/model/badge'
-import { RequestWithUser } from 'src/types/express'
+import { getBadges } from '../controller/get_badge'
+import { setBadge } from '../controller/set_badge'
+import { BadgeDocument } from '../model/badge'
+import { RequestWithUser } from '../types/express'
 
 const router = express.Router()
 router.use(express.json())

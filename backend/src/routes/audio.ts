@@ -1,6 +1,6 @@
 import express from 'express'
-import { uploadStroopAudioFile } from 'src/controller/upload_audio'
-import { RequestWithUser } from 'src/types/express'
+import { uploadStroopAudioFile } from '../controller/upload_audio'
+import { RequestWithUser } from '../types/express'
 
 const router = express.Router()
 router.use(express.json())

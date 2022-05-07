@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
 import passport from 'passport'
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt'
-import { JWT_SECRET } from 'src/config'
-import { getUserByID } from 'src/controller/get_user'
+import { JWT_SECRET } from '../../config'
+import { getUserByID } from '../../controller/get_user'
 
 interface JWTPayload {
   _id: string

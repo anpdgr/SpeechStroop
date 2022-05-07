@@ -1,6 +1,6 @@
 import express from 'express'
-import { updateUser } from 'src/controller/update_user'
-import { RequestWithUser } from 'src/types/express'
+import { updateUser } from '../controller/update_user'
+import { RequestWithUser } from '../types/express'
 
 const router = express.Router()
 router.use(express.json())

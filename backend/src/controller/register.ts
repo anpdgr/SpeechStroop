@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import { ObjectId } from 'mongodb'
-import { HttpError } from 'src/errors'
-import { User, UserDocument } from 'src/model/user'
+import { HttpError } from '../errors'
+import { User, UserDocument } from '../model/user'
 
 export interface RegisterDTO {
   tel: string

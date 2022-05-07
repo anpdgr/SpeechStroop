@@ -2,11 +2,11 @@ import express from 'express'
 import {
   deleteHistoryById,
   deleteHistoryByUserId,
-} from 'src/controller/delete_history'
-import { getHistoryByID } from 'src/controller/get_history'
-import { setHistory } from 'src/controller/set_history'
-import { HistoryDocument } from 'src/model/history'
-import { RequestWithUser } from 'src/types/express'
+} from '../controller/delete_history'
+import { getHistoryByID } from '../controller/get_history'
+import { setHistory } from '../controller/set_history'
+import { HistoryDocument } from '../model/history'
+import { RequestWithUser } from '../types/express'
 
 const router = express.Router()
 router.use(express.json())

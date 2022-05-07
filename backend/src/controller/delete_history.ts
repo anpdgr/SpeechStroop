@@ -1,4 +1,4 @@
-import { History } from 'src/model/history'
+import { History } from '../model/history'
 
 export async function deleteHistoryByUserId(userId: string) {
   const h = await History.deleteMany({ userId: userId })
