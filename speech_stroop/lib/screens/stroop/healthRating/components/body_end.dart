@@ -67,9 +67,21 @@ class _BodyState extends State<Body> {
             List<String> userBadges = userProfile.badge;
             List<String> newUserBadge = [];
 
+            // day stack
+            DateTime testDate = DateTime.now();
+            int dayStack = 0;
+            if (checkLatestTestMakeDayStack(testDate)) {
+              dayStack = testDayStack.item2;
+            }
+            // add badge
             badgesMap.forEach((key, value) {
               if (value.type == 'correctStack' &&
                   highestCorrectStack >= value.condition) {
+                if (!userBadges.contains(key)) {
+                  newUserBadge.add(key);
+                }
+              }
+              if (value.type == 'testDayStack' && dayStack >= value.condition) {
                 if (!userBadges.contains(key)) {
                   newUserBadge.add(key);
                 }

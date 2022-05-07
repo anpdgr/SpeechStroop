@@ -4,6 +4,7 @@ import 'package:speech_stroop/model/auth.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:http/http.dart' as http;
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
+import 'package:speech_stroop/utils/date_format.dart';
 import 'package:speech_stroop/utils/logger.dart';
 import 'package:tuple/tuple.dart';
 import './section.dart';
@@ -52,6 +53,8 @@ class History {
 }
 
 List<History> userHistory;
+Tuple2<DateTime, int> testDayStack =
+    Tuple2(DateTime.now(), 0); // (latestDateStack, dayStack)
 
 //TODO: navigation
 getHistory() async {
@@ -67,11 +70,41 @@ getHistory() async {
   if (res.statusCode == 200) {
     Iterable l = json.decode(res.body);
     userHistory = List<History>.from(l.map((data) => History.fromJson(data)));
+
+    // sort user history
     userHistory.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
+    // check test day stack
+    countTestDayStack();
   } else {
     logger.e("getHistory failed");
     //TODO: handle
   }
+}
+
+void countTestDayStack() {
+  int stack = 1;
+  for (int i = 0; i < userHistory.length; i++) {
+    DateTime next = userHistory[i + 1].createdAt;
+    DateTime curr = userHistory[i].createdAt;
+
+    if (curr.isNextDate(next)) {
+      stack++;
+    } else if (curr.isSameDate(next)) {
+      continue;
+    } else {
+      break;
+    }
+  }
+  testDayStack = Tuple2(userHistory[0].createdAt, stack);
+}
+
+bool checkLatestTestMakeDayStack(DateTime testDate) {
+  if (testDate.isNextDate(testDayStack.item1)) {
+    testDayStack = Tuple2(testDate, testDayStack.item2 + 1);
+    return true;
+  }
+  return false;
 }
 
 List highestScoresList;

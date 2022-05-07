@@ -16,3 +16,13 @@ String chartDate(DateTime date) {
 String toDate(DateTime date) {
   return date.toIso8601String().split("T")[0];
 }
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return year == other.year && month == other.month && day == other.day;
+  }
+
+  bool isNextDate(DateTime other) {
+    return year == other.year && month == other.month && day == other.day + 1;
+  }
+}
