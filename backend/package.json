@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "start": "tsc && tsc-alias && node dist/index.js",
-    "publish-backend": "cd ../ && git subtree push --prefix backend heroku-backend main",
+    "heroku-postbuild": "npm run build",
     "start:prod": "node dist/index.js",
     "build": "tsc && tsc-alias",
     "format": "yarn prettier && yarn lint:fix"
