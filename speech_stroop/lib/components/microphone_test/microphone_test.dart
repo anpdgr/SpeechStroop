@@ -9,6 +9,7 @@ import 'package:speech_stroop/screens/stroop/tutorial/test/tutorial_test.dart';
 import 'package:speech_stroop/theme.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:tuple/tuple.dart';
 
 import '../custom_appbar.dart';
 
@@ -26,7 +27,9 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
   stt.SpeechToText speech;
 
   bool isListening = false;
-  String text = '';
+  String recogWord = '';
+  String correctMicAnswer = 'ฟ้าเขียวเหลืองส้มแดงดำม่วง';
+  bool isCorrect = false;
   String result = '';
   Color resultColor = backgroundColor;
   List<SpeechRecognitionWords> valAlternates;
@@ -86,10 +89,15 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
           onError: (val) => setState(() {
                 result = 'โปรดลองใหม่อีกครั้ง';
                 resultColor = const Color(0xFFDA4F2C);
-                text = '';
+                recogWord = '';
               }));
       if (available) {
-        setState(() => {isListening = true, result = ''});
+        setState(() => {
+              isListening = true,
+              result = '',
+              recogWord = '',
+              isCorrect = false
+            });
         speech.listen(
             onResult: onResultListen, localeId: 'th-TH', partialResults: true);
       }
@@ -99,11 +107,14 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
       });
       Future.delayed(const Duration(milliseconds: 800), () {
         speech.stop();
-        if (text == 'ฟ้าเขียวเหลืองส้มแดงดำม่วง') {
+        Tuple2 t = checkAnswer(recogWord, correctMicAnswer);
+        isCorrect = t.item1;
+        recogWord = t.item2;
+        if (isCorrect) {
           setState(() {
             result = 'คุณผ่านการทดสอบไมโครโฟน';
             resultColor = const Color(0xFF6FC2A0);
-            text = '';
+            recogWord = '';
           });
           Future.delayed(const Duration(milliseconds: 1500), () {
             dstMicTest == 'tutorial'
@@ -114,7 +125,7 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
           setState(() {
             result = 'โปรดลองใหม่อีกครั้ง';
             resultColor = const Color(0xFFDA4F2C);
-            text = '';
+            recogWord = '';
           });
         }
       });
@@ -124,6 +135,26 @@ class _MicrophoneTestScreenState extends State<MicrophoneTestScreen> {
   Future<void> onResultListen(val) async {
     valAlternates = val.alternates;
 
-    text = valAlternates[0].recognizedWords;
+    recogWord = valAlternates[0].recognizedWords;
+  }
+
+  Tuple2<bool, String> checkAnswer(String recogWord, String correctAnswer) {
+    bool isCorrect = false;
+
+    if (recogWord == correctAnswer) {
+      isCorrect = true;
+    } else {
+      for (Tuple2 t in allSimilarWords) {
+        if (!recogWord.contains(t.item1) && recogWord.contains(t.item2)) {
+          recogWord = recogWord.replaceAll(t.item2, t.item1);
+        }
+      }
+    }
+
+    if (recogWord == correctAnswer) {
+      isCorrect = true;
+    }
+
+    return Tuple2(isCorrect, recogWord);
   }
 }
