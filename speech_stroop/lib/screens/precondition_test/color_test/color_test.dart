@@ -16,6 +16,7 @@ import 'package:speech_stroop/components/microphone_test/fail_microphone_test.da
 import 'package:speech_stroop/components/button/mic_button.dart';
 
 import 'package:speech_stroop/theme.dart';
+import 'package:tuple/tuple.dart';
 import '../../stroop/stroop_test/stroopHelper/speech_check.dart';
 
 class ColorTestScreen extends StatefulWidget {
@@ -36,6 +37,7 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   int score = 0;
 
   bool isInterval = false;
+  bool isCorrect = false;
   String feedback = '';
   String feedbackImg = '';
   // String correctAnswerText = '';
@@ -181,30 +183,20 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
     problemColor = stroopColorsMap.values.toList()[answeredColorTest];
   }
 
-  void checkAnswer() {
-    if (answeredColorTest >= 0) {
-      // check answer
-      String correctAnswer = stroopColorsMap.keys.toList()[answeredColorTest];
-      // correctAnswerText = 'เฉลย: $correctAnswer';
-
-      // correct answer
-      if (recogWordColorTest == correctAnswer) {
-        setState(() {
-          score++;
-          feedback = 'ถูกต้อง';
-          feedbackImg = 'assets/images/correct.png';
-          setBackgroundColor();
-        });
-      }
-
-      // wrong answer
-      else {
-        setState(() {
-          feedback = 'ผิด';
-          feedbackImg = 'assets/images/wrong.png';
-          setBackgroundColor();
-        });
-      }
+  void setFeedback(bool isCorrect) {
+    if (isCorrect) {
+      setState(() {
+        score++;
+        feedback = 'ถูกต้อง';
+        feedbackImg = 'assets/images/correct.png';
+        setBackgroundColor();
+      });
+    } else {
+      setState(() {
+        feedback = 'ผิด';
+        feedbackImg = 'assets/images/wrong.png';
+        setBackgroundColor();
+      });
     }
     isInterval = true;
   }
@@ -214,7 +206,14 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
         ? const Duration(milliseconds: 0)
         : const Duration(milliseconds: 1500);
 
-    checkAnswer();
+    String correctAnswer = answeredColorTest == -1
+        ? ''
+        : stroopColorsMap.keys.toList()[answeredColorTest];
+    Tuple2 t =
+        checkAnswer(recogWordColorTest, answeredColorTest, correctAnswer);
+    isCorrect = t.item1;
+    recogWordColorTest = t.item2;
+    setFeedback(isCorrect);
     resetQuestion();
 
     if (answeredColorTest < 6) {

@@ -4,19 +4,19 @@ import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/precondition.dart';
 import 'package:speech_stroop/model/update_user.dart';
 import 'package:speech_stroop/model/user.dart';
-import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/speech_check.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/fail_reading_test.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/pass_reading_test.dart';
 
-import '../../../components/custom_appbar.dart';
+import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/microphone_test/fail_microphone_test.dart';
 import 'package:speech_stroop/components/button/mic_button.dart';
 
 import 'package:speech_stroop/theme.dart';
-import '../../stroop/stroop_test/stroopHelper/speech_check.dart';
+import 'package:tuple/tuple.dart';
 
 class ReadingTestScreen extends StatefulWidget {
   const ReadingTestScreen({Key key}) : super(key: key);
@@ -36,6 +36,7 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   int score = 0;
 
   bool isInterval = false;
+  bool isCorrect = false;
   String feedback = '';
   String feedbackImg = '';
   // String correctAnswerText = '';
@@ -181,24 +182,16 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
     problemWordColor = Colors.black;
   }
 
-  void checkAnswer() {
+  void setFeedback(bool isCorrect) {
     if (answeredReadingTest >= 0) {
-      // check answer
-      String correctAnswer = stroopColorsMap.keys.toList()[answeredReadingTest];
-      // correctAnswerText = 'เฉลย: $correctAnswer';
-
-      // correct answer
-      if (recogWordReadingTest == correctAnswer) {
+      if (isCorrect) {
         setState(() {
           score++;
           feedback = 'ถูกต้อง';
           feedbackImg = 'assets/images/correct.png';
           setBackgroundColor();
         });
-      }
-
-      // wrong answer
-      else {
+      } else {
         setState(() {
           feedback = 'ผิด';
           feedbackImg = 'assets/images/wrong.png';
@@ -214,7 +207,14 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
         ? const Duration(milliseconds: 0)
         : const Duration(milliseconds: 1500);
 
-    checkAnswer();
+    String correctAnswer = answeredReadingTest == -1
+        ? ''
+        : stroopColorsMap.keys.toList()[answeredReadingTest];
+    Tuple2 t =
+        checkAnswer(recogWordReadingTest, answeredReadingTest, correctAnswer);
+    isCorrect = t.item1;
+    recogWordReadingTest = t.item2;
+    setFeedback(isCorrect);
     resetQuestion();
 
     if (answeredReadingTest < 6) {
