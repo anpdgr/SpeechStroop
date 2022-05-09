@@ -4,11 +4,9 @@ import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/auth.dart';
-import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
-import 'package:http/http.dart' as http;
 import 'package:speech_stroop/screens/profile/profile_screen.dart';
 import 'dart:convert';
 
@@ -71,7 +69,7 @@ class _PassColorTestState extends State<PassColorTestScreen> {
                       precondition.isPassAll = true;
                       registerReq.precondition = precondition;
 
-                      var res = register(registerReq);
+                      var res = await register(registerReq);
 
                       //TODO: login with this user
                       if (res.statusCode == 200) {

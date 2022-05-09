@@ -127,7 +127,7 @@ getUserProfile(bool newRequest) async {
   return userProfile;
 }
 
-register(registerReq) async {
+Future<http.Response> register(registerReq) async {
   var res = await http.post(Uri.parse("${APIPath.baseUrl}/auth/register"),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(registerReq));
