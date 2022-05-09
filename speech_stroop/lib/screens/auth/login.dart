@@ -4,7 +4,6 @@ import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 
 import 'package:speech_stroop/model/auth.dart';
-import 'package:speech_stroop/model/badge.dart';
 
 import 'package:speech_stroop/screens/auth/components/text_form_field.dart';
 import 'package:speech_stroop/screens/auth/terms_conditions.dart';
@@ -178,20 +177,20 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                                     builder: (context) =>
                                         const TermsConditionsScreen()))
                           }),
-                  Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                      child: TextButton(
-                          onPressed: () {
-                            print('Forget password');
-                          },
-                          child: const Text('ลืมรหัสผ่าน'),
-                          style: TextButton.styleFrom(
-                              shape: const StadiumBorder(),
-                              textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'BaiJamjuree',
-                                  color: Color(0xFF838383))))),
+                  // Padding(
+                  //     padding:
+                  //         const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  //     child: TextButton(
+                  //         onPressed: () {
+                  //           print('Forget password');
+                  //         },
+                  //         child: const Text('ลืมรหัสผ่าน'),
+                  //         style: TextButton.styleFrom(
+                  //             shape: const StadiumBorder(),
+                  //             textStyle: const TextStyle(
+                  //                 fontSize: 14,
+                  //                 fontFamily: 'BaiJamjuree',
+                  //                 color: Color(0xFF838383))))),
 
                   //TODO: DELETE ME!!!! (for admin)
                   Row(
