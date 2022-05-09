@@ -164,7 +164,6 @@ class _BodyState extends State<Body> {
         setState(() => isListening = true);
         speech.listen(
           onResult: (val) => setState(() {
-            //TODO: edit recogWordTutorial
             recogWordTutorial = val.recognizedWords;
           }),
           localeId: 'th-TH',
@@ -175,7 +174,6 @@ class _BodyState extends State<Body> {
   }
 
   void setFeedback(bool isCorrect) {
-    print('setFb');
     setState(() {
       if (isCorrect) {
         feedback = 'ถูกต้อง';
@@ -187,7 +185,6 @@ class _BodyState extends State<Body> {
       correctAnswerText = testTemplateTutorial[answeredTutorial].color;
       stroopBackgroundColor = setBackgroundColor(answeredTutorial, feedback);
     });
-    print(feedback);
   }
 
   void resetQuestion() {
@@ -225,8 +222,12 @@ class _BodyState extends State<Body> {
       setState(() {
         isListening = false;
       });
-      Tuple2<bool, String> checkAnswerOutput = checkAnswer(
-          recogWordTutorial, answeredTutorial, testTemplateTutorial);
+
+      String correctAnswer = answeredTutorial == -1
+          ? ''
+          : testTemplateTutorial[answeredTutorial].color;
+      Tuple2<bool, String> checkAnswerOutput =
+          checkAnswer(recogWordTutorial, answeredTutorial, correctAnswer);
       bool isCorrect = checkAnswerOutput.item1;
       String finalRecogWord = checkAnswerOutput.item2;
 

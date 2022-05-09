@@ -246,8 +246,9 @@ class _BodyState extends State<Body> {
         isListening = false;
       });
 
+      String correctAnswer = answered == -1 ? '' : testTemplate[answered].color;
       Tuple2<bool, String> checkAnswerOutput =
-          checkAnswer(recogWord, answered, testTemplate);
+          checkAnswer(recogWord, answered, correctAnswer);
       bool isCorrect = checkAnswerOutput.item1;
       String finalRecogWord = checkAnswerOutput.item2;
 

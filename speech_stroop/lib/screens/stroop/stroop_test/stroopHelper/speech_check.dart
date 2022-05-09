@@ -1,17 +1,14 @@
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/stroop_combination.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:tuple/tuple.dart';
 
 var scores = {"congruent": 0, "incongruent": 0};
 
 Tuple2<bool, String> checkAnswer(
-    String recogWord, int answered, List<StroopQuestion> template) {
+    String recogWord, int answered, String correctAnswer) {
   bool isCorrect = false;
   if (answered >= 0) {
-    String correctAnswer = template[answered].color;
-
     // check entire recogWord
     if (similarWords[correctAnswer].contains(recogWord)) {
       isCorrect = true;
