@@ -77,14 +77,14 @@ int tutorialQuestionsAmount = 5;
 int stroopQuestionsAmount = 20;
 int stroopSectionAmount = 3;
 int stroopTotalQuestionsAmount = stroopQuestionsAmount * stroopSectionAmount;
-int stroopQuestionDurationMs = 3000; //3000;
-int stroopIntervalDurationMs = 3000; //3000;
+int stroopQuestionDurationMs = 2000; //3000;
+int stroopIntervalDurationMs = 1500; //3000;
 Map<String, Color> stroopColorsMap = {
-  'แดง': const Color(0xFFDA5C54),
+  'แดง': const Color(0xFFD30000),
   'ดำ': const Color(0xFF000000),
-  'เหลือง': const Color(0xFFECD933),
+  'เหลือง': const Color(0xFFFFDF00),
   'เขียว': const Color(0xFF25CF55),
-  'ส้ม': const Color(0xFFEC8133),
+  'ส้ม': const Color(0xFFFF6000),
   'ฟ้า': const Color(0xFF72C4FF),
   'ม่วง': const Color(0xFF8F00FF)
 };
@@ -106,10 +106,18 @@ Map<int, String> dateLabel = {
 Map<String, List<String>> similarWords = {
   'ฟ้า': ['ฟ้า', 'สีฟ้า', 'ป๊า', 'ป๋า', 'สา', 'ฝา', 'ปา', 'ปลา'],
   'เขียว': ['เขียว', 'สีเขียว', 'เดี๋ยว'],
-  'เหลือง': ['เหลือง', 'สีเหลือง', 'เหลือ', 'เรื่อง', 'หลวง', 'เมือง'],
-  'ส้ม': ['ส้ม', 'สีส้ม', 'ส่ง', 'ซ่อม'],
+  'เหลือง': [
+    'เหลือง',
+    'สีเหลือง',
+    'เหลือ',
+    'เรื่อง',
+    'หลวง',
+    'เมือง',
+    'เหนียง'
+  ],
+  'ส้ม': ['ส้ม', 'สีส้ม', 'ส่ง', 'ซ่อม', 'ส้อม'],
   'แดง': ['แดง', 'สีแดง', 'แรง', 'แบ่ง', 'แพง', 'แนง', 'แมง'],
-  'ดำ': ['ดำ', 'สีดำ', 'ดาม', 'นำ', 'จำ', 'ดอม', 'รำ'],
+  'ดำ': ['ดำ', 'สีดำ', 'ดาม', 'นำ', 'จำ', 'ดอม', 'รำ', 'นำ', 'ตำ'],
   'ม่วง': ['ม่วง', 'สีม่วง', 'ง่วง', 'มั่ว'],
 };
 
