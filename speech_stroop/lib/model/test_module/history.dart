@@ -76,7 +76,9 @@ getHistory() async {
     userHistory.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     // check test day stack
-    countTestDayStack();
+    if (userHistory.isNotEmpty) {
+      countTestDayStack();
+    }
   } else {
     logger.e("getHistory failed");
     //TODO: handle
