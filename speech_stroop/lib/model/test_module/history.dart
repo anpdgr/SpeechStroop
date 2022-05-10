@@ -87,7 +87,11 @@ getHistory() async {
 
 void countTestDayStack() {
   int stack = 1;
+
   for (int i = 0; i < userHistory.length; i++) {
+    if (i == userHistory.length - 1) {
+      continue;
+    }
     DateTime next = userHistory[i + 1].createdAt;
     DateTime curr = userHistory[i].createdAt;
 
