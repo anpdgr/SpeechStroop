@@ -1,17 +1,11 @@
-import 'dart:developer';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
-import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/components/health_slider.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 import 'package:speech_stroop/theme.dart';
-import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/speech_check.dart';
 
 class Body extends StatefulWidget {
   final String appbarTitle;

@@ -5,7 +5,6 @@ import 'package:speech_stroop/screens/stroop/healthRating/components/body_break.
     as test_break;
 import 'package:speech_stroop/screens/stroop/healthRating/components/body_end.dart'
     as end;
-import 'package:speech_stroop/screens/stroop/stroop_test/components/body.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 
 class BreakScreen extends StatelessWidget {
@@ -16,13 +15,14 @@ class BreakScreen extends StatelessWidget {
     0: start.Body('จะเริ่มแบบทดสอบแล้ว'),
     1: test_break.Body('พัก'),
     2: test_break.Body('พัก'),
-    3: end.Body('เสร็จสิ้น'),
+    3: const end.Body('เสร็จสิ้น'),
   };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: mapBody[sectionNumber],
+      body: Padding(
+          padding: const EdgeInsets.all(8), child: mapBody[sectionNumber]),
     );
   }
 }

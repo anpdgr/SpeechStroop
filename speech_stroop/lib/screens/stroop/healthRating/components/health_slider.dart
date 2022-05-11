@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/components/label_slider.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/screens/home/components/body.dart';
 
@@ -54,6 +55,7 @@ class HealthSliderState extends State<HealthSlider> {
           });
         },
       ),
+      LabelSlider.healthStressSlider(),
       Align(
         alignment: const AlignmentDirectional(-1, 0),
         child: Padding(
@@ -81,7 +83,8 @@ class HealthSliderState extends State<HealthSlider> {
             arouselLevel = value;
           });
         },
-      )
+      ),
+      LabelSlider.healthArouselSlider(),
     ]);
   }
 }
