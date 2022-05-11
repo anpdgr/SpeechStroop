@@ -76,7 +76,9 @@ getHistory() async {
     userHistory.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     // check test day stack
-    countTestDayStack();
+    if (userHistory.isNotEmpty) {
+      countTestDayStack();
+    }
   } else {
     logger.e("getHistory failed");
     //TODO: handle
@@ -85,7 +87,11 @@ getHistory() async {
 
 void countTestDayStack() {
   int stack = 1;
+
   for (int i = 0; i < userHistory.length; i++) {
+    if (i == userHistory.length - 1) {
+      continue;
+    }
     DateTime next = userHistory[i + 1].createdAt;
     DateTime curr = userHistory[i].createdAt;
 

@@ -107,7 +107,7 @@ class ScoreChartData {
 
 List<ScoreChartData> getScoreChartData(List<History> historyData, int range) {
   List<ScoreChartData> data = [];
-  if (historyData.isNotEmpty && historyData != null) {
+  if (historyData != null && historyData.isNotEmpty) {
     for (History h in historyData) {
       if (data.length == range) {
         break;

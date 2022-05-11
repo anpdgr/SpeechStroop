@@ -32,75 +32,60 @@ class _ReactionTimeBarSectionState extends State<ReactionTimeBarSection> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 10),
-      padding: const EdgeInsets.all(30),
+      padding: const EdgeInsets.all(20),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "เวลาตอบสนองของสัปดาห์นี้",
+              "กราฟเวลาตอบสนอง",
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.titleMedium,
             ),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
-              width: 350,
               decoration: BoxDecoration(
                   color: softPrimaryColor,
                   borderRadius: BorderRadius.circular(10)),
-              padding: const EdgeInsets.all(40),
+              padding: const EdgeInsets.fromLTRB(30, 40, 30, 25),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "เวลาตอบสนองเฉลี่ยต่อสัปดาห์",
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          .apply(color: const Color(0xFF525252)),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      //'10',
-                      '${(avgReactionTimePerWeek).toDouble().toStringAsFixed(2)} วิ',
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SfCartesianChart(
-                      primaryXAxis: CategoryAxis(
-                        labelStyle:
-                            Theme.of(context).textTheme.labelLarge.apply(
-                                  color: formText,
-                                ),
-                      ),
-                      primaryYAxis: NumericAxis(
-                        minimum: 0,
-                        maximum: 3, //TODO: use const
-                        interval: 0.1,
-                        labelStyle:
-                            Theme.of(context).textTheme.labelLarge.apply(
-                                  color: formText,
-                                ),
-                      ),
-                      series: <ChartSeries<ReactionTimeChartData, String>>[
-                        ColumnSeries<ReactionTimeChartData, String>(
-                          dataSource: chartData,
-                          xValueMapper: (ReactionTimeChartData data, _) =>
-                              data.x,
-                          yValueMapper: (ReactionTimeChartData data, _) =>
-                              data.y,
-                          color: secondaryColor,
-                          width: 0.5,
-                          borderRadius: BorderRadius.circular(15),
+                    SizedBox(
+                      height: 400,
+                      child: SfCartesianChart(
+                        primaryXAxis: CategoryAxis(
+                          labelStyle:
+                              Theme.of(context).textTheme.labelLarge.apply(
+                                    color: formText,
+                                  ),
                         ),
-                      ],
-                      plotAreaBorderWidth: 0,
+                        primaryYAxis: NumericAxis(
+                          minimum: 0,
+                          maximum: 3, //TODO: use const
+                          interval: 0.1,
+                          labelStyle:
+                              Theme.of(context).textTheme.labelLarge.apply(
+                                    color: formText,
+                                  ),
+                        ),
+                        series: <ChartSeries<ReactionTimeChartData, String>>[
+                          ColumnSeries<ReactionTimeChartData, String>(
+                            dataSource: chartData,
+                            xValueMapper: (ReactionTimeChartData data, _) =>
+                                data.x,
+                            yValueMapper: (ReactionTimeChartData data, _) =>
+                                data.y,
+                            color: secondaryColor,
+                            width: 0.5,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ],
+                        plotAreaBorderWidth: 0,
+                      ),
                     ),
                   ]),
             )
