@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter_sound/flutter_sound.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:speech_stroop/utils/directory.dart';
 
 class RecordAudio {
   int section;
@@ -17,14 +17,14 @@ class RecordAudio {
   bool isRecording = false;
 
   Future<String> getFilePathWAV() async {
-    var tempDir = await getApplicationDocumentsDirectory();
+    var tempDir = await getDir();
     var fileName = getFileName();
     print('${tempDir.path}/$fileName.wav');
     return '${tempDir.path}/$fileName.wav';
   }
 
   Future<String> getFilePathPCM() async {
-    var tempDir = await getApplicationDocumentsDirectory();
+    var tempDir = await getDir();
     var fileName = getFileName();
     print('${tempDir.path}/$fileName.pcm');
     return '${tempDir.path}/$fileName.pcm';
