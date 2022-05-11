@@ -35,9 +35,10 @@ class Badge {
 }
 
 Map<String, Badge> badgesMap = {};
+List<Badge> badgesList = [];
 
 getBadge() async {
-  if (badgesMap.isEmpty) {
+  if (badgesMap.isEmpty || badgesList.isEmpty) {
     var res = await http.get(
       Uri.parse("${APIPath.baseUrl}/badge/all"),
     );
@@ -49,10 +50,17 @@ getBadge() async {
           List<Badge>.from(l.map((data) => Badge.fromJson(data)));
       for (var b in badges) {
         badgesMap[b.id] = b;
+        badgesList.add(b);
       }
     } else {
       logger.e("getBadges failed");
       //TODO: handle
     }
   }
+}
+
+List<Badge> getBadgeListByType(String type) {
+  List<Badge> badges = [];
+  badges = badgesList.where((b) => b.type == type).toList();
+  return badges;
 }

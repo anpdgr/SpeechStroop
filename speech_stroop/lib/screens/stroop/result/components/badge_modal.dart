@@ -31,6 +31,11 @@ class _BadgeState extends State<Badge> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(maxHeight: 500),

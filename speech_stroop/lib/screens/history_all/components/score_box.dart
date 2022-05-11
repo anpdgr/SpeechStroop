@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/model/badge.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
 import 'dart:async';
@@ -67,7 +68,7 @@ class _ScoreBoxState extends State<ScoreBox> {
       margin: const EdgeInsets.only(top: 10, bottom: 10),
       padding: const EdgeInsets.all(30.0),
       width: 800,
-      height: expanded ? 670.0 : 130.0,
+      height: expanded ? 675.0 : 130.0,
       duration: const Duration(milliseconds: 500),
       curve: Curves.fastOutSlowIn,
       decoration: BoxDecoration(
@@ -124,104 +125,106 @@ class _ScoreBoxState extends State<ScoreBox> {
           ],
         ),
         if (canExpaned == true)
-          Column(children: [
-            Divider(
-              color: primaryColor.withOpacity(0.3),
-              height: 25,
-              thickness: 1,
-            ),
-            Container(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "คะแนนแต่ละส่วน",
-                textAlign: TextAlign.left,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge
-                    .apply(color: formText),
+          Column(
+            children: [
+              Divider(
+                color: primaryColor.withOpacity(0.3),
+                height: 25,
+                thickness: 1,
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: getScoreWidget(),
-            ),
-            Divider(
-              color: primaryColor.withOpacity(0.3),
-              height: 25,
-              thickness: 1,
-            ),
-            Container(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "คะแนนแต่ละประเภท",
-                textAlign: TextAlign.left,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge
-                    .apply(color: formText),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "คะแนนแต่ละส่วน",
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge
+                      .apply(color: formText),
+                ),
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Row(
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  Expanded(
-                    child: TypeScoreBox(
-                      "Congruent",
-                      "สีที่แสดงตรงกับคำอ่าน",
-                      sumCongruentScore,
+              Container(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: getScoreWidget(),
+              ),
+              Divider(
+                color: primaryColor.withOpacity(0.3),
+                height: 25,
+                thickness: 1,
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "คะแนนแต่ละประเภท",
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge
+                      .apply(color: formText),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: Row(
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    Expanded(
+                      child: TypeScoreBox(
+                        "Congruent",
+                        "สีที่แสดงตรงกับคำอ่าน",
+                        sumCongruentScore,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Expanded(
-                    child: TypeScoreBox(
-                      "Incongruent",
-                      "สีที่แสดงไม่ตรงกับคำอ่าน",
-                      sumIncongruentScore,
+                    const SizedBox(
+                      width: 5,
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: TypeScoreBox(
+                        "Incongruent",
+                        "สีที่แสดงไม่ตรงกับคำอ่าน",
+                        sumIncongruentScore,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Divider(
-              color: primaryColor.withOpacity(0.3),
-              height: 25,
-              thickness: 1,
-            ),
-            Container(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "รางวัลที่ได้รับ",
-                textAlign: TextAlign.left,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge
-                    .apply(color: formText),
+              Divider(
+                color: primaryColor.withOpacity(0.3),
+                height: 25,
+                thickness: 1,
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              // child: Row(
-              //   // ignore: prefer_const_literals_to_create_immutables
-              //   children: [
-              //     Image.asset(
-              //       "assets/images/badges/badge-1-1-raw.png",
-              //       width: 56,
-              //       height: 56,
-              //     ),
-              //     const SizedBox(width: 20),
-              //     Image.asset(
-              //       "assets/images/badges/badge-1-3-raw.png",
-              //       width: 56,
-              //       height: 56,
-              //     ),
-              //   ],
-              // ),
-            ),
-          ])
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "รางวัลที่ได้รับ",
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge
+                      .apply(color: formText),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: historyData.badge != null
+                    ? Row(
+                        children: [
+                          for (String b in historyData.badge)
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Image.asset(
+                                badgesMap[b].imgPath,
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                        ],
+                      )
+                    : null,
+              ),
+            ],
+          )
         else
           const SizedBox(
             width: 0,
