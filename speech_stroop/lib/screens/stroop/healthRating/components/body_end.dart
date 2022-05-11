@@ -12,6 +12,7 @@ import 'package:speech_stroop/screens/stroop/healthRating/components/health_slid
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:speech_stroop/utils/directory.dart';
 
 class Body extends StatefulWidget {
   const Body(this.appbarTitle, {Key key}) : super(key: key);
@@ -48,7 +49,7 @@ class _BodyState extends State<Body> {
             arousel.end = arouselLevel.toInt();
             healthScores = HealthScores(stress, arousel);
 
-            var tempDir = await getApplicationDocumentsDirectory();
+            var tempDir = await getDir();
             String tempDirPath = tempDir.path;
 
             var audioUrls = await uploadAudio(tempDirPath, recordAudioDateTime);
