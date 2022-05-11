@@ -1,5 +1,6 @@
 import { Storage } from '@google-cloud/storage'
 import fs from 'fs'
+import path from 'path'
 import { GOOGLE_APPLICATION_CREDENTIALS } from '../config'
 
 const storage = new Storage({
@@ -11,12 +12,14 @@ const audioFolder = 'audio'
 
 // Uploads a local file to the bucket
 export const uploadFile = async (userId: string, filePath: string) => {
+  filePath = path.join(__dirname, filePath)
   const fileName = filePath.split('/').pop()
   const dstPath = `${audioFolder}/${userId}/${fileName}`
   console.log({
     filePath: filePath,
     fileName: fileName,
     dstPath: dstPath,
+    processCWD: process.cwd(),
   })
   try {
     if (fs.existsSync(filePath)) {
