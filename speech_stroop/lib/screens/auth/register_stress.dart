@@ -1,6 +1,7 @@
 import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/floating_button.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/components/label_slider.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/screens/auth/register_sleep.dart';
 import 'package:flutter/material.dart';
@@ -55,17 +56,6 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         style: textTheme().titleLarge,
                       ),
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child: Text(
-                        '1 = ไม่เคย, 2 = แทบจะไม่, 3 = บางครั้ง,\n4 = ค่อนข้างบ่อย, 5 = บ่อยมาก',
-                        textAlign: TextAlign.center,
-                        style: textTheme()
-                            .titleMedium
-                            .apply(color: secondaryColor),
-                      ),
-                    ),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -94,6 +84,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
+                    LabelSlider.sleepStressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -123,6 +114,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
+                    LabelSlider.sleepStressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -151,6 +143,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
+                    LabelSlider.sleepStressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -179,6 +172,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
+                    LabelSlider.sleepStressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -207,6 +201,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
+                    LabelSlider.sleepStressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -235,6 +230,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
+                    LabelSlider.sleepStressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -263,6 +259,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
+                    LabelSlider.sleepStressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -291,6 +288,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
+                    LabelSlider.sleepStressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -319,6 +317,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
+                    LabelSlider.sleepStressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -347,13 +346,14 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
+                    LabelSlider.sleepStressSlider(),
                     Text("*โปรดตรวจสอบคำตอบให้ถูกต้องและครบถ้วน",
                         style: textTheme().bodyMedium),
                     Align(
                       alignment: const AlignmentDirectional(0.9, 0),
                       child: Padding(
                           padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 5),
+                              const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 5),
                           child: FloatingButton(() {
                             if (formGlobalKey.currentState.validate()) {
                               formGlobalKey.currentState.save();

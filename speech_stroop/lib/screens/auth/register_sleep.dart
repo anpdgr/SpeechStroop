@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/floating_button.dart';
 import 'package:speech_stroop/constants.dart';
+import 'package:speech_stroop/components/label_slider.dart';
 import 'package:speech_stroop/screens/auth/register.dart';
 import 'package:speech_stroop/theme.dart';
 import '../precondition_test/introduction.dart';
@@ -50,17 +51,6 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                             style: textTheme().titleLarge,
                           ),
                         ),
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                          child: Text(
-                            '1 = ไม่เคย, 2 = บางครั้ง, 3 = บ่อยครั้ง, 4 = ทุกครั้ง',
-                            textAlign: TextAlign.center,
-                            style: textTheme()
-                                .titleMedium
-                                .apply(color: secondaryColor),
-                          ),
-                        ),
                         const Align(
                           alignment: AlignmentDirectional(-1, 0),
                           child: Padding(
@@ -90,6 +80,7 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                             });
                           },
                         ),
+                        LabelSlider.sleepStressSlider(),
                         const Align(
                           alignment: AlignmentDirectional(-1, 0),
                           child: Padding(
@@ -119,7 +110,7 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                             });
                           },
                         ),
-                        //3
+                        LabelSlider.sleepStressSlider(),
                         const Align(
                           alignment: AlignmentDirectional(-1, 0),
                           child: Padding(
@@ -149,6 +140,7 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                             });
                           },
                         ),
+                        LabelSlider.sleepStressSlider(),
                         const Align(
                           alignment: AlignmentDirectional(-1, 0),
                           child: Padding(
@@ -178,9 +170,10 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                             });
                           },
                         ),
+                        LabelSlider.sleepStressSlider(),
                         Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 160, 0, 5),
+                                0, 90, 0, 5),
                             child: FloatingButton(() async {
                               if (formGlobalKey.currentState.validate()) {
                                 formGlobalKey.currentState.save();
