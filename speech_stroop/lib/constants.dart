@@ -77,7 +77,7 @@ int tutorialQuestionsAmount = 5;
 int stroopQuestionsAmount = 20;
 int stroopSectionAmount = 3;
 int stroopTotalQuestionsAmount = stroopQuestionsAmount * stroopSectionAmount;
-int stroopQuestionDurationMs = 2000; //3000;
+int stroopQuestionDurationMs = 2500; //3000;
 int stroopIntervalDurationMs = 1500; //3000;
 Map<String, Color> stroopColorsMap = {
   'แดง': const Color(0xFFD30000),
@@ -104,7 +104,7 @@ Map<int, String> dateLabel = {
 
 /// can be used to improve speech-to-text performance
 Map<String, List<String>> similarWords = {
-  'ฟ้า': ['ฟ้า', 'สีฟ้า', 'ป๊า', 'ป๋า', 'สา', 'ฝา', 'ปา', 'ปลา'],
+  'ฟ้า': ['ฟ้า', 'สีฟ้า', 'ป๊า', 'ป๋า', 'สา', 'ฝา', 'ปา', 'ปลา', 'พระ'],
   'เขียว': ['เขียว', 'สีเขียว', 'เดี๋ยว'],
   'เหลือง': [
     'เหลือง',
@@ -115,7 +115,7 @@ Map<String, List<String>> similarWords = {
     'เมือง',
     'เหนียง'
   ],
-  'ส้ม': ['ส้ม', 'สีส้ม', 'ส่ง', 'ซ่อม', 'ส้อม'],
+  'ส้ม': ['ส้ม', 'สีส้ม', 'ส่ง', 'ซ่อม', 'ส้อม', 'ต้ม'],
   'แดง': ['แดง', 'สีแดง', 'แรง', 'แบ่ง', 'แพง', 'แนง', 'แมง'],
   'ดำ': ['ดำ', 'สีดำ', 'ดาม', 'นำ', 'จำ', 'ดอม', 'รำ', 'นำ', 'ตำ'],
   'ม่วง': ['ม่วง', 'สีม่วง', 'ง่วง', 'มั่ว'],
