@@ -48,7 +48,7 @@ class _BodyState extends State<Body> {
             arousel.end = arouselLevel.toInt();
             healthScores = HealthScores(stress, arousel);
 
-            var tempDir = await getTemporaryDirectory();
+            var tempDir = await getApplicationDocumentsDirectory();
             String tempDirPath = tempDir.path;
 
             var audioUrls = await uploadAudio(tempDirPath, recordAudioDateTime);
