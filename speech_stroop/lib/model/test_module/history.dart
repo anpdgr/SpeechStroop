@@ -79,6 +79,7 @@ getHistory() async {
     if (userHistory.isNotEmpty) {
       countTestDayStack();
     }
+    print("testDayStack: ${testDayStack.item2} at ${testDayStack.item1}");
   } else {
     logger.e("getHistory failed");
     //TODO: handle
@@ -100,10 +101,13 @@ void countTestDayStack() {
     } else if (curr.isSameDate(next)) {
       continue;
     } else {
+      // is not stack
       break;
     }
   }
-  testDayStack = Tuple2(userHistory[0].createdAt, stack);
+  if (userHistory != null && userHistory.isNotEmpty) {
+    testDayStack = Tuple2(userHistory[0].createdAt, stack);
+  }
 }
 
 bool checkLatestTestMakeDayStack(DateTime testDate) {

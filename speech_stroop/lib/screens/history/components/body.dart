@@ -42,7 +42,7 @@ class _BodyState extends State<Body> {
                             }),
                     ScoreChartSection(userHistory, 7), //TODO: filter date
                     ReactionTimeChartSection(userHistory, 7),
-                    BadgeSection(userHistory),
+                    const BadgeSection(),
                   ],
                 ),
               ),

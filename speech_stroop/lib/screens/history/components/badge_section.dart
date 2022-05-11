@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/screens/history/components/badge_box.dart';
 
 class BadgeSection extends StatelessWidget {
-  const BadgeSection(this.scoreHistory, {Key key}) : super(key: key);
-  final List<History> scoreHistory;
+  const BadgeSection({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +21,9 @@ class BadgeSection extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            BadgeBox(scoreHistory, "ทดสอบต่อเนื่องหลายวัน"),
+            const BadgeBox("ทดสอบต่อเนื่องหลายวัน", "testDayStack"),
             const SizedBox(height: 20),
-            BadgeBox(scoreHistory, "ตอบถูดติดกันหลายข้อ"),
+            const BadgeBox("ตอบถูกติดกันหลายข้อ", "correctStack"),
           ]),
     );
   }

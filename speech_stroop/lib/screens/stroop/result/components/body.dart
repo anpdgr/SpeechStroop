@@ -5,8 +5,6 @@ import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:speech_stroop/screens/stroop/result/components/section_badge.dart';
-import 'package:speech_stroop/screens/stroop/result/components/section_high_score.dart';
-import 'package:speech_stroop/screens/stroop/result/components/section_latest_score_chart.dart';
 import 'package:speech_stroop/screens/stroop/result/components/section_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/total_score.dart';
 import 'package:speech_stroop/screens/stroop/result/components/type_score.dart';
@@ -26,7 +24,7 @@ class _BodyState extends State<Body> {
   List<History> history;
   int sumCongruentScore = 0;
   int sumIncongruentScore = 0;
-  bool showModal = false;
+  bool showBadgeModal = false;
 
   void calculateTypeScore() {
     for (Section s in latestTestData.sections) {
@@ -37,16 +35,12 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await getHistory();
-
-      setState(() {
-        history = userHistory;
-        showModal = true;
-      });
-    });
-
     latestTestData = latestTest;
+    if (latestTestData != null &&
+        latestTestData.badge != null &&
+        latestTestData.badge.isNotEmpty) {
+      showBadgeModal = true;
+    }
     calculateTypeScore();
 
     super.initState();
@@ -57,13 +51,13 @@ class _BodyState extends State<Body> {
     Future.delayed(
         Duration.zero,
         () => {
-              if (showModal == true && latestTestData.badge != null)
+              if (latestTestData.badge != null && showBadgeModal == true)
                 {
                   for (var b in latestTestData.badge)
                     {
                       showSimpleModalDialogBadge(context, b),
                     },
-                  showModal = false,
+                  showBadgeModal = false,
                 }
             });
     return SingleChildScrollView(
@@ -82,12 +76,17 @@ class _BodyState extends State<Body> {
               // SectionLatesScoreChart(history, 7),
               // const SizedBox(height: 5),
               // SectionHighScore(),
-              // const SizedBox(height: 5),
-              // SectionBadge(),
+              SectionBadge(latestTestData.badge),
               const SizedBox(height: 5),
               PrimaryButton(
                   "เข้าสู่หน้าหลัก",
-                  () => Navigator.pushNamed(context, HomeScreen.routeName),
+                  () => {
+                        //clear lates test
+                        latestTestData = null,
+                        latestTest = null,
+
+                        Navigator.pushNamed(context, HomeScreen.routeName)
+                      },
                   ButtonType.medium)
             ],
           ),
