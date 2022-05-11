@@ -204,22 +204,22 @@ class _ScoreBoxState extends State<ScoreBox> {
             ),
             Container(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Row(
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  Image.asset(
-                    "assets/images/badges/badge-1-1-raw.png",
-                    width: 56,
-                    height: 56,
-                  ),
-                  const SizedBox(width: 20),
-                  Image.asset(
-                    "assets/images/badges/badge-1-3-raw.png",
-                    width: 56,
-                    height: 56,
-                  ),
-                ],
-              ),
+              // child: Row(
+              //   // ignore: prefer_const_literals_to_create_immutables
+              //   children: [
+              //     Image.asset(
+              //       "assets/images/badges/badge-1-1-raw.png",
+              //       width: 56,
+              //       height: 56,
+              //     ),
+              //     const SizedBox(width: 20),
+              //     Image.asset(
+              //       "assets/images/badges/badge-1-3-raw.png",
+              //       width: 56,
+              //       height: 56,
+              //     ),
+              //   ],
+              // ),
             ),
           ])
         else
