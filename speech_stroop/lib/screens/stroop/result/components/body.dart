@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/enums.dart';
-import 'package:speech_stroop/model/badge.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/test_module/section.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
@@ -80,11 +79,11 @@ class _BodyState extends State<Body> {
               const SizedBox(height: 20),
               TypeScore(sumCongruentScore, sumIncongruentScore),
               const SizedBox(height: 20),
-              SectionLatesScoreChart(history, 7),
-              const SizedBox(height: 5),
-              SectionHighScore(),
-              const SizedBox(height: 5),
-              SectionBadge(),
+              // SectionLatesScoreChart(history, 7),
+              // const SizedBox(height: 5),
+              // SectionHighScore(),
+              // const SizedBox(height: 5),
+              // SectionBadge(),
               const SizedBox(height: 5),
               PrimaryButton(
                   "เข้าสู่หน้าหลัก",
