@@ -73,7 +73,7 @@ class _TutorialIntroduction2State extends State<TutorialIntroduction2Screen> {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    '3 วินาที',
+                    '2.5 วินาที',
                     style: textTheme().titleMedium.apply(
                         color: Colors.black,
                         fontSizeDelta: 2,

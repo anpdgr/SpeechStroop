@@ -44,7 +44,7 @@ Map<ButtonType, Tuple2<Size, TextStyle>> buttonStyle = {
 class APIPath {
   /// dev : http://localhost:3000
   /// prod: https://speech-stroop.herokuapp.com
-  static const baseUrl = "https://speech-stroop.herokuapp.com";
+  static const baseUrl = "http://localhost:3000";
   static const user = "/user";
 }
 
@@ -77,8 +77,8 @@ int tutorialQuestionsAmount = 5;
 int stroopQuestionsAmount = 20;
 int stroopSectionAmount = 3;
 int stroopTotalQuestionsAmount = stroopQuestionsAmount * stroopSectionAmount;
-int stroopQuestionDurationMs = 2500; //3000;
-int stroopIntervalDurationMs = 1500; //3000;
+int stroopQuestionDurationMs = 2500; //2500;
+int stroopIntervalDurationMs = 1500; //1500;
 Map<String, Color> stroopColorsMap = {
   'แดง': const Color(0xFFD30000),
   'ดำ': const Color(0xFF000000),
