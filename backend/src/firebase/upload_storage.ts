@@ -1,4 +1,5 @@
 import { Storage } from '@google-cloud/storage'
+import fs from 'fs'
 import { GOOGLE_APPLICATION_CREDENTIALS } from '../config'
 
 const storage = new Storage({
@@ -12,6 +13,19 @@ const audioFolder = 'audio'
 export const uploadFile = async (userId: string, filePath: string) => {
   const fileName = filePath.split('/').pop()
   const dstPath = `${audioFolder}/${userId}/${fileName}`
+  console.log({
+    filePath: filePath,
+    fileName: fileName,
+    dstPath: dstPath,
+  })
+  try {
+    if (fs.existsSync(filePath)) {
+      console.log('fs.exists')
+    }
+  } catch (err) {
+    console.log('not fs.exists')
+    console.log(err)
+  }
   await storage.bucket(bucketName).upload(filePath, {
     gzip: true,
     metadata: {
