@@ -44,7 +44,7 @@ Map<ButtonType, Tuple2<Size, TextStyle>> buttonStyle = {
 class APIPath {
   /// dev : http://localhost:3000
   /// prod: https://speech-stroop.herokuapp.com
-  static const baseUrl = "https://speech-stroop.herokuapp.com";
+  static const baseUrl = "http://localhost:3000";
   static const user = "/user";
 }
 
@@ -113,11 +113,12 @@ Map<String, List<String>> similarWords = {
     'เรื่อง',
     'หลวง',
     'เมือง',
-    'เหนียง'
+    'เหนียง',
+    'หนัง',
   ],
-  'ส้ม': ['ส้ม', 'สีส้ม', 'ส่ง', 'ซ่อม', 'ส้อม'],
+  'ส้ม': ['ส้ม', 'สีส้ม', 'ส่ง', 'ซ่อม', 'ส้อม', 'ซ่อง'],
   'แดง': ['แดง', 'สีแดง', 'แรง', 'แบ่ง', 'แพง', 'แนง', 'แมง'],
-  'ดำ': ['ดำ', 'สีดำ', 'ดาม', 'นำ', 'จำ', 'ดอม', 'รำ', 'นำ', 'ตำ'],
+  'ดำ': ['ดำ', 'สีดำ', 'ดาม', 'นำ', 'จำ', 'ดอม', 'รำ', 'นำ', 'ตำ', 'นาม'],
   'ม่วง': ['ม่วง', 'สีม่วง', 'ง่วง', 'มั่ว'],
 };
 
