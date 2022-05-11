@@ -17,14 +17,14 @@ class RecordAudio {
   bool isRecording = false;
 
   Future<String> getFilePathWAV() async {
-    var tempDir = await getTemporaryDirectory();
+    var tempDir = await getApplicationDocumentsDirectory();
     var fileName = getFileName();
     print('${tempDir.path}/$fileName.wav');
     return '${tempDir.path}/$fileName.wav';
   }
 
   Future<String> getFilePathPCM() async {
-    var tempDir = await getTemporaryDirectory();
+    var tempDir = await getApplicationDocumentsDirectory();
     var fileName = getFileName();
     print('${tempDir.path}/$fileName.pcm');
     return '${tempDir.path}/$fileName.pcm';
