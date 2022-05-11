@@ -10,7 +10,7 @@ class BadgeSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 10),
-      padding: const EdgeInsets.all(30.0),
+      padding: const EdgeInsets.all(20),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,9 +20,12 @@ class BadgeSection extends StatelessWidget {
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            BadgeBox(scoreHistory, "ทดสอบต่อเนื่อง"),
+            const SizedBox(
+              height: 10,
+            ),
+            BadgeBox(scoreHistory, "ทดสอบต่อเนื่องหลายวัน"),
             const SizedBox(height: 20),
-            BadgeBox(scoreHistory, "คะแนนยอดเยี่ยม"),
+            BadgeBox(scoreHistory, "ตอบถูดติดกันหลายข้อ"),
           ]),
     );
   }
