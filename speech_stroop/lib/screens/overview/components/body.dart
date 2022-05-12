@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/screens/auth/login.dart';
 
 class Body extends StatefulWidget {
@@ -28,7 +29,8 @@ class _BodyState extends State<Body> {
               Align(
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 60, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(
+                      0, deviceHeight(context) * 0.05, 0, 0),
                   child: Text(
                     'Speech Stroop',
                     textAlign: TextAlign.justify,
@@ -36,9 +38,13 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                child: Text(
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(
+                    deviceWidth(context) * 0.05,
+                    deviceHeight(context) * 0.03,
+                    deviceWidth(context) * 0.05,
+                    0),
+                child: const Text(
                   'แอปพลิเคชันนี้สร้างขึ้นเพื่อทดสอบและบ่งชี้ถึงประสิทธิภาพการทำงานของสมองในผู้สูงอายุ เพื่อนำไปเก็บเป็นข้อมูลสถิติภายในประเทศไทย ด้วยแบบทดสอบ Stroop ในรูปแบบเสียง ซึ่งมีความเกี่ยวข้องกับความจำและการตัดสินใจของผู้ทดสอบ',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -55,8 +61,8 @@ class _BodyState extends State<Body> {
                   alignment: const AlignmentDirectional(0, 1),
                   child: Image.asset(
                     'assets/images/overview-pink.png',
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.55,
+                    width: deviceWidth(context),
+                    height: deviceHeight(context) * 0.55,
                     fit: BoxFit.fitHeight,
                   ),
                 ),

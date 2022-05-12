@@ -3,7 +3,7 @@ import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/theme.dart';
 
 class LabelSlider {
-  static sleepStressSlider() {
+  static stressSlider() {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
       child: Row(
@@ -27,6 +27,33 @@ class LabelSlider {
           ),
           Text(
             'บ่อยมาก',
+            style: textTheme().labelSmall.apply(color: secondaryColor),
+          )
+        ],
+      ),
+    );
+  }
+
+  static sleepSlider() {
+    return Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'ไม่เคย',
+            style: textTheme().labelSmall.apply(color: secondaryColor),
+          ),
+          Text(
+            'บางครั้ง',
+            style: textTheme().labelSmall.apply(color: secondaryColor),
+          ),
+          Text(
+            'บ่อยครั้ง',
+            style: textTheme().labelSmall.apply(color: secondaryColor),
+          ),
+          Text(
+            'ทุกครั้ง',
             style: textTheme().labelSmall.apply(color: secondaryColor),
           )
         ],
