@@ -128,6 +128,7 @@ List<ReactionTimeChartData> getReactionTimeChartData(
       // calculate avg reaction time per test
       List<double> reactionTimes =
           h.sections.map((s) => s.avgReactionTimeMs).toList();
+
       avgPerTest = calAvgReactionTimePerTest(reactionTimes);
 
       if (prevDate == currDate) {
@@ -172,8 +173,13 @@ List<ReactionTimeChartData> getReactionTimeChartData(
 /// reactionTimes in millisecond unit
 double calAvgReactionTimePerTest(List<double> reactionTimes) {
   double avg = 0;
-  var nonZero = reactionTimes.where((rt) => rt > 0 && rt != null).toList();
-  var sum = nonZero.reduce((value, element) => value + element) / 1000;
-  avg = sum / nonZero.length;
+  List<double> nonZero = [];
+
+  nonZero = reactionTimes.where((rt) => rt != null && rt > 0).toList();
+
+  if (nonZero.isNotEmpty) {
+    var sum = nonZero.reduce((value, element) => value + element) / 1000;
+    avg = sum / nonZero.length;
+  }
   return avg;
 }
