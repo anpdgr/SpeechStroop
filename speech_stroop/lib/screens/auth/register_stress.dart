@@ -84,7 +84,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
-                    LabelSlider.sleepStressSlider(),
+                    LabelSlider.stressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -114,7 +114,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
-                    LabelSlider.sleepStressSlider(),
+                    LabelSlider.stressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -143,7 +143,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
-                    LabelSlider.sleepStressSlider(),
+                    LabelSlider.stressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -172,7 +172,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
-                    LabelSlider.sleepStressSlider(),
+                    LabelSlider.stressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -201,7 +201,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
-                    LabelSlider.sleepStressSlider(),
+                    LabelSlider.stressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -230,7 +230,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
-                    LabelSlider.sleepStressSlider(),
+                    LabelSlider.stressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -259,7 +259,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
-                    LabelSlider.sleepStressSlider(),
+                    LabelSlider.stressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -288,7 +288,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
-                    LabelSlider.sleepStressSlider(),
+                    LabelSlider.stressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -317,7 +317,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
-                    LabelSlider.sleepStressSlider(),
+                    LabelSlider.stressSlider(),
                     const Align(
                       alignment: AlignmentDirectional(-1, 0),
                       child: Padding(
@@ -346,7 +346,7 @@ class _StressRegisterScreenState extends State<StressRegisterScreen> {
                         });
                       },
                     ),
-                    LabelSlider.sleepStressSlider(),
+                    LabelSlider.stressSlider(),
                     Text("*โปรดตรวจสอบคำตอบให้ถูกต้องและครบถ้วน",
                         style: textTheme().bodyMedium),
                     Align(

@@ -80,7 +80,7 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                             });
                           },
                         ),
-                        LabelSlider.sleepStressSlider(),
+                        LabelSlider.sleepSlider(),
                         const Align(
                           alignment: AlignmentDirectional(-1, 0),
                           child: Padding(
@@ -110,7 +110,7 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                             });
                           },
                         ),
-                        LabelSlider.sleepStressSlider(),
+                        LabelSlider.sleepSlider(),
                         const Align(
                           alignment: AlignmentDirectional(-1, 0),
                           child: Padding(
@@ -140,7 +140,7 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                             });
                           },
                         ),
-                        LabelSlider.sleepStressSlider(),
+                        LabelSlider.sleepSlider(),
                         const Align(
                           alignment: AlignmentDirectional(-1, 0),
                           child: Padding(
@@ -170,7 +170,7 @@ class _SleepRegisterScreenState extends State<SleepRegisterScreen> {
                             });
                           },
                         ),
-                        LabelSlider.sleepStressSlider(),
+                        LabelSlider.sleepSlider(),
                         Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 90, 0, 5),
