@@ -20,8 +20,8 @@ class sliderExampleBox extends StatelessWidget {
           ],
         ),
       )),
-      width: 350,
-      height: 200,
+      height: deviceHeight(context) * 0.3,
+      width: deviceWidth(context) * 0.9,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
