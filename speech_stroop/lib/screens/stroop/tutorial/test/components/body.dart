@@ -143,7 +143,7 @@ class _BodyState extends State<Body> {
                       ? Text("เฉลย:  $correctAnswerText",
                           style: textTheme()
                               .headlineSmall
-                              .apply(color: Colors.white))
+                              .apply(color: backgroundColor))
                       : const Text('')
                 ],
               ),
