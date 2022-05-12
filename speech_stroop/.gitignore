@@ -27,6 +27,7 @@
 # .flutter-plugins
 .flutter-plugins-dependencies
 speech_stroop/.flutter-plugins-dependencies
+google-credentials.json
 # .packages
 # .pub-cache/
 # .pub/
