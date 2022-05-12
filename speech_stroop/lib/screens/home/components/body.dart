@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/button/secondary_button.dart';
 import 'package:speech_stroop/components/microphone_test/microphone_test.dart';
@@ -13,6 +14,8 @@ import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/mock_histo
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro1.dart';
 import 'package:speech_stroop/theme.dart';
+import 'package:speech_stroop/utils/directory.dart';
+import 'package:speech_stroop/utils/permission.dart';
 import 'package:tuple/tuple.dart';
 
 class Body extends StatefulWidget {
@@ -144,8 +147,10 @@ class _BodyState extends State<Body> {
           ),
           PrimaryButton(
             "เริ่มทดสอบ",
-            () => {
+            () async => {
               dstMicTest = 'test',
+              await getDir(),
+              await requsetPermission(Permission.microphone),
               userHistory.isEmpty
                   ? showSimpleModalDialogTutorial(context)
                   : Navigator.pushNamed(context, MicrophoneTestScreen.routeName)
