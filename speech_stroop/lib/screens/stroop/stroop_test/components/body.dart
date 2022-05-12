@@ -36,6 +36,9 @@ class _BodyState extends State<Body> {
   Color problemColor = backgroundColor;
   List<Color> stroopBackgroundColor;
 
+  // testText for test speech-to-text on Android
+  String testText = '';
+
   @override
   void initState() {
     super.initState();
@@ -143,6 +146,10 @@ class _BodyState extends State<Body> {
                     feedback,
                     style: textTheme().headlineSmall.apply(color: Colors.white),
                   ),
+                  Text(
+                    'test: $testText',
+                    style: textTheme().headlineSmall.apply(color: Colors.white),
+                  ),
                 ],
               ),
             ],
@@ -201,6 +208,7 @@ class _BodyState extends State<Body> {
         feedback = 'ผิด';
         feedbackImg = 'assets/images/wrong.png';
       }
+      testText = recogWord;
       stroopBackgroundColor = setBackgroundColor(answered, feedback);
     });
   }
@@ -214,6 +222,7 @@ class _BodyState extends State<Body> {
   void setNextQuestionValue() {
     recogWord = '';
     feedback = '';
+    testText = '';
     feedbackImg = '';
     answered++;
     problem = testTemplate[answered].word;
