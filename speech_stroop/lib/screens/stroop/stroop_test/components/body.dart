@@ -12,6 +12,7 @@ import 'package:speech_stroop/theme.dart';
 import 'package:speech_stroop/utils/logger.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/speech_check.dart';
 import 'package:speech_stroop/utils/time.dart';
+import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:tuple/tuple.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
@@ -38,6 +39,7 @@ class _BodyState extends State<Body> {
 
   // testText for test speech-to-text on Android
   String testText = '';
+  String textErr = '';
 
   @override
   void initState() {
@@ -147,7 +149,7 @@ class _BodyState extends State<Body> {
                     style: textTheme().headlineSmall.apply(color: Colors.white),
                   ),
                   Text(
-                    'test: $testText',
+                    'test: $testText, err: $textErr',
                     style: textTheme().headlineSmall.apply(color: Colors.white),
                   ),
                 ],
@@ -173,9 +175,9 @@ class _BodyState extends State<Body> {
   Future<void> listen() async {
     if (!isListening) {
       bool available = await speech.initialize(
-          // onStatus: (val) => print('onStatus: $val'),
-          // onError: (val) => print('onError: $val'),
-          );
+        // onStatus: (val) => print('onStatus: $val'),
+        onError: (val) => {textErr = val.toString()},
+      );
       if (available) {
         setState(() => isListening = true);
         speech.listen(
