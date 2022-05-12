@@ -30,9 +30,10 @@ class _BodyState extends State<Body> {
           child: Stack(
             children: [
               Container(
-                padding: const EdgeInsets.all(3),
+                padding: const EdgeInsets.all(5),
                 child: Column(
                   children: [
+                    const SizedBox(height: 20),
                     Image.asset('assets/images/his_trophy.png'),
                     PrimaryButton(
                         "ดูประวัติทั้งหมด",
