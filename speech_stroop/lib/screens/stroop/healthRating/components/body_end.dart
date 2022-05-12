@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/model/audio.dart';
+import 'package:speech_stroop/model/auth.dart';
 import 'package:speech_stroop/model/badge.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/update_user.dart';
 import 'package:speech_stroop/model/user.dart';
+import 'package:speech_stroop/providers/firebase.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/components/health_slider.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
@@ -52,14 +54,15 @@ class _BodyState extends State<Body> {
             var tempDir = await getDir();
             String tempDirPath = tempDir.path;
 
-            var audioUrls = await uploadAudio(tempDirPath, recordAudioDateTime);
+            var audioUrls = await uploadStroopAudioFile(
+                recordAudioDateTime, tempDirPath, auth.id);
 
             recordAudioDateTime = "";
 
             var i = 0;
             for (var s in sections) {
-              if (audioUrls.urls != null) {
-                String url = audioUrls.urls[i];
+              if (audioUrls != null) {
+                String url = audioUrls[i];
                 s.audioUrl = url;
                 i++;
               }

@@ -13,6 +13,7 @@ import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/mock_histo
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro1.dart';
 import 'package:speech_stroop/theme.dart';
+import 'package:speech_stroop/utils/directory.dart';
 import 'package:tuple/tuple.dart';
 
 class Body extends StatefulWidget {
@@ -146,6 +147,7 @@ class _BodyState extends State<Body> {
             "เริ่มทดสอบ",
             () => {
               dstMicTest = 'test',
+              getDir(),
               userHistory.isEmpty
                   ? showSimpleModalDialogTutorial(context)
                   : Navigator.pushNamed(context, MicrophoneTestScreen.routeName)
