@@ -40,36 +40,37 @@ class _TermsConditionsScreenWidgetState extends State<TermsConditionsScreen> {
     }
 
     return Scaffold(
-      appBar: CustomAppBar('ข้อกำหนดและเงื่อนไข'),
+      appBar: const CustomAppBar('ข้อกำหนดและเงื่อนไข'),
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       body: SafeArea(
         child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+            padding: EdgeInsetsDirectional.fromSTEB(deviceWidth(context) * 0.02,
+                0, deviceWidth(context) * 0.025, 0),
             child: Stack(children: [
               Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
                       decoration: const BoxDecoration(
                         color: Color(0xFFEEF0F3),
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
-                      //TODO: make container's height flexible
-                      height: 500,
+                      height: deviceHeight(context) * 0.55,
                       constraints: const BoxConstraints(
                         maxHeight: double.infinity,
                       ),
-                      child: const SingleChildScrollView(
+                      child: SingleChildScrollView(
                           child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
+                        padding: EdgeInsets.all(deviceWidth(context) * 0.02),
+                        child: const Text(
                           """เอกสารนี้อาจมีข้อความที่ท่านยังไม่เข้าใจ โปรดสอบถามจากหัวหน้าโครงการวิจัยหรือผู้แทนให้อธิบาย ท่านจะได้รับเอกสารนี้ 1 ฉบับ หรือนำกลับไปปรึกษาหารือกับญาติ พี่น้อง เพื่อนสนิท แพทย์ประจำตัวของท่าน หรือผู้อื่นที่ท่านต้องการปรึกษา เพื่อช่วยในการตัดสินใจยินยอมเข้าร่วมการวิจัย 
             
             ชื่อโครงการ Speech Stroop Test แอปพลิเคชันเพื่อบ่งชี้ถึงภาวะการทำงานของสมองที่เสื่อมถอยลงที่มีความสัมพันธ์กับอายุสำหรับผู้สูงอายุในประเทศไทย
             
             ชื่อผู้วิจัย 
             1. นางสาวสุธาดา ธรรมวงศ์
-            2. นางสาวอนัญญา พัฒนปุณยาภิรมย์
+            .  งสาอนัญญา พัฒนปุณยาภิรมย์
             3. ผศ.ดร. พร พันธุ์จงหาญ
             4. ดร.ศิรวัจน์ อิทธิภูริพัฒน์
             5. ผศ.ดร.เก็จแก้ว ธเนศวร
@@ -125,31 +126,26 @@ class _TermsConditionsScreenWidgetState extends State<TermsConditionsScreen> {
                           style: TextStyle(fontSize: 12, color: Colors.black),
                         ),
                       ))),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
-                    child: Row(
-                      children: [
-                        Checkbox(
-                          checkColor: Colors.white,
-                          fillColor:
-                              MaterialStateProperty.resolveWith(getColor),
-                          value: isChecked,
-                          onChanged: (bool value) {
-                            setState(() {
-                              isChecked = value;
-                            });
-                          },
+                  Row(
+                    children: [
+                      Checkbox(
+                        checkColor: Colors.white,
+                        fillColor: MaterialStateProperty.resolveWith(getColor),
+                        value: isChecked,
+                        onChanged: (bool value) {
+                          setState(() {
+                            isChecked = value;
+                          });
+                        },
+                      ),
+                      const Flexible(
+                        child: Text(
+                          """ข้าพเจ้าได้อ่านรายละเอียดในเอกสารนี้และเข้าใจครบถ้วนแล้วและขอเข้าร่วม โครงการวิจัย เรื่อง Speech Stroop Test แอปพลิเคชันเพื่อบ่งชี้ถึงภาวะการ ทำงานของสมองที่เสื่อมถอยลงที่มีความสัมพันธ์กับอายุสำหรับผู้สูงอายุในประเทศไทย""",
+                          style: TextStyle(fontSize: 14, letterSpacing: 0.5),
                         ),
-                        const Flexible(
-                          child: Text(
-                            """ข้าพเจ้าได้อ่านรายละเอียดในเอกสารนี้และเข้าใจครบถ้วนแล้วและขอเข้าร่วม โครงการวิจัย เรื่อง Speech Stroop Test แอปพลิเคชันเพื่อบ่งชี้ถึงภาวะการ ทำงานของสมองที่เสื่อมถอยลงที่มีความสัมพันธ์กับอายุสำหรับผู้สูงอายุในประเทศไทย""",
-                            style: TextStyle(fontSize: 14, letterSpacing: 0.5),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  //TODO: fix position
                   FloatingButton(() => {
                         if (isChecked)
                           {

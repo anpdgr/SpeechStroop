@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 
-class FloatingButton extends StatelessWidget {
+class FloatingButton extends StatefulWidget {
   bool isBack = true;
   bool isNext = true;
   final void Function() handler;
   FloatingButton(this.handler, [this.isBack = true, this.isNext = true]);
 
   @override
+  State<FloatingButton> createState() => _FloatingButtonState();
+}
+
+class _FloatingButtonState extends State<FloatingButton> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(deviceHeight(context) * 0.02),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          isBack
+          widget.isBack
               ? SizedBox(
-                  width: 56,
-                  height: 56,
+                  width: deviceHeight(context) * 0.06,
+                  height: deviceHeight(context) * 0.06,
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: secondaryColor, width: 1),
@@ -29,31 +34,35 @@ class FloatingButton extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       child: Icon(Icons.arrow_back,
-                          size: 30, color: secondaryColor),
+                          size: deviceHeight(context) * 0.03,
+                          color: secondaryColor),
                       backgroundColor: backgroundColor,
                       elevation: 0,
                     ),
                   ),
                 )
               : const SizedBox(width: 0, height: 0),
-          isNext
+          widget.isNext
               ? SizedBox(
-                  width: 56,
-                  height: 56,
+                  width: deviceHeight(context) * 0.06,
+                  height: deviceHeight(context) * 0.06,
                   child: FloatingActionButton(
                     heroTag: null,
                     onPressed: () {
-                      handler();
+                      widget.handler();
                     },
-                    child: const Icon(
+                    child: Icon(
                       Icons.arrow_forward,
-                      size: 30,
+                      size: deviceHeight(context) * 0.03,
                     ),
                     backgroundColor: secondaryColor,
                     elevation: 0,
                   ),
                 )
-              : const SizedBox(width: 0, height: 0),
+              : const SizedBox(
+                  width: 0,
+                  height: 0,
+                )
         ],
       ),
     );

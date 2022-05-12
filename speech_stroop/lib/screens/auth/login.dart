@@ -42,7 +42,8 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
       key: scaffoldKey,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+          padding: EdgeInsetsDirectional.fromSTEB(
+              deviceWidth(context) * 0.03, 0, deviceWidth(context) * 0.03, 0),
           child: Form(
               key: formGlobalKey,
               child: Column(
@@ -50,19 +51,21 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                    padding: EdgeInsetsDirectional.fromSTEB(
+                        0, 0, 0, deviceHeight(context) * 0.03),
                     child: Image.asset(
                       'assets/images/login.png',
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: deviceWidth(context),
+                      height: deviceHeight(context) * 0.3,
                       fit: BoxFit.cover,
                     ),
                   ),
-                  const Align(
-                    alignment: AlignmentDirectional(-1, 0),
+                  Align(
+                    alignment: const AlignmentDirectional(-1, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
-                      child: Text(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          0, 0, 0, deviceHeight(context) * 0.01),
+                      child: const Text(
                         'เข้าสู่ระบบ',
                         textAlign: TextAlign.start,
                         style: TextStyle(
@@ -72,32 +75,30 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                      child: TextFormFieldCustom(
-                        telController,
-                        'เบอร์โทรศัพท์',
-                        TextInputType.phone,
-                        (val) {
-                          if (val.isEmpty) {
-                            return 'โปรดระบุเบอร์โทรศัพท์';
-                          }
-                          if (val.length != 10) {
-                            return 'เบอร์โทรศัพท์ประกอบไปด้วย 10 ตัวอักษร';
-                          }
-                          if (int.tryParse(val) == null) {
-                            return 'โปรดกรอกตัวเลขเท่านั้น';
-                          }
-                          return null;
-                        },
-                      ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(
+                        0, deviceHeight(context) * 0.03, 0, 0),
+                    child: TextFormFieldCustom(
+                      telController,
+                      'เบอร์โทรศัพท์',
+                      TextInputType.phone,
+                      (val) {
+                        if (val.isEmpty) {
+                          return 'โปรดระบุเบอร์โทรศัพท์';
+                        }
+                        if (val.length != 10) {
+                          return 'เบอร์โทรศัพท์ประกอบไปด้วย 10 ตัวอักษร';
+                        }
+                        if (int.tryParse(val) == null) {
+                          return 'โปรดกรอกตัวเลขเท่านั้น';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(
+                        0, deviceHeight(context) * 0.03, 0, 0),
                     child: TextFormField(
                       controller: passwordController,
                       obscureText: !passwordVisibility,
@@ -179,7 +180,7 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                           }),
                   // Padding(
                   //     padding:
-                  //         const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  //         const EdgeInsetsDirectional.fromSTEB(0, deviceHeight(context) * 0.045, 0, 0),
                   //     child: TextButton(
                   //         onPressed: () {
                   //           print('Forget password');

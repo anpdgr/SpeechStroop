@@ -33,6 +33,16 @@ Color formText = const Color(0xFF525252);
 
 Color formBorder = const Color(0xFFA7A5A5);
 
+//Screen
+double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
+double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
+/* 
+  ex. deviceHeight(context) * 0.3 simply means 30% of screen height
+  note: deviceHeight(context) * 0.05 ~ 30
+        deviceHeight(context) * 0.03 ~ 10-15
+        deviceHeight(context) * 0.01 ~ 5
+*/
+
 // Button
 Map<ButtonType, Tuple2<Size, TextStyle>> buttonStyle = {
   ButtonType.small: Tuple2(const Size(350, 42), textTheme().titleMedium),
