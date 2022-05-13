@@ -47,17 +47,17 @@ class _BodyState extends State<Body> {
     stroopBackgroundColor = setBackgroundColor(answered, feedback);
     speech = stt.SpeechToText();
 
-    if (recordAudioDateTime == "") {
-      recordAudioDateTime = getAudioFileDateFormat(DateTime.now());
-    }
-    recordAudio = RecordAudio(sectionNumber, recordAudioDateTime);
+    // if (recordAudioDateTime == "") {
+    //   recordAudioDateTime = getAudioFileDateFormat(DateTime.now());
+    // }
+    // recordAudio = RecordAudio(sectionNumber, recordAudioDateTime);
 
-    loggerNoStack.d("init state", {
-      "sectionNumber": recordAudio.section,
-      "recordAudioDateTime": recordAudio.datetime,
-    });
+    // loggerNoStack.d("init state", {
+    // "sectionNumber": recordAudio.section,
+    // "recordAudioDateTime": recordAudio.datetime,
+    // });
 
-    recordAudio.openRecorder();
+    // recordAudio.openRecorder();
   }
 
   @override
@@ -129,7 +129,7 @@ class _BodyState extends State<Body> {
                                   initQuestions(testTemplate);
                                   stopwatchAudio.reset();
                                   stopwatchAudio.start();
-                                  recordAudio.getRecorderFn()();
+                                  // recordAudio.getRecorderFn()();
                                   navigatePage();
                                 },
                               )),
@@ -309,7 +309,7 @@ class _BodyState extends State<Body> {
       // end of each sections
       else if (answered == stroopQuestionsAmount - 1) {
         stopwatchAudio.stop();
-        recordAudio.getRecorderFn()();
+        // recordAudio.getRecorderFn()();
 
         highestCorrectStack = correctStack > highestCorrectStack
             ? correctStack
