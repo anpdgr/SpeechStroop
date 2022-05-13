@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
-import 'package:speech_stroop/model/audio.dart';
+// import 'package:speech_stroop/model/audio.dart';
 import 'package:speech_stroop/model/badge.dart';
 import 'package:speech_stroop/model/test_module/health_scores.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
@@ -11,8 +11,7 @@ import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/components/health_slider.dart';
 import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
 import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:speech_stroop/utils/directory.dart';
+// import 'package:speech_stroop/utils/directory.dart';
 
 class Body extends StatefulWidget {
   const Body(this.appbarTitle, {Key key}) : super(key: key);
@@ -49,21 +48,21 @@ class _BodyState extends State<Body> {
             arousel.end = arouselLevel.toInt();
             healthScores = HealthScores(stress, arousel);
 
-            var tempDir = await getDir();
-            String tempDirPath = tempDir.path;
+            // var tempDir = await getDir();
+            // String tempDirPath = tempDir.path;
 
-            var audioUrls = await uploadAudio(tempDirPath, recordAudioDateTime);
+            // var audioUrls = await uploadAudio(tempDirPath, recordAudioDateTime);
 
             recordAudioDateTime = "";
 
-            var i = 0;
-            for (var s in sections) {
-              if (audioUrls.urls != null) {
-                String url = audioUrls.urls[i];
-                s.audioUrl = url;
-                i++;
-              }
-            }
+            // var i = 0;
+            // for (var s in sections) {
+            //   if (audioUrls.urls != null) {
+            //    String url = audioUrls.urls[i];
+            //     s.audioUrl = url;
+            //     i++;
+            //   }
+            // }
 
             List<String> userBadges = userProfile.badge;
             List<String> newUserBadge = [];

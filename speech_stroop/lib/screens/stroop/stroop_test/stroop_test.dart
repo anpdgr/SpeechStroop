@@ -32,7 +32,7 @@ String recogWord = '';
 Stopwatch stopwatchRT = Stopwatch();
 Stopwatch stopwatchAudio = Stopwatch();
 // audio
-RecordAudio recordAudio;
+// RecordAudio recordAudio;
 String recordAudioDateTime = "";
 
 class StroopTestScreen extends StatelessWidget {
