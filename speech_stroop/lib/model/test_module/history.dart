@@ -111,7 +111,9 @@ void countTestDayStack() {
 }
 
 bool checkLatestTestMakeDayStack(DateTime testDate) {
-  if (testDate.isNextDate(testDayStack.item1)) {
+  if (testDate.isSameDate(testDayStack.item1) && testDayStack.item2 == 1) {
+    return true;
+  } else if (testDate.isNextDate(testDayStack.item1)) {
     testDayStack = Tuple2(testDate, testDayStack.item2 + 1);
     return true;
   }

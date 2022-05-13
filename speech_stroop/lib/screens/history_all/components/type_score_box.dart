@@ -42,7 +42,7 @@ class TypeScoreBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${((score / stroopTotalQuestionsAmount / 2) * 100).round()}',
+                  '${((score / (stroopTotalQuestionsAmount / 2)) * 100).round()}',
                   style: TextStyle(
                     color: secondaryColor,
                     fontSize: 25,
