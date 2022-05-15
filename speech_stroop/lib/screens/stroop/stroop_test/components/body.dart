@@ -148,10 +148,10 @@ class _BodyState extends State<Body> {
                     feedback,
                     style: textTheme().headlineSmall.apply(color: Colors.white),
                   ),
-                  Text(
-                    'test: $testText, err: $textErr',
-                    style: textTheme().headlineSmall.apply(color: Colors.white),
-                  ),
+                  // Text(
+                  //   'test: $testText, err: $textErr',
+                  //   style: textTheme().headlineSmall.apply(color: Colors.white),
+                  // ),
                 ],
               ),
             ],
