@@ -57,7 +57,6 @@ class CustomBottomNavBar extends StatelessWidget {
                         onPressed: () async => {
                           if (MenuState.history != selectedMenu)
                             {
-                              await getHistory(),
                               Navigator.pushNamed(
                                   context, HistoryScreen.routeName),
                             }

@@ -62,13 +62,25 @@ class _ScoreBoxState extends State<ScoreBox> {
     return Row(children: list);
   }
 
+  double _getHeight() {
+    double height = 130;
+    if (expanded) {
+      if (historyData.badge != null && historyData.badge.isNotEmpty) {
+        height = 675;
+      } else {
+        height = 540;
+      }
+    }
+    return height;
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
       margin: const EdgeInsets.only(top: 10, bottom: 10),
-      padding: const EdgeInsets.all(30.0),
+      padding: const EdgeInsets.fromLTRB(30, 30, 30, 10),
       width: 800,
-      height: expanded ? 675.0 : 130.0,
+      height: _getHeight(),
       duration: const Duration(milliseconds: 500),
       curve: Curves.fastOutSlowIn,
       decoration: BoxDecoration(
@@ -188,22 +200,27 @@ class _ScoreBoxState extends State<ScoreBox> {
                   ],
                 ),
               ),
-              Divider(
-                color: primaryColor.withOpacity(0.3),
-                height: 25,
-                thickness: 1,
-              ),
-              Container(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "รางวัลที่ได้รับ",
-                  textAlign: TextAlign.left,
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelLarge
-                      .apply(color: formText),
+              if (historyData.badge != null && historyData.badge.isNotEmpty)
+                Column(
+                  children: [
+                    Divider(
+                      color: primaryColor.withOpacity(0.3),
+                      height: 25,
+                      thickness: 1,
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "รางวัลที่ได้รับ",
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelLarge
+                            .apply(color: formText),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
               Container(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                 child: historyData.badge != null

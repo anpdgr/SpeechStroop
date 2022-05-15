@@ -18,6 +18,7 @@ class ProfileFormState extends State<ProfileForm> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formGlobalKey = GlobalKey<FormState>();
+  bool loading = false;
 
   UpdateUser updateUser;
 
@@ -88,7 +89,6 @@ class ProfileFormState extends State<ProfileForm> {
             () => {
                   setState(() => {profileFormEnabled = true}),
                 });
-    //SecondaryButton("บันทึกข้อมูล", showSimpleModalDialog(context));
     return button;
   }
 

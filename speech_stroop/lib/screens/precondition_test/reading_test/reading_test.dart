@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/components/loading_screen.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/precondition.dart';
 import 'package:speech_stroop/model/update_user.dart';
@@ -28,6 +29,7 @@ class ReadingTestScreen extends StatefulWidget {
 
 class _ReadingTestScreenState extends State<ReadingTestScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool loading = false;
 
   stt.SpeechToText speech;
 
@@ -71,74 +73,81 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    return Scaffold(
-      appBar: isInterval ? null : const CustomAppBar('การทดสอบการอ่าน'),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: isInterval ? null : MicButton(isListening, listen),
-      key: scaffoldKey,
-      backgroundColor: stroopBackgroundColor,
-      body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+    return loading
+        ? LoadingScreen()
+        : Scaffold(
+            appBar: isInterval ? null : const CustomAppBar('การทดสอบการอ่าน'),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton:
+                isInterval ? null : MicButton(isListening, listen),
+            key: scaffoldKey,
+            backgroundColor: stroopBackgroundColor,
+            body: SafeArea(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
-                    child: isInterval
-                        ? null
-                        : Text(
-                            '${answeredReadingTest + 1}/7',
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 36,
-                              fontWeight: FontWeight.w300,
+                    padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                          child: isInterval
+                              ? null
+                              : Text(
+                                  '${answeredReadingTest + 1}/7',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 36,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 100, 0, 0),
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text(problemWord,
+                                  style: TextStyle(
+                                      color: problemWordColor,
+                                      fontSize: 70,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
-                      child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: Text(problemWord,
-                            style: TextStyle(
-                                color: problemWordColor,
-                                fontSize: 70,
-                                fontWeight: FontWeight.bold)),
-                      ),
+                        ),
+                        feedback != ''
+                            ? Image.asset(
+                                feedbackImg,
+                                width: 100,
+                                height: 100,
+                              )
+                            : Text(feedbackImg),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          feedback,
+                          style: textTheme()
+                              .headlineSmall
+                              .apply(color: Colors.white),
+                        ),
+                        // Text(
+                        //   correctAnswerText,
+                        //   style: textTheme().headlineMedium,
+                        // )
+                      ],
                     ),
                   ),
-                  feedback != ''
-                      ? Image.asset(
-                          feedbackImg,
-                          width: 100,
-                          height: 100,
-                        )
-                      : Text(feedbackImg),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    feedback,
-                    style: textTheme().headlineSmall.apply(color: Colors.white),
-                  ),
-                  // Text(
-                  //   correctAnswerText,
-                  //   style: textTheme().headlineMedium,
-                  // )
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 
   void listen() async {
@@ -230,7 +239,13 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
         if (score < 7) {
           Navigator.pushNamed(context, FailReadingTestScreen.routeName);
         } else {
+          setState(() {
+            loading = true;
+          });
           await setPreconditionScore(score);
+          setState(() {
+            loading = false;
+          });
           Navigator.pushNamed(context, PassReadingTestScreen.routeName);
         }
       });
