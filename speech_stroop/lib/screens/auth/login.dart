@@ -162,64 +162,100 @@ class _LoginScreenWidgetState extends State<LoginScreen> {
                             if (formGlobalKey.currentState.validate()) {
                               setState(() => loading = true);
 
-                    //TODO: DELETE ME!!!! (for admin)
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     TextButton(
-                    //       onPressed: () async {
-                    //         var res = await login("0000000001", "00000000");
-                    //         if (res.statusCode == 200) {
-                    //           Navigator.pushNamed(
-                    //               context, HomeScreen.routeName);
-                    //         } else {
-                    //           print('รหัสผ่านไม่ตรง');
-                    //         }
-                    //       },
-                    //       child: Text(
-                    //         "Developer",
-                    //         style: textTheme()
-                    //             .labelLarge
-                    //             .apply(color: secondaryColor),
-                    //       ),
-                    //     ),
-                    //     TextButton(
-                    //       onPressed: () async {
-                    //         var res = await login("0900000000", "00000000");
-                    //         if (res.statusCode == 200) {
-                    //           Navigator.pushNamed(
-                    //               context, HomeScreen.routeName);
-                    //         } else {
-                    //           print('รหัสผ่านไม่ตรง');
-                    //         }
-                    //       },
-                    //       child: Text("มานะ",
-                    //           style: textTheme()
-                    //               .labelLarge
-                    //               .apply(color: secondaryColor)),
-                    //     ),
-                    //     TextButton(
-                    //       onPressed: () async {
-                    //         var res = await login("0000000090", "00000000");
-                    //         if (res.statusCode == 200) {
-                    //           Navigator.pushNamed(
-                    //               context, HomeScreen.routeName);
-                    //         } else {
-                    //           print('รหัสผ่านไม่ตรง');
-                    //         }
-                    //       },
-                    //       child: Text("มารวย ไม่เคยทำ test",
-                    //           style: textTheme()
-                    //               .labelLarge
-                    //               .apply(color: secondaryColor)),
-                    //     ),
-                    //   ],
-                    // ),
-                  ],
-                )),
-          ),
-        ),
-      ),
-    );
+                              formGlobalKey.currentState.save();
+                              var res = await login(
+                                  telController.text, passwordController.text);
+                              if (res.statusCode == 200) {
+                                Navigator.pushNamed(
+                                    context, HomeScreen.routeName);
+                              } else {
+                                setState(() => loading = false);
+                                if (res.statusCode == 404) {
+                                  setState(() {
+                                    authText =
+                                        'เบอร์โทรศัพท์นี้ยังไม่ถูกลงทะเบียน';
+                                  });
+                                } else if (res.statusCode == 401) {
+                                  setState(() {
+                                    authText =
+                                        'เบอร์โทรศัพท์หรือรหัสผ่านไม่ถูกต้อง';
+                                  });
+                                } else {
+                                  setState(() {
+                                    authText = 'โปรดลองอีกครั้ง';
+                                  });
+                                }
+                              }
+                            }
+                          }),
+                          SecondaryButton(
+                              'สมัครสมาชิก',
+                              () => {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const TermsConditionsScreen()))
+                                  }),
+
+                          //TODO: DELETE ME!!!! (for admin)
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     TextButton(
+                          //       onPressed: () async {
+                          //         var res = await login("0000000001", "00000000");
+                          //         if (res.statusCode == 200) {
+                          //           Navigator.pushNamed(
+                          //               context, HomeScreen.routeName);
+                          //         } else {
+                          //           print('รหัสผ่านไม่ตรง');
+                          //         }
+                          //       },
+                          //       child: Text(
+                          //         "Developer",
+                          //         style: textTheme()
+                          //             .labelLarge
+                          //             .apply(color: secondaryColor),
+                          //       ),
+                          //     ),
+                          //     TextButton(
+                          //       onPressed: () async {
+                          //         var res = await login("0900000000", "00000000");
+                          //         if (res.statusCode == 200) {
+                          //           Navigator.pushNamed(
+                          //               context, HomeScreen.routeName);
+                          //         } else {
+                          //           print('รหัสผ่านไม่ตรง');
+                          //         }
+                          //       },
+                          //       child: Text("มานะ",
+                          //           style: textTheme()
+                          //               .labelLarge
+                          //               .apply(color: secondaryColor)),
+                          //     ),
+                          //     TextButton(
+                          //       onPressed: () async {
+                          //         var res = await login("0000000090", "00000000");
+                          //         if (res.statusCode == 200) {
+                          //           Navigator.pushNamed(
+                          //               context, HomeScreen.routeName);
+                          //         } else {
+                          //           print('รหัสผ่านไม่ตรง');
+                          //         }
+                          //       },
+                          //       child: Text("มารวย ไม่เคยทำ test",
+                          //           style: textTheme()
+                          //               .labelLarge
+                          //               .apply(color: secondaryColor)),
+                          //     ),
+                          //   ],
+                          // ),
+                        ],
+                      )),
+                ),
+              ),
+            ),
+          );
   }
 }
