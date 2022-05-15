@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/components/loading_screen.dart';
+import 'package:speech_stroop/model/badge.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/screens/history/components/badge_section.dart';
 import 'package:speech_stroop/screens/history/components/reaction_time_chart.dart';
@@ -27,6 +28,7 @@ class _BodyState extends State<Body> {
 
   _loadHistoryData() async {
     await getHistory();
+    await getBadge(true);
     setState(() {
       loading = false;
     });

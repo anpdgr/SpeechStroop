@@ -18,8 +18,8 @@ class BadgeBoxState extends State<BadgeBox> {
 
   @override
   void initState() {
-    getBadge();
-    defaultBadges = getBadgeListByType(widget.type);
+    defaultBadges = getBadgeListByType(widget.type).reversed.toList();
+
     userBadges = getUserBadgeByType(userProfile.badge, widget.type);
     super.initState();
   }
@@ -98,13 +98,14 @@ class BadgeBoxState extends State<BadgeBox> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             for (int i = 0;
-                                i < defaultBadges.sublist(3).length;
+                                i < defaultBadges.sublist(3, 6).length;
                                 i++)
-                              userBadges.contains(defaultBadges.sublist(3)[i])
+                              userBadges
+                                      .contains(defaultBadges.sublist(3, 6)[i])
                                   ? Padding(
                                       padding: const EdgeInsets.all(15),
                                       child: Image.asset(
-                                        defaultBadges.sublist(3)[i].imgPath,
+                                        defaultBadges.sublist(3, 6)[i].imgPath,
                                         width: 60,
                                         height: 60,
                                         fit: BoxFit.cover,
@@ -113,7 +114,9 @@ class BadgeBoxState extends State<BadgeBox> {
                                   : Padding(
                                       padding: const EdgeInsets.all(15),
                                       child: Image.asset(
-                                          defaultBadges.sublist(3)[i].imgPath,
+                                          defaultBadges
+                                              .sublist(3, 6)[i]
+                                              .imgPath,
                                           width: 60,
                                           height: 60,
                                           fit: BoxFit.cover,
