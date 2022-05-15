@@ -87,8 +87,8 @@ int tutorialQuestionsAmount = 5;
 int stroopQuestionsAmount = 20;
 int stroopSectionAmount = 3;
 int stroopTotalQuestionsAmount = stroopQuestionsAmount * stroopSectionAmount;
-int stroopQuestionDurationMs = 2500; //2500;
-int stroopIntervalDurationMs = 1500; //1500;
+int stroopQuestionDurationMs = 25; //2500;
+int stroopIntervalDurationMs = 15; //1500;
 Map<String, Color> stroopColorsMap = {
   'แดง': const Color(0xFFD30000),
   'ดำ': const Color(0xFF000000),
@@ -152,8 +152,8 @@ Map<String, List<String>> similarWords = {
     'นำ',
     'ตำ',
     'นาม',
-    'ดาบ'
-        'ดัง'
+    'ดาบ',
+    'ดัง'
   ],
   'ม่วง': ['ม่วง', 'สีม่วง', 'ง่วง', 'มั่ว'],
 };

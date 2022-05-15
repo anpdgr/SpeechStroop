@@ -4,6 +4,7 @@ import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:http/http.dart' as http;
+import 'package:tuple/tuple.dart';
 
 class Auth {
   String _id;
@@ -39,6 +40,7 @@ logout() async {
   } else {}
   userProfile = null;
   userHistory = null;
+  testDayStack = Tuple2(DateTime.now(), 0);
 }
 
 Future<http.Response> login(String tel, String password) async {

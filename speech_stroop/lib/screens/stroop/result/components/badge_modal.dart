@@ -84,7 +84,7 @@ class _BadgeState extends State<Badge> with TickerProviderStateMixin {
                       parent: AnimationController(
                         duration: const Duration(seconds: 2),
                         vsync: this,
-                      )..repeat(reverse: true),
+                      )..repeat(period: const Duration(seconds: 2)),
                       curve: Curves.fastLinearToSlowEaseIn,
                     ),
                     child: Image.asset(
