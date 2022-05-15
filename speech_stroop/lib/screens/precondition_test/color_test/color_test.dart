@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:speech_stroop/components/loading_screen.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/precondition.dart';
 import 'package:speech_stroop/model/update_user.dart';
 import 'package:speech_stroop/model/user.dart';
-import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import 'package:speech_stroop/screens/auth/register.dart';
@@ -29,6 +29,7 @@ class ColorTestScreen extends StatefulWidget {
 
 class _ColorTestScreenState extends State<ColorTestScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool loading = false;
 
   stt.SpeechToText speech;
 
@@ -63,6 +64,7 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
 
   @override
   void initState() {
+    loading = false;
     super.initState();
     setBackgroundColor();
     speech = stt.SpeechToText();
@@ -71,76 +73,84 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    return Scaffold(
-      appBar: isInterval ? null : const CustomAppBar('การทดสอบการจำแนกสี'),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: isInterval ? null : MicButton(isListening, listen),
-      key: scaffoldKey,
-      backgroundColor: stroopBackgroundColor,
-      body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+    return loading
+        ? LoadingScreen()
+        : Scaffold(
+            appBar:
+                isInterval ? null : const CustomAppBar('การทดสอบการจำแนกสี'),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton:
+                isInterval ? null : MicButton(isListening, listen),
+            key: scaffoldKey,
+            backgroundColor: stroopBackgroundColor,
+            body: SafeArea(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
-                    child: isInterval
-                        ? null
-                        : Text(
-                            '${answeredColorTest + 1}/7',
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 36,
-                              fontWeight: FontWeight.w300,
+                    padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                          child: isInterval
+                              ? null
+                              : Text(
+                                  '${answeredColorTest + 1}/7',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 36,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 50, 0, 0),
+                            child: SizedBox(
+                              width: 200,
+                              height: 200,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: problemColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
                             ),
                           ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
-                      child: SizedBox(
-                        width: 200,
-                        height: 200,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: problemColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
                         ),
-                      ),
+                        feedback != ''
+                            ? Image.asset(
+                                feedbackImg,
+                                width: 100,
+                                height: 100,
+                              )
+                            : Text(feedbackImg),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          feedback,
+                          style: textTheme()
+                              .headlineSmall
+                              .apply(color: Colors.white),
+                        ),
+                        // Text(
+                        //   correctAnswerText,
+                        //   style: textTheme().headlineMedium,
+                        // )
+                      ],
                     ),
                   ),
-                  feedback != ''
-                      ? Image.asset(
-                          feedbackImg,
-                          width: 100,
-                          height: 100,
-                        )
-                      : Text(feedbackImg),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    feedback,
-                    style: textTheme().headlineSmall.apply(color: Colors.white),
-                  ),
-                  // Text(
-                  //   correctAnswerText,
-                  //   style: textTheme().headlineMedium,
-                  // )
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 
   void listen() async {
@@ -229,7 +239,13 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
         if (score < 7) {
           Navigator.pushNamed(context, FailColorTestScreen.routeName);
         } else {
+          setState(() {
+            loading = true;
+          });
           setPreconditionScore(score);
+          setState(() {
+            loading = false;
+          });
           Navigator.pushNamed(context, PassColorTestScreen.routeName);
         }
       });

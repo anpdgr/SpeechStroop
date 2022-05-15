@@ -34,6 +34,7 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
+    userName = '';
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _asyncFunc();
       setState(() {
