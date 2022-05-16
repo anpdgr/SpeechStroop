@@ -9,8 +9,12 @@ import 'package:speech_stroop/model/badge.dart';
 import 'package:speech_stroop/model/test_module/history.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/stroop/healthRating/break_screen.dart';
+import 'package:speech_stroop/screens/stroop/result/result_screen.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroopHelper/mock_history.dart';
+import 'package:speech_stroop/screens/stroop/stroop_test/stroop_test.dart';
 
 import 'package:speech_stroop/screens/stroop/tutorial/introduction/tutorial_intro1.dart';
+import 'package:speech_stroop/theme.dart';
 
 import 'package:speech_stroop/utils/directory.dart';
 import 'package:speech_stroop/utils/permission.dart';
