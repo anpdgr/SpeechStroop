@@ -47,6 +47,7 @@ dependencies:
   logger: ^1.1.0
   syncfusion_flutter_charts: ^18.4.49
   audio_session: ^0.1.6+1
+  loading_indicator: ^3.0.3
   # auto_size_text:
   # cached_network_image:
   # font_awesome_flutter:

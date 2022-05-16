@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/screens/precondition_test/components/precon_box.dart';
+import 'package:speech_stroop/screens/precondition_test/reading_test/intro.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/reading_test.dart';
 import 'package:speech_stroop/theme.dart';
 
@@ -32,17 +33,17 @@ class _IntroductionState extends State<IntroductionScreen> {
                 style: textTheme().bodyLarge.apply(color: Colors.black),
               ),
               const SizedBox(height: 50),
-              Wrap(
-                direction: Axis.vertical,
-                spacing: 25,
-                children: [
-                  PreconBox('1. ทดสอบทักษะการอ่าน', 'พูดคำที่ปรากฏ'),
-                  PreconBox('2. ทดสอบทักษะการจำแนกสี', 'พูดสีที่ปรากฏ')
-                ],
-              ),
+              // Wrap(
+              //   direction: Axis.vertical,
+              //   spacing: 25,
+              //   children: [
+              //     PreconBox('1. ทดสอบทักษะการอ่าน', 'พูดคำที่ปรากฏ'),
+              //     PreconBox('2. ทดสอบทักษะการจำแนกสี', 'พูดสีที่ปรากฏ')
+              //   ],
+              // ),
               const SizedBox(height: 50),
               PrimaryButton('เริ่มการเตรียมความพร้อม', () {
-                Navigator.pushNamed(context, ReadingTestScreen.routeName);
+                Navigator.pushNamed(context, IntroReadingTestScreen.routeName);
               })
             ],
           ),

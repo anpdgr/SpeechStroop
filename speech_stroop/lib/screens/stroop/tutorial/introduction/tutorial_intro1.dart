@@ -28,7 +28,7 @@ class _TutorialIntroduction1State extends State<TutorialIntroduction1Screen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                'พูดชื่อสีของตัวอักษร',
+                'พูดสีที่ปรากฏบนตัวอักษร',
                 style: textTheme().titleMedium.apply(
                     color: Colors.black, fontWeightDelta: 1, fontSizeDelta: 2),
                 textAlign: TextAlign.center,
@@ -36,13 +36,6 @@ class _TutorialIntroduction1State extends State<TutorialIntroduction1Screen> {
               Text(
                 '(ไม่ใช่อ่านคำที่ปรากฏ)',
                 style: textTheme().titleMedium.apply(color: Colors.black),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                'โดยไม่ต้องพูดคำว่า ‘สี’ ออกมา',
-                style: textTheme()
-                    .titleMedium
-                    .apply(color: Colors.red[700], fontSizeDelta: 2),
                 textAlign: TextAlign.center,
               ),
               Wrap(

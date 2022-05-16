@@ -11,6 +11,8 @@ import 'package:speech_stroop/screens/history_all/history_all_screen.dart';
 import 'package:speech_stroop/screens/history/history_screen.dart';
 import 'package:speech_stroop/screens/home/home_screen.dart';
 import 'package:speech_stroop/screens/overview/overview_screen.dart';
+import 'package:speech_stroop/screens/precondition_test/color_test/intro.dart';
+import 'package:speech_stroop/screens/precondition_test/reading_test/intro.dart';
 import 'package:speech_stroop/screens/profile/profile_screen.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/fail_color_test.dart';
@@ -45,9 +47,11 @@ final Map<String, WidgetBuilder> routes = {
   MicrophoneTestScreen.routeName: (context) => const MicrophoneTestScreen(),
   FailMicrophoneTestScreen.routeName: (context) =>
       const FailMicrophoneTestScreen(),
+  IntroColorTestScreen.routeName: (context) => const IntroColorTestScreen(),
   ColorTestScreen.routeName: (context) => const ColorTestScreen(),
   PassColorTestScreen.routeName: (context) => const PassColorTestScreen(),
   FailColorTestScreen.routeName: (context) => const FailColorTestScreen(),
+  IntroReadingTestScreen.routeName: (context) => const IntroReadingTestScreen(),
   ReadingTestScreen.routeName: (context) => const ReadingTestScreen(),
   PassReadingTestScreen.routeName: (context) => const PassReadingTestScreen(),
   FailReadingTestScreen.routeName: (context) => const FailReadingTestScreen(),

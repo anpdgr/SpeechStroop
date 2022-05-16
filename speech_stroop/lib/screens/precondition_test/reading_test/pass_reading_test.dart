@@ -4,6 +4,7 @@ import 'package:speech_stroop/components/custom_appbar.dart';
 import 'package:speech_stroop/components/button/primary_button.dart';
 import 'package:speech_stroop/model/user.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
+import 'package:speech_stroop/screens/precondition_test/color_test/intro.dart';
 import 'package:speech_stroop/screens/profile/profile_screen.dart';
 
 class PassReadingTestScreen extends StatefulWidget {
@@ -42,7 +43,8 @@ class _PassReadingTestState extends State<PassReadingTestScreen> {
                         Navigator.pushNamed(context, ProfileScreen.routeName);
                       })
                     : PrimaryButton('ทำแบบทดสอบต่อไป', () {
-                        Navigator.pushNamed(context, ColorTestScreen.routeName);
+                        Navigator.pushNamed(
+                            context, IntroColorTestScreen.routeName);
                       }))
           ],
         ));

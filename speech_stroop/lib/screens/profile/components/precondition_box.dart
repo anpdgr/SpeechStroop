@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:speech_stroop/constants.dart';
 import 'package:speech_stroop/model/precondition.dart';
 import 'package:speech_stroop/screens/precondition_test/color_test/color_test.dart';
+import 'package:speech_stroop/screens/precondition_test/color_test/intro.dart';
 import 'package:speech_stroop/screens/precondition_test/introduction.dart';
+import 'package:speech_stroop/screens/precondition_test/reading_test/intro.dart';
 import 'package:speech_stroop/screens/precondition_test/reading_test/reading_test.dart';
 import 'package:speech_stroop/utils/date_format.dart';
 
@@ -24,10 +26,10 @@ class PreconditionBox extends StatelessWidget {
   String getTestRoute() {
     switch (title) {
       case "ทดสอบการจำแนกสี":
-        testRoute = ColorTestScreen.routeName;
+        testRoute = IntroColorTestScreen.routeName;
         break;
       case "ทดสอบการอ่าน":
-        testRoute = ReadingTestScreen.routeName;
+        testRoute = IntroReadingTestScreen.routeName;
         break;
       default:
         //TODO: handle err
